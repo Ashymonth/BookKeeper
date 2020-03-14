@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BookKeeper.Data.Data.Entities.Address
+﻿namespace BookKeeper.Data.Data.Entities.Address
 {
     public enum DistrictType
     {
@@ -11,9 +9,8 @@ namespace BookKeeper.Data.Data.Entities.Address
     public class DistrictEntity : BaseEntity
     {
         public string Name { get; set; }
-        
+
         public DistrictType DistrictType { get; set; }
 
-        public virtual ICollection<AddressEntity> Address { get; set; }
     }
 }

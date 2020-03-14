@@ -127,8 +127,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DataBaseTest.cs" />
+    <Compile Include="AddressService.cs" />
+    <Compile Include="DistrictService.cs" />
+    <Compile Include="NonQueryTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QueryTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

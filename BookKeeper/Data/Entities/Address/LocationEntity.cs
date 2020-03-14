@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BookKeeper.Data.Data.Entities.Address
+﻿namespace BookKeeper.Data.Data.Entities.Address
 {
     public class LocationEntity : BaseEntity
     {
@@ -10,6 +8,5 @@ namespace BookKeeper.Data.Data.Entities.Address
 
         public string ApartmentNumber { get; set; }
 
-        public virtual ICollection<AddressEntity> Address { get; set; }
     }
 }

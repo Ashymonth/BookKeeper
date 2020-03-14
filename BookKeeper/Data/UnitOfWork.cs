@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookKeeper.Data.Data;
 
 namespace BookKeeper.Data.Data
 {
@@ -23,7 +18,7 @@ namespace BookKeeper.Data.Data
 
         public int Commit()
         {
-           return _dbContext.SaveChanges();
+            return _dbContext.SaveChanges();
         }
 
         public void Dispose()

@@ -1,15 +1,18 @@
-﻿using BookKeeper.Data.Data.Entities.Address;
+﻿using BookKeeper.Data.Data.Entities;
+using BookKeeper.Data.Data.Entities.Address;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public virtual DbSet<AddressEntity> Address { get; set; }
-        
+        public virtual DbSet<AddressEntity> Addresses { get; set; }
+
         public virtual DbSet<DistrictEntity> Districts { get; set; }
 
-        public virtual DbSet<LocationEntity> Location { get; set; }
+        public virtual DbSet<LocationEntity> Locations { get; set; }
+
+        public virtual DbSet<AccountEntity> Accounts { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -22,12 +25,12 @@ namespace BookKeeper.Data.Data
         {
             modelBuilder.Entity<AddressEntity>()
                 .HasOne(d => d.District)
-                .WithMany(a => a.Address)
+                .WithMany()
                 .IsRequired();
 
             modelBuilder.Entity<AddressEntity>()
                 .HasOne(l => l.Location)
-                .WithMany(a => a.Address)
+                .WithMany()
                 .IsRequired();
 
             base.OnModelCreating(modelBuilder);
