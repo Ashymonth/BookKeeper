@@ -11,7 +11,7 @@ namespace BookKeeper.Data.Services.Load
 {
     public class ExcelDataLoader : IDataLoader
     {
-        private readonly IDictionary<string,int> _districtCache = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+        private readonly IDictionary<string, int> _districtCache = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
         private readonly IImport _import;
         private readonly IDistrictService _districtService;
@@ -24,56 +24,59 @@ namespace BookKeeper.Data.Services.Load
 
         public void LoadData(string file)
         {
-            var importData = _import.ImportDataRow(file);
+            var import = _import.ImportDataRow("");
+            var query = import
+                .GroupBy(x => new
+                {
+                    Districts = x.District.Name,
+                })
+                .Select(x => new
+                {
+                    x.Key.Districts,
+                    Addresses = x.GroupBy(a => new
+                    {
+                        Addresses = a.Address.Name
+                    })
+                        .Select(a => new
+                        {
+                            a.Key.Addresses,
+                            Location = a.GroupBy(l => new
+                            {
+                                Location = l.LocationImport
+                            })
+                                .Select(l => l.Key.Location)
+                                .ToList()
+                        })
+                }).ToList();
+            var tes =
+                from result in import
+                group result by result.District
+                into district
+                group district by district.Key.Name
+                (from address in district 
+                    group address by address.Address into new )
 
+            var districtsId = AddDistrict(query.Select(x => x.Districts));
 
-            foreach (var data in importData)
-            {
-               
-            }
         }
 
-        private int Som(IEnumerable<DistrictImport> imports)
+        private IEnumerable<int> AddDistrict(IEnumerable<string> districtList)
         {
-            var query = imports.Select(x => x.Name).Distinct().ToList();
-
-            foreach (var item in query)
+            var districtsId = new List<int>();
+            foreach (var district in districtList)
             {
-                _districtService.GetItem(x => x.Name == item);
+                var result = _districtService.GetItem(x => x.Name == district);
+                districtsId.Add(result?.Id ?? _districtService.Add(new DistrictEntity { Name = district }));
             }
 
-            return 1;
+            return districtsId;
         }
+    }
 
-        private int AddDistrict(DistrictImport import)
-        {
-            var cache = _districtCache.TryGetValue(import.Name, out var id);
-            if (cache)
-                return id;
-
-            var district =
-                _districtService.GetItem(x => x.Name.Equals(import.Name, StringComparison.OrdinalIgnoreCase));
-
-            if (district != null)
-            {
-                _districtCache.Add(district.Name,district.Id);
-                return district.Id;
-            }
-
-            var districtId = _districtService.Add(new DistrictEntity
-            {
-                Name = import.Name,
-                DistrictType = GetDistrictType(import.Code)
-            });
-
-            _districtCache.Add(import.Name,districtId);
-
-            return districtId;
-        }
-
-        private static DistrictType GetDistrictType(int serviceCode)
-        {
-            return serviceCode.ToString().StartsWith("6") ? DistrictType.Private : DistrictType.Municipal;
-        }
+    public class TestData
+    {
+        public DistrictImport DistrictImport { get; set; }
+        public AddressImport AddressImport { get; set; }
+        public List<LocationImport> LocationImports { get; set; }
     }
 }

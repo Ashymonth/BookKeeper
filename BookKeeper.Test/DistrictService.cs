@@ -20,7 +20,6 @@ namespace BookKeeper.Test
             var result = _dbContext.Districts.Add(new DistrictEntity
             {
                 Name = districtName,
-                DistrictType = districtType
             });
             _dbContext.SaveChanges();
             return result;

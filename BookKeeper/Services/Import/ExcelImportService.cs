@@ -22,6 +22,7 @@ namespace BookKeeper.Data.Services.Import
         public List<ImportDataRow> ImportDataRow(string file)
         {
             file = $"C:\\Users\\{Environment.UserName}\\Documents\\Материалы\\1.xlsx";
+
             var configuration = _configuration.Load();
 
             var importData = new List<ImportDataRow>();
@@ -43,7 +44,6 @@ namespace BookKeeper.Data.Services.Import
                         District = new DistrictImport()
                         {
                             Name = cell.CellRight(configuration.DistrictName).GetString(),
-                            Code = cell.CellRight(configuration.DistrictType).GetValue<int>()
                         },
 
                         LocationImport = new LocationImport()

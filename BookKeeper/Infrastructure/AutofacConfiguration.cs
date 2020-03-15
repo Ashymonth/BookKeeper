@@ -18,6 +18,9 @@ namespace BookKeeper.Data.Infrastructure
                 .As<IConfiguration<ExcelConfiguration>>()
                 .InstancePerLifetimeScope();
 
+            container.RegisterType(typeof(ApplicationDbContext))
+                .InstancePerLifetimeScope();
+
             container.RegisterType(typeof(UnitOfWork))
                 .As<IUnitOfWork>()
                 .InstancePerLifetimeScope();
@@ -28,6 +31,10 @@ namespace BookKeeper.Data.Infrastructure
 
             container.RegisterGeneric(typeof(Service<>))
                 .As(typeof(IService<>))
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(DistrictService))
+                .As(typeof(IDistrictService))
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelImportService))

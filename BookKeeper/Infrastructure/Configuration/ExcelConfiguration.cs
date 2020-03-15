@@ -6,7 +6,7 @@ namespace BookKeeper.Data.Infrastructure.Configuration
 {
     public class ExcelConfiguration : IConfiguration<ExcelConfiguration>
     {
-        private const string ConfigurationFile = "ExcelConfiguration";
+        private const string ConfigurationFile = "ExcelConfiguration.json";
 
         private const string Folder = "Configuration";
 

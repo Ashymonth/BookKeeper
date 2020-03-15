@@ -23,7 +23,7 @@ namespace BookKeeper.Test
             return result;
         }
 
-        public List<AddressEntity> GetAdresses()
+        public List<AddressEntity> GetAddresses()
         {
             var query = from a in _dbContext.Addresses select a;
             return query.ToList();

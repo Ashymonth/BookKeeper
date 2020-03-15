@@ -31,7 +31,7 @@ namespace BookKeeper.Test
             mockContext.Setup(c => c.Addresses).Returns(mockSet.Object);
 
             var service = new AddressService(mockContext.Object);
-            var addresses = service.GetAdresses();
+            var addresses = service.GetAddresses();
 
             Assert.AreEqual(2, addresses.Count());
             Assert.AreEqual("1", addresses[0].StreetName);

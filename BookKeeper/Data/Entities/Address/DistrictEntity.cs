@@ -10,7 +10,5 @@
     {
         public string Name { get; set; }
 
-        public DistrictType DistrictType { get; set; }
-
     }
 }
