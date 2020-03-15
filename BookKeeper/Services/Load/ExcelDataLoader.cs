@@ -25,13 +25,24 @@ namespace BookKeeper.Data.Services.Load
         public void LoadData(string file)
         {
             var importData = _import.ImportDataRow(file);
-            var districts = importData.Select(x => x.District).ToHashSet();
 
 
             foreach (var data in importData)
             {
-                
+               
             }
+        }
+
+        private int Som(IEnumerable<DistrictImport> imports)
+        {
+            var query = imports.Select(x => x.Name).Distinct().ToList();
+
+            foreach (var item in query)
+            {
+                _districtService.GetItem(x => x.Name == item);
+            }
+
+            return 1;
         }
 
         private int AddDistrict(DistrictImport import)
