@@ -106,7 +106,7 @@ namespace BookKeeper.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Location");
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("BookKeeper.Data.Data.Entities.Address.AddressEntity", b =>
@@ -117,7 +117,7 @@ namespace BookKeeper.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookKeeper.Data.Data.Entities.Address.LocationEntity", "Location")
+                    b.HasOne("BookKeeper.Data.Data.Entities.Address.LocationEntity", "Locations")
                         .WithMany("Address")
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)

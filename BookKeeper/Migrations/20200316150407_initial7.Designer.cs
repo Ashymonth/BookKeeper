@@ -156,7 +156,7 @@ namespace BookKeeper.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BookKeeper.Data.Data.Entities.Address.LocationEntity", "Location")
+                    b.HasOne("BookKeeper.Data.Data.Entities.Address.LocationEntity", "Locations")
                         .WithMany()
                         .HasForeignKey("LocationId")
                         .OnDelete(DeleteBehavior.Cascade)

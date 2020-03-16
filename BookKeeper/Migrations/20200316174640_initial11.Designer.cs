@@ -160,7 +160,7 @@ namespace BookKeeper.Migrations
             modelBuilder.Entity("BookKeeper.Data.Data.Entities.Address.LocationEntity", b =>
                 {
                     b.HasOne("BookKeeper.Data.Data.Entities.Address.StreetEntity", "AddressEntity")
-                        .WithMany("Location")
+                        .WithMany("Locations")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

@@ -17,7 +17,7 @@ namespace BookKeeper.Migrations
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Location",
-                table: "Location");
+                table: "Locations");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_Address",
@@ -28,7 +28,7 @@ namespace BookKeeper.Migrations
                 table: "Districts");
 
             migrationBuilder.RenameTable(
-                name: "Location",
+                name: "Locations",
                 newName: "Locations");
 
             migrationBuilder.RenameTable(
@@ -114,7 +114,7 @@ namespace BookKeeper.Migrations
 
             migrationBuilder.RenameTable(
                 name: "Locations",
-                newName: "Location");
+                newName: "Locations");
 
             migrationBuilder.RenameTable(
                 name: "Addresses",
@@ -139,7 +139,7 @@ namespace BookKeeper.Migrations
 
             migrationBuilder.AddPrimaryKey(
                 name: "PK_Location",
-                table: "Location",
+                table: "Locations",
                 column: "Id");
 
             migrationBuilder.AddPrimaryKey(
@@ -159,7 +159,7 @@ namespace BookKeeper.Migrations
                 name: "FK_Address_Location_LocationId",
                 table: "Address",
                 column: "LocationId",
-                principalTable: "Location",
+                principalTable: "Locations",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
         }

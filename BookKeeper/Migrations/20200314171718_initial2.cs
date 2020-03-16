@@ -14,7 +14,7 @@ namespace BookKeeper.Migrations
                 name: "LocationEntity");
 
             migrationBuilder.CreateTable(
-                name: "Location",
+                name: "Locations",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -55,7 +55,7 @@ namespace BookKeeper.Migrations
                     table.ForeignKey(
                         name: "FK_Address_Location_LocationId",
                         column: x => x.LocationId,
-                        principalTable: "Location",
+                        principalTable: "Locations",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -77,7 +77,7 @@ namespace BookKeeper.Migrations
                 name: "Address");
 
             migrationBuilder.DropTable(
-                name: "Location");
+                name: "Locations");
 
             migrationBuilder.CreateTable(
                 name: "LocationEntity",

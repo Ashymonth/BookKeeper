@@ -41,20 +41,20 @@ namespace BookKeeper.Data.Services.Load
                 foreach (var addressGroup in districtsGroup.GroupBy(x => x.Address.Name))
                 {
                     var firstAddress = addressGroup.FirstOrDefault();
+                    var address = AddOrCreate(firstAddress?.Address, district.Id);
 
                     var accountsToUpdate = new List<AccountEntity>();
-
                     var accountsToAdd = new List<AccountEntity>();
 
                     foreach (var dataRow in addressGroup)
                     {
-                        var account =
-                            _accountService.GetItem(x => x.PersonalAccount == firstDistrict?.Account.PersonalAccount);
+                        var account = _accountService.GetItem(x => x.PersonalAccount == firstDistrict?.Account.PersonalAccount && !x.IsDeleted);
 
                         if (account != null)
                         {
-                            account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
                             account.IsArchive = account.IsEmpty && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
+                            account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
+                            
                             accountsToUpdate.Add(account);
                             continue;
                         }
@@ -66,16 +66,20 @@ namespace BookKeeper.Data.Services.Load
                             AccountType = ConvertAccountType(dataRow.Account.AccountType),
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
                         };
-                        var address = AddOrCreate(dataRow.Address,district.Id);
 
-                        var location = AddOrCreate(dataRow.LocationImport, address.Id);
-                        address.LocationId = location.Id;
+                        address.Locations.Add(new LocationEntity()
+                        {
+                            HouseNumber = dataRow.LocationImport.HouseNumber,
+                            BuildingCorpus = dataRow.LocationImport.BuildingNumber,
+                            ApartmentNumber = dataRow.LocationImport.ApartmentNumber
+                        });
+
                         account.AddressId = address.Id;
 
                         accountsToAdd.Add(account);
                     }
 
-                    _accountService.Update(accountsToUpdate);
+                    //_accountService.Update(accountsToUpdate);
 
                     _accountService.Add(accountsToAdd);
 
