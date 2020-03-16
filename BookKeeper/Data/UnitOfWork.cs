@@ -14,7 +14,7 @@ namespace BookKeeper.Data.Data
         public UnitOfWork(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
-        }
+        }   
 
         public int Commit()
         {

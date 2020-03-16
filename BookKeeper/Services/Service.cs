@@ -14,6 +14,7 @@ namespace BookKeeper.Data.Services
         int Update(TModel entity);
         void Update(IEnumerable<TModel> entities);
         void Delete(TModel entity);
+        void Save();
         TModel GetItem(Func<TModel, bool> predicate);
     }
 
@@ -51,6 +52,7 @@ namespace BookKeeper.Data.Services
             }
             _repository.Add(baseEntities);
             _unitOfWork.Commit();
+            _unitOfWork.Dispose();
         }
 
         public int Update(TModel entity)
@@ -77,6 +79,11 @@ namespace BookKeeper.Data.Services
                 throw new ArgumentNullException(nameof(entity));
 
             _repository.Delete(entity);
+            _unitOfWork.Commit();
+        }
+
+        public void Save()
+        {
             _unitOfWork.Commit();
         }
 

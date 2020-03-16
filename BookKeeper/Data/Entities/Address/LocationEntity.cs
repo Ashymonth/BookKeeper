@@ -11,6 +11,7 @@ namespace BookKeeper.Data.Data.Entities.Address
         public string ApartmentNumber { get; set; }
 
         public int AddressId { get; set; }
+
         [ForeignKey(nameof(AddressId))]
         public StreetEntity AddressEntity { get; set; }
 

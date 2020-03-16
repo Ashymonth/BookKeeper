@@ -71,18 +71,23 @@ namespace BookKeeper.Data.Services.Load
                         {
                             HouseNumber = dataRow.LocationImport.HouseNumber,
                             BuildingCorpus = dataRow.LocationImport.BuildingNumber,
-                            ApartmentNumber = dataRow.LocationImport.ApartmentNumber
+                            ApartmentNumber = dataRow.LocationImport.ApartmentNumber,
+                            AddressId = address.Id
                         });
 
                         account.AddressId = address.Id;
 
                         accountsToAdd.Add(account);
                     }
-
-                    //_accountService.Update(accountsToUpdate);
-
-                    _accountService.Add(accountsToAdd);
-
+                    if (accountsToAdd.Count != 0)
+                    {
+                        _accountService.Add(accountsToAdd);
+                    }
+                    else
+                    {
+                        _accountService.Update(accountsToUpdate);
+                        _addressService.Save();
+                    }
                 }
             }
         }
@@ -91,15 +96,6 @@ namespace BookKeeper.Data.Services.Load
         {
             var result = _districtService.GetItem(x => x.Name == import.Name);
             return result ?? _districtService.Add(import.Code, import.Name);
-        }
-
-        private LocationEntity AddOrCreate(LocationImport import, int addressId)
-        {
-            var result = _locationService.GetItem(x => x.HouseNumber == import.HouseNumber &&
-                                                       x.BuildingCorpus == import.BuildingNumber &&
-                                                       x.ApartmentNumber == import.ApartmentNumber);
-
-            return result ?? _locationService.Add(import.HouseNumber, import.BuildingNumber, import.ApartmentNumber, addressId);
         }
 
         private StreetEntity AddOrCreate(AddressImport import,int districtId)
@@ -111,10 +107,9 @@ namespace BookKeeper.Data.Services.Load
             return _addressService.Add(new StreetEntity
             {
                 StreetName = import.Name,
-                DistrictId = districtId
+                DistrictId = districtId,
             });
         }
-
 
         private DateTime ConvertAccrualMonth(string date)
         {

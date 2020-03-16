@@ -234,6 +234,10 @@
     <Compile Include="Migrations\20200316181913_initial12.designer.cs">
       <DependentUpon>20200316181913_initial12.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20200316192004_initial13.cs" />
+    <Compile Include="Migrations\20200316192004_initial13.designer.cs">
+      <DependentUpon>20200316192004_initial13.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />
     <Compile Include="Models\ExcelImport\AddressImport.cs" />
