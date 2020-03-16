@@ -23,6 +23,8 @@ namespace BookKeeper.Data.Services.Import
         {
             file = $"C:\\Users\\{Environment.UserName}\\Documents\\Материалы\\1.xlsx";
 
+            
+
             var configuration = _configuration.Load();
 
             var importData = new List<ImportDataRow>();

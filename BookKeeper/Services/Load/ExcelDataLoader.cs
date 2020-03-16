@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
 using BookKeeper.Data.Data.Entities.Address;
@@ -48,35 +50,59 @@ namespace BookKeeper.Data.Services.Load
                                 .ToList()
                         })
                 }).ToList();
-            var tes =
-                from result in import
-                group result by result.District
-                into district
-                group district by district.Key.Name
-                (from address in district 
-                    group address by address.Address into new )
 
-            var districtsId = AddDistrict(query.Select(x => x.Districts));
-
-        }
-
-        private IEnumerable<int> AddDistrict(IEnumerable<string> districtList)
-        {
-            var districtsId = new List<int>();
-            foreach (var district in districtList)
+            var testData = new List<TestData>();
+            testData.Add(new TestData
             {
-                var result = _districtService.GetItem(x => x.Name == district);
-                districtsId.Add(result?.Id ?? _districtService.Add(new DistrictEntity { Name = district }));
+                DistrictImport = query.Select(x => x.Districts).ToList(),
+                AddressImport = query.Select(x => x.Addresses.Select(z => z.Addresses)).ToList(),
+                LocationImports = query.Select(x => x.Addresses.Select(z => z.Location).ToList())
+            });
+
+            foreach (var data in testData.Select(x => x.DistrictImport))
+            {
+                foreach (var item in data)
+                {
+                    var x = AddDistrict(item);
+                }
             }
 
-            return districtsId;
+            foreach (var address in testData.Select(x=>x.AddressImport))
+            {
+                foreach (var location in address)
+                {
+                    foreach (var item in location)
+                    {
+                        var x = 
+                    }
+                }
+            }
         }
+
+        private int AddDistrict(string district)
+        {
+            var isCached = _districtCache.TryGetValue(district, out var id);
+            if (isCached)
+                return id;
+
+            var result = _districtService.GetItem(x => x.Name == district);
+
+            if (result != null) 
+                return result.Id;
+
+            var districtId = _districtService.Add(new DistrictEntity { Name = district });
+            _districtCache.Add(district,districtId);
+
+            return _districtService.Save();
+
+        }
+        private int 
     }
 
     public class TestData
     {
-        public DistrictImport DistrictImport { get; set; }
-        public AddressImport AddressImport { get; set; }
-        public List<LocationImport> LocationImports { get; set; }
+        public IEnumerable<string> DistrictImport { get; set; }
+        public IEnumerable<IEnumerable<string>> AddressImport { get; set; }
+        public IEnumerable<IEnumerable<List<LocationImport>>> LocationImports { get; set; }
     }
 }

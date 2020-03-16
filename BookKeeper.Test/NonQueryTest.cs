@@ -45,8 +45,6 @@ namespace BookKeeper.Test
 
             loader.LoadData("");
 
-
-
         }
     }
 }

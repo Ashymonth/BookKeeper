@@ -145,6 +145,9 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.Data.SqlClient, Version=4.6.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Data.SqlClient.4.8.1\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
     <Reference Include="System.Diagnostics.DiagnosticSource, Version=4.0.5.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Diagnostics.DiagnosticSource.4.7.0\lib\net46\System.Diagnostics.DiagnosticSource.dll</HintPath>
     </Reference>
@@ -190,6 +193,7 @@
     <Compile Include="Data\Entities\Address\DistrictEntity.cs" />
     <Compile Include="Data\Entities\Address\LocationEntity.cs" />
     <Compile Include="Data\Entities\BaseEntity.cs" />
+    <Compile Include="Data\Repositories\AddressRepository.cs" />
     <Compile Include="Data\Repositories\DistrictRepository.cs" />
     <Compile Include="Data\Repositories\Repository.cs" />
     <Compile Include="Data\UnitOfWork.cs" />
@@ -207,6 +211,10 @@
     <Compile Include="Migrations\20200314201018_initial3.cs" />
     <Compile Include="Migrations\20200314201018_initial3.designer.cs">
       <DependentUpon>20200314201018_initial3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20200315210102_initial4.cs" />
+    <Compile Include="Migrations\20200315210102_initial4.designer.cs">
+      <DependentUpon>20200315210102_initial4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />
