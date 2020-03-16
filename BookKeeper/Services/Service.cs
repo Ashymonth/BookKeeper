@@ -12,6 +12,7 @@ namespace BookKeeper.Data.Services
         TModel Add(TModel entity);
         void Add(IEnumerable<TModel> entities);
         int Update(TModel entity);
+        void Update(IEnumerable<TModel> entities);
         void Delete(TModel entity);
         TModel GetItem(Func<TModel, bool> predicate);
     }
@@ -59,6 +60,14 @@ namespace BookKeeper.Data.Services
 
             _repository.Update(entity);
             return _unitOfWork.Commit();
+        }
+
+        public void Update(IEnumerable<TModel> entities)
+        {
+            if(entities == null)
+                throw new ArgumentNullException(nameof(entities));
+
+            _repository.Update(entities);
         }
 
 

@@ -46,6 +46,7 @@ namespace BookKeeper.Data.Services.Import
                         District = new DistrictImport()
                         {
                             Name = cell.CellRight(configuration.DistrictName).GetString(),
+                            Code = cell.CellRight(2).GetValue<int>()
                         },
 
                         LocationImport = new LocationImport()

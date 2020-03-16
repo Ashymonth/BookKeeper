@@ -6,7 +6,7 @@ namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public virtual DbSet<AddressEntity> Addresses { get; set; }
+        public virtual DbSet<StreetEntity> Streets { get; set; }
 
         public virtual DbSet<DistrictEntity> Districts { get; set; }
 
@@ -23,14 +23,14 @@ namespace BookKeeper.Data.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AddressEntity>()
+            modelBuilder.Entity<StreetEntity>()
                 .HasOne(d => d.District)
                 .WithMany()
                 .IsRequired();
 
-            modelBuilder.Entity<AddressEntity>()
-                .HasOne(l => l.Location)
-                .WithMany()
+            modelBuilder.Entity<StreetEntity>()
+                .HasMany(l => l.Location)
+                .WithOne(x=>x.AddressEntity)
                 .IsRequired();
 
             base.OnModelCreating(modelBuilder);

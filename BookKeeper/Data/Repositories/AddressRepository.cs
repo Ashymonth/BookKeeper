@@ -9,12 +9,12 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace BookKeeper.Data.Data.Repositories
 {
-    public interface IAddressRepository : IRepository<AddressEntity>
+    public interface IAddressRepository : IRepository<StreetEntity>
     {
         
     }
 
-    public class AddressRepository : Repository<AddressEntity>,IAddressRepository
+    public class AddressRepository : Repository<StreetEntity>,IAddressRepository
     {
         private readonly ApplicationDbContext _dbContext;
 

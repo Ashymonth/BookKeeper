@@ -8,6 +8,8 @@
 
     public class DistrictEntity : BaseEntity
     {
+        public int Code { get; set; }
+
         public string Name { get; set; }
 
     }

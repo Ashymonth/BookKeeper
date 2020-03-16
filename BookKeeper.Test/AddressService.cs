@@ -16,16 +16,16 @@ namespace BookKeeper.Test
             _dbContext = dbContext;
         }
 
-        public EntityEntry<AddressEntity> AddAddress(string addressName)
+        public EntityEntry<StreetEntity> AddAddress(string addressName)
         {
-            var result = _dbContext.Addresses.Add(new AddressEntity { StreetName = addressName });
+            var result = _dbContext.Streets.Add(new StreetEntity { StreetName = addressName });
             _dbContext.SaveChanges();
             return result;
         }
 
-        public List<AddressEntity> GetAddresses()
+        public List<StreetEntity> GetAddresses()
         {
-            var query = from a in _dbContext.Addresses select a;
+            var query = from a in _dbContext.Streets select a;
             return query.ToList();
         }
     }

@@ -9,14 +9,14 @@ using BookKeeper.Data.Data.Repositories;
 
 namespace BookKeeper.Data.Services.EntityService
 {
-    public interface IAddressService : IService<AddressEntity>
+    public interface IAddressService : IService<StreetEntity>
     {
 
     }
 
-    public class AddressService : Service<AddressEntity>,IAddressService
+    public class AddressService : Service<StreetEntity>,IAddressService
     {
-        public AddressService(IRepository<AddressEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public AddressService(IRepository<StreetEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
     }

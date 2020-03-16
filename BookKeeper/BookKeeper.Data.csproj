@@ -189,7 +189,7 @@
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\Entities\AccountEntity.cs" />
-    <Compile Include="Data\Entities\Address\AddressEntity.cs" />
+    <Compile Include="Data\Entities\Address\StreetEntity.cs" />
     <Compile Include="Data\Entities\Address\DistrictEntity.cs" />
     <Compile Include="Data\Entities\Address\LocationEntity.cs" />
     <Compile Include="Data\Entities\BaseEntity.cs" />
@@ -221,6 +221,18 @@
     <Compile Include="Migrations\20200316150407_initial7.cs" />
     <Compile Include="Migrations\20200316150407_initial7.designer.cs">
       <DependentUpon>20200316150407_initial7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20200316160052_initial9.cs" />
+    <Compile Include="Migrations\20200316160052_initial9.designer.cs">
+      <DependentUpon>20200316160052_initial9.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20200316174640_initial11.cs" />
+    <Compile Include="Migrations\20200316174640_initial11.designer.cs">
+      <DependentUpon>20200316174640_initial11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20200316181913_initial12.cs" />
+    <Compile Include="Migrations\20200316181913_initial12.designer.cs">
+      <DependentUpon>20200316181913_initial12.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />

@@ -21,15 +21,15 @@ namespace BookKeeper.Test
         [TestMethod]
         public void CreateDistrict()
         {
-            var mockSet = new Mock<DbSet<AddressEntity>>();
+            var mockSet = new Mock<DbSet<StreetEntity>>();
 
             var mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(n => n.Addresses).Returns(mockSet.Object);
+            mockContext.Setup(n => n.Streets).Returns(mockSet.Object);
 
             var service = new AddressService(mockContext.Object);
             service.AddAddress("1");
 
-            mockSet.Verify(m => m.Add(It.IsAny<AddressEntity>()), Times.Once);
+            mockSet.Verify(m => m.Add(It.IsAny<StreetEntity>()), Times.Once);
             mockContext.Verify(m => m.SaveChanges(), Times.Once);
         }
 

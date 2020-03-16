@@ -30,9 +30,7 @@ namespace BookKeeper.Data.Services.Load
 
         public void LoadData(string file)
         {
-            var import = _import.ImportDataRow("");
-            if (import == null)
-                throw new ArgumentNullException(nameof(import));
+            var import = _import.ImportDataRow(file);
 
             foreach (var districtsGroup in import.GroupBy(x => x.District.Name))
             {
@@ -44,21 +42,20 @@ namespace BookKeeper.Data.Services.Load
                 {
                     var firstAddress = addressGroup.FirstOrDefault();
 
-                    var location = AddOrCreate(firstAddress?.LocationImport);
+                    var accountsToUpdate = new List<AccountEntity>();
 
-                    var address = AddOrCreate(firstAddress?.Address, district, location);
+                    var accountsToAdd = new List<AccountEntity>();
 
-                    var accounts = new List<AccountEntity>();
                     foreach (var dataRow in addressGroup)
                     {
                         var account =
-                            _accountService.GetItem(x => x.PersonalAccount == dataRow.Account.PersonalAccount);
+                            _accountService.GetItem(x => x.PersonalAccount == firstDistrict?.Account.PersonalAccount);
 
                         if (account != null)
                         {
                             account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
                             account.IsArchive = account.IsEmpty && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
-                            _accountService.Update(account);
+                            accountsToUpdate.Add(account);
                             continue;
                         }
 
@@ -68,13 +65,19 @@ namespace BookKeeper.Data.Services.Load
                             PersonalAccount = dataRow.Account.PersonalAccount,
                             AccountType = ConvertAccountType(dataRow.Account.AccountType),
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
-                            AddressID = address.Id
                         };
-                        accounts.Add(account);
+                        var address = AddOrCreate(dataRow.Address,district.Id);
 
+                        var location = AddOrCreate(dataRow.LocationImport, address.Id);
+                        address.LocationId = location.Id;
+                        account.AddressId = address.Id;
+
+                        accountsToAdd.Add(account);
                     }
 
-                    _accountService.Add(accounts);
+                    _accountService.Update(accountsToUpdate);
+
+                    _accountService.Add(accountsToAdd);
 
                 }
             }
@@ -83,36 +86,28 @@ namespace BookKeeper.Data.Services.Load
         private DistrictEntity AddOrCreate(DistrictImport import)
         {
             var result = _districtService.GetItem(x => x.Name == import.Name);
-            return result ?? _districtService.Add(new DistrictEntity { Name = import.Name });
+            return result ?? _districtService.Add(import.Code, import.Name);
         }
 
-        private LocationEntity AddOrCreate(LocationImport import)
+        private LocationEntity AddOrCreate(LocationImport import, int addressId)
         {
             var result = _locationService.GetItem(x => x.HouseNumber == import.HouseNumber &&
                                                        x.BuildingCorpus == import.BuildingNumber &&
                                                        x.ApartmentNumber == import.ApartmentNumber);
-            if (result != null)
-                return result;
 
-            return _locationService.Add(new LocationEntity
-            {
-                HouseNumber = import.HouseNumber,
-                ApartmentNumber = import.ApartmentNumber,
-                BuildingCorpus = import.BuildingNumber,
-            });
+            return result ?? _locationService.Add(import.HouseNumber, import.BuildingNumber, import.ApartmentNumber, addressId);
         }
 
-        private AddressEntity AddOrCreate(AddressImport import, DistrictEntity districtEntity, LocationEntity locationEntity)
+        private StreetEntity AddOrCreate(AddressImport import,int districtId)
         {
             var result = _addressService.GetItem(x => x.StreetName == import.Name);
             if (result != null)
                 return result;
 
-            return _addressService.Add(new AddressEntity
+            return _addressService.Add(new StreetEntity
             {
                 StreetName = import.Name,
-                DistrictId = districtEntity.Id,
-                LocationId = locationEntity.Id
+                DistrictId = districtId
             });
         }
 

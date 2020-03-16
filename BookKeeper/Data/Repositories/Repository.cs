@@ -8,11 +8,13 @@ namespace BookKeeper.Data.Data.Repositories
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
+        TEntity GetItem(Func<TEntity, bool> predicate);
         TEntity Add(TEntity entity);
         void Add(IEnumerable<TEntity> entities);
         void Update(TEntity entity);
+        void Update(IEnumerable<TEntity> entities);
         void Delete(TEntity entity);
-        TEntity GetItem(Func<TEntity, bool> predicate);
+
     }
 
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
@@ -24,6 +26,14 @@ namespace BookKeeper.Data.Data.Repositories
         {
             _dbContext = dbContext;
             _entities = _dbContext.Set<TEntity>();
+        }
+
+        public TEntity GetItem(Func<TEntity, bool> predicate)
+        {
+            if (predicate == null)
+                throw new ArgumentNullException(nameof(predicate));
+
+            return _entities.FirstOrDefault(predicate);
         }
 
         public TEntity Add(TEntity entity)
@@ -54,6 +64,14 @@ namespace BookKeeper.Data.Data.Repositories
             _entities.Update(entity);
         }
 
+        public void Update(IEnumerable<TEntity> entities)
+        {
+            if(entities == null)
+                throw new ArgumentNullException(nameof(entities));
+
+            _entities.UpdateRange(entities);
+        }
+
         public void Delete(TEntity entity)
         {
             if (entity == null)
@@ -62,12 +80,6 @@ namespace BookKeeper.Data.Data.Repositories
             _entities.Remove(entity);
         }
 
-        public TEntity GetItem(Func<TEntity, bool> predicate)
-        {
-            if (predicate == null)
-                throw new ArgumentNullException(nameof(predicate));
-
-            return _entities.FirstOrDefault(predicate);
-        }
+        
     }
 }

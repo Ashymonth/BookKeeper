@@ -14,21 +14,21 @@ namespace BookKeeper.Test
         [TestMethod]
         public void GetAllAddresses()
         {
-            var data = new List<AddressEntity>
+            var data = new List<StreetEntity>
             {
-                new AddressEntity{StreetName = "1"},
-                new AddressEntity{StreetName = "2"}
+                new StreetEntity{StreetName = "1"},
+                new StreetEntity{StreetName = "2"}
             }.AsQueryable();
 
-            var mockSet = new Mock<DbSet<AddressEntity>>();
+            var mockSet = new Mock<DbSet<StreetEntity>>();
 
-            mockSet.As<IQueryable<AddressEntity>>().Setup(m => m.Provider).Returns(data.Provider);
-            mockSet.As<IQueryable<AddressEntity>>().Setup(m => m.Expression).Returns(data.Expression);
-            mockSet.As<IQueryable<AddressEntity>>().Setup(m => m.ElementType).Returns(data.ElementType);
-            mockSet.As<IQueryable<AddressEntity>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator);
+            mockSet.As<IQueryable<StreetEntity>>().Setup(m => m.Provider).Returns(data.Provider);
+            mockSet.As<IQueryable<StreetEntity>>().Setup(m => m.Expression).Returns(data.Expression);
+            mockSet.As<IQueryable<StreetEntity>>().Setup(m => m.ElementType).Returns(data.ElementType);
+            mockSet.As<IQueryable<StreetEntity>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator);
 
             var mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(c => c.Addresses).Returns(mockSet.Object);
+            mockContext.Setup(c => c.Streets).Returns(mockSet.Object);
 
             var service = new AddressService(mockContext.Object);
             var addresses = service.GetAddresses();
