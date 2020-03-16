@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookKeeper.Data.Data;
+﻿using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Repositories;
 
@@ -11,7 +6,7 @@ namespace BookKeeper.Data.Services.EntityService
 {
     public interface ILocationService : IService<LocationEntity>
     {
-        LocationEntity Add(string houseNumber, string houseBuilding, string apartmentNumber,int addressId);
+        LocationEntity Add(string houseNumber, string houseBuilding, string apartmentNumber, int addressId);
     }
 
     public class LocationService : Service<LocationEntity>, ILocationService
@@ -20,7 +15,7 @@ namespace BookKeeper.Data.Services.EntityService
         {
         }
 
-        public LocationEntity Add(string houseNumber, string houseBuilding, string apartmentNumber,int addressId)
+        public LocationEntity Add(string houseNumber, string houseBuilding, string apartmentNumber, int addressId)
         {
             var entity = new LocationEntity
             {

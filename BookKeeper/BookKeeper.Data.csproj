@@ -49,6 +49,9 @@
     <Reference Include="FastMember, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FastMember.1.5.0\lib\net461\FastMember.dll</HintPath>
     </Reference>
+    <Reference Include="HtmlAgilityPack, Version=1.11.22.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>..\packages\HtmlAgilityPack.1.11.22\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=1.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.1.1.0\lib\net461\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -188,11 +191,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="Data\Discounts\Discount.cs" />
+    <Compile Include="Data\Discounts\DiscountHistory.cs" />
     <Compile Include="Data\Entities\AccountEntity.cs" />
+    <Compile Include="Data\Entities\AccountsHistory.cs" />
     <Compile Include="Data\Entities\Address\StreetEntity.cs" />
     <Compile Include="Data\Entities\Address\DistrictEntity.cs" />
     <Compile Include="Data\Entities\Address\LocationEntity.cs" />
     <Compile Include="Data\Entities\BaseEntity.cs" />
+    <Compile Include="Data\Entities\Payments\PaymentDocument.cs" />
     <Compile Include="Data\Repositories\AccountRepository.cs" />
     <Compile Include="Data\Repositories\AddressRepository.cs" />
     <Compile Include="Data\Repositories\DistrictRepository.cs" />
@@ -258,7 +265,10 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
+    <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

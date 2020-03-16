@@ -30,7 +30,7 @@ namespace BookKeeper.Data.Data
 
             modelBuilder.Entity<StreetEntity>()
                 .HasMany(l => l.Locations)
-                .WithOne(x=>x.AddressEntity)
+                .WithOne(x => x.AddressEntity)
                 .IsRequired();
 
             base.OnModelCreating(modelBuilder);

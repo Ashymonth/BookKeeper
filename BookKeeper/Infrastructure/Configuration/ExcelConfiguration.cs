@@ -1,6 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.IO;
-using Newtonsoft.Json;
 
 namespace BookKeeper.Data.Infrastructure.Configuration
 {

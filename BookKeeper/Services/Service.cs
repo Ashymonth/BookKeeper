@@ -10,11 +10,10 @@ namespace BookKeeper.Data.Services
     public interface IService<TModel> where TModel : BaseEntity
     {
         TModel Add(TModel entity);
-        void Add(IEnumerable<TModel> entities);
+        void Add(IList<TModel> entities);
         int Update(TModel entity);
         void Update(IEnumerable<TModel> entities);
         void Delete(TModel entity);
-        void Save();
         TModel GetItem(Func<TModel, bool> predicate);
     }
 
@@ -39,25 +38,22 @@ namespace BookKeeper.Data.Services
             return result;
         }
 
-        public void Add(IEnumerable<TModel> entities)
+        public void Add(IList<TModel> entities)
         {
-            if(entities == null)
+            if (entities == null)
                 throw new ArgumentNullException(nameof(entities));
 
-            var baseEntities = entities.ToList();
-
-            foreach (var entity in baseEntities)
+            foreach (var entity in entities)
             {
                 entity.LastSaveDate = DateTime.Now;
             }
-            _repository.Add(baseEntities);
+            _repository.Add(entities);
             _unitOfWork.Commit();
-            _unitOfWork.Dispose();
         }
 
         public int Update(TModel entity)
         {
-            if(entity == null)
+            if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
             _repository.Update(entity);
@@ -66,10 +62,11 @@ namespace BookKeeper.Data.Services
 
         public void Update(IEnumerable<TModel> entities)
         {
-            if(entities == null)
+            if (entities == null)
                 throw new ArgumentNullException(nameof(entities));
 
             _repository.Update(entities);
+            _unitOfWork.Commit();
         }
 
 
@@ -79,11 +76,6 @@ namespace BookKeeper.Data.Services
                 throw new ArgumentNullException(nameof(entity));
 
             _repository.Delete(entity);
-            _unitOfWork.Commit();
-        }
-
-        public void Save()
-        {
             _unitOfWork.Commit();
         }
 

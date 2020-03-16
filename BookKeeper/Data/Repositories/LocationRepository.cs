@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookKeeper.Data.Data.Entities.Address;
+﻿using BookKeeper.Data.Data.Entities.Address;
 
 namespace BookKeeper.Data.Data.Repositories
 {

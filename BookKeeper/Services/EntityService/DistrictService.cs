@@ -4,12 +4,12 @@ using BookKeeper.Data.Data.Repositories;
 
 namespace BookKeeper.Data.Services.EntityService
 {
-    public interface IDistrictService :IService<DistrictEntity>
+    public interface IDistrictService : IService<DistrictEntity>
     {
         DistrictEntity Add(int code, string name);
     }
 
-    public class DistrictService : Service<DistrictEntity> , IDistrictService
+    public class DistrictService : Service<DistrictEntity>, IDistrictService
     {
         public DistrictService(IRepository<DistrictEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {

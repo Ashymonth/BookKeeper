@@ -48,13 +48,13 @@ namespace BookKeeper.Data.Services.Load
 
                     foreach (var dataRow in addressGroup)
                     {
-                        var account = _accountService.GetItem(x => x.PersonalAccount == firstDistrict?.Account.PersonalAccount && !x.IsDeleted);
+                        var account = _accountService.GetItem(x => x.PersonalAccount == dataRow?.Account.PersonalAccount && !x.IsDeleted);
 
                         if (account != null)
                         {
                             account.IsArchive = account.IsEmpty && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
                             account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
-                            
+
                             accountsToUpdate.Add(account);
                             continue;
                         }
@@ -67,7 +67,10 @@ namespace BookKeeper.Data.Services.Load
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
                         };
 
-                        address.Locations.Add(new LocationEntity()
+                        if(address.Locations == null)
+                            address.Locations = new List<LocationEntity>();
+
+                        address.Locations.Add(new LocationEntity
                         {
                             HouseNumber = dataRow.LocationImport.HouseNumber,
                             BuildingCorpus = dataRow.LocationImport.BuildingNumber,
@@ -86,7 +89,7 @@ namespace BookKeeper.Data.Services.Load
                     else
                     {
                         _accountService.Update(accountsToUpdate);
-                        _addressService.Save();
+                        
                     }
                 }
             }
@@ -98,7 +101,7 @@ namespace BookKeeper.Data.Services.Load
             return result ?? _districtService.Add(import.Code, import.Name);
         }
 
-        private StreetEntity AddOrCreate(AddressImport import,int districtId)
+        private StreetEntity AddOrCreate(AddressImport import, int districtId)
         {
             var result = _addressService.GetItem(x => x.StreetName == import.Name);
             if (result != null)

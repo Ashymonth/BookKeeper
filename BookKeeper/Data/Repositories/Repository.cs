@@ -66,7 +66,7 @@ namespace BookKeeper.Data.Data.Repositories
 
         public void Update(IEnumerable<TEntity> entities)
         {
-            if(entities == null)
+            if (entities == null)
                 throw new ArgumentNullException(nameof(entities));
 
             _entities.UpdateRange(entities);
@@ -80,6 +80,6 @@ namespace BookKeeper.Data.Data.Repositories
             _entities.Remove(entity);
         }
 
-        
+
     }
 }
