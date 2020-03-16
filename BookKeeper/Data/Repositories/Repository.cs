@@ -1,13 +1,16 @@
 ﻿using BookKeeper.Data.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace BookKeeper.Data.Data.Repositories
 {
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
-        int Add(TEntity entity);
+        TEntity Add(TEntity entity);
+        void Add(IEnumerable<TEntity> entities);
+        void Update(TEntity entity);
         void Delete(TEntity entity);
         TEntity GetItem(Func<TEntity, bool> predicate);
     }
@@ -23,7 +26,7 @@ namespace BookKeeper.Data.Data.Repositories
             _entities = _dbContext.Set<TEntity>();
         }
 
-        public int Add(TEntity entity)
+        public TEntity Add(TEntity entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
@@ -32,7 +35,23 @@ namespace BookKeeper.Data.Data.Repositories
 
             _entities.Add(entity);
 
-            return entity.Id;
+            return entity;
+        }
+
+        public void Add(IEnumerable<TEntity> entities)
+        {
+            if (entities == null)
+                throw new ArgumentNullException(nameof(entities));
+
+            _entities.AddRange(entities);
+        }
+
+        public void Update(TEntity entity)
+        {
+            if (entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _entities.Update(entity);
         }
 
         public void Delete(TEntity entity)

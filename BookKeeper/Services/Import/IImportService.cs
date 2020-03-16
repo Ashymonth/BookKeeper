@@ -2,7 +2,7 @@
 
 namespace BookKeeper.Data.Services.Import
 {
-    public interface IImport
+    public interface IImportService
     {
         List<ImportDataRow> ImportDataRow(string file);
     }

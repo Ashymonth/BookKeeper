@@ -15,7 +15,7 @@ namespace BookKeeper.Data.Services.Import
         public LocationImport LocationImport { get; set; }
     }
 
-    public class ExcelImportService : IImport
+    public class ExcelImportService : IImportService
     {
         private readonly IConfiguration<ExcelConfiguration> _configuration = new ExcelConfiguration();
 
@@ -52,7 +52,7 @@ namespace BookKeeper.Data.Services.Import
                         {
                             HouseNumber = cell.CellRight(configuration.HouseNumber).GetString(),
                             ApartmentNumber = cell.CellRight(configuration.ApartmentNumber).GetString(),
-                            BuildingNumber = cell.CellRight(configuration.ApartmentNumber).GetString()
+                            BuildingNumber = cell.CellRight(configuration.CorpusNumber).GetString()
                         },
 
                         Account = new AccountImport()

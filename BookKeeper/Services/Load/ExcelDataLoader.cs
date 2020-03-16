@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Models.ExcelImport;
+using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookKeeper.Data.Services.Load
 {
@@ -15,94 +13,118 @@ namespace BookKeeper.Data.Services.Load
     {
         private readonly IDictionary<string, int> _districtCache = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
-        private readonly IImport _import;
+        private readonly IImportService _import;
         private readonly IDistrictService _districtService;
+        private readonly IAddressService _addressService;
+        private readonly IAccountService _accountService;
+        private readonly ILocationService _locationService;
 
-        public ExcelDataLoader(IImport import, IDistrictService districtService)
+        public ExcelDataLoader(IImportService import, IDistrictService districtService, IAddressService addressService, IAccountService accountService, ILocationService locationService)
         {
             _import = import;
             _districtService = districtService;
+            _addressService = addressService;
+            _accountService = accountService;
+            _locationService = locationService;
         }
 
         public void LoadData(string file)
         {
             var import = _import.ImportDataRow("");
-            var query = import
-                .GroupBy(x => new
+            if (import == null)
+                throw new ArgumentNullException(nameof(import));
+
+            foreach (var districtsGroup in import.GroupBy(x => x.District.Name))
+            {
+                var firstDistrict = districtsGroup.FirstOrDefault();
+
+                var district = AddOrCreate(firstDistrict?.District);
+
+                foreach (var addressGroup in districtsGroup.GroupBy(x => x.Address.Name))
                 {
-                    Districts = x.District.Name,
-                })
-                .Select(x => new
-                {
-                    x.Key.Districts,
-                    Addresses = x.GroupBy(a => new
+                    var firstAddress = addressGroup.FirstOrDefault();
+
+                    var location = AddOrCreate(firstAddress?.LocationImport);
+
+                    var address = AddOrCreate(firstAddress?.Address, district, location);
+
+                    var accounts = new List<AccountEntity>();
+                    foreach (var dataRow in addressGroup)
                     {
-                        Addresses = a.Address.Name
-                    })
-                        .Select(a => new
+                        var account =
+                            _accountService.GetItem(x => x.PersonalAccount == dataRow.Account.PersonalAccount);
+
+                        if (account != null)
                         {
-                            a.Key.Addresses,
-                            Location = a.GroupBy(l => new
-                            {
-                                Location = l.LocationImport
-                            })
-                                .Select(l => l.Key.Location)
-                                .ToList()
-                        })
-                }).ToList();
+                            account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
+                            account.IsArchive = account.IsEmpty && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
+                            _accountService.Update(account);
+                            continue;
+                        }
 
-            var testData = new List<TestData>();
-            testData.Add(new TestData
-            {
-                DistrictImport = query.Select(x => x.Districts).ToList(),
-                AddressImport = query.Select(x => x.Addresses.Select(z => z.Addresses)).ToList(),
-                LocationImports = query.Select(x => x.Addresses.Select(z => z.Location).ToList())
-            });
+                        account = new AccountEntity
+                        {
+                            AccrualMonth = ConvertAccrualMonth(dataRow.Account.AccrualMonth),
+                            PersonalAccount = dataRow.Account.PersonalAccount,
+                            AccountType = ConvertAccountType(dataRow.Account.AccountType),
+                            IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
+                            AddressID = address.Id
+                        };
+                        accounts.Add(account);
 
-            foreach (var data in testData.Select(x => x.DistrictImport))
-            {
-                foreach (var item in data)
-                {
-                    var x = AddDistrict(item);
-                }
-            }
-
-            foreach (var address in testData.Select(x=>x.AddressImport))
-            {
-                foreach (var location in address)
-                {
-                    foreach (var item in location)
-                    {
-                        var x = 
                     }
+
+                    _accountService.Add(accounts);
+
                 }
             }
         }
 
-        private int AddDistrict(string district)
+        private DistrictEntity AddOrCreate(DistrictImport import)
         {
-            var isCached = _districtCache.TryGetValue(district, out var id);
-            if (isCached)
-                return id;
-
-            var result = _districtService.GetItem(x => x.Name == district);
-
-            if (result != null) 
-                return result.Id;
-
-            var districtId = _districtService.Add(new DistrictEntity { Name = district });
-            _districtCache.Add(district,districtId);
-
-            return _districtService.Save();
-
+            var result = _districtService.GetItem(x => x.Name == import.Name);
+            return result ?? _districtService.Add(new DistrictEntity { Name = import.Name });
         }
-        private int 
-    }
 
-    public class TestData
-    {
-        public IEnumerable<string> DistrictImport { get; set; }
-        public IEnumerable<IEnumerable<string>> AddressImport { get; set; }
-        public IEnumerable<IEnumerable<List<LocationImport>>> LocationImports { get; set; }
+        private LocationEntity AddOrCreate(LocationImport import)
+        {
+            var result = _locationService.GetItem(x => x.HouseNumber == import.HouseNumber &&
+                                                       x.BuildingCorpus == import.BuildingNumber &&
+                                                       x.ApartmentNumber == import.ApartmentNumber);
+            if (result != null)
+                return result;
+
+            return _locationService.Add(new LocationEntity
+            {
+                HouseNumber = import.HouseNumber,
+                ApartmentNumber = import.ApartmentNumber,
+                BuildingCorpus = import.BuildingNumber,
+            });
+        }
+
+        private AddressEntity AddOrCreate(AddressImport import, DistrictEntity districtEntity, LocationEntity locationEntity)
+        {
+            var result = _addressService.GetItem(x => x.StreetName == import.Name);
+            if (result != null)
+                return result;
+
+            return _addressService.Add(new AddressEntity
+            {
+                StreetName = import.Name,
+                DistrictId = districtEntity.Id,
+                LocationId = locationEntity.Id
+            });
+        }
+
+
+        private DateTime ConvertAccrualMonth(string date)
+        {
+            return DateTime.Parse($"01.{date}");
+        }
+
+        private AccountType ConvertAccountType(int code)
+        {
+            return code.ToString().StartsWith("5") ? AccountType.Municipal : AccountType.Private;
+        }
     }
 }

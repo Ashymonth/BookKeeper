@@ -11,7 +11,7 @@ namespace BookKeeper.Data.Data.Repositories
 {
     public interface IAddressRepository : IRepository<AddressEntity>
     {
-        IIncludableQueryable<AddressEntity, DistrictEntity> GetSpecificEntity();
+        
     }
 
     public class AddressRepository : Repository<AddressEntity>,IAddressRepository
@@ -23,9 +23,5 @@ namespace BookKeeper.Data.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public IIncludableQueryable<AddressEntity, DistrictEntity> GetSpecificEntity()
-        {
-            return _dbContext.Addresses.Include(x => x.District);
-        }
     }
 }

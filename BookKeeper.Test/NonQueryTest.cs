@@ -38,7 +38,7 @@ namespace BookKeeper.Test
         {
             var container = AutofacConfiguration.ConfigureContainer();
 
-            var excelImport = container.Resolve<IImport>();
+            var excelImport = container.Resolve<IImportService>();
             var result = excelImport.ImportDataRow("");
 
             var loader = container.Resolve<IDataLoader>();

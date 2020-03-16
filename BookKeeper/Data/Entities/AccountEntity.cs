@@ -14,8 +14,12 @@ namespace BookKeeper.Data.Data.Entities
 
         public DateTime AccrualMonth { get; set; }
 
+        public AccountType AccountType { get; set; }
+
         public bool IsEmpty { get; set; }
 
         public bool IsArchive { get; set; }
+
+        public int AddressID { get; set; }
     }
 }

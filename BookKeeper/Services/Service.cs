@@ -2,15 +2,18 @@
 using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Repositories;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookKeeper.Data.Services
 {
     public interface IService<TModel> where TModel : BaseEntity
     {
-        int Add(TModel entity);
+        TModel Add(TModel entity);
+        void Add(IEnumerable<TModel> entities);
+        int Update(TModel entity);
         void Delete(TModel entity);
         TModel GetItem(Func<TModel, bool> predicate);
-        int Save();
     }
 
     public class Service<TModel> : IService<TModel> where TModel : BaseEntity
@@ -24,13 +27,40 @@ namespace BookKeeper.Data.Services
             _unitOfWork = unitOfWork;
         }
 
-        public int Add(TModel entity)
+        public TModel Add(TModel entity)
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            return _repository.Add(entity);
+            var result = _repository.Add(entity);
+            _unitOfWork.Commit();
+            return result;
         }
+
+        public void Add(IEnumerable<TModel> entities)
+        {
+            if(entities == null)
+                throw new ArgumentNullException(nameof(entities));
+
+            var baseEntities = entities.ToList();
+
+            foreach (var entity in baseEntities)
+            {
+                entity.LastSaveDate = DateTime.Now;
+            }
+            _repository.Add(baseEntities);
+            _unitOfWork.Commit();
+        }
+
+        public int Update(TModel entity)
+        {
+            if(entity == null)
+                throw new ArgumentNullException(nameof(entity));
+
+            _repository.Update(entity);
+            return _unitOfWork.Commit();
+        }
+
 
         public void Delete(TModel entity)
         {
@@ -38,6 +68,7 @@ namespace BookKeeper.Data.Services
                 throw new ArgumentNullException(nameof(entity));
 
             _repository.Delete(entity);
+            _unitOfWork.Commit();
         }
 
         public TModel GetItem(Func<TModel, bool> predicate)
@@ -46,14 +77,6 @@ namespace BookKeeper.Data.Services
                 throw new ArgumentNullException(nameof(predicate));
 
             return _repository.GetItem(predicate);
-        }
-
-        public int Save()
-        {
-            using (_unitOfWork)
-            {
-                return _unitOfWork.Commit();
-            }
         }
     }
 }

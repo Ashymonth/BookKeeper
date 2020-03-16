@@ -3,12 +3,13 @@ using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Repositories;
 using BookKeeper.Data.Infrastructure.Configuration;
 using BookKeeper.Data.Services;
+using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
 using BookKeeper.Data.Services.Load;
 
 namespace BookKeeper.Data.Infrastructure
 {
-    public class AutofacConfiguration
+    public static class AutofacConfiguration
     {
         public static IContainer ConfigureContainer()
         {
@@ -33,12 +34,24 @@ namespace BookKeeper.Data.Infrastructure
                 .As(typeof(IService<>))
                 .InstancePerLifetimeScope();
 
+            container.RegisterType(typeof(AccountService))
+                .As(typeof(IAccountService))
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(AddressService))
+                .As(typeof(IAddressService))
+                .InstancePerLifetimeScope();
+
             container.RegisterType(typeof(DistrictService))
                 .As(typeof(IDistrictService))
                 .InstancePerLifetimeScope();
 
+            container.RegisterType(typeof(LocationService))
+                .As<ILocationService>()
+                .InstancePerLifetimeScope();
+
             container.RegisterType(typeof(ExcelImportService))
-                .As<IImport>()
+                .As<IImportService>()
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelDataLoader))
