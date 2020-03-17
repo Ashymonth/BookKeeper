@@ -21,5 +21,9 @@ namespace BookKeeper.Data.Data.Entities
         public bool IsArchive { get; set; }
 
         public int AddressId { get; set; }
+
+        public decimal Accrued { get; set; }
+
+        public decimal Received { get; set; }
     }
 }

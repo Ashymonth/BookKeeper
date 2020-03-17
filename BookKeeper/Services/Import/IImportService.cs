@@ -2,8 +2,8 @@
 
 namespace BookKeeper.Data.Services.Import
 {
-    public interface IImportService
+    public interface IImportService<TModel> where TModel : class
     {
-        List<ImportDataRow> ImportDataRow(string file);
+        TModel ImportDataRow(string file);
     }
 }

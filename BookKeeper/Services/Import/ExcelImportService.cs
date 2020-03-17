@@ -7,24 +7,14 @@ using System.Linq;
 
 namespace BookKeeper.Data.Services.Import
 {
-    public class ImportDataRow
-    {
-        public AddressImport Address { get; set; }
-        public DistrictImport District { get; set; }
-        public AccountImport Account { get; set; }
-        public LocationImport LocationImport { get; set; }
-    }
+   
 
-    public class ExcelImportService : IImportService
+    public class ExcelImportService : IImportService<List<ImportDataRow>>
     {
         private readonly IConfiguration<ExcelConfiguration> _configuration = new ExcelConfiguration();
 
         public List<ImportDataRow> ImportDataRow(string file)
         {
-            file = $"C:\\Users\\{Environment.UserName}\\Documents\\Материалы\\1.xlsx";
-
-
-
             var configuration = _configuration.Load();
 
             var importData = new List<ImportDataRow>();

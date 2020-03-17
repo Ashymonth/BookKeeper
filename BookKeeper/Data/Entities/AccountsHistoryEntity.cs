@@ -2,7 +2,7 @@
 
 namespace BookKeeper.Data.Data.Entities
 {
-    public class AccountsHistory : BaseEntity
+    public class AccountsHistoryEntity : BaseEntity 
     {
         public int AccountId { get; set; }
 

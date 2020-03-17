@@ -2,10 +2,13 @@
 using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Repositories;
 using BookKeeper.Data.Infrastructure.Configuration;
+using BookKeeper.Data.Models.ExcelImport;
+using BookKeeper.Data.Models.HtmlImport;
 using BookKeeper.Data.Services;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
 using BookKeeper.Data.Services.Load;
+using System.Collections.Generic;
 
 namespace BookKeeper.Data.Infrastructure
 {
@@ -19,8 +22,12 @@ namespace BookKeeper.Data.Infrastructure
                 .As<IConfiguration<ExcelConfiguration>>()
                 .InstancePerLifetimeScope();
 
-            container.RegisterType(typeof(ApplicationDbContext))
+            container.RegisterType(typeof(HtmlConfiguration))
+                .As<IConfiguration<HtmlConfiguration>>()
                 .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(ApplicationDbContext))
+                .InstancePerDependency();
 
             container.RegisterType(typeof(UnitOfWork))
                 .As<IUnitOfWork>()
@@ -50,12 +57,24 @@ namespace BookKeeper.Data.Infrastructure
                 .As<ILocationService>()
                 .InstancePerLifetimeScope();
 
+            container.RegisterType(typeof(AccountHistoryService))
+                .As<IAccountHistoryService>()
+                .InstancePerLifetimeScope();
+
             container.RegisterType(typeof(ExcelImportService))
-                .As<IImportService>()
+               .As<IImportService<List<ImportDataRow>>>()
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(HtmlImportService))
+                .As<IImportService<List<PaymentDocumentImport>>>()
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelDataLoader))
-                .As<IDataLoader>()
+                .Named<IDataLoader>("Excel")
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(HtmlLoadService))
+                .Named<IDataLoader>("Html")
                 .InstancePerLifetimeScope();
 
             return container.Build();

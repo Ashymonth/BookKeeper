@@ -1,4 +1,5 @@
-﻿using BookKeeper.Data.Data.Entities;
+﻿using System.Windows.Forms;
+using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,6 +14,8 @@ namespace BookKeeper.Data.Data
         public virtual DbSet<LocationEntity> Locations { get; set; }
 
         public virtual DbSet<AccountEntity> Accounts { get; set; }
+
+        public virtual DbSet<AccountsHistoryEntity> AccountsHistory { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

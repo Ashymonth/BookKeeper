@@ -13,13 +13,13 @@ namespace BookKeeper.Data.Services.Load
     {
         private readonly IDictionary<string, int> _districtCache = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
-        private readonly IImportService _import;
+        private readonly IImportService<List<ImportDataRow>> _import;
         private readonly IDistrictService _districtService;
         private readonly IAddressService _addressService;
         private readonly IAccountService _accountService;
         private readonly ILocationService _locationService;
 
-        public ExcelDataLoader(IImportService import, IDistrictService districtService, IAddressService addressService, IAccountService accountService, ILocationService locationService)
+        public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IAddressService addressService, IAccountService accountService, ILocationService locationService)
         {
             _import = import;
             _districtService = districtService;
@@ -31,7 +31,7 @@ namespace BookKeeper.Data.Services.Load
         public void LoadData(string file)
         {
             var import = _import.ImportDataRow(file);
-
+            
             foreach (var districtsGroup in import.GroupBy(x => x.District.Name))
             {
                 var firstDistrict = districtsGroup.FirstOrDefault();
@@ -89,7 +89,6 @@ namespace BookKeeper.Data.Services.Load
                     else
                     {
                         _accountService.Update(accountsToUpdate);
-                        
                     }
                 }
             }

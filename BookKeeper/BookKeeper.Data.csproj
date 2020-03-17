@@ -194,12 +194,13 @@
     <Compile Include="Data\Discounts\Discount.cs" />
     <Compile Include="Data\Discounts\DiscountHistory.cs" />
     <Compile Include="Data\Entities\AccountEntity.cs" />
-    <Compile Include="Data\Entities\AccountsHistory.cs" />
+    <Compile Include="Data\Entities\AccountsHistoryEntity.cs" />
     <Compile Include="Data\Entities\Address\StreetEntity.cs" />
     <Compile Include="Data\Entities\Address\DistrictEntity.cs" />
     <Compile Include="Data\Entities\Address\LocationEntity.cs" />
     <Compile Include="Data\Entities\BaseEntity.cs" />
     <Compile Include="Data\Entities\Payments\PaymentDocument.cs" />
+    <Compile Include="Data\Repositories\AccountHistoryRepository.cs" />
     <Compile Include="Data\Repositories\AccountRepository.cs" />
     <Compile Include="Data\Repositories\AddressRepository.cs" />
     <Compile Include="Data\Repositories\DistrictRepository.cs" />
@@ -208,6 +209,7 @@
     <Compile Include="Data\UnitOfWork.cs" />
     <Compile Include="Infrastructure\AutofacConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\ExcelConfiguration.cs" />
+    <Compile Include="Infrastructure\Configuration\HtmlConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\IConfiguration.cs" />
     <Compile Include="Migrations\20200314170259_initial1.cs" />
     <Compile Include="Migrations\20200314170259_initial1.designer.cs">
@@ -245,19 +247,29 @@
     <Compile Include="Migrations\20200316192004_initial13.designer.cs">
       <DependentUpon>20200316192004_initial13.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20200317144138_initial21.cs" />
+    <Compile Include="Migrations\20200317144138_initial21.designer.cs">
+      <DependentUpon>20200317144138_initial21.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />
     <Compile Include="Models\ExcelImport\AddressImport.cs" />
     <Compile Include="Models\ExcelImport\DistrictImport.cs" />
+    <Compile Include="Models\ExcelImport\ImportDataRow.cs" />
     <Compile Include="Models\ExcelImport\LocationImport.cs" />
+    <Compile Include="Models\HtmlImport\PaymentDetailsImport.cs" />
+    <Compile Include="Models\HtmlImport\PaymentDocumentImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\EntityService\AccountHistoryService.cs" />
     <Compile Include="Services\EntityService\AccountService.cs" />
     <Compile Include="Services\EntityService\AddressService.cs" />
     <Compile Include="Services\EntityService\DistrictService.cs" />
     <Compile Include="Services\EntityService\LocationService.cs" />
     <Compile Include="Services\Import\ExcelImportService.cs" />
+    <Compile Include="Services\Import\HtmlImportService.cs" />
     <Compile Include="Services\Import\IImportService.cs" />
     <Compile Include="Services\Load\ExcelDataLoader.cs" />
+    <Compile Include="Services\Load\HtmlLoadService.cs" />
     <Compile Include="Services\Load\IDataLoader.cs" />
     <Compile Include="Services\Service.cs" />
   </ItemGroup>
@@ -269,6 +281,7 @@
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\cs\Microsoft.DependencyValidation.Analyzers.resources.dll" />
     <Analyzer Include="..\packages\Microsoft.DependencyValidation.Analyzers.0.10.0\analyzers\dotnet\Microsoft.DependencyValidation.Analyzers.dll" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
