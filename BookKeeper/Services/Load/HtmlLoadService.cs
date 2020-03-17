@@ -67,7 +67,7 @@ namespace BookKeeper.Data.Services.Load
 
 
                 if (account == null)
-                    throw new ArgumentNullException(nameof(account));
+                    continue;
 
                 if (account.PaymentDocuments == null)
                     account.PaymentDocuments = new List<PaymentDocumentEntity>();
@@ -78,13 +78,14 @@ namespace BookKeeper.Data.Services.Load
                     ApartmentNumber = item.ApartmentNumber,
                     PersonalAccount = personalAccount,
                     Accrued = item.Accrued,
-                    Received = item.Received
+                    Received = item.Received,
+                    PaymentDate = date
                 });
             }
             _paymentDocumentService.Add(paymentsToAdd);
         }
 
-        private static long ValidPersonalAccount(long personalAccount)
+        private  long ValidPersonalAccount(long personalAccount)
         {
             if (personalAccount.ToString().Length > PersonalAccountLength)//TODO Add municipal account mark to config
             {

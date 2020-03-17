@@ -31,7 +31,7 @@ namespace BookKeeper.Test
         {
             var loader = _container.ResolveNamed<IDataLoader>("Excel");
 
-            loader.LoadData($"C:\\Users\\{Environment.UserName}\\Documents\\Материалы\\1.xlsx");
+            loader.LoadData("D:\\1.xlsx");
 
         }
 

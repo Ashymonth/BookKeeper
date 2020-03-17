@@ -2,7 +2,7 @@
 
 namespace BookKeeper.Data.Migrations
 {
-    public partial class initial3 : Migration
+    public partial class initial4 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

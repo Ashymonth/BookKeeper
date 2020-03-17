@@ -65,6 +65,7 @@ namespace BookKeeper.Data.Services.Load
                             PersonalAccount = dataRow.Account.PersonalAccount,
                             AccountType = ConvertAccountType(dataRow.Account.AccountType),
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
+
                         };
 
                         if(address.Locations == null)
@@ -75,7 +76,7 @@ namespace BookKeeper.Data.Services.Load
                             HouseNumber = dataRow.LocationImport.HouseNumber,
                             BuildingCorpus = dataRow.LocationImport.BuildingNumber,
                             ApartmentNumber = dataRow.LocationImport.ApartmentNumber,
-                            AddressId = address.Id
+                            AddressId = address.Id,
                         });
 
                         account.AddressId = address.Id;

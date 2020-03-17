@@ -210,17 +210,13 @@
     <Compile Include="Infrastructure\Configuration\ExcelConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\HtmlConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\IConfiguration.cs" />
-    <Compile Include="Migrations\20200317171344_initial1.cs" />
-    <Compile Include="Migrations\20200317171344_initial1.designer.cs">
-      <DependentUpon>20200317171344_initial1.cs</DependentUpon>
+    <Compile Include="Migrations\20200317180157_initial1.cs" />
+    <Compile Include="Migrations\20200317180157_initial1.designer.cs">
+      <DependentUpon>20200317180157_initial1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20200317172141_initial2.cs" />
-    <Compile Include="Migrations\20200317172141_initial2.designer.cs">
-      <DependentUpon>20200317172141_initial2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200317173326_initial3.cs" />
-    <Compile Include="Migrations\20200317173326_initial3.designer.cs">
-      <DependentUpon>20200317173326_initial3.cs</DependentUpon>
+    <Compile Include="Migrations\20200317190424_initial4.cs" />
+    <Compile Include="Migrations\20200317190424_initial4.designer.cs">
+      <DependentUpon>20200317190424_initial4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />

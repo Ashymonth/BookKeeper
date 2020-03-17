@@ -156,6 +156,9 @@ namespace BookKeeper.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AccountEntityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
@@ -185,7 +188,7 @@ namespace BookKeeper.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountEntityId");
 
                     b.ToTable("PaymentDocuments");
                 });
@@ -210,11 +213,9 @@ namespace BookKeeper.Data.Migrations
 
             modelBuilder.Entity("BookKeeper.Data.Data.Entities.Payments.PaymentDocumentEntity", b =>
                 {
-                    b.HasOne("BookKeeper.Data.Data.Entities.AccountEntity", "Account")
+                    b.HasOne("BookKeeper.Data.Data.Entities.AccountEntity", null)
                         .WithMany("PaymentDocuments")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AccountEntityId");
                 });
 #pragma warning restore 612, 618
         }

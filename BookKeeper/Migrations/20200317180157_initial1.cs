@@ -59,17 +59,18 @@ namespace BookKeeper.Data.Migrations
                     Accrued = table.Column<decimal>(nullable: false),
                     Received = table.Column<decimal>(nullable: false),
                     PaymentDate = table.Column<DateTime>(nullable: false),
-                    AccountId = table.Column<int>(nullable: false)
+                    AccountId = table.Column<int>(nullable: false),
+                    AccountEntityId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PaymentDocuments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_PaymentDocuments_Accounts_AccountId",
-                        column: x => x.AccountId,
+                        name: "FK_PaymentDocuments_Accounts_AccountEntityId",
+                        column: x => x.AccountEntityId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -126,9 +127,9 @@ namespace BookKeeper.Data.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_PaymentDocuments_AccountId",
+                name: "IX_PaymentDocuments_AccountEntityId",
                 table: "PaymentDocuments",
-                column: "AccountId");
+                column: "AccountEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Streets_DistrictId",

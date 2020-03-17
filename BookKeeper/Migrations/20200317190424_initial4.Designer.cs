@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookKeeper.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200317171344_initial1")]
-    partial class initial1
+    [Migration("20200317190424_initial4")]
+    partial class initial4
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -158,6 +158,9 @@ namespace BookKeeper.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AccountEntityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
@@ -187,7 +190,7 @@ namespace BookKeeper.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("AccountEntityId");
 
                     b.ToTable("PaymentDocuments");
                 });
@@ -212,11 +215,9 @@ namespace BookKeeper.Data.Migrations
 
             modelBuilder.Entity("BookKeeper.Data.Data.Entities.Payments.PaymentDocumentEntity", b =>
                 {
-                    b.HasOne("BookKeeper.Data.Data.Entities.AccountEntity", "Account")
+                    b.HasOne("BookKeeper.Data.Data.Entities.AccountEntity", null)
                         .WithMany("PaymentDocuments")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AccountEntityId");
                 });
 #pragma warning restore 612, 618
         }

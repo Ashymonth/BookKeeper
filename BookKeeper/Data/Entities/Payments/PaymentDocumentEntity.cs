@@ -16,8 +16,5 @@ namespace BookKeeper.Data.Data.Entities.Payments
         public DateTime PaymentDate { get; set; }
 
         public int AccountId { get; set; }
-
-        [ForeignKey(nameof(AccountId))]
-        public AccountEntity Account { get; set; }
     }
 }

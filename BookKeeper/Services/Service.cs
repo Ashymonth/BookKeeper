@@ -43,10 +43,6 @@ namespace BookKeeper.Data.Services
             if (entities == null)
                 throw new ArgumentNullException(nameof(entities));
 
-            foreach (var entity in entities)
-            {
-                entity.LastSaveDate = DateTime.Now;
-            }
             _repository.Add(entities);
             _unitOfWork.Commit();
         }
