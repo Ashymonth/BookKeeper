@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using BookKeeper.Data.Data.Entities.Payments;
 
 namespace BookKeeper.Data.Data.Entities
 {
@@ -12,7 +14,7 @@ namespace BookKeeper.Data.Data.Entities
     {
         public long PersonalAccount { get; set; }
 
-        public DateTime AccrualMonth { get; set; }
+        public DateTime AccountCreationDate { get; set; }
 
         public AccountType AccountType { get; set; }
 
@@ -22,8 +24,6 @@ namespace BookKeeper.Data.Data.Entities
 
         public int AddressId { get; set; }
 
-        public decimal Accrued { get; set; }
-
-        public decimal Received { get; set; }
+        public virtual ICollection<PaymentDocumentEntity> PaymentDocuments{ get; set; }
     }
 }

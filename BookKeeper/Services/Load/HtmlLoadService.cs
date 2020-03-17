@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using BookKeeper.Data.Data.Entities;
+using BookKeeper.Data.Data.Entities.Payments;
 using BookKeeper.Data.Models.HtmlImport;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
@@ -33,14 +34,13 @@ namespace BookKeeper.Data.Services.Load
 
         private readonly IImportService<List<PaymentDocumentImport>> _importService;
         private readonly IAccountService _accountService;
-        private readonly IAccountHistoryService _accountHistoryService;
+        private readonly IPaymentDocumentService _paymentDocumentService;
 
-        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService,
-            IAccountHistoryService accountHistoryService)
+        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService, IPaymentDocumentService paymentDocumentService)
         {
             _importService = importService;
             _accountService = accountService;
-            _accountHistoryService = accountHistoryService;
+            _paymentDocumentService = paymentDocumentService;
         }
         public void LoadData(string file)
         {
@@ -48,36 +48,44 @@ namespace BookKeeper.Data.Services.Load
 
             foreach (var item in result)
             {
-                FindAccount(item);
+                AddPaymentDocument(item);
             }
         }
 
-        private void FindAccount(PaymentDocumentImport import)
+        private void AddPaymentDocument(PaymentDocumentImport import)
         {
+            var paymentsToAdd = new List<PaymentDocumentEntity>();
             foreach (var item in import.PaymentDetailsImports)
             {
+                
                 var personalAccount = ValidPersonalAccount(item.PersonalAccount);
                 var date = ValidDateTime(import.DocumentData);
 
                 var account = _accountService.GetItem(x => x.PersonalAccount == personalAccount &&
-                                                           x.AccrualMonth == date &&
+                                                           x.AccountCreationDate == date &&
                                                            !x.IsDeleted);
 
-                account.Accrued = item.Accrued;
-                account.Received = item.Received;
 
-                _accountHistoryService.Add(new AccountsHistoryEntity
+                if (account == null)
+                    throw new ArgumentNullException(nameof(account));
+
+                if (account.PaymentDocuments == null)
+                    account.PaymentDocuments = new List<PaymentDocumentEntity>();
+
+                paymentsToAdd.Add(new PaymentDocumentEntity
                 {
                     AccountId = account.Id,
-                    Date = date
+                    ApartmentNumber = item.ApartmentNumber,
+                    PersonalAccount = personalAccount,
+                    Accrued = item.Accrued,
+                    Received = item.Received
                 });
-
             }
+            _paymentDocumentService.Add(paymentsToAdd);
         }
 
-        private long ValidPersonalAccount(long personalAccount)
+        private static long ValidPersonalAccount(long personalAccount)
         {
-
             if (personalAccount.ToString().Length > PersonalAccountLength)//TODO Add municipal account mark to config
             {
                 personalAccount = Convert.ToUInt32(personalAccount.ToString().Substring(personalAccount.ToString().Length - PersonalAccountLength));

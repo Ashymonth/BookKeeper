@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace BookKeeper.Migrations
+namespace BookKeeper.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200317144138_initial21")]
-    partial class initial21
+    [Migration("20200317171344_initial1")]
+    partial class initial1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,14 +28,11 @@ namespace BookKeeper.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountType")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("AccrualMonth")
+                    b.Property<DateTime>("AccountCreationDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Accrued")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("AccountType")
+                        .HasColumnType("int");
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
@@ -58,39 +55,9 @@ namespace BookKeeper.Migrations
                     b.Property<long>("PersonalAccount")
                         .HasColumnType("bigint");
 
-                    b.Property<decimal>("Received")
-                        .HasColumnType("decimal(18,2)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Accounts");
-                });
-
-            modelBuilder.Entity("BookKeeper.Data.Data.Entities.AccountsHistoryEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("LastSaveDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AccountsHistory");
                 });
 
             modelBuilder.Entity("BookKeeper.Data.Data.Entities.Address.DistrictEntity", b =>
@@ -184,6 +151,47 @@ namespace BookKeeper.Migrations
                     b.ToTable("Streets");
                 });
 
+            modelBuilder.Entity("BookKeeper.Data.Data.Entities.Payments.PaymentDocumentEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AccountId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("Accrued")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("ApartmentNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("LastSaveDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("PersonalAccount")
+                        .HasColumnType("bigint");
+
+                    b.Property<decimal>("Received")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("PaymentDocuments");
+                });
+
             modelBuilder.Entity("BookKeeper.Data.Data.Entities.Address.LocationEntity", b =>
                 {
                     b.HasOne("BookKeeper.Data.Data.Entities.Address.StreetEntity", "AddressEntity")
@@ -198,6 +206,15 @@ namespace BookKeeper.Migrations
                     b.HasOne("BookKeeper.Data.Data.Entities.Address.DistrictEntity", "District")
                         .WithMany()
                         .HasForeignKey("DistrictId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("BookKeeper.Data.Data.Entities.Payments.PaymentDocumentEntity", b =>
+                {
+                    b.HasOne("BookKeeper.Data.Data.Entities.AccountEntity", "Account")
+                        .WithMany("PaymentDocuments")
+                        .HasForeignKey("AccountId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

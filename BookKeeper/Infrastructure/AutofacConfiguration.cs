@@ -20,7 +20,7 @@ namespace BookKeeper.Data.Infrastructure
 
             container.RegisterType(typeof(ExcelConfiguration))
                 .As<IConfiguration<ExcelConfiguration>>()
-                .InstancePerLifetimeScope();
+                .InstancePerDependency();
 
             container.RegisterType(typeof(HtmlConfiguration))
                 .As<IConfiguration<HtmlConfiguration>>()
@@ -54,11 +54,11 @@ namespace BookKeeper.Data.Infrastructure
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(LocationService))
-                .As<ILocationService>()
+                .As(typeof(ILocationService))
                 .InstancePerLifetimeScope();
 
-            container.RegisterType(typeof(AccountHistoryService))
-                .As<IAccountHistoryService>()
+            container.RegisterType(typeof(PaymentDocumentService))
+                .As(typeof(IPaymentDocumentService))
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelImportService))

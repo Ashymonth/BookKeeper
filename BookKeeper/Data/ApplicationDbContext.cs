@@ -1,6 +1,6 @@
-﻿using System.Windows.Forms;
-using BookKeeper.Data.Data.Entities;
+﻿using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
+using BookKeeper.Data.Data.Entities.Payments;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookKeeper.Data.Data
@@ -15,28 +15,13 @@ namespace BookKeeper.Data.Data
 
         public virtual DbSet<AccountEntity> Accounts { get; set; }
 
-        public virtual DbSet<AccountsHistoryEntity> AccountsHistory { get; set; }
+        public virtual DbSet<PaymentDocumentEntity> PaymentDocuments { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BookKeepingTest;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BookKeeping;Trusted_Connection=True;MultipleActiveResultSets=True;");
             base.OnConfiguring(optionsBuilder);
-        }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<StreetEntity>()
-                .HasOne(d => d.District)
-                .WithMany()
-                .IsRequired();
-
-            modelBuilder.Entity<StreetEntity>()
-                .HasMany(l => l.Locations)
-                .WithOne(x => x.AddressEntity)
-                .IsRequired();
-
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

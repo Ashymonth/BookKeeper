@@ -61,7 +61,7 @@ namespace BookKeeper.Data.Services.Load
 
                         account = new AccountEntity
                         {
-                            AccrualMonth = ConvertAccrualMonth(dataRow.Account.AccrualMonth),
+                            AccountCreationDate = ConvertAccrualMonth(dataRow.Account.AccrualMonth),
                             PersonalAccount = dataRow.Account.PersonalAccount,
                             AccountType = ConvertAccountType(dataRow.Account.AccountType),
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),

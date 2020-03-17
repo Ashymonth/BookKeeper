@@ -25,20 +25,6 @@ namespace BookKeeper.Test
         {
             _container = AutofacConfiguration.ConfigureContainer();
         }
-        [TestMethod]
-        public void CreateDistrict()
-        {
-            var mockSet = new Mock<DbSet<StreetEntity>>();
-
-            var mockContext = new Mock<ApplicationDbContext>();
-            mockContext.Setup(n => n.Streets).Returns(mockSet.Object);
-
-            var service = new AddressService(mockContext.Object);
-            service.AddAddress("1");
-
-            mockSet.Verify(m => m.Add(It.IsAny<StreetEntity>()), Times.Once);
-            mockContext.Verify(m => m.SaveChanges(), Times.Once);
-        }
 
         [TestMethod]
         public void LoadExcelData()

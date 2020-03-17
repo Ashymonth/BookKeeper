@@ -194,62 +194,33 @@
     <Compile Include="Data\Discounts\Discount.cs" />
     <Compile Include="Data\Discounts\DiscountHistory.cs" />
     <Compile Include="Data\Entities\AccountEntity.cs" />
-    <Compile Include="Data\Entities\AccountsHistoryEntity.cs" />
     <Compile Include="Data\Entities\Address\StreetEntity.cs" />
     <Compile Include="Data\Entities\Address\DistrictEntity.cs" />
     <Compile Include="Data\Entities\Address\LocationEntity.cs" />
     <Compile Include="Data\Entities\BaseEntity.cs" />
-    <Compile Include="Data\Entities\Payments\PaymentDocument.cs" />
-    <Compile Include="Data\Repositories\AccountHistoryRepository.cs" />
+    <Compile Include="Data\Entities\Payments\PaymentDocumentEntity.cs" />
     <Compile Include="Data\Repositories\AccountRepository.cs" />
     <Compile Include="Data\Repositories\AddressRepository.cs" />
     <Compile Include="Data\Repositories\DistrictRepository.cs" />
     <Compile Include="Data\Repositories\LocationRepository.cs" />
+    <Compile Include="Data\Repositories\PaymentDocumentRepository.cs" />
     <Compile Include="Data\Repositories\Repository.cs" />
     <Compile Include="Data\UnitOfWork.cs" />
     <Compile Include="Infrastructure\AutofacConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\ExcelConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\HtmlConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\IConfiguration.cs" />
-    <Compile Include="Migrations\20200314170259_initial1.cs" />
-    <Compile Include="Migrations\20200314170259_initial1.designer.cs">
-      <DependentUpon>20200314170259_initial1.cs</DependentUpon>
+    <Compile Include="Migrations\20200317171344_initial1.cs" />
+    <Compile Include="Migrations\20200317171344_initial1.designer.cs">
+      <DependentUpon>20200317171344_initial1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20200314171718_initial2.cs" />
-    <Compile Include="Migrations\20200314171718_initial2.designer.cs">
-      <DependentUpon>20200314171718_initial2.cs</DependentUpon>
+    <Compile Include="Migrations\20200317172141_initial2.cs" />
+    <Compile Include="Migrations\20200317172141_initial2.designer.cs">
+      <DependentUpon>20200317172141_initial2.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\20200314201018_initial3.cs" />
-    <Compile Include="Migrations\20200314201018_initial3.designer.cs">
-      <DependentUpon>20200314201018_initial3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200315210102_initial4.cs" />
-    <Compile Include="Migrations\20200315210102_initial4.designer.cs">
-      <DependentUpon>20200315210102_initial4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200316150407_initial7.cs" />
-    <Compile Include="Migrations\20200316150407_initial7.designer.cs">
-      <DependentUpon>20200316150407_initial7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200316160052_initial9.cs" />
-    <Compile Include="Migrations\20200316160052_initial9.designer.cs">
-      <DependentUpon>20200316160052_initial9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200316174640_initial11.cs" />
-    <Compile Include="Migrations\20200316174640_initial11.designer.cs">
-      <DependentUpon>20200316174640_initial11.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200316181913_initial12.cs" />
-    <Compile Include="Migrations\20200316181913_initial12.designer.cs">
-      <DependentUpon>20200316181913_initial12.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200316192004_initial13.cs" />
-    <Compile Include="Migrations\20200316192004_initial13.designer.cs">
-      <DependentUpon>20200316192004_initial13.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200317144138_initial21.cs" />
-    <Compile Include="Migrations\20200317144138_initial21.designer.cs">
-      <DependentUpon>20200317144138_initial21.cs</DependentUpon>
+    <Compile Include="Migrations\20200317173326_initial3.cs" />
+    <Compile Include="Migrations\20200317173326_initial3.designer.cs">
+      <DependentUpon>20200317173326_initial3.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />
@@ -260,11 +231,11 @@
     <Compile Include="Models\HtmlImport\PaymentDetailsImport.cs" />
     <Compile Include="Models\HtmlImport\PaymentDocumentImport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\EntityService\AccountHistoryService.cs" />
     <Compile Include="Services\EntityService\AccountService.cs" />
     <Compile Include="Services\EntityService\AddressService.cs" />
     <Compile Include="Services\EntityService\DistrictService.cs" />
     <Compile Include="Services\EntityService\LocationService.cs" />
+    <Compile Include="Services\EntityService\PaymentDocumentService.cs" />
     <Compile Include="Services\Import\ExcelImportService.cs" />
     <Compile Include="Services\Import\HtmlImportService.cs" />
     <Compile Include="Services\Import\IImportService.cs" />
