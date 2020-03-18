@@ -15,6 +15,7 @@ namespace BookKeeper.Data.Services
         void Update(IEnumerable<TModel> entities);
         void Delete(TModel entity);
         TModel GetItem(Func<TModel, bool> predicate);
+        IEnumerable<TModel> GetItems();
     }
 
     public class Service<TModel> : IService<TModel> where TModel : BaseEntity
@@ -81,6 +82,11 @@ namespace BookKeeper.Data.Services
                 throw new ArgumentNullException(nameof(predicate));
 
             return _repository.GetItem(predicate);
+        }
+
+        public IEnumerable<TModel> GetItems()
+        {
+            return _repository.GetItems();
         }
     }
 }

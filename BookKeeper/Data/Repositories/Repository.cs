@@ -9,6 +9,7 @@ namespace BookKeeper.Data.Data.Repositories
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         TEntity GetItem(Func<TEntity, bool> predicate);
+        IEnumerable<TEntity> GetItems();
         TEntity Add(TEntity entity);
         void Add(IEnumerable<TEntity> entities);
         void Update(TEntity entity);
@@ -34,6 +35,11 @@ namespace BookKeeper.Data.Data.Repositories
                 throw new ArgumentNullException(nameof(predicate));
 
             return _entities.FirstOrDefault(predicate);
+        }
+
+        public IEnumerable<TEntity> GetItems()
+        {
+            return _entities.Where(x => x.IsDeleted == false);
         }
 
         public TEntity Add(TEntity entity)
