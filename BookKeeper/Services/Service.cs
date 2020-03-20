@@ -3,7 +3,6 @@ using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 
 namespace BookKeeper.Data.Services

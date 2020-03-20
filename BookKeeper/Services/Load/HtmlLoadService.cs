@@ -61,9 +61,7 @@ namespace BookKeeper.Data.Services.Load
                 var personalAccount = ValidPersonalAccount(item.PersonalAccount);
                 var documentDate = ValidDateTime(import.DocumentData);
 
-                var account = _accountService.GetItem(x => x.PersonalAccount == personalAccount &&
-                                                           x.AccountCreationDate == documentDate &&
-                                                           !x.IsDeleted);
+                var account = _accountService.GetItem(x => x.Account == personalAccount);
 
                 if (account == null)
                     continue;
@@ -74,8 +72,6 @@ namespace BookKeeper.Data.Services.Load
                 account.PaymentDocuments.Add(new PaymentDocumentEntity
                 {
                     AccountId = account.Id,
-                    ApartmentNumber = item.ApartmentNumber,
-                    PersonalAccount = personalAccount,
                     Accrued = item.Accrued,
                     Received = item.Received,
                     PaymentDate = documentDate,

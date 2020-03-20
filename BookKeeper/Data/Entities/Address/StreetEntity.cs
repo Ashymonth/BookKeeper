@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using BookKeeper.Data.Data.Entities.Rates;
 
 namespace BookKeeper.Data.Data.Entities.Address
 {
@@ -10,9 +11,11 @@ namespace BookKeeper.Data.Data.Entities.Address
         [ForeignKey(nameof(DistrictId))]
         public virtual DistrictEntity District { get; set; }
 
-        public virtual List<LocationEntity> Locations { get; set; }
-
         public string StreetName { get; set; }
+
+        public virtual ICollection<LocationEntity> Locations { get; set; }
+
+        public virtual ICollection<RateDocumentEntity> Rates { get; set; }
 
     }
 }

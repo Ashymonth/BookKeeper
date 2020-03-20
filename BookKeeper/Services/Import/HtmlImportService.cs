@@ -26,7 +26,6 @@ namespace BookKeeper.Data.Services.Import
             _configuration = configuration;
         }
 
-
         public List<PaymentDocumentImport> ImportDataRow(string file)
         {
             if (file == null)

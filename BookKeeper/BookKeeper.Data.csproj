@@ -191,16 +191,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
-    <Compile Include="Data\Discounts\Discount.cs" />
-    <Compile Include="Data\Discounts\DiscountHistory.cs" />
     <Compile Include="Data\Entities\AccountEntity.cs" />
     <Compile Include="Data\Entities\Address\StreetEntity.cs" />
     <Compile Include="Data\Entities\Address\DistrictEntity.cs" />
     <Compile Include="Data\Entities\Address\LocationEntity.cs" />
     <Compile Include="Data\Entities\BaseEntity.cs" />
-    <Compile Include="Data\Entities\Discounts\DiscountDocument.cs" />
+    <Compile Include="Data\Entities\Discounts\DiscountDescriptionEntity.cs" />
+    <Compile Include="Data\Entities\Discounts\DiscountDocumentEntity.cs" />
+    <Compile Include="Data\Entities\Discounts\DiscountPercentEntity.cs" />
     <Compile Include="Data\Entities\Payments\PaymentDocumentEntity.cs" />
-    <Compile Include="Data\Entities\Rates\RateEntity.cs" />
+    <Compile Include="Data\Entities\Rates\RateDescriptionEntity.cs" />
+    <Compile Include="Data\Entities\Rates\RateDocumentEntity.cs" />
     <Compile Include="Data\Repositories\AccountRepository.cs" />
     <Compile Include="Data\Repositories\AddressRepository.cs" />
     <Compile Include="Data\Repositories\DistrictRepository.cs" />
@@ -212,17 +213,9 @@
     <Compile Include="Infrastructure\Configuration\ExcelConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\HtmlConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\IConfiguration.cs" />
-    <Compile Include="Migrations\20200317180157_initial1.cs" />
-    <Compile Include="Migrations\20200317180157_initial1.designer.cs">
-      <DependentUpon>20200317180157_initial1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200317190424_initial4.cs" />
-    <Compile Include="Migrations\20200317190424_initial4.designer.cs">
-      <DependentUpon>20200317190424_initial4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\20200320162959_initial30.cs" />
-    <Compile Include="Migrations\20200320162959_initial30.designer.cs">
-      <DependentUpon>20200320162959_initial30.cs</DependentUpon>
+    <Compile Include="Migrations\20200320220821_Initial1.cs" />
+    <Compile Include="Migrations\20200320220821_Initial1.designer.cs">
+      <DependentUpon>20200320220821_Initial1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\ApplicationDbContextModelSnapshot.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />

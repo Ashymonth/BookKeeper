@@ -26,7 +26,7 @@ namespace BookKeeper.UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+
             Initialize();
         }
 
@@ -60,12 +60,9 @@ namespace BookKeeper.UI
 
         private void metroButton5_Click(object sender, EventArgs e)
         {
-            var service = _container.Resolve<IAccountService>();
-            var result = service.GetWithInclude(x=>x.);
-
-            foreach (var entity in result)
+            using (var scope = _container.BeginLifetimeScope())
             {
-                
+                   
             }
         }
 

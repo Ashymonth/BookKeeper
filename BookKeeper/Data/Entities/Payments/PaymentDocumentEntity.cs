@@ -7,9 +7,8 @@ namespace BookKeeper.Data.Data.Entities.Payments
     {
         public int AccountId { get; set; }
 
-        public string ApartmentNumber { get; set; }
-
-        public long PersonalAccount { get; set; }
+        [ForeignKey(nameof(AccountId))]
+        public AccountEntity Account { get; set; }
 
         public decimal Accrued { get; set; }
 
@@ -17,7 +16,5 @@ namespace BookKeeper.Data.Data.Entities.Payments
 
         public DateTime PaymentDate { get; set; }
 
-        [ForeignKey(nameof(AccountId))]
-        public virtual AccountEntity Account { get; set; }
     }
 }

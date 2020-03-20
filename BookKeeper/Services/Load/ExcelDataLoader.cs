@@ -11,20 +11,18 @@ namespace BookKeeper.Data.Services.Load
 {
     public class ExcelDataLoader : IDataLoader
     {
-
         private readonly IImportService<List<ImportDataRow>> _import;
         private readonly IDistrictService _districtService;
         private readonly IAddressService _addressService;
         private readonly IAccountService _accountService;
-        private readonly ILocationService _locationService;
+        
 
-        public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IAddressService addressService, IAccountService accountService, ILocationService locationService)
+        public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IAddressService addressService, IAccountService accountService)
         {
             _import = import;
             _districtService = districtService;
             _addressService = addressService;
             _accountService = accountService;
-            _locationService = locationService;
         }
 
         public void LoadData(string file)
@@ -47,7 +45,7 @@ namespace BookKeeper.Data.Services.Load
 
                     foreach (var dataRow in addressGroup)
                     {
-                        var account = _accountService.GetItem(x => x.PersonalAccount == dataRow?.Account.PersonalAccount && !x.IsDeleted);
+                        var account = _accountService.GetItem(x => x.Account == dataRow?.Account.PersonalAccount && !x.IsDeleted);
 
                         if (account != null)
                         {
@@ -61,7 +59,7 @@ namespace BookKeeper.Data.Services.Load
                         account = new AccountEntity
                         {
                             AccountCreationDate = ConvertAccrualMonth(dataRow.Account.AccrualMonth),
-                            PersonalAccount = dataRow.Account.PersonalAccount,
+                            Account = dataRow.Account.PersonalAccount,
                             AccountType = ConvertAccountType(dataRow.Account.AccountType),
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
                         };
@@ -74,10 +72,10 @@ namespace BookKeeper.Data.Services.Load
                             HouseNumber = dataRow.LocationImport.HouseNumber,
                             BuildingCorpus = dataRow.LocationImport.BuildingNumber,
                             ApartmentNumber = dataRow.LocationImport.ApartmentNumber,
-                            AddressId = address.Id,
+                            StreetId = address.Id,
                         });
 
-                        account.AddressId = address.Id;
+                        account.StreetId = address.Id;
 
                         accountsToAdd.Add(account);
                     }

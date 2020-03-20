@@ -12,7 +12,9 @@ namespace BookKeeper.Data.Data.Entities
 
     public class AccountEntity : BaseEntity
     {
-        public long PersonalAccount { get; set; }
+        public int StreetId { get; set; }
+
+        public long Account { get; set; }
 
         public DateTime AccountCreationDate { get; set; }
 
@@ -22,8 +24,6 @@ namespace BookKeeper.Data.Data.Entities
 
         public bool IsArchive { get; set; }
 
-        public int AddressId { get; set; }
-
-        public virtual List<PaymentDocumentEntity> PaymentDocuments{ get; set; }
+        public virtual ICollection<PaymentDocumentEntity> PaymentDocuments{ get; set; }
     }
 }

@@ -22,7 +22,7 @@ namespace BookKeeper.Data.Services.EntityService
                 HouseNumber = houseNumber,
                 BuildingCorpus = houseBuilding,
                 ApartmentNumber = apartmentNumber,
-                AddressId = addressId
+                StreetId = addressId
             };
             base.Add(entity);
             return entity;

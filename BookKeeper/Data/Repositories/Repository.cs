@@ -52,7 +52,7 @@ namespace BookKeeper.Data.Data.Repositories
         public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperty)
         {
             var query = Include(includeProperty);
-            return query.AsEnumerable().Where(predicate).ToList();
+            return (query.AsEnumerable() ?? throw new NullReferenceException(nameof(query))).Where(predicate).ToList();
         }
 
         public TEntity Add(TEntity entity)
@@ -65,11 +65,6 @@ namespace BookKeeper.Data.Data.Repositories
             _entities.Add(entity);
 
             return entity;
-        }
-
-        public IEnumerable<TEntity> getWithInclude(string func)
-        {
-            return _entities.Include(func);
         }
 
         public void Add(IEnumerable<TEntity> entities)

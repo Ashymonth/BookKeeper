@@ -10,16 +10,16 @@ using BookKeeper.Data.Models;
 
 namespace BookKeeper.Data.Services.EntityService
 {
-    public interface IRateService : IService<RateEntity>
+    public interface IRateService : IService<RateDocumentEntity>
     {
         bool AddRate(Rate rate);
     }
 
-    public class RateService : Service<RateEntity>, IRateService
+    public class RateService : Service<RateDocumentEntity>, IRateService
     {
         private const decimal DefaultPrice = 166;
 
-        public RateService(IRepository<RateEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public RateService(IRepository<RateDocumentEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
 
@@ -28,11 +28,11 @@ namespace BookKeeper.Data.Services.EntityService
             if (rate == null)
                 return false;
 
-            var rateEntity = new RateEntity
+            var rateEntity = new RateDocumentEntity
             {
                 IsDefault = rate.Price == DefaultPrice,
                 DefaultPrice = DefaultPrice,
-                RateCreationDate = DateTime.Now,
+                RateRegisterDate = DateTime.Now,
                 StartDate = DateTime.Now,
                 Price = rate.Price,
             };

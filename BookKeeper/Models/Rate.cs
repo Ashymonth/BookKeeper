@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookKeeper.Data.Models
 {
-    public class Rate
+    public class Rate 
     {
         public string StreetName { get; set; }
 

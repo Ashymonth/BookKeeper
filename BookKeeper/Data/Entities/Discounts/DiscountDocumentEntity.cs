@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BookKeeper.Data.Data.Entities.Address;
 
 namespace BookKeeper.Data.Data.Entities.Discounts
 {
@@ -12,13 +14,14 @@ namespace BookKeeper.Data.Data.Entities.Discounts
         PersonalAccount
     }
 
-    public class DiscountEntity : BaseEntity
+    public class DiscountDocumentEntity : BaseEntity
     {
+        public int StreetId { get; set; }
+
+        [ForeignKey(nameof(StreetId))]
+        public StreetEntity Street { get; set; }
+
         public DiscountType Type { get; set; }
-
-        public int? AddressEntityId { get; set; }
-
-        public int? AccountEntityId { get; set; }
 
         public DateTime StartDate { get; set; }
 
@@ -26,7 +29,7 @@ namespace BookKeeper.Data.Data.Entities.Discounts
 
         public decimal DiscountPercent { get; set; }
 
-        public string Description { get; set; }
+        public ICollection<DiscountDescriptionEntity> DiscountDescriptions { get; set; }
 
     }
 }
