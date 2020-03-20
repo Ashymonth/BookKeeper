@@ -11,7 +11,6 @@ namespace BookKeeper.Data.Services.Load
 {
     public class ExcelDataLoader : IDataLoader
     {
-        private readonly IDictionary<string, int> _districtCache = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
 
         private readonly IImportService<List<ImportDataRow>> _import;
         private readonly IDistrictService _districtService;
@@ -54,7 +53,7 @@ namespace BookKeeper.Data.Services.Load
                         {
                             account.IsArchive = account.IsEmpty && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
                             account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
-
+                            
                             accountsToUpdate.Add(account);
                             continue;
                         }
@@ -65,7 +64,6 @@ namespace BookKeeper.Data.Services.Load
                             PersonalAccount = dataRow.Account.PersonalAccount,
                             AccountType = ConvertAccountType(dataRow.Account.AccountType),
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
-
                         };
 
                         if(address.Locations == null)

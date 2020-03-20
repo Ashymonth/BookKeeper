@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace BookKeeper.Data.Data.Repositories
 {
@@ -10,12 +11,13 @@ namespace BookKeeper.Data.Data.Repositories
     {
         TEntity GetItem(Func<TEntity, bool> predicate);
         IEnumerable<TEntity> GetItems();
+        IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] expressions);
+        IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperty);
         TEntity Add(TEntity entity);
         void Add(IEnumerable<TEntity> entities);
         void Update(TEntity entity);
         void Update(IEnumerable<TEntity> entities);
         void Delete(TEntity entity);
-
     }
 
     public class Repository<TEntity> : IRepository<TEntity> where TEntity : BaseEntity
@@ -42,6 +44,17 @@ namespace BookKeeper.Data.Data.Repositories
             return _entities.Where(x => x.IsDeleted == false);
         }
 
+        public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] expressions)
+        {
+            return Include(expressions).ToList();
+        }
+
+        public IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperty)
+        {
+            var query = Include(includeProperty);
+            return query.AsEnumerable().Where(predicate).ToList();
+        }
+
         public TEntity Add(TEntity entity)
         {
             if (entity == null)
@@ -52,6 +65,11 @@ namespace BookKeeper.Data.Data.Repositories
             _entities.Add(entity);
 
             return entity;
+        }
+
+        public IEnumerable<TEntity> getWithInclude(string func)
+        {
+            return _entities.Include(func);
         }
 
         public void Add(IEnumerable<TEntity> entities)
@@ -86,6 +104,10 @@ namespace BookKeeper.Data.Data.Repositories
             _entities.Remove(entity);
         }
 
-
+        private IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)
+        {
+            var query = _entities.AsNoTracking();
+            return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+        }
     }
 }

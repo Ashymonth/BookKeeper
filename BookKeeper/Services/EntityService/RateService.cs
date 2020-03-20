@@ -35,7 +35,6 @@ namespace BookKeeper.Data.Services.EntityService
                 RateCreationDate = DateTime.Now,
                 StartDate = DateTime.Now,
                 Price = rate.Price,
-                
             };
 
             return true;

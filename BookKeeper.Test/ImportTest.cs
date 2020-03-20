@@ -31,7 +31,7 @@ namespace BookKeeper.Test
         {
             var loader = _container.ResolveNamed<IDataLoader>("Excel");
 
-            loader.LoadData("D:\\1.xlsx");
+            loader.LoadData($"C:\\Users\\{Environment.UserName}\\Documents\\Материалы\\1.xlsx");
 
         }
 
@@ -40,7 +40,7 @@ namespace BookKeeper.Test
         {
             var container = AutofacConfiguration.ConfigureContainer();
             var import = _container.ResolveNamed<IDataLoader>("Html");
-            import.LoadData("C:\\Users\\Ashym\\Documents\\Материалы\\1.html");
+            import.LoadData($"C:\\Users\\{Environment.UserName}\\Documents\\Материалы\\1.html");
 
         }
     }

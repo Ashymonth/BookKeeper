@@ -4,6 +4,7 @@ using BookKeeper.Data.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 
 namespace BookKeeper.Data.Services
 {
@@ -16,6 +17,8 @@ namespace BookKeeper.Data.Services
         void Delete(TModel entity);
         TModel GetItem(Func<TModel, bool> predicate);
         IEnumerable<TModel> GetItems();
+        IEnumerable<TModel> GetWithInclude(params Expression<Func<TModel, object>>[] expressions);
+        IEnumerable<TModel> GetWithInclude(Func<TModel, bool> predicate, params Expression<Func<TModel, object>>[] includeProperty);
     }
 
     public class Service<TModel> : IService<TModel> where TModel : BaseEntity
@@ -87,6 +90,16 @@ namespace BookKeeper.Data.Services
         public IEnumerable<TModel> GetItems()
         {
             return _repository.GetItems();
+        }
+
+        public IEnumerable<TModel> GetWithInclude(params Expression<Func<TModel, object>>[] expressions)
+        {
+            return _repository.GetWithInclude(expressions);
+        }
+
+        public IEnumerable<TModel> GetWithInclude(Func<TModel, bool> predicate, params Expression<Func<TModel, object>>[] includeProperty)
+        {
+            return _repository.GetWithInclude(predicate, includeProperty);
         }
     }
 }

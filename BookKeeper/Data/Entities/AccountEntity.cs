@@ -24,6 +24,6 @@ namespace BookKeeper.Data.Data.Entities
 
         public int AddressId { get; set; }
 
-        public virtual ICollection<PaymentDocumentEntity> PaymentDocuments{ get; set; }
+        public virtual List<PaymentDocumentEntity> PaymentDocuments{ get; set; }
     }
 }

@@ -54,17 +54,16 @@ namespace BookKeeper.Data.Services.Load
 
         private void AddPaymentDocument(PaymentDocumentImport import)
         {
-            var paymentsToAdd = new List<PaymentDocumentEntity>();
+            var accountsToUpdate = new List<AccountEntity>();
             foreach (var item in import.PaymentDetailsImports)
             {
                 
                 var personalAccount = ValidPersonalAccount(item.PersonalAccount);
-                var date = ValidDateTime(import.DocumentData);
+                var documentDate = ValidDateTime(import.DocumentData);
 
                 var account = _accountService.GetItem(x => x.PersonalAccount == personalAccount &&
-                                                           x.AccountCreationDate == date &&
+                                                           x.AccountCreationDate == documentDate &&
                                                            !x.IsDeleted);
-
 
                 if (account == null)
                     continue;
@@ -72,20 +71,23 @@ namespace BookKeeper.Data.Services.Load
                 if (account.PaymentDocuments == null)
                     account.PaymentDocuments = new List<PaymentDocumentEntity>();
 
-                paymentsToAdd.Add(new PaymentDocumentEntity
+                account.PaymentDocuments.Add(new PaymentDocumentEntity
                 {
                     AccountId = account.Id,
                     ApartmentNumber = item.ApartmentNumber,
                     PersonalAccount = personalAccount,
                     Accrued = item.Accrued,
                     Received = item.Received,
-                    PaymentDate = date
+                    PaymentDate = documentDate,
                 });
+
+                accountsToUpdate.Add(account);
             }
-            _paymentDocumentService.Add(paymentsToAdd);
+
+            _accountService.Update(accountsToUpdate);
         }
 
-        private  long ValidPersonalAccount(long personalAccount)
+        private static long ValidPersonalAccount(long personalAccount)
         {
             if (personalAccount.ToString().Length > PersonalAccountLength)//TODO Add municipal account mark to config
             {
