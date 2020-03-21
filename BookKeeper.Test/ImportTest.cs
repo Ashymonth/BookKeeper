@@ -40,7 +40,7 @@ namespace BookKeeper.Test
         {
             var container = AutofacConfiguration.ConfigureContainer();
             var import = _container.ResolveNamed<IDataLoader>("Html");
-            import.LoadData($"C:\\Users\\{Environment.UserName}\\Documents\\Материалы\\1.html");
+            import.LoadData($"C:\\Users\\{Environment.UserName}\\Documents\\Материалы\\4.html");
 
         }
     }

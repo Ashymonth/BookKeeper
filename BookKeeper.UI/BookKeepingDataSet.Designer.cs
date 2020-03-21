@@ -26,17 +26,37 @@ namespace BookKeeper.UI {
         
         private AccountsDataTable tableAccounts;
         
+        private DiscountDescriptionsDataTable tableDiscountDescriptions;
+        
+        private DiscountDocumentsDataTable tableDiscountDocuments;
+        
+        private DiscountPercentsDataTable tableDiscountPercents;
+        
         private DistrictsDataTable tableDistricts;
         
         private LocationsDataTable tableLocations;
         
         private PaymentDocumentsDataTable tablePaymentDocuments;
         
+        private RateDescriptionsDataTable tableRateDescriptions;
+        
+        private RateDocumentsDataTable tableRateDocuments;
+        
         private StreetsDataTable tableStreets;
         
-        private global::System.Data.DataRelation relationFK_Locations_Streets_AddressId;
+        private global::System.Data.DataRelation relationFK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId;
         
-        private global::System.Data.DataRelation relationFK_PaymentDocuments_Accounts_AccountEntityId;
+        private global::System.Data.DataRelation relationFK_DiscountDocuments_Streets_StreetId;
+        
+        private global::System.Data.DataRelation relationFK_DiscountPercents_DiscountDocuments_DiscountDocumentId;
+        
+        private global::System.Data.DataRelation relationFK_Locations_Streets_StreetId;
+        
+        private global::System.Data.DataRelation relationFK_PaymentDocuments_Accounts_AccountId;
+        
+        private global::System.Data.DataRelation relationFK_RateDescriptions_RateDocuments_RateDocumentId;
+        
+        private global::System.Data.DataRelation relationFK_RateDocuments_Streets_StreetId;
         
         private global::System.Data.DataRelation relationFK_Streets_Districts_DistrictId;
         
@@ -71,6 +91,15 @@ namespace BookKeeper.UI {
                 if ((ds.Tables["Accounts"] != null)) {
                     base.Tables.Add(new AccountsDataTable(ds.Tables["Accounts"]));
                 }
+                if ((ds.Tables["DiscountDescriptions"] != null)) {
+                    base.Tables.Add(new DiscountDescriptionsDataTable(ds.Tables["DiscountDescriptions"]));
+                }
+                if ((ds.Tables["DiscountDocuments"] != null)) {
+                    base.Tables.Add(new DiscountDocumentsDataTable(ds.Tables["DiscountDocuments"]));
+                }
+                if ((ds.Tables["DiscountPercents"] != null)) {
+                    base.Tables.Add(new DiscountPercentsDataTable(ds.Tables["DiscountPercents"]));
+                }
                 if ((ds.Tables["Districts"] != null)) {
                     base.Tables.Add(new DistrictsDataTable(ds.Tables["Districts"]));
                 }
@@ -79,6 +108,12 @@ namespace BookKeeper.UI {
                 }
                 if ((ds.Tables["PaymentDocuments"] != null)) {
                     base.Tables.Add(new PaymentDocumentsDataTable(ds.Tables["PaymentDocuments"]));
+                }
+                if ((ds.Tables["RateDescriptions"] != null)) {
+                    base.Tables.Add(new RateDescriptionsDataTable(ds.Tables["RateDescriptions"]));
+                }
+                if ((ds.Tables["RateDocuments"] != null)) {
+                    base.Tables.Add(new RateDocumentsDataTable(ds.Tables["RateDocuments"]));
                 }
                 if ((ds.Tables["Streets"] != null)) {
                     base.Tables.Add(new StreetsDataTable(ds.Tables["Streets"]));
@@ -115,6 +150,36 @@ namespace BookKeeper.UI {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public DiscountDescriptionsDataTable DiscountDescriptions {
+            get {
+                return this.tableDiscountDescriptions;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public DiscountDocumentsDataTable DiscountDocuments {
+            get {
+                return this.tableDiscountDocuments;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public DiscountPercentsDataTable DiscountPercents {
+            get {
+                return this.tableDiscountPercents;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
         public DistrictsDataTable Districts {
             get {
                 return this.tableDistricts;
@@ -138,6 +203,26 @@ namespace BookKeeper.UI {
         public PaymentDocumentsDataTable PaymentDocuments {
             get {
                 return this.tablePaymentDocuments;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public RateDescriptionsDataTable RateDescriptions {
+            get {
+                return this.tableRateDescriptions;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public RateDocumentsDataTable RateDocuments {
+            get {
+                return this.tableRateDocuments;
             }
         }
         
@@ -221,6 +306,15 @@ namespace BookKeeper.UI {
                 if ((ds.Tables["Accounts"] != null)) {
                     base.Tables.Add(new AccountsDataTable(ds.Tables["Accounts"]));
                 }
+                if ((ds.Tables["DiscountDescriptions"] != null)) {
+                    base.Tables.Add(new DiscountDescriptionsDataTable(ds.Tables["DiscountDescriptions"]));
+                }
+                if ((ds.Tables["DiscountDocuments"] != null)) {
+                    base.Tables.Add(new DiscountDocumentsDataTable(ds.Tables["DiscountDocuments"]));
+                }
+                if ((ds.Tables["DiscountPercents"] != null)) {
+                    base.Tables.Add(new DiscountPercentsDataTable(ds.Tables["DiscountPercents"]));
+                }
                 if ((ds.Tables["Districts"] != null)) {
                     base.Tables.Add(new DistrictsDataTable(ds.Tables["Districts"]));
                 }
@@ -229,6 +323,12 @@ namespace BookKeeper.UI {
                 }
                 if ((ds.Tables["PaymentDocuments"] != null)) {
                     base.Tables.Add(new PaymentDocumentsDataTable(ds.Tables["PaymentDocuments"]));
+                }
+                if ((ds.Tables["RateDescriptions"] != null)) {
+                    base.Tables.Add(new RateDescriptionsDataTable(ds.Tables["RateDescriptions"]));
+                }
+                if ((ds.Tables["RateDocuments"] != null)) {
+                    base.Tables.Add(new RateDocumentsDataTable(ds.Tables["RateDocuments"]));
                 }
                 if ((ds.Tables["Streets"] != null)) {
                     base.Tables.Add(new StreetsDataTable(ds.Tables["Streets"]));
@@ -272,6 +372,24 @@ namespace BookKeeper.UI {
                     this.tableAccounts.InitVars();
                 }
             }
+            this.tableDiscountDescriptions = ((DiscountDescriptionsDataTable)(base.Tables["DiscountDescriptions"]));
+            if ((initTable == true)) {
+                if ((this.tableDiscountDescriptions != null)) {
+                    this.tableDiscountDescriptions.InitVars();
+                }
+            }
+            this.tableDiscountDocuments = ((DiscountDocumentsDataTable)(base.Tables["DiscountDocuments"]));
+            if ((initTable == true)) {
+                if ((this.tableDiscountDocuments != null)) {
+                    this.tableDiscountDocuments.InitVars();
+                }
+            }
+            this.tableDiscountPercents = ((DiscountPercentsDataTable)(base.Tables["DiscountPercents"]));
+            if ((initTable == true)) {
+                if ((this.tableDiscountPercents != null)) {
+                    this.tableDiscountPercents.InitVars();
+                }
+            }
             this.tableDistricts = ((DistrictsDataTable)(base.Tables["Districts"]));
             if ((initTable == true)) {
                 if ((this.tableDistricts != null)) {
@@ -290,14 +408,31 @@ namespace BookKeeper.UI {
                     this.tablePaymentDocuments.InitVars();
                 }
             }
+            this.tableRateDescriptions = ((RateDescriptionsDataTable)(base.Tables["RateDescriptions"]));
+            if ((initTable == true)) {
+                if ((this.tableRateDescriptions != null)) {
+                    this.tableRateDescriptions.InitVars();
+                }
+            }
+            this.tableRateDocuments = ((RateDocumentsDataTable)(base.Tables["RateDocuments"]));
+            if ((initTable == true)) {
+                if ((this.tableRateDocuments != null)) {
+                    this.tableRateDocuments.InitVars();
+                }
+            }
             this.tableStreets = ((StreetsDataTable)(base.Tables["Streets"]));
             if ((initTable == true)) {
                 if ((this.tableStreets != null)) {
                     this.tableStreets.InitVars();
                 }
             }
-            this.relationFK_Locations_Streets_AddressId = this.Relations["FK_Locations_Streets_AddressId"];
-            this.relationFK_PaymentDocuments_Accounts_AccountEntityId = this.Relations["FK_PaymentDocuments_Accounts_AccountEntityId"];
+            this.relationFK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId = this.Relations["FK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId"];
+            this.relationFK_DiscountDocuments_Streets_StreetId = this.Relations["FK_DiscountDocuments_Streets_StreetId"];
+            this.relationFK_DiscountPercents_DiscountDocuments_DiscountDocumentId = this.Relations["FK_DiscountPercents_DiscountDocuments_DiscountDocumentId"];
+            this.relationFK_Locations_Streets_StreetId = this.Relations["FK_Locations_Streets_StreetId"];
+            this.relationFK_PaymentDocuments_Accounts_AccountId = this.Relations["FK_PaymentDocuments_Accounts_AccountId"];
+            this.relationFK_RateDescriptions_RateDocuments_RateDocumentId = this.Relations["FK_RateDescriptions_RateDocuments_RateDocumentId"];
+            this.relationFK_RateDocuments_Streets_StreetId = this.Relations["FK_RateDocuments_Streets_StreetId"];
             this.relationFK_Streets_Districts_DistrictId = this.Relations["FK_Streets_Districts_DistrictId"];
         }
         
@@ -311,22 +446,52 @@ namespace BookKeeper.UI {
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
             this.tableAccounts = new AccountsDataTable();
             base.Tables.Add(this.tableAccounts);
+            this.tableDiscountDescriptions = new DiscountDescriptionsDataTable();
+            base.Tables.Add(this.tableDiscountDescriptions);
+            this.tableDiscountDocuments = new DiscountDocumentsDataTable();
+            base.Tables.Add(this.tableDiscountDocuments);
+            this.tableDiscountPercents = new DiscountPercentsDataTable();
+            base.Tables.Add(this.tableDiscountPercents);
             this.tableDistricts = new DistrictsDataTable();
             base.Tables.Add(this.tableDistricts);
             this.tableLocations = new LocationsDataTable();
             base.Tables.Add(this.tableLocations);
             this.tablePaymentDocuments = new PaymentDocumentsDataTable();
             base.Tables.Add(this.tablePaymentDocuments);
+            this.tableRateDescriptions = new RateDescriptionsDataTable();
+            base.Tables.Add(this.tableRateDescriptions);
+            this.tableRateDocuments = new RateDocumentsDataTable();
+            base.Tables.Add(this.tableRateDocuments);
             this.tableStreets = new StreetsDataTable();
             base.Tables.Add(this.tableStreets);
-            this.relationFK_Locations_Streets_AddressId = new global::System.Data.DataRelation("FK_Locations_Streets_AddressId", new global::System.Data.DataColumn[] {
+            this.relationFK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId = new global::System.Data.DataRelation("FK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId", new global::System.Data.DataColumn[] {
+                        this.tableDiscountDocuments.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableDiscountDescriptions.DiscountDocumentIdColumn}, false);
+            this.Relations.Add(this.relationFK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId);
+            this.relationFK_DiscountDocuments_Streets_StreetId = new global::System.Data.DataRelation("FK_DiscountDocuments_Streets_StreetId", new global::System.Data.DataColumn[] {
                         this.tableStreets.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tableLocations.AddressIdColumn}, false);
-            this.Relations.Add(this.relationFK_Locations_Streets_AddressId);
-            this.relationFK_PaymentDocuments_Accounts_AccountEntityId = new global::System.Data.DataRelation("FK_PaymentDocuments_Accounts_AccountEntityId", new global::System.Data.DataColumn[] {
+                        this.tableDiscountDocuments.StreetIdColumn}, false);
+            this.Relations.Add(this.relationFK_DiscountDocuments_Streets_StreetId);
+            this.relationFK_DiscountPercents_DiscountDocuments_DiscountDocumentId = new global::System.Data.DataRelation("FK_DiscountPercents_DiscountDocuments_DiscountDocumentId", new global::System.Data.DataColumn[] {
+                        this.tableDiscountDocuments.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableDiscountPercents.DiscountDocumentIdColumn}, false);
+            this.Relations.Add(this.relationFK_DiscountPercents_DiscountDocuments_DiscountDocumentId);
+            this.relationFK_Locations_Streets_StreetId = new global::System.Data.DataRelation("FK_Locations_Streets_StreetId", new global::System.Data.DataColumn[] {
+                        this.tableStreets.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableLocations.StreetIdColumn}, false);
+            this.Relations.Add(this.relationFK_Locations_Streets_StreetId);
+            this.relationFK_PaymentDocuments_Accounts_AccountId = new global::System.Data.DataRelation("FK_PaymentDocuments_Accounts_AccountId", new global::System.Data.DataColumn[] {
                         this.tableAccounts.IdColumn}, new global::System.Data.DataColumn[] {
-                        this.tablePaymentDocuments.AccountEntityIdColumn}, false);
-            this.Relations.Add(this.relationFK_PaymentDocuments_Accounts_AccountEntityId);
+                        this.tablePaymentDocuments.AccountIdColumn}, false);
+            this.Relations.Add(this.relationFK_PaymentDocuments_Accounts_AccountId);
+            this.relationFK_RateDescriptions_RateDocuments_RateDocumentId = new global::System.Data.DataRelation("FK_RateDescriptions_RateDocuments_RateDocumentId", new global::System.Data.DataColumn[] {
+                        this.tableRateDocuments.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableRateDescriptions.RateDocumentIdColumn}, false);
+            this.Relations.Add(this.relationFK_RateDescriptions_RateDocuments_RateDocumentId);
+            this.relationFK_RateDocuments_Streets_StreetId = new global::System.Data.DataRelation("FK_RateDocuments_Streets_StreetId", new global::System.Data.DataColumn[] {
+                        this.tableStreets.IdColumn}, new global::System.Data.DataColumn[] {
+                        this.tableRateDocuments.StreetIdColumn}, false);
+            this.Relations.Add(this.relationFK_RateDocuments_Streets_StreetId);
             this.relationFK_Streets_Districts_DistrictId = new global::System.Data.DataRelation("FK_Streets_Districts_DistrictId", new global::System.Data.DataColumn[] {
                         this.tableDistricts.IdColumn}, new global::System.Data.DataColumn[] {
                         this.tableStreets.DistrictIdColumn}, false);
@@ -336,6 +501,24 @@ namespace BookKeeper.UI {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializeAccounts() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeDiscountDescriptions() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeDiscountDocuments() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeDiscountPercents() {
             return false;
         }
         
@@ -354,6 +537,18 @@ namespace BookKeeper.UI {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializePaymentDocuments() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeRateDescriptions() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeRateDocuments() {
             return false;
         }
         
@@ -422,6 +617,15 @@ namespace BookKeeper.UI {
         public delegate void AccountsRowChangeEventHandler(object sender, AccountsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void DiscountDescriptionsRowChangeEventHandler(object sender, DiscountDescriptionsRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void DiscountDocumentsRowChangeEventHandler(object sender, DiscountDocumentsRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void DiscountPercentsRowChangeEventHandler(object sender, DiscountPercentsRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void DistrictsRowChangeEventHandler(object sender, DistrictsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -429,6 +633,12 @@ namespace BookKeeper.UI {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void PaymentDocumentsRowChangeEventHandler(object sender, PaymentDocumentsRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void RateDescriptionsRowChangeEventHandler(object sender, RateDescriptionsRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void RateDocumentsRowChangeEventHandler(object sender, RateDocumentsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void StreetsRowChangeEventHandler(object sender, StreetsRowChangeEvent e);
@@ -448,7 +658,9 @@ namespace BookKeeper.UI {
             
             private global::System.Data.DataColumn columnIsDeleted;
             
-            private global::System.Data.DataColumn columnPersonalAccount;
+            private global::System.Data.DataColumn columnStreetId;
+            
+            private global::System.Data.DataColumn columnAccount;
             
             private global::System.Data.DataColumn columnAccountCreationDate;
             
@@ -457,8 +669,6 @@ namespace BookKeeper.UI {
             private global::System.Data.DataColumn columnIsEmpty;
             
             private global::System.Data.DataColumn columnIsArchive;
-            
-            private global::System.Data.DataColumn columnAddressId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -527,9 +737,17 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PersonalAccountColumn {
+            public global::System.Data.DataColumn StreetIdColumn {
                 get {
-                    return this.columnPersonalAccount;
+                    return this.columnStreetId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn AccountColumn {
+                get {
+                    return this.columnAccount;
                 }
             }
             
@@ -562,14 +780,6 @@ namespace BookKeeper.UI {
             public global::System.Data.DataColumn IsArchiveColumn {
                 get {
                     return this.columnIsArchive;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn AddressIdColumn {
-                get {
-                    return this.columnAddressId;
                 }
             }
             
@@ -610,19 +820,19 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public AccountsRow AddAccountsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, long PersonalAccount, System.DateTime AccountCreationDate, int AccountType, bool IsEmpty, bool IsArchive, int AddressId) {
+            public AccountsRow AddAccountsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int StreetId, long Account, System.DateTime AccountCreationDate, int AccountType, bool IsEmpty, bool IsArchive) {
                 AccountsRow rowAccountsRow = ((AccountsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         CreatedDate,
                         LastSaveDate,
                         IsDeleted,
-                        PersonalAccount,
+                        StreetId,
+                        Account,
                         AccountCreationDate,
                         AccountType,
                         IsEmpty,
-                        IsArchive,
-                        AddressId};
+                        IsArchive};
                 rowAccountsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowAccountsRow);
                 return rowAccountsRow;
@@ -656,12 +866,12 @@ namespace BookKeeper.UI {
                 this.columnCreatedDate = base.Columns["CreatedDate"];
                 this.columnLastSaveDate = base.Columns["LastSaveDate"];
                 this.columnIsDeleted = base.Columns["IsDeleted"];
-                this.columnPersonalAccount = base.Columns["PersonalAccount"];
+                this.columnStreetId = base.Columns["StreetId"];
+                this.columnAccount = base.Columns["Account"];
                 this.columnAccountCreationDate = base.Columns["AccountCreationDate"];
                 this.columnAccountType = base.Columns["AccountType"];
                 this.columnIsEmpty = base.Columns["IsEmpty"];
                 this.columnIsArchive = base.Columns["IsArchive"];
-                this.columnAddressId = base.Columns["AddressId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -675,8 +885,10 @@ namespace BookKeeper.UI {
                 base.Columns.Add(this.columnLastSaveDate);
                 this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsDeleted);
-                this.columnPersonalAccount = new global::System.Data.DataColumn("PersonalAccount", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPersonalAccount);
+                this.columnStreetId = new global::System.Data.DataColumn("StreetId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStreetId);
+                this.columnAccount = new global::System.Data.DataColumn("Account", typeof(long), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAccount);
                 this.columnAccountCreationDate = new global::System.Data.DataColumn("AccountCreationDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAccountCreationDate);
                 this.columnAccountType = new global::System.Data.DataColumn("AccountType", typeof(int), null, global::System.Data.MappingType.Element);
@@ -685,8 +897,6 @@ namespace BookKeeper.UI {
                 base.Columns.Add(this.columnIsEmpty);
                 this.columnIsArchive = new global::System.Data.DataColumn("IsArchive", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsArchive);
-                this.columnAddressId = new global::System.Data.DataColumn("AddressId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAddressId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -698,12 +908,12 @@ namespace BookKeeper.UI {
                 this.columnCreatedDate.AllowDBNull = false;
                 this.columnLastSaveDate.AllowDBNull = false;
                 this.columnIsDeleted.AllowDBNull = false;
-                this.columnPersonalAccount.AllowDBNull = false;
+                this.columnStreetId.AllowDBNull = false;
+                this.columnAccount.AllowDBNull = false;
                 this.columnAccountCreationDate.AllowDBNull = false;
                 this.columnAccountType.AllowDBNull = false;
                 this.columnIsEmpty.AllowDBNull = false;
                 this.columnIsArchive.AllowDBNull = false;
-                this.columnAddressId.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -790,6 +1000,1071 @@ namespace BookKeeper.UI {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "AccountsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class DiscountDescriptionsDataTable : global::System.Data.TypedTableBase<DiscountDescriptionsRow> {
+            
+            private global::System.Data.DataColumn columnId;
+            
+            private global::System.Data.DataColumn columnCreatedDate;
+            
+            private global::System.Data.DataColumn columnLastSaveDate;
+            
+            private global::System.Data.DataColumn columnIsDeleted;
+            
+            private global::System.Data.DataColumn columnDiscountDocumentId;
+            
+            private global::System.Data.DataColumn columnDescription;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDescriptionsDataTable() {
+                this.TableName = "DiscountDescriptions";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal DiscountDescriptionsDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected DiscountDescriptionsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CreatedDateColumn {
+                get {
+                    return this.columnCreatedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LastSaveDateColumn {
+                get {
+                    return this.columnLastSaveDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IsDeletedColumn {
+                get {
+                    return this.columnIsDeleted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DiscountDocumentIdColumn {
+                get {
+                    return this.columnDiscountDocumentId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DescriptionColumn {
+                get {
+                    return this.columnDescription;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDescriptionsRow this[int index] {
+                get {
+                    return ((DiscountDescriptionsRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountDescriptionsRowChangeEventHandler DiscountDescriptionsRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountDescriptionsRowChangeEventHandler DiscountDescriptionsRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountDescriptionsRowChangeEventHandler DiscountDescriptionsRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountDescriptionsRowChangeEventHandler DiscountDescriptionsRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddDiscountDescriptionsRow(DiscountDescriptionsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDescriptionsRow AddDiscountDescriptionsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, DiscountDocumentsRow parentDiscountDocumentsRowByFK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId, string Description) {
+                DiscountDescriptionsRow rowDiscountDescriptionsRow = ((DiscountDescriptionsRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        CreatedDate,
+                        LastSaveDate,
+                        IsDeleted,
+                        null,
+                        Description};
+                if ((parentDiscountDocumentsRowByFK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId != null)) {
+                    columnValuesArray[4] = parentDiscountDocumentsRowByFK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId[0];
+                }
+                rowDiscountDescriptionsRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDiscountDescriptionsRow);
+                return rowDiscountDescriptionsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDescriptionsRow FindById(int Id) {
+                return ((DiscountDescriptionsRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                DiscountDescriptionsDataTable cln = ((DiscountDescriptionsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new DiscountDescriptionsDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnId = base.Columns["Id"];
+                this.columnCreatedDate = base.Columns["CreatedDate"];
+                this.columnLastSaveDate = base.Columns["LastSaveDate"];
+                this.columnIsDeleted = base.Columns["IsDeleted"];
+                this.columnDiscountDocumentId = base.Columns["DiscountDocumentId"];
+                this.columnDescription = base.Columns["Description"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnCreatedDate = new global::System.Data.DataColumn("CreatedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCreatedDate);
+                this.columnLastSaveDate = new global::System.Data.DataColumn("LastSaveDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLastSaveDate);
+                this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsDeleted);
+                this.columnDiscountDocumentId = new global::System.Data.DataColumn("DiscountDocumentId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDiscountDocumentId);
+                this.columnDescription = new global::System.Data.DataColumn("Description", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescription);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnCreatedDate.AllowDBNull = false;
+                this.columnLastSaveDate.AllowDBNull = false;
+                this.columnIsDeleted.AllowDBNull = false;
+                this.columnDiscountDocumentId.AllowDBNull = false;
+                this.columnDescription.MaxLength = 2147483647;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDescriptionsRow NewDiscountDescriptionsRow() {
+                return ((DiscountDescriptionsRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new DiscountDescriptionsRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(DiscountDescriptionsRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.DiscountDescriptionsRowChanged != null)) {
+                    this.DiscountDescriptionsRowChanged(this, new DiscountDescriptionsRowChangeEvent(((DiscountDescriptionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.DiscountDescriptionsRowChanging != null)) {
+                    this.DiscountDescriptionsRowChanging(this, new DiscountDescriptionsRowChangeEvent(((DiscountDescriptionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.DiscountDescriptionsRowDeleted != null)) {
+                    this.DiscountDescriptionsRowDeleted(this, new DiscountDescriptionsRowChangeEvent(((DiscountDescriptionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.DiscountDescriptionsRowDeleting != null)) {
+                    this.DiscountDescriptionsRowDeleting(this, new DiscountDescriptionsRowChangeEvent(((DiscountDescriptionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveDiscountDescriptionsRow(DiscountDescriptionsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                BookKeepingDataSet ds = new BookKeepingDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "DiscountDescriptionsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class DiscountDocumentsDataTable : global::System.Data.TypedTableBase<DiscountDocumentsRow> {
+            
+            private global::System.Data.DataColumn columnId;
+            
+            private global::System.Data.DataColumn columnCreatedDate;
+            
+            private global::System.Data.DataColumn columnLastSaveDate;
+            
+            private global::System.Data.DataColumn columnIsDeleted;
+            
+            private global::System.Data.DataColumn columnStreetId;
+            
+            private global::System.Data.DataColumn columnType;
+            
+            private global::System.Data.DataColumn columnStartDate;
+            
+            private global::System.Data.DataColumn columnEndDate;
+            
+            private global::System.Data.DataColumn columnDiscountPercent;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsDataTable() {
+                this.TableName = "DiscountDocuments";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal DiscountDocumentsDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected DiscountDocumentsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CreatedDateColumn {
+                get {
+                    return this.columnCreatedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LastSaveDateColumn {
+                get {
+                    return this.columnLastSaveDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IsDeletedColumn {
+                get {
+                    return this.columnIsDeleted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn StreetIdColumn {
+                get {
+                    return this.columnStreetId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn TypeColumn {
+                get {
+                    return this.columnType;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn StartDateColumn {
+                get {
+                    return this.columnStartDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn EndDateColumn {
+                get {
+                    return this.columnEndDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DiscountPercentColumn {
+                get {
+                    return this.columnDiscountPercent;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsRow this[int index] {
+                get {
+                    return ((DiscountDocumentsRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountDocumentsRowChangeEventHandler DiscountDocumentsRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountDocumentsRowChangeEventHandler DiscountDocumentsRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountDocumentsRowChangeEventHandler DiscountDocumentsRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountDocumentsRowChangeEventHandler DiscountDocumentsRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddDiscountDocumentsRow(DiscountDocumentsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsRow AddDiscountDocumentsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, StreetsRow parentStreetsRowByFK_DiscountDocuments_Streets_StreetId, int Type, System.DateTime StartDate, System.DateTime EndDate, decimal DiscountPercent) {
+                DiscountDocumentsRow rowDiscountDocumentsRow = ((DiscountDocumentsRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        CreatedDate,
+                        LastSaveDate,
+                        IsDeleted,
+                        null,
+                        Type,
+                        StartDate,
+                        EndDate,
+                        DiscountPercent};
+                if ((parentStreetsRowByFK_DiscountDocuments_Streets_StreetId != null)) {
+                    columnValuesArray[4] = parentStreetsRowByFK_DiscountDocuments_Streets_StreetId[0];
+                }
+                rowDiscountDocumentsRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDiscountDocumentsRow);
+                return rowDiscountDocumentsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsRow FindById(int Id) {
+                return ((DiscountDocumentsRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                DiscountDocumentsDataTable cln = ((DiscountDocumentsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new DiscountDocumentsDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnId = base.Columns["Id"];
+                this.columnCreatedDate = base.Columns["CreatedDate"];
+                this.columnLastSaveDate = base.Columns["LastSaveDate"];
+                this.columnIsDeleted = base.Columns["IsDeleted"];
+                this.columnStreetId = base.Columns["StreetId"];
+                this.columnType = base.Columns["Type"];
+                this.columnStartDate = base.Columns["StartDate"];
+                this.columnEndDate = base.Columns["EndDate"];
+                this.columnDiscountPercent = base.Columns["DiscountPercent"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnCreatedDate = new global::System.Data.DataColumn("CreatedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCreatedDate);
+                this.columnLastSaveDate = new global::System.Data.DataColumn("LastSaveDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLastSaveDate);
+                this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsDeleted);
+                this.columnStreetId = new global::System.Data.DataColumn("StreetId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStreetId);
+                this.columnType = new global::System.Data.DataColumn("Type", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnType);
+                this.columnStartDate = new global::System.Data.DataColumn("StartDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStartDate);
+                this.columnEndDate = new global::System.Data.DataColumn("EndDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEndDate);
+                this.columnDiscountPercent = new global::System.Data.DataColumn("DiscountPercent", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDiscountPercent);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnCreatedDate.AllowDBNull = false;
+                this.columnLastSaveDate.AllowDBNull = false;
+                this.columnIsDeleted.AllowDBNull = false;
+                this.columnStreetId.AllowDBNull = false;
+                this.columnType.AllowDBNull = false;
+                this.columnStartDate.AllowDBNull = false;
+                this.columnEndDate.AllowDBNull = false;
+                this.columnDiscountPercent.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsRow NewDiscountDocumentsRow() {
+                return ((DiscountDocumentsRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new DiscountDocumentsRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(DiscountDocumentsRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.DiscountDocumentsRowChanged != null)) {
+                    this.DiscountDocumentsRowChanged(this, new DiscountDocumentsRowChangeEvent(((DiscountDocumentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.DiscountDocumentsRowChanging != null)) {
+                    this.DiscountDocumentsRowChanging(this, new DiscountDocumentsRowChangeEvent(((DiscountDocumentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.DiscountDocumentsRowDeleted != null)) {
+                    this.DiscountDocumentsRowDeleted(this, new DiscountDocumentsRowChangeEvent(((DiscountDocumentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.DiscountDocumentsRowDeleting != null)) {
+                    this.DiscountDocumentsRowDeleting(this, new DiscountDocumentsRowChangeEvent(((DiscountDocumentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveDiscountDocumentsRow(DiscountDocumentsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                BookKeepingDataSet ds = new BookKeepingDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "DiscountDocumentsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class DiscountPercentsDataTable : global::System.Data.TypedTableBase<DiscountPercentsRow> {
+            
+            private global::System.Data.DataColumn columnId;
+            
+            private global::System.Data.DataColumn columnCreatedDate;
+            
+            private global::System.Data.DataColumn columnLastSaveDate;
+            
+            private global::System.Data.DataColumn columnIsDeleted;
+            
+            private global::System.Data.DataColumn columnDiscountDocumentId;
+            
+            private global::System.Data.DataColumn columnPercent;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountPercentsDataTable() {
+                this.TableName = "DiscountPercents";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal DiscountPercentsDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected DiscountPercentsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CreatedDateColumn {
+                get {
+                    return this.columnCreatedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LastSaveDateColumn {
+                get {
+                    return this.columnLastSaveDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IsDeletedColumn {
+                get {
+                    return this.columnIsDeleted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DiscountDocumentIdColumn {
+                get {
+                    return this.columnDiscountDocumentId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PercentColumn {
+                get {
+                    return this.columnPercent;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountPercentsRow this[int index] {
+                get {
+                    return ((DiscountPercentsRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountPercentsRowChangeEventHandler DiscountPercentsRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountPercentsRowChangeEventHandler DiscountPercentsRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountPercentsRowChangeEventHandler DiscountPercentsRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event DiscountPercentsRowChangeEventHandler DiscountPercentsRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddDiscountPercentsRow(DiscountPercentsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountPercentsRow AddDiscountPercentsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, DiscountDocumentsRow parentDiscountDocumentsRowByFK_DiscountPercents_DiscountDocuments_DiscountDocumentId, decimal Percent) {
+                DiscountPercentsRow rowDiscountPercentsRow = ((DiscountPercentsRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        CreatedDate,
+                        LastSaveDate,
+                        IsDeleted,
+                        null,
+                        Percent};
+                if ((parentDiscountDocumentsRowByFK_DiscountPercents_DiscountDocuments_DiscountDocumentId != null)) {
+                    columnValuesArray[4] = parentDiscountDocumentsRowByFK_DiscountPercents_DiscountDocuments_DiscountDocumentId[0];
+                }
+                rowDiscountPercentsRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowDiscountPercentsRow);
+                return rowDiscountPercentsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountPercentsRow FindById(int Id) {
+                return ((DiscountPercentsRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                DiscountPercentsDataTable cln = ((DiscountPercentsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new DiscountPercentsDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnId = base.Columns["Id"];
+                this.columnCreatedDate = base.Columns["CreatedDate"];
+                this.columnLastSaveDate = base.Columns["LastSaveDate"];
+                this.columnIsDeleted = base.Columns["IsDeleted"];
+                this.columnDiscountDocumentId = base.Columns["DiscountDocumentId"];
+                this.columnPercent = base.Columns["Percent"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnCreatedDate = new global::System.Data.DataColumn("CreatedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCreatedDate);
+                this.columnLastSaveDate = new global::System.Data.DataColumn("LastSaveDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLastSaveDate);
+                this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsDeleted);
+                this.columnDiscountDocumentId = new global::System.Data.DataColumn("DiscountDocumentId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDiscountDocumentId);
+                this.columnPercent = new global::System.Data.DataColumn("Percent", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPercent);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnCreatedDate.AllowDBNull = false;
+                this.columnLastSaveDate.AllowDBNull = false;
+                this.columnIsDeleted.AllowDBNull = false;
+                this.columnDiscountDocumentId.AllowDBNull = false;
+                this.columnPercent.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountPercentsRow NewDiscountPercentsRow() {
+                return ((DiscountPercentsRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new DiscountPercentsRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(DiscountPercentsRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.DiscountPercentsRowChanged != null)) {
+                    this.DiscountPercentsRowChanged(this, new DiscountPercentsRowChangeEvent(((DiscountPercentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.DiscountPercentsRowChanging != null)) {
+                    this.DiscountPercentsRowChanging(this, new DiscountPercentsRowChangeEvent(((DiscountPercentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.DiscountPercentsRowDeleted != null)) {
+                    this.DiscountPercentsRowDeleted(this, new DiscountPercentsRowChangeEvent(((DiscountPercentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.DiscountPercentsRowDeleting != null)) {
+                    this.DiscountPercentsRowDeleting(this, new DiscountPercentsRowChangeEvent(((DiscountPercentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveDiscountPercentsRow(DiscountPercentsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                BookKeepingDataSet ds = new BookKeepingDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "DiscountPercentsDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -1182,13 +2457,13 @@ namespace BookKeeper.UI {
             
             private global::System.Data.DataColumn columnIsDeleted;
             
+            private global::System.Data.DataColumn columnStreetId;
+            
             private global::System.Data.DataColumn columnHouseNumber;
             
             private global::System.Data.DataColumn columnBuildingCorpus;
             
             private global::System.Data.DataColumn columnApartmentNumber;
-            
-            private global::System.Data.DataColumn columnAddressId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -1257,6 +2532,14 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn StreetIdColumn {
+                get {
+                    return this.columnStreetId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public global::System.Data.DataColumn HouseNumberColumn {
                 get {
                     return this.columnHouseNumber;
@@ -1276,14 +2559,6 @@ namespace BookKeeper.UI {
             public global::System.Data.DataColumn ApartmentNumberColumn {
                 get {
                     return this.columnApartmentNumber;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn AddressIdColumn {
-                get {
-                    return this.columnAddressId;
                 }
             }
             
@@ -1324,19 +2599,19 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public LocationsRow AddLocationsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, string HouseNumber, string BuildingCorpus, string ApartmentNumber, StreetsRow parentStreetsRowByFK_Locations_Streets_AddressId) {
+            public LocationsRow AddLocationsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, StreetsRow parentStreetsRowByFK_Locations_Streets_StreetId, string HouseNumber, string BuildingCorpus, string ApartmentNumber) {
                 LocationsRow rowLocationsRow = ((LocationsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         CreatedDate,
                         LastSaveDate,
                         IsDeleted,
+                        null,
                         HouseNumber,
                         BuildingCorpus,
-                        ApartmentNumber,
-                        null};
-                if ((parentStreetsRowByFK_Locations_Streets_AddressId != null)) {
-                    columnValuesArray[7] = parentStreetsRowByFK_Locations_Streets_AddressId[0];
+                        ApartmentNumber};
+                if ((parentStreetsRowByFK_Locations_Streets_StreetId != null)) {
+                    columnValuesArray[4] = parentStreetsRowByFK_Locations_Streets_StreetId[0];
                 }
                 rowLocationsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowLocationsRow);
@@ -1371,10 +2646,10 @@ namespace BookKeeper.UI {
                 this.columnCreatedDate = base.Columns["CreatedDate"];
                 this.columnLastSaveDate = base.Columns["LastSaveDate"];
                 this.columnIsDeleted = base.Columns["IsDeleted"];
+                this.columnStreetId = base.Columns["StreetId"];
                 this.columnHouseNumber = base.Columns["HouseNumber"];
                 this.columnBuildingCorpus = base.Columns["BuildingCorpus"];
                 this.columnApartmentNumber = base.Columns["ApartmentNumber"];
-                this.columnAddressId = base.Columns["AddressId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1388,14 +2663,14 @@ namespace BookKeeper.UI {
                 base.Columns.Add(this.columnLastSaveDate);
                 this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsDeleted);
+                this.columnStreetId = new global::System.Data.DataColumn("StreetId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStreetId);
                 this.columnHouseNumber = new global::System.Data.DataColumn("HouseNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnHouseNumber);
                 this.columnBuildingCorpus = new global::System.Data.DataColumn("BuildingCorpus", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnBuildingCorpus);
                 this.columnApartmentNumber = new global::System.Data.DataColumn("ApartmentNumber", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnApartmentNumber);
-                this.columnAddressId = new global::System.Data.DataColumn("AddressId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAddressId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1407,10 +2682,10 @@ namespace BookKeeper.UI {
                 this.columnCreatedDate.AllowDBNull = false;
                 this.columnLastSaveDate.AllowDBNull = false;
                 this.columnIsDeleted.AllowDBNull = false;
+                this.columnStreetId.AllowDBNull = false;
                 this.columnHouseNumber.MaxLength = 2147483647;
                 this.columnBuildingCorpus.MaxLength = 2147483647;
                 this.columnApartmentNumber.MaxLength = 2147483647;
-                this.columnAddressId.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1552,19 +2827,13 @@ namespace BookKeeper.UI {
             
             private global::System.Data.DataColumn columnIsDeleted;
             
-            private global::System.Data.DataColumn columnApartmentNumber;
-            
-            private global::System.Data.DataColumn columnPersonalAccount;
+            private global::System.Data.DataColumn columnAccountId;
             
             private global::System.Data.DataColumn columnAccrued;
             
             private global::System.Data.DataColumn columnReceived;
             
             private global::System.Data.DataColumn columnPaymentDate;
-            
-            private global::System.Data.DataColumn columnAccountId;
-            
-            private global::System.Data.DataColumn columnAccountEntityId;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -1633,17 +2902,9 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ApartmentNumberColumn {
+            public global::System.Data.DataColumn AccountIdColumn {
                 get {
-                    return this.columnApartmentNumber;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn PersonalAccountColumn {
-                get {
-                    return this.columnPersonalAccount;
+                    return this.columnAccountId;
                 }
             }
             
@@ -1668,22 +2929,6 @@ namespace BookKeeper.UI {
             public global::System.Data.DataColumn PaymentDateColumn {
                 get {
                     return this.columnPaymentDate;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn AccountIdColumn {
-                get {
-                    return this.columnAccountId;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn AccountEntityIdColumn {
-                get {
-                    return this.columnAccountEntityId;
                 }
             }
             
@@ -1724,22 +2969,19 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public PaymentDocumentsRow AddPaymentDocumentsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, string ApartmentNumber, long PersonalAccount, decimal Accrued, decimal Received, System.DateTime PaymentDate, int AccountId, AccountsRow parentAccountsRowByFK_PaymentDocuments_Accounts_AccountEntityId) {
+            public PaymentDocumentsRow AddPaymentDocumentsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, AccountsRow parentAccountsRowByFK_PaymentDocuments_Accounts_AccountId, decimal Accrued, decimal Received, System.DateTime PaymentDate) {
                 PaymentDocumentsRow rowPaymentDocumentsRow = ((PaymentDocumentsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         CreatedDate,
                         LastSaveDate,
                         IsDeleted,
-                        ApartmentNumber,
-                        PersonalAccount,
+                        null,
                         Accrued,
                         Received,
-                        PaymentDate,
-                        AccountId,
-                        null};
-                if ((parentAccountsRowByFK_PaymentDocuments_Accounts_AccountEntityId != null)) {
-                    columnValuesArray[10] = parentAccountsRowByFK_PaymentDocuments_Accounts_AccountEntityId[0];
+                        PaymentDate};
+                if ((parentAccountsRowByFK_PaymentDocuments_Accounts_AccountId != null)) {
+                    columnValuesArray[4] = parentAccountsRowByFK_PaymentDocuments_Accounts_AccountId[0];
                 }
                 rowPaymentDocumentsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowPaymentDocumentsRow);
@@ -1774,13 +3016,10 @@ namespace BookKeeper.UI {
                 this.columnCreatedDate = base.Columns["CreatedDate"];
                 this.columnLastSaveDate = base.Columns["LastSaveDate"];
                 this.columnIsDeleted = base.Columns["IsDeleted"];
-                this.columnApartmentNumber = base.Columns["ApartmentNumber"];
-                this.columnPersonalAccount = base.Columns["PersonalAccount"];
+                this.columnAccountId = base.Columns["AccountId"];
                 this.columnAccrued = base.Columns["Accrued"];
                 this.columnReceived = base.Columns["Received"];
                 this.columnPaymentDate = base.Columns["PaymentDate"];
-                this.columnAccountId = base.Columns["AccountId"];
-                this.columnAccountEntityId = base.Columns["AccountEntityId"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1794,20 +3033,14 @@ namespace BookKeeper.UI {
                 base.Columns.Add(this.columnLastSaveDate);
                 this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnIsDeleted);
-                this.columnApartmentNumber = new global::System.Data.DataColumn("ApartmentNumber", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnApartmentNumber);
-                this.columnPersonalAccount = new global::System.Data.DataColumn("PersonalAccount", typeof(long), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnPersonalAccount);
+                this.columnAccountId = new global::System.Data.DataColumn("AccountId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAccountId);
                 this.columnAccrued = new global::System.Data.DataColumn("Accrued", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAccrued);
                 this.columnReceived = new global::System.Data.DataColumn("Received", typeof(decimal), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnReceived);
                 this.columnPaymentDate = new global::System.Data.DataColumn("PaymentDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnPaymentDate);
-                this.columnAccountId = new global::System.Data.DataColumn("AccountId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAccountId);
-                this.columnAccountEntityId = new global::System.Data.DataColumn("AccountEntityId", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnAccountEntityId);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnId}, true));
                 this.columnId.AutoIncrement = true;
@@ -1819,12 +3052,10 @@ namespace BookKeeper.UI {
                 this.columnCreatedDate.AllowDBNull = false;
                 this.columnLastSaveDate.AllowDBNull = false;
                 this.columnIsDeleted.AllowDBNull = false;
-                this.columnApartmentNumber.MaxLength = 2147483647;
-                this.columnPersonalAccount.AllowDBNull = false;
+                this.columnAccountId.AllowDBNull = false;
                 this.columnAccrued.AllowDBNull = false;
                 this.columnReceived.AllowDBNull = false;
                 this.columnPaymentDate.AllowDBNull = false;
-                this.columnAccountId.AllowDBNull = false;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1911,6 +3142,761 @@ namespace BookKeeper.UI {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "PaymentDocumentsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class RateDescriptionsDataTable : global::System.Data.TypedTableBase<RateDescriptionsRow> {
+            
+            private global::System.Data.DataColumn columnId;
+            
+            private global::System.Data.DataColumn columnCreatedDate;
+            
+            private global::System.Data.DataColumn columnLastSaveDate;
+            
+            private global::System.Data.DataColumn columnIsDeleted;
+            
+            private global::System.Data.DataColumn columnRateDocumentId;
+            
+            private global::System.Data.DataColumn columnDescription;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDescriptionsDataTable() {
+                this.TableName = "RateDescriptions";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal RateDescriptionsDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected RateDescriptionsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CreatedDateColumn {
+                get {
+                    return this.columnCreatedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LastSaveDateColumn {
+                get {
+                    return this.columnLastSaveDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IsDeletedColumn {
+                get {
+                    return this.columnIsDeleted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RateDocumentIdColumn {
+                get {
+                    return this.columnRateDocumentId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DescriptionColumn {
+                get {
+                    return this.columnDescription;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDescriptionsRow this[int index] {
+                get {
+                    return ((RateDescriptionsRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event RateDescriptionsRowChangeEventHandler RateDescriptionsRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event RateDescriptionsRowChangeEventHandler RateDescriptionsRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event RateDescriptionsRowChangeEventHandler RateDescriptionsRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event RateDescriptionsRowChangeEventHandler RateDescriptionsRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddRateDescriptionsRow(RateDescriptionsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDescriptionsRow AddRateDescriptionsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, RateDocumentsRow parentRateDocumentsRowByFK_RateDescriptions_RateDocuments_RateDocumentId, string Description) {
+                RateDescriptionsRow rowRateDescriptionsRow = ((RateDescriptionsRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        CreatedDate,
+                        LastSaveDate,
+                        IsDeleted,
+                        null,
+                        Description};
+                if ((parentRateDocumentsRowByFK_RateDescriptions_RateDocuments_RateDocumentId != null)) {
+                    columnValuesArray[4] = parentRateDocumentsRowByFK_RateDescriptions_RateDocuments_RateDocumentId[0];
+                }
+                rowRateDescriptionsRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowRateDescriptionsRow);
+                return rowRateDescriptionsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDescriptionsRow FindById(int Id) {
+                return ((RateDescriptionsRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                RateDescriptionsDataTable cln = ((RateDescriptionsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new RateDescriptionsDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnId = base.Columns["Id"];
+                this.columnCreatedDate = base.Columns["CreatedDate"];
+                this.columnLastSaveDate = base.Columns["LastSaveDate"];
+                this.columnIsDeleted = base.Columns["IsDeleted"];
+                this.columnRateDocumentId = base.Columns["RateDocumentId"];
+                this.columnDescription = base.Columns["Description"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnCreatedDate = new global::System.Data.DataColumn("CreatedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCreatedDate);
+                this.columnLastSaveDate = new global::System.Data.DataColumn("LastSaveDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLastSaveDate);
+                this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsDeleted);
+                this.columnRateDocumentId = new global::System.Data.DataColumn("RateDocumentId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRateDocumentId);
+                this.columnDescription = new global::System.Data.DataColumn("Description", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDescription);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnCreatedDate.AllowDBNull = false;
+                this.columnLastSaveDate.AllowDBNull = false;
+                this.columnIsDeleted.AllowDBNull = false;
+                this.columnRateDocumentId.AllowDBNull = false;
+                this.columnDescription.MaxLength = 2147483647;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDescriptionsRow NewRateDescriptionsRow() {
+                return ((RateDescriptionsRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new RateDescriptionsRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(RateDescriptionsRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.RateDescriptionsRowChanged != null)) {
+                    this.RateDescriptionsRowChanged(this, new RateDescriptionsRowChangeEvent(((RateDescriptionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.RateDescriptionsRowChanging != null)) {
+                    this.RateDescriptionsRowChanging(this, new RateDescriptionsRowChangeEvent(((RateDescriptionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.RateDescriptionsRowDeleted != null)) {
+                    this.RateDescriptionsRowDeleted(this, new RateDescriptionsRowChangeEvent(((RateDescriptionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.RateDescriptionsRowDeleting != null)) {
+                    this.RateDescriptionsRowDeleting(this, new RateDescriptionsRowChangeEvent(((RateDescriptionsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveRateDescriptionsRow(RateDescriptionsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                BookKeepingDataSet ds = new BookKeepingDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "RateDescriptionsDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class RateDocumentsDataTable : global::System.Data.TypedTableBase<RateDocumentsRow> {
+            
+            private global::System.Data.DataColumn columnId;
+            
+            private global::System.Data.DataColumn columnCreatedDate;
+            
+            private global::System.Data.DataColumn columnLastSaveDate;
+            
+            private global::System.Data.DataColumn columnIsDeleted;
+            
+            private global::System.Data.DataColumn columnStreetId;
+            
+            private global::System.Data.DataColumn columnDefaultPrice;
+            
+            private global::System.Data.DataColumn columnPrice;
+            
+            private global::System.Data.DataColumn columnIsDefault;
+            
+            private global::System.Data.DataColumn columnRateRegisterDate;
+            
+            private global::System.Data.DataColumn columnStartDate;
+            
+            private global::System.Data.DataColumn columnEndDate;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDocumentsDataTable() {
+                this.TableName = "RateDocuments";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal RateDocumentsDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected RateDocumentsDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IdColumn {
+                get {
+                    return this.columnId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn CreatedDateColumn {
+                get {
+                    return this.columnCreatedDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn LastSaveDateColumn {
+                get {
+                    return this.columnLastSaveDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IsDeletedColumn {
+                get {
+                    return this.columnIsDeleted;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn StreetIdColumn {
+                get {
+                    return this.columnStreetId;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DefaultPriceColumn {
+                get {
+                    return this.columnDefaultPrice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn PriceColumn {
+                get {
+                    return this.columnPrice;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IsDefaultColumn {
+                get {
+                    return this.columnIsDefault;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn RateRegisterDateColumn {
+                get {
+                    return this.columnRateRegisterDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn StartDateColumn {
+                get {
+                    return this.columnStartDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn EndDateColumn {
+                get {
+                    return this.columnEndDate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDocumentsRow this[int index] {
+                get {
+                    return ((RateDocumentsRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event RateDocumentsRowChangeEventHandler RateDocumentsRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event RateDocumentsRowChangeEventHandler RateDocumentsRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event RateDocumentsRowChangeEventHandler RateDocumentsRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event RateDocumentsRowChangeEventHandler RateDocumentsRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddRateDocumentsRow(RateDocumentsRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDocumentsRow AddRateDocumentsRow(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, StreetsRow parentStreetsRowByFK_RateDocuments_Streets_StreetId, decimal DefaultPrice, decimal Price, bool IsDefault, System.DateTime RateRegisterDate, System.DateTime StartDate, System.DateTime EndDate) {
+                RateDocumentsRow rowRateDocumentsRow = ((RateDocumentsRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        CreatedDate,
+                        LastSaveDate,
+                        IsDeleted,
+                        null,
+                        DefaultPrice,
+                        Price,
+                        IsDefault,
+                        RateRegisterDate,
+                        StartDate,
+                        EndDate};
+                if ((parentStreetsRowByFK_RateDocuments_Streets_StreetId != null)) {
+                    columnValuesArray[4] = parentStreetsRowByFK_RateDocuments_Streets_StreetId[0];
+                }
+                rowRateDocumentsRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowRateDocumentsRow);
+                return rowRateDocumentsRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDocumentsRow FindById(int Id) {
+                return ((RateDocumentsRow)(this.Rows.Find(new object[] {
+                            Id})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                RateDocumentsDataTable cln = ((RateDocumentsDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new RateDocumentsDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnId = base.Columns["Id"];
+                this.columnCreatedDate = base.Columns["CreatedDate"];
+                this.columnLastSaveDate = base.Columns["LastSaveDate"];
+                this.columnIsDeleted = base.Columns["IsDeleted"];
+                this.columnStreetId = base.Columns["StreetId"];
+                this.columnDefaultPrice = base.Columns["DefaultPrice"];
+                this.columnPrice = base.Columns["Price"];
+                this.columnIsDefault = base.Columns["IsDefault"];
+                this.columnRateRegisterDate = base.Columns["RateRegisterDate"];
+                this.columnStartDate = base.Columns["StartDate"];
+                this.columnEndDate = base.Columns["EndDate"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnId = new global::System.Data.DataColumn("Id", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnId);
+                this.columnCreatedDate = new global::System.Data.DataColumn("CreatedDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnCreatedDate);
+                this.columnLastSaveDate = new global::System.Data.DataColumn("LastSaveDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnLastSaveDate);
+                this.columnIsDeleted = new global::System.Data.DataColumn("IsDeleted", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsDeleted);
+                this.columnStreetId = new global::System.Data.DataColumn("StreetId", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStreetId);
+                this.columnDefaultPrice = new global::System.Data.DataColumn("DefaultPrice", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDefaultPrice);
+                this.columnPrice = new global::System.Data.DataColumn("Price", typeof(decimal), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnPrice);
+                this.columnIsDefault = new global::System.Data.DataColumn("IsDefault", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnIsDefault);
+                this.columnRateRegisterDate = new global::System.Data.DataColumn("RateRegisterDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnRateRegisterDate);
+                this.columnStartDate = new global::System.Data.DataColumn("StartDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnStartDate);
+                this.columnEndDate = new global::System.Data.DataColumn("EndDate", typeof(global::System.DateTime), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnEndDate);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnId}, true));
+                this.columnId.AutoIncrement = true;
+                this.columnId.AutoIncrementSeed = -1;
+                this.columnId.AutoIncrementStep = -1;
+                this.columnId.AllowDBNull = false;
+                this.columnId.ReadOnly = true;
+                this.columnId.Unique = true;
+                this.columnCreatedDate.AllowDBNull = false;
+                this.columnLastSaveDate.AllowDBNull = false;
+                this.columnIsDeleted.AllowDBNull = false;
+                this.columnStreetId.AllowDBNull = false;
+                this.columnDefaultPrice.AllowDBNull = false;
+                this.columnPrice.AllowDBNull = false;
+                this.columnIsDefault.AllowDBNull = false;
+                this.columnRateRegisterDate.AllowDBNull = false;
+                this.columnStartDate.AllowDBNull = false;
+                this.columnEndDate.AllowDBNull = false;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDocumentsRow NewRateDocumentsRow() {
+                return ((RateDocumentsRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new RateDocumentsRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(RateDocumentsRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.RateDocumentsRowChanged != null)) {
+                    this.RateDocumentsRowChanged(this, new RateDocumentsRowChangeEvent(((RateDocumentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.RateDocumentsRowChanging != null)) {
+                    this.RateDocumentsRowChanging(this, new RateDocumentsRowChangeEvent(((RateDocumentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.RateDocumentsRowDeleted != null)) {
+                    this.RateDocumentsRowDeleted(this, new RateDocumentsRowChangeEvent(((RateDocumentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.RateDocumentsRowDeleting != null)) {
+                    this.RateDocumentsRowDeleting(this, new RateDocumentsRowChangeEvent(((RateDocumentsRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveRateDocumentsRow(RateDocumentsRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                BookKeepingDataSet ds = new BookKeepingDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "RateDocumentsDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -2351,12 +4337,23 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public long PersonalAccount {
+            public int StreetId {
                 get {
-                    return ((long)(this[this.tableAccounts.PersonalAccountColumn]));
+                    return ((int)(this[this.tableAccounts.StreetIdColumn]));
                 }
                 set {
-                    this[this.tableAccounts.PersonalAccountColumn] = value;
+                    this[this.tableAccounts.StreetIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public long Account {
+                get {
+                    return ((long)(this[this.tableAccounts.AccountColumn]));
+                }
+                set {
+                    this[this.tableAccounts.AccountColumn] = value;
                 }
             }
             
@@ -2406,23 +4403,360 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int AddressId {
+            public PaymentDocumentsRow[] GetPaymentDocumentsRows() {
+                if ((this.Table.ChildRelations["FK_PaymentDocuments_Accounts_AccountId"] == null)) {
+                    return new PaymentDocumentsRow[0];
+                }
+                else {
+                    return ((PaymentDocumentsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_PaymentDocuments_Accounts_AccountId"])));
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class DiscountDescriptionsRow : global::System.Data.DataRow {
+            
+            private DiscountDescriptionsDataTable tableDiscountDescriptions;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal DiscountDescriptionsRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDiscountDescriptions = ((DiscountDescriptionsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Id {
                 get {
-                    return ((int)(this[this.tableAccounts.AddressIdColumn]));
+                    return ((int)(this[this.tableDiscountDescriptions.IdColumn]));
                 }
                 set {
-                    this[this.tableAccounts.AddressIdColumn] = value;
+                    this[this.tableDiscountDescriptions.IdColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public PaymentDocumentsRow[] GetPaymentDocumentsRows() {
-                if ((this.Table.ChildRelations["FK_PaymentDocuments_Accounts_AccountEntityId"] == null)) {
-                    return new PaymentDocumentsRow[0];
+            public System.DateTime CreatedDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableDiscountDescriptions.CreatedDateColumn]));
+                }
+                set {
+                    this[this.tableDiscountDescriptions.CreatedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime LastSaveDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableDiscountDescriptions.LastSaveDateColumn]));
+                }
+                set {
+                    this[this.tableDiscountDescriptions.LastSaveDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDeleted {
+                get {
+                    return ((bool)(this[this.tableDiscountDescriptions.IsDeletedColumn]));
+                }
+                set {
+                    this[this.tableDiscountDescriptions.IsDeletedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int DiscountDocumentId {
+                get {
+                    return ((int)(this[this.tableDiscountDescriptions.DiscountDocumentIdColumn]));
+                }
+                set {
+                    this[this.tableDiscountDescriptions.DiscountDocumentIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Description {
+                get {
+                    try {
+                        return ((string)(this[this.tableDiscountDescriptions.DescriptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Description\' in table \'DiscountDescriptions\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDiscountDescriptions.DescriptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsRow DiscountDocumentsRow {
+                get {
+                    return ((DiscountDocumentsRow)(this.GetParentRow(this.Table.ParentRelations["FK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDescriptionNull() {
+                return this.IsNull(this.tableDiscountDescriptions.DescriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDescriptionNull() {
+                this[this.tableDiscountDescriptions.DescriptionColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class DiscountDocumentsRow : global::System.Data.DataRow {
+            
+            private DiscountDocumentsDataTable tableDiscountDocuments;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal DiscountDocumentsRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDiscountDocuments = ((DiscountDocumentsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Id {
+                get {
+                    return ((int)(this[this.tableDiscountDocuments.IdColumn]));
+                }
+                set {
+                    this[this.tableDiscountDocuments.IdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime CreatedDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableDiscountDocuments.CreatedDateColumn]));
+                }
+                set {
+                    this[this.tableDiscountDocuments.CreatedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime LastSaveDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableDiscountDocuments.LastSaveDateColumn]));
+                }
+                set {
+                    this[this.tableDiscountDocuments.LastSaveDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDeleted {
+                get {
+                    return ((bool)(this[this.tableDiscountDocuments.IsDeletedColumn]));
+                }
+                set {
+                    this[this.tableDiscountDocuments.IsDeletedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int StreetId {
+                get {
+                    return ((int)(this[this.tableDiscountDocuments.StreetIdColumn]));
+                }
+                set {
+                    this[this.tableDiscountDocuments.StreetIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Type {
+                get {
+                    return ((int)(this[this.tableDiscountDocuments.TypeColumn]));
+                }
+                set {
+                    this[this.tableDiscountDocuments.TypeColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime StartDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableDiscountDocuments.StartDateColumn]));
+                }
+                set {
+                    this[this.tableDiscountDocuments.StartDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime EndDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableDiscountDocuments.EndDateColumn]));
+                }
+                set {
+                    this[this.tableDiscountDocuments.EndDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal DiscountPercent {
+                get {
+                    return ((decimal)(this[this.tableDiscountDocuments.DiscountPercentColumn]));
+                }
+                set {
+                    this[this.tableDiscountDocuments.DiscountPercentColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public StreetsRow StreetsRow {
+                get {
+                    return ((StreetsRow)(this.GetParentRow(this.Table.ParentRelations["FK_DiscountDocuments_Streets_StreetId"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_DiscountDocuments_Streets_StreetId"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDescriptionsRow[] GetDiscountDescriptionsRows() {
+                if ((this.Table.ChildRelations["FK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId"] == null)) {
+                    return new DiscountDescriptionsRow[0];
                 }
                 else {
-                    return ((PaymentDocumentsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_PaymentDocuments_Accounts_AccountEntityId"])));
+                    return ((DiscountDescriptionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_DiscountDescriptions_DiscountDocuments_DiscountDocumentId"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountPercentsRow[] GetDiscountPercentsRows() {
+                if ((this.Table.ChildRelations["FK_DiscountPercents_DiscountDocuments_DiscountDocumentId"] == null)) {
+                    return new DiscountPercentsRow[0];
+                }
+                else {
+                    return ((DiscountPercentsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_DiscountPercents_DiscountDocuments_DiscountDocumentId"])));
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class DiscountPercentsRow : global::System.Data.DataRow {
+            
+            private DiscountPercentsDataTable tableDiscountPercents;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal DiscountPercentsRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableDiscountPercents = ((DiscountPercentsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Id {
+                get {
+                    return ((int)(this[this.tableDiscountPercents.IdColumn]));
+                }
+                set {
+                    this[this.tableDiscountPercents.IdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime CreatedDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableDiscountPercents.CreatedDateColumn]));
+                }
+                set {
+                    this[this.tableDiscountPercents.CreatedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime LastSaveDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableDiscountPercents.LastSaveDateColumn]));
+                }
+                set {
+                    this[this.tableDiscountPercents.LastSaveDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDeleted {
+                get {
+                    return ((bool)(this[this.tableDiscountPercents.IsDeletedColumn]));
+                }
+                set {
+                    this[this.tableDiscountPercents.IsDeletedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int DiscountDocumentId {
+                get {
+                    return ((int)(this[this.tableDiscountPercents.DiscountDocumentIdColumn]));
+                }
+                set {
+                    this[this.tableDiscountPercents.DiscountDocumentIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal Percent {
+                get {
+                    return ((decimal)(this[this.tableDiscountPercents.PercentColumn]));
+                }
+                set {
+                    this[this.tableDiscountPercents.PercentColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsRow DiscountDocumentsRow {
+                get {
+                    return ((DiscountDocumentsRow)(this.GetParentRow(this.Table.ParentRelations["FK_DiscountPercents_DiscountDocuments_DiscountDocumentId"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_DiscountPercents_DiscountDocuments_DiscountDocumentId"]);
                 }
             }
         }
@@ -2596,6 +4930,17 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int StreetId {
+                get {
+                    return ((int)(this[this.tableLocations.StreetIdColumn]));
+                }
+                set {
+                    this[this.tableLocations.StreetIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public string HouseNumber {
                 get {
                     try {
@@ -2644,23 +4989,12 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int AddressId {
-                get {
-                    return ((int)(this[this.tableLocations.AddressIdColumn]));
-                }
-                set {
-                    this[this.tableLocations.AddressIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public StreetsRow StreetsRow {
                 get {
-                    return ((StreetsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Locations_Streets_AddressId"])));
+                    return ((StreetsRow)(this.GetParentRow(this.Table.ParentRelations["FK_Locations_Streets_StreetId"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_Locations_Streets_AddressId"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_Locations_Streets_StreetId"]);
                 }
             }
             
@@ -2761,28 +5095,12 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string ApartmentNumber {
+            public int AccountId {
                 get {
-                    try {
-                        return ((string)(this[this.tablePaymentDocuments.ApartmentNumberColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ApartmentNumber\' in table \'PaymentDocuments\' is DBNull.", e);
-                    }
+                    return ((int)(this[this.tablePaymentDocuments.AccountIdColumn]));
                 }
                 set {
-                    this[this.tablePaymentDocuments.ApartmentNumberColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public long PersonalAccount {
-                get {
-                    return ((long)(this[this.tablePaymentDocuments.PersonalAccountColumn]));
-                }
-                set {
-                    this[this.tablePaymentDocuments.PersonalAccountColumn] = value;
+                    this[this.tablePaymentDocuments.AccountIdColumn] = value;
                 }
             }
             
@@ -2821,64 +5139,280 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int AccountId {
-                get {
-                    return ((int)(this[this.tablePaymentDocuments.AccountIdColumn]));
-                }
-                set {
-                    this[this.tablePaymentDocuments.AccountIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int AccountEntityId {
-                get {
-                    try {
-                        return ((int)(this[this.tablePaymentDocuments.AccountEntityIdColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'AccountEntityId\' in table \'PaymentDocuments\' is DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tablePaymentDocuments.AccountEntityIdColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public AccountsRow AccountsRow {
                 get {
-                    return ((AccountsRow)(this.GetParentRow(this.Table.ParentRelations["FK_PaymentDocuments_Accounts_AccountEntityId"])));
+                    return ((AccountsRow)(this.GetParentRow(this.Table.ParentRelations["FK_PaymentDocuments_Accounts_AccountId"])));
                 }
                 set {
-                    this.SetParentRow(value, this.Table.ParentRelations["FK_PaymentDocuments_Accounts_AccountEntityId"]);
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_PaymentDocuments_Accounts_AccountId"]);
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class RateDescriptionsRow : global::System.Data.DataRow {
+            
+            private RateDescriptionsDataTable tableRateDescriptions;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal RateDescriptionsRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableRateDescriptions = ((RateDescriptionsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Id {
+                get {
+                    return ((int)(this[this.tableRateDescriptions.IdColumn]));
+                }
+                set {
+                    this[this.tableRateDescriptions.IdColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsApartmentNumberNull() {
-                return this.IsNull(this.tablePaymentDocuments.ApartmentNumberColumn);
+            public System.DateTime CreatedDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableRateDescriptions.CreatedDateColumn]));
+                }
+                set {
+                    this[this.tableRateDescriptions.CreatedDateColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetApartmentNumberNull() {
-                this[this.tablePaymentDocuments.ApartmentNumberColumn] = global::System.Convert.DBNull;
+            public System.DateTime LastSaveDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableRateDescriptions.LastSaveDateColumn]));
+                }
+                set {
+                    this[this.tableRateDescriptions.LastSaveDateColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsAccountEntityIdNull() {
-                return this.IsNull(this.tablePaymentDocuments.AccountEntityIdColumn);
+            public bool IsDeleted {
+                get {
+                    return ((bool)(this[this.tableRateDescriptions.IsDeletedColumn]));
+                }
+                set {
+                    this[this.tableRateDescriptions.IsDeletedColumn] = value;
+                }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetAccountEntityIdNull() {
-                this[this.tablePaymentDocuments.AccountEntityIdColumn] = global::System.Convert.DBNull;
+            public int RateDocumentId {
+                get {
+                    return ((int)(this[this.tableRateDescriptions.RateDocumentIdColumn]));
+                }
+                set {
+                    this[this.tableRateDescriptions.RateDocumentIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Description {
+                get {
+                    try {
+                        return ((string)(this[this.tableRateDescriptions.DescriptionColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("The value for column \'Description\' in table \'RateDescriptions\' is DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableRateDescriptions.DescriptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDocumentsRow RateDocumentsRow {
+                get {
+                    return ((RateDocumentsRow)(this.GetParentRow(this.Table.ParentRelations["FK_RateDescriptions_RateDocuments_RateDocumentId"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_RateDescriptions_RateDocuments_RateDocumentId"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDescriptionNull() {
+                return this.IsNull(this.tableRateDescriptions.DescriptionColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDescriptionNull() {
+                this[this.tableRateDescriptions.DescriptionColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class RateDocumentsRow : global::System.Data.DataRow {
+            
+            private RateDocumentsDataTable tableRateDocuments;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal RateDocumentsRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableRateDocuments = ((RateDocumentsDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int Id {
+                get {
+                    return ((int)(this[this.tableRateDocuments.IdColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.IdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime CreatedDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableRateDocuments.CreatedDateColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.CreatedDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime LastSaveDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableRateDocuments.LastSaveDateColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.LastSaveDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDeleted {
+                get {
+                    return ((bool)(this[this.tableRateDocuments.IsDeletedColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.IsDeletedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int StreetId {
+                get {
+                    return ((int)(this[this.tableRateDocuments.StreetIdColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.StreetIdColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal DefaultPrice {
+                get {
+                    return ((decimal)(this[this.tableRateDocuments.DefaultPriceColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.DefaultPriceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public decimal Price {
+                get {
+                    return ((decimal)(this[this.tableRateDocuments.PriceColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.PriceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDefault {
+                get {
+                    return ((bool)(this[this.tableRateDocuments.IsDefaultColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.IsDefaultColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime RateRegisterDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableRateDocuments.RateRegisterDateColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.RateRegisterDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime StartDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableRateDocuments.StartDateColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.StartDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public System.DateTime EndDate {
+                get {
+                    return ((global::System.DateTime)(this[this.tableRateDocuments.EndDateColumn]));
+                }
+                set {
+                    this[this.tableRateDocuments.EndDateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public StreetsRow StreetsRow {
+                get {
+                    return ((StreetsRow)(this.GetParentRow(this.Table.ParentRelations["FK_RateDocuments_Streets_StreetId"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["FK_RateDocuments_Streets_StreetId"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDescriptionsRow[] GetRateDescriptionsRows() {
+                if ((this.Table.ChildRelations["FK_RateDescriptions_RateDocuments_RateDocumentId"] == null)) {
+                    return new RateDescriptionsRow[0];
+                }
+                else {
+                    return ((RateDescriptionsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_RateDescriptions_RateDocuments_RateDocumentId"])));
+                }
             }
         }
         
@@ -2992,12 +5526,34 @@ namespace BookKeeper.UI {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsRow[] GetDiscountDocumentsRows() {
+                if ((this.Table.ChildRelations["FK_DiscountDocuments_Streets_StreetId"] == null)) {
+                    return new DiscountDocumentsRow[0];
+                }
+                else {
+                    return ((DiscountDocumentsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_DiscountDocuments_Streets_StreetId"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public LocationsRow[] GetLocationsRows() {
-                if ((this.Table.ChildRelations["FK_Locations_Streets_AddressId"] == null)) {
+                if ((this.Table.ChildRelations["FK_Locations_Streets_StreetId"] == null)) {
                     return new LocationsRow[0];
                 }
                 else {
-                    return ((LocationsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Locations_Streets_AddressId"])));
+                    return ((LocationsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_Locations_Streets_StreetId"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDocumentsRow[] GetRateDocumentsRows() {
+                if ((this.Table.ChildRelations["FK_RateDocuments_Streets_StreetId"] == null)) {
+                    return new RateDocumentsRow[0];
+                }
+                else {
+                    return ((RateDocumentsRow[])(base.GetChildRows(this.Table.ChildRelations["FK_RateDocuments_Streets_StreetId"])));
                 }
             }
         }
@@ -3022,6 +5578,108 @@ namespace BookKeeper.UI {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public AccountsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class DiscountDescriptionsRowChangeEvent : global::System.EventArgs {
+            
+            private DiscountDescriptionsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDescriptionsRowChangeEvent(DiscountDescriptionsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDescriptionsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class DiscountDocumentsRowChangeEvent : global::System.EventArgs {
+            
+            private DiscountDocumentsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsRowChangeEvent(DiscountDocumentsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountDocumentsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class DiscountPercentsRowChangeEvent : global::System.EventArgs {
+            
+            private DiscountPercentsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountPercentsRowChangeEvent(DiscountPercentsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public DiscountPercentsRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -3124,6 +5782,74 @@ namespace BookKeeper.UI {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public PaymentDocumentsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class RateDescriptionsRowChangeEvent : global::System.EventArgs {
+            
+            private RateDescriptionsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDescriptionsRowChangeEvent(RateDescriptionsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDescriptionsRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class RateDocumentsRowChangeEvent : global::System.EventArgs {
+            
+            private RateDocumentsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDocumentsRowChangeEvent(RateDocumentsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public RateDocumentsRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -3301,65 +6027,65 @@ namespace BookKeeper.UI.BookKeepingDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("CreatedDate", "CreatedDate");
             tableMapping.ColumnMappings.Add("LastSaveDate", "LastSaveDate");
             tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
-            tableMapping.ColumnMappings.Add("PersonalAccount", "PersonalAccount");
+            tableMapping.ColumnMappings.Add("StreetId", "StreetId");
+            tableMapping.ColumnMappings.Add("Account", "Account");
             tableMapping.ColumnMappings.Add("AccountCreationDate", "AccountCreationDate");
             tableMapping.ColumnMappings.Add("AccountType", "AccountType");
             tableMapping.ColumnMappings.Add("IsEmpty", "IsEmpty");
             tableMapping.ColumnMappings.Add("IsArchive", "IsArchive");
-            tableMapping.ColumnMappings.Add("AddressId", "AddressId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Accounts] WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([PersonalAccount] = @Original_PersonalAccount) AND ([AccountCreationDate] = @Original_AccountCreationDate) AND ([AccountType] = @Original_AccountType) AND ([IsEmpty] = @Original_IsEmpty) AND ([IsArchive] = @Original_IsArchive) AND ([AddressId] = @Original_AddressId))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[Accounts] WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([StreetId] = @Original_StreetId) AND ([Account] = @Original_Account) AND ([AccountCreationDate] = @Original_AccountCreationDate) AND ([AccountType] = @Original_AccountType) AND ([IsEmpty] = @Original_IsEmpty) AND ([IsArchive] = @Original_IsArchive))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PersonalAccount", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PersonalAccount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Account", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Account", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountCreationDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountCreationDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountType", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountType", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsEmpty", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsEmpty", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsArchive", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsArchive", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AddressId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddressId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Accounts] ([CreatedDate], [LastSaveDate], [IsDeleted], [PersonalAccount], [AccountCreationDate], [AccountType], [IsEmpty], [IsArchive], [AddressId]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @PersonalAccount, @AccountCreationDate, @AccountType, @IsEmpty, @IsArchive, @AddressId);
-SELECT Id, CreatedDate, LastSaveDate, IsDeleted, PersonalAccount, AccountCreationDate, AccountType, IsEmpty, IsArchive, AddressId FROM Accounts WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Accounts] ([CreatedDate], [LastSaveDate], [IsDeleted], [StreetId], [Account], [AccountCreationDate], [AccountType], [IsEmpty], [IsArchive]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @StreetId, @Account, @AccountCreationDate, @AccountType, @IsEmpty, @IsArchive);
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, Account, AccountCreationDate, AccountType, IsEmpty, IsArchive FROM Accounts WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PersonalAccount", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PersonalAccount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Account", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Account", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountCreationDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountCreationDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountType", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsEmpty", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsEmpty", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsArchive", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsArchive", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AddressId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddressId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Accounts] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [PersonalAccount] = @PersonalAccount, [AccountCreationDate] = @AccountCreationDate, [AccountType] = @AccountType, [IsEmpty] = @IsEmpty, [IsArchive] = @IsArchive, [AddressId] = @AddressId WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([PersonalAccount] = @Original_PersonalAccount) AND ([AccountCreationDate] = @Original_AccountCreationDate) AND ([AccountType] = @Original_AccountType) AND ([IsEmpty] = @Original_IsEmpty) AND ([IsArchive] = @Original_IsArchive) AND ([AddressId] = @Original_AddressId));
-SELECT Id, CreatedDate, LastSaveDate, IsDeleted, PersonalAccount, AccountCreationDate, AccountType, IsEmpty, IsArchive, AddressId FROM Accounts WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Accounts] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [StreetId] = @StreetId, [Account] = @Account, [AccountCreationDate] = @AccountCreationDate, [AccountType] = @AccountType, [IsEmpty] = @IsEmpty, [IsArchive] = @IsArchive WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([StreetId] = @Original_StreetId) AND ([Account] = @Original_Account) AND ([AccountCreationDate] = @Original_AccountCreationDate) AND ([AccountType] = @Original_AccountType) AND ([IsEmpty] = @Original_IsEmpty) AND ([IsArchive] = @Original_IsArchive));
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, Account, AccountCreationDate, AccountType, IsEmpty, IsArchive FROM Accounts WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PersonalAccount", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PersonalAccount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Account", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Account", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountCreationDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountCreationDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountType", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountType", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsEmpty", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsEmpty", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsArchive", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsArchive", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AddressId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddressId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PersonalAccount", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PersonalAccount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Account", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Account", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountCreationDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountCreationDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountType", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountType", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsEmpty", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsEmpty", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsArchive", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsArchive", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AddressId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddressId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -3376,8 +6102,8 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, PersonalAccount, AccountCreatio
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, PersonalAccount, AccountCreation" +
-                "Date, AccountType, IsEmpty, IsArchive, AddressId FROM dbo.Accounts";
+            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, Account, AccountCreati" +
+                "onDate, AccountType, IsEmpty, IsArchive FROM dbo.Accounts";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -3438,17 +6164,17 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, PersonalAccount, AccountCreatio
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, long Original_PersonalAccount, System.DateTime Original_AccountCreationDate, int Original_AccountType, bool Original_IsEmpty, bool Original_IsArchive, int Original_AddressId) {
+        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_StreetId, long Original_Account, System.DateTime Original_AccountCreationDate, int Original_AccountType, bool Original_IsEmpty, bool Original_IsArchive) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_CreatedDate));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_LastSaveDate));
             this.Adapter.DeleteCommand.Parameters[3].Value = ((bool)(Original_IsDeleted));
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((long)(Original_PersonalAccount));
-            this.Adapter.DeleteCommand.Parameters[5].Value = ((System.DateTime)(Original_AccountCreationDate));
-            this.Adapter.DeleteCommand.Parameters[6].Value = ((int)(Original_AccountType));
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((bool)(Original_IsEmpty));
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(Original_IsArchive));
-            this.Adapter.DeleteCommand.Parameters[9].Value = ((int)(Original_AddressId));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_StreetId));
+            this.Adapter.DeleteCommand.Parameters[5].Value = ((long)(Original_Account));
+            this.Adapter.DeleteCommand.Parameters[6].Value = ((System.DateTime)(Original_AccountCreationDate));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((int)(Original_AccountType));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(Original_IsEmpty));
+            this.Adapter.DeleteCommand.Parameters[9].Value = ((bool)(Original_IsArchive));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3469,16 +6195,16 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, PersonalAccount, AccountCreatio
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, long PersonalAccount, System.DateTime AccountCreationDate, int AccountType, bool IsEmpty, bool IsArchive, int AddressId) {
+        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int StreetId, long Account, System.DateTime AccountCreationDate, int AccountType, bool IsEmpty, bool IsArchive) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
             this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
             this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(IsDeleted));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((long)(PersonalAccount));
-            this.Adapter.InsertCommand.Parameters[4].Value = ((System.DateTime)(AccountCreationDate));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((int)(AccountType));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(IsEmpty));
-            this.Adapter.InsertCommand.Parameters[7].Value = ((bool)(IsArchive));
-            this.Adapter.InsertCommand.Parameters[8].Value = ((int)(AddressId));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(StreetId));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((long)(Account));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(AccountCreationDate));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((int)(AccountType));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((bool)(IsEmpty));
+            this.Adapter.InsertCommand.Parameters[8].Value = ((bool)(IsArchive));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -3503,42 +6229,42 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, PersonalAccount, AccountCreatio
                     System.DateTime CreatedDate, 
                     System.DateTime LastSaveDate, 
                     bool IsDeleted, 
-                    long PersonalAccount, 
+                    int StreetId, 
+                    long Account, 
                     System.DateTime AccountCreationDate, 
                     int AccountType, 
                     bool IsEmpty, 
                     bool IsArchive, 
-                    int AddressId, 
                     int Original_Id, 
                     System.DateTime Original_CreatedDate, 
                     System.DateTime Original_LastSaveDate, 
                     bool Original_IsDeleted, 
-                    long Original_PersonalAccount, 
+                    int Original_StreetId, 
+                    long Original_Account, 
                     System.DateTime Original_AccountCreationDate, 
                     int Original_AccountType, 
                     bool Original_IsEmpty, 
                     bool Original_IsArchive, 
-                    int Original_AddressId, 
                     int Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(IsDeleted));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((long)(PersonalAccount));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((System.DateTime)(AccountCreationDate));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(AccountType));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(IsEmpty));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((bool)(IsArchive));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(AddressId));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(StreetId));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((long)(Account));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(AccountCreationDate));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(AccountType));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((bool)(IsEmpty));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(IsArchive));
             this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_Id));
             this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(Original_CreatedDate));
             this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(Original_LastSaveDate));
             this.Adapter.UpdateCommand.Parameters[12].Value = ((bool)(Original_IsDeleted));
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((long)(Original_PersonalAccount));
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(Original_AccountCreationDate));
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Original_AccountType));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((bool)(Original_IsEmpty));
-            this.Adapter.UpdateCommand.Parameters[17].Value = ((bool)(Original_IsArchive));
-            this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(Original_AddressId));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_StreetId));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((long)(Original_Account));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(Original_AccountCreationDate));
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((int)(Original_AccountType));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((bool)(Original_IsEmpty));
+            this.Adapter.UpdateCommand.Parameters[18].Value = ((bool)(Original_IsArchive));
             this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -3564,23 +6290,1090 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, PersonalAccount, AccountCreatio
                     System.DateTime CreatedDate, 
                     System.DateTime LastSaveDate, 
                     bool IsDeleted, 
-                    long PersonalAccount, 
+                    int StreetId, 
+                    long Account, 
                     System.DateTime AccountCreationDate, 
                     int AccountType, 
                     bool IsEmpty, 
                     bool IsArchive, 
-                    int AddressId, 
                     int Original_Id, 
                     System.DateTime Original_CreatedDate, 
                     System.DateTime Original_LastSaveDate, 
                     bool Original_IsDeleted, 
-                    long Original_PersonalAccount, 
+                    int Original_StreetId, 
+                    long Original_Account, 
                     System.DateTime Original_AccountCreationDate, 
                     int Original_AccountType, 
                     bool Original_IsEmpty, 
-                    bool Original_IsArchive, 
-                    int Original_AddressId) {
-            return this.Update(CreatedDate, LastSaveDate, IsDeleted, PersonalAccount, AccountCreationDate, AccountType, IsEmpty, IsArchive, AddressId, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_PersonalAccount, Original_AccountCreationDate, Original_AccountType, Original_IsEmpty, Original_IsArchive, Original_AddressId, Original_Id);
+                    bool Original_IsArchive) {
+            return this.Update(CreatedDate, LastSaveDate, IsDeleted, StreetId, Account, AccountCreationDate, AccountType, IsEmpty, IsArchive, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_StreetId, Original_Account, Original_AccountCreationDate, Original_AccountType, Original_IsEmpty, Original_IsArchive, Original_Id);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class DiscountDescriptionsTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public DiscountDescriptionsTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "DiscountDescriptions";
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("CreatedDate", "CreatedDate");
+            tableMapping.ColumnMappings.Add("LastSaveDate", "LastSaveDate");
+            tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            tableMapping.ColumnMappings.Add("DiscountDocumentId", "DiscountDocumentId");
+            tableMapping.ColumnMappings.Add("Description", "Description");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[DiscountDescriptions] WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([DiscountDocumentId] = @Original_DiscountDocumentId))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DiscountDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountDocumentId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[DiscountDescriptions] ([CreatedDate], [LastSaveDate], [IsDeleted], [DiscountDocumentId], [Description]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @DiscountDocumentId, @Description);
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DiscountDocumentId, Description FROM DiscountDescriptions WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DiscountDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountDocumentId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[DiscountDescriptions] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [DiscountDocumentId] = @DiscountDocumentId, [Description] = @Description WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([DiscountDocumentId] = @Original_DiscountDocumentId));
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DiscountDocumentId, Description FROM DiscountDescriptions WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DiscountDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountDocumentId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DiscountDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountDocumentId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::BookKeeper.UI.Properties.Settings.Default.BookKeepingConnectionString1;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DiscountDocumentId, Description " +
+                "FROM dbo.DiscountDescriptions";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(BookKeepingDataSet.DiscountDescriptionsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual BookKeepingDataSet.DiscountDescriptionsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            BookKeepingDataSet.DiscountDescriptionsDataTable dataTable = new BookKeepingDataSet.DiscountDescriptionsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet.DiscountDescriptionsDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "DiscountDescriptions");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_DiscountDocumentId) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_DiscountDocumentId));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int DiscountDocumentId, string Description) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(DiscountDocumentId));
+            if ((Description == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(Description));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int DiscountDocumentId, string Description, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_DiscountDocumentId, int Id) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(DiscountDocumentId));
+            if ((Description == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Description));
+            }
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_DiscountDocumentId));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Id));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int DiscountDocumentId, string Description, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_DiscountDocumentId) {
+            return this.Update(CreatedDate, LastSaveDate, IsDeleted, DiscountDocumentId, Description, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_DiscountDocumentId, Original_Id);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class DiscountDocumentsTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public DiscountDocumentsTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "DiscountDocuments";
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("CreatedDate", "CreatedDate");
+            tableMapping.ColumnMappings.Add("LastSaveDate", "LastSaveDate");
+            tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            tableMapping.ColumnMappings.Add("StreetId", "StreetId");
+            tableMapping.ColumnMappings.Add("Type", "Type");
+            tableMapping.ColumnMappings.Add("StartDate", "StartDate");
+            tableMapping.ColumnMappings.Add("EndDate", "EndDate");
+            tableMapping.ColumnMappings.Add("DiscountPercent", "DiscountPercent");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[DiscountDocuments] WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([StreetId] = @Original_StreetId) AND ([Type] = @Original_Type) AND ([StartDate] = @Original_StartDate) AND ([EndDate] = @Original_EndDate) AND ([DiscountPercent] = @Original_DiscountPercent))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Type", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StartDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StartDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_EndDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EndDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DiscountPercent", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "DiscountPercent", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[DiscountDocuments] ([CreatedDate], [LastSaveDate], [IsDeleted], [StreetId], [Type], [StartDate], [EndDate], [DiscountPercent]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @StreetId, @Type, @StartDate, @EndDate, @DiscountPercent);
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, Type, StartDate, EndDate, DiscountPercent FROM DiscountDocuments WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Type", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StartDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StartDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EndDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EndDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DiscountPercent", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "DiscountPercent", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[DiscountDocuments] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [StreetId] = @StreetId, [Type] = @Type, [StartDate] = @StartDate, [EndDate] = @EndDate, [DiscountPercent] = @DiscountPercent WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([StreetId] = @Original_StreetId) AND ([Type] = @Original_Type) AND ([StartDate] = @Original_StartDate) AND ([EndDate] = @Original_EndDate) AND ([DiscountPercent] = @Original_DiscountPercent));
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, Type, StartDate, EndDate, DiscountPercent FROM DiscountDocuments WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Type", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StartDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StartDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EndDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EndDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DiscountPercent", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "DiscountPercent", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Type", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Type", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StartDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StartDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_EndDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EndDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DiscountPercent", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "DiscountPercent", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::BookKeeper.UI.Properties.Settings.Default.BookKeepingConnectionString1;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, Type, StartDate, EndDa" +
+                "te, DiscountPercent FROM dbo.DiscountDocuments";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(BookKeepingDataSet.DiscountDocumentsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual BookKeepingDataSet.DiscountDocumentsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            BookKeepingDataSet.DiscountDocumentsDataTable dataTable = new BookKeepingDataSet.DiscountDocumentsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet.DiscountDocumentsDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "DiscountDocuments");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_StreetId, int Original_Type, System.DateTime Original_StartDate, System.DateTime Original_EndDate, decimal Original_DiscountPercent) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_StreetId));
+            this.Adapter.DeleteCommand.Parameters[5].Value = ((int)(Original_Type));
+            this.Adapter.DeleteCommand.Parameters[6].Value = ((System.DateTime)(Original_StartDate));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((System.DateTime)(Original_EndDate));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((decimal)(Original_DiscountPercent));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int StreetId, int Type, System.DateTime StartDate, System.DateTime EndDate, decimal DiscountPercent) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(StreetId));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((int)(Type));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((System.DateTime)(StartDate));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(EndDate));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((decimal)(DiscountPercent));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(
+                    System.DateTime CreatedDate, 
+                    System.DateTime LastSaveDate, 
+                    bool IsDeleted, 
+                    int StreetId, 
+                    int Type, 
+                    System.DateTime StartDate, 
+                    System.DateTime EndDate, 
+                    decimal DiscountPercent, 
+                    int Original_Id, 
+                    System.DateTime Original_CreatedDate, 
+                    System.DateTime Original_LastSaveDate, 
+                    bool Original_IsDeleted, 
+                    int Original_StreetId, 
+                    int Original_Type, 
+                    System.DateTime Original_StartDate, 
+                    System.DateTime Original_EndDate, 
+                    decimal Original_DiscountPercent, 
+                    int Id) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(StreetId));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Type));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((System.DateTime)(StartDate));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(EndDate));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((decimal)(DiscountPercent));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_StreetId));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(Original_Type));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(Original_StartDate));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((System.DateTime)(Original_EndDate));
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(Original_DiscountPercent));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(Id));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(
+                    System.DateTime CreatedDate, 
+                    System.DateTime LastSaveDate, 
+                    bool IsDeleted, 
+                    int StreetId, 
+                    int Type, 
+                    System.DateTime StartDate, 
+                    System.DateTime EndDate, 
+                    decimal DiscountPercent, 
+                    int Original_Id, 
+                    System.DateTime Original_CreatedDate, 
+                    System.DateTime Original_LastSaveDate, 
+                    bool Original_IsDeleted, 
+                    int Original_StreetId, 
+                    int Original_Type, 
+                    System.DateTime Original_StartDate, 
+                    System.DateTime Original_EndDate, 
+                    decimal Original_DiscountPercent) {
+            return this.Update(CreatedDate, LastSaveDate, IsDeleted, StreetId, Type, StartDate, EndDate, DiscountPercent, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_StreetId, Original_Type, Original_StartDate, Original_EndDate, Original_DiscountPercent, Original_Id);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class DiscountPercentsTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public DiscountPercentsTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "DiscountPercents";
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("CreatedDate", "CreatedDate");
+            tableMapping.ColumnMappings.Add("LastSaveDate", "LastSaveDate");
+            tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            tableMapping.ColumnMappings.Add("DiscountDocumentId", "DiscountDocumentId");
+            tableMapping.ColumnMappings.Add("Percent", "Percent");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[DiscountPercents] WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([DiscountDocumentId] = @Original_DiscountDocumentId) AND ([Percent] = @Original_Percent))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DiscountDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountDocumentId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Percent", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Percent", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[DiscountPercents] ([CreatedDate], [LastSaveDate], [IsDeleted], [DiscountDocumentId], [Percent]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @DiscountDocumentId, @Percent);
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DiscountDocumentId, [Percent] FROM DiscountPercents WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DiscountDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountDocumentId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Percent", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Percent", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[DiscountPercents] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [DiscountDocumentId] = @DiscountDocumentId, [Percent] = @Percent WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([DiscountDocumentId] = @Original_DiscountDocumentId) AND ([Percent] = @Original_Percent));
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DiscountDocumentId, [Percent] FROM DiscountPercents WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DiscountDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountDocumentId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Percent", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Percent", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DiscountDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "DiscountDocumentId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Percent", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Percent", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::BookKeeper.UI.Properties.Settings.Default.BookKeepingConnectionString1;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DiscountDocumentId, [Percent] FR" +
+                "OM dbo.DiscountPercents";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(BookKeepingDataSet.DiscountPercentsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual BookKeepingDataSet.DiscountPercentsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            BookKeepingDataSet.DiscountPercentsDataTable dataTable = new BookKeepingDataSet.DiscountPercentsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet.DiscountPercentsDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "DiscountPercents");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_DiscountDocumentId, decimal Original_Percent) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_DiscountDocumentId));
+            this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_Percent));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int DiscountDocumentId, decimal Percent) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(DiscountDocumentId));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(Percent));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int DiscountDocumentId, decimal Percent, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_DiscountDocumentId, decimal Original_Percent, int Id) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(DiscountDocumentId));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(Percent));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_DiscountDocumentId));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((decimal)(Original_Percent));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Id));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int DiscountDocumentId, decimal Percent, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_DiscountDocumentId, decimal Original_Percent) {
+            return this.Update(CreatedDate, LastSaveDate, IsDeleted, DiscountDocumentId, Percent, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_DiscountDocumentId, Original_Percent, Original_Id);
         }
     }
     
@@ -4049,51 +7842,51 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, Code, Name FROM Districts WHERE
             tableMapping.ColumnMappings.Add("CreatedDate", "CreatedDate");
             tableMapping.ColumnMappings.Add("LastSaveDate", "LastSaveDate");
             tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            tableMapping.ColumnMappings.Add("StreetId", "StreetId");
             tableMapping.ColumnMappings.Add("HouseNumber", "HouseNumber");
             tableMapping.ColumnMappings.Add("BuildingCorpus", "BuildingCorpus");
             tableMapping.ColumnMappings.Add("ApartmentNumber", "ApartmentNumber");
-            tableMapping.ColumnMappings.Add("AddressId", "AddressId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
             this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[Locations] WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @" +
                 "Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDele" +
-                "ted] = @Original_IsDeleted) AND ([AddressId] = @Original_AddressId))";
+                "ted] = @Original_IsDeleted) AND ([StreetId] = @Original_StreetId))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AddressId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddressId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Locations] ([CreatedDate], [LastSaveDate], [IsDeleted], [HouseNumber], [BuildingCorpus], [ApartmentNumber], [AddressId]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @HouseNumber, @BuildingCorpus, @ApartmentNumber, @AddressId);
-SELECT Id, CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, ApartmentNumber, AddressId FROM Locations WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[Locations] ([CreatedDate], [LastSaveDate], [IsDeleted], [StreetId], [HouseNumber], [BuildingCorpus], [ApartmentNumber]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @StreetId, @HouseNumber, @BuildingCorpus, @ApartmentNumber);
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, HouseNumber, BuildingCorpus, ApartmentNumber FROM Locations WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@HouseNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "HouseNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BuildingCorpus", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BuildingCorpus", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AddressId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddressId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Locations] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [HouseNumber] = @HouseNumber, [BuildingCorpus] = @BuildingCorpus, [ApartmentNumber] = @ApartmentNumber, [AddressId] = @AddressId WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([AddressId] = @Original_AddressId));
-SELECT Id, CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, ApartmentNumber, AddressId FROM Locations WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[Locations] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [StreetId] = @StreetId, [HouseNumber] = @HouseNumber, [BuildingCorpus] = @BuildingCorpus, [ApartmentNumber] = @ApartmentNumber WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([StreetId] = @Original_StreetId));
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, HouseNumber, BuildingCorpus, ApartmentNumber FROM Locations WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@HouseNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "HouseNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BuildingCorpus", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BuildingCorpus", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AddressId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddressId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AddressId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AddressId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -4110,8 +7903,8 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, Ap
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, Apa" +
-                "rtmentNumber, AddressId FROM dbo.Locations";
+            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, HouseNumber, BuildingC" +
+                "orpus, ApartmentNumber FROM dbo.Locations";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -4172,12 +7965,12 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, Ap
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_AddressId) {
+        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_StreetId) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_CreatedDate));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_LastSaveDate));
             this.Adapter.DeleteCommand.Parameters[3].Value = ((bool)(Original_IsDeleted));
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_AddressId));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_StreetId));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -4198,29 +7991,29 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, Ap
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, string HouseNumber, string BuildingCorpus, string ApartmentNumber, int AddressId) {
+        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int StreetId, string HouseNumber, string BuildingCorpus, string ApartmentNumber) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
             this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
             this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(StreetId));
             if ((HouseNumber == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(HouseNumber));
-            }
-            if ((BuildingCorpus == null)) {
                 this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(BuildingCorpus));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(HouseNumber));
             }
-            if ((ApartmentNumber == null)) {
+            if ((BuildingCorpus == null)) {
                 this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(ApartmentNumber));
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(BuildingCorpus));
             }
-            this.Adapter.InsertCommand.Parameters[6].Value = ((int)(AddressId));
+            if ((ApartmentNumber == null)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((string)(ApartmentNumber));
+            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -4241,34 +8034,34 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, Ap
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, string HouseNumber, string BuildingCorpus, string ApartmentNumber, int AddressId, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_AddressId, int Id) {
+        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int StreetId, string HouseNumber, string BuildingCorpus, string ApartmentNumber, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_StreetId, int Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(StreetId));
             if ((HouseNumber == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(HouseNumber));
-            }
-            if ((BuildingCorpus == null)) {
                 this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(BuildingCorpus));
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(HouseNumber));
             }
-            if ((ApartmentNumber == null)) {
+            if ((BuildingCorpus == null)) {
                 this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(ApartmentNumber));
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(BuildingCorpus));
             }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(AddressId));
+            if ((ApartmentNumber == null)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(ApartmentNumber));
+            }
             this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
             this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_CreatedDate));
             this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_LastSaveDate));
             this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Original_IsDeleted));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_AddressId));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_StreetId));
             this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4290,8 +8083,8 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, Ap
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, string HouseNumber, string BuildingCorpus, string ApartmentNumber, int AddressId, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_AddressId) {
-            return this.Update(CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, ApartmentNumber, AddressId, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_AddressId, Original_Id);
+        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int StreetId, string HouseNumber, string BuildingCorpus, string ApartmentNumber, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_StreetId) {
+            return this.Update(CreatedDate, LastSaveDate, IsDeleted, StreetId, HouseNumber, BuildingCorpus, ApartmentNumber, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_StreetId, Original_Id);
         }
     }
     
@@ -4420,70 +8213,55 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, HouseNumber, BuildingCorpus, Ap
             tableMapping.ColumnMappings.Add("CreatedDate", "CreatedDate");
             tableMapping.ColumnMappings.Add("LastSaveDate", "LastSaveDate");
             tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
-            tableMapping.ColumnMappings.Add("ApartmentNumber", "ApartmentNumber");
-            tableMapping.ColumnMappings.Add("PersonalAccount", "PersonalAccount");
+            tableMapping.ColumnMappings.Add("AccountId", "AccountId");
             tableMapping.ColumnMappings.Add("Accrued", "Accrued");
             tableMapping.ColumnMappings.Add("Received", "Received");
             tableMapping.ColumnMappings.Add("PaymentDate", "PaymentDate");
-            tableMapping.ColumnMappings.Add("AccountId", "AccountId");
-            tableMapping.ColumnMappings.Add("AccountEntityId", "AccountEntityId");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[PaymentDocuments] WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([PersonalAccount] = @Original_PersonalAccount) AND ([Accrued] = @Original_Accrued) AND ([Received] = @Original_Received) AND ([PaymentDate] = @Original_PaymentDate) AND ([AccountId] = @Original_AccountId) AND ((@IsNull_AccountEntityId = 1 AND [AccountEntityId] IS NULL) OR ([AccountEntityId] = @Original_AccountEntityId)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[PaymentDocuments] WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([AccountId] = @Original_AccountId) AND ([Accrued] = @Original_Accrued) AND ([Received] = @Original_Received) AND ([PaymentDate] = @Original_PaymentDate))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PersonalAccount", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PersonalAccount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Accrued", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Accrued", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Received", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Received", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PaymentDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AccountEntityId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountEntityId", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountEntityId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountEntityId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[PaymentDocuments] ([CreatedDate], [LastSaveDate], [IsDeleted], [ApartmentNumber], [PersonalAccount], [Accrued], [Received], [PaymentDate], [AccountId], [AccountEntityId]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @ApartmentNumber, @PersonalAccount, @Accrued, @Received, @PaymentDate, @AccountId, @AccountEntityId);
-SELECT Id, CreatedDate, LastSaveDate, IsDeleted, ApartmentNumber, PersonalAccount, Accrued, Received, PaymentDate, AccountId, AccountEntityId FROM PaymentDocuments WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[PaymentDocuments] ([CreatedDate], [LastSaveDate], [IsDeleted], [AccountId], [Accrued], [Received], [PaymentDate]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @AccountId, @Accrued, @Received, @PaymentDate);
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, AccountId, Accrued, Received, PaymentDate FROM PaymentDocuments WHERE (Id = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PersonalAccount", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PersonalAccount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Accrued", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Accrued", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Received", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Received", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountEntityId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountEntityId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[PaymentDocuments] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [ApartmentNumber] = @ApartmentNumber, [PersonalAccount] = @PersonalAccount, [Accrued] = @Accrued, [Received] = @Received, [PaymentDate] = @PaymentDate, [AccountId] = @AccountId, [AccountEntityId] = @AccountEntityId WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([PersonalAccount] = @Original_PersonalAccount) AND ([Accrued] = @Original_Accrued) AND ([Received] = @Original_Received) AND ([PaymentDate] = @Original_PaymentDate) AND ([AccountId] = @Original_AccountId) AND ((@IsNull_AccountEntityId = 1 AND [AccountEntityId] IS NULL) OR ([AccountEntityId] = @Original_AccountEntityId)));
-SELECT Id, CreatedDate, LastSaveDate, IsDeleted, ApartmentNumber, PersonalAccount, Accrued, Received, PaymentDate, AccountId, AccountEntityId FROM PaymentDocuments WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[PaymentDocuments] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [AccountId] = @AccountId, [Accrued] = @Accrued, [Received] = @Received, [PaymentDate] = @PaymentDate WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([AccountId] = @Original_AccountId) AND ([Accrued] = @Original_Accrued) AND ([Received] = @Original_Received) AND ([PaymentDate] = @Original_PaymentDate));
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, AccountId, Accrued, Received, PaymentDate FROM PaymentDocuments WHERE (Id = @Id)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ApartmentNumber", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ApartmentNumber", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PersonalAccount", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PersonalAccount", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Accrued", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Accrued", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Received", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Received", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@PaymentDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@AccountEntityId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountEntityId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PersonalAccount", global::System.Data.SqlDbType.BigInt, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PersonalAccount", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Accrued", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Accrued", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Received", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Received", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_PaymentDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "PaymentDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_AccountEntityId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountEntityId", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_AccountEntityId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "AccountEntityId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
         }
         
@@ -4500,9 +8278,8 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, ApartmentNumber, PersonalAccoun
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, ApartmentNumber, PersonalAccount" +
-                ", Accrued, Received, PaymentDate, AccountId, AccountEntityId FROM dbo.PaymentDoc" +
-                "uments";
+            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, AccountId, Accrued, Received, Pa" +
+                "ymentDate FROM dbo.PaymentDocuments";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -4563,24 +8340,15 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, ApartmentNumber, PersonalAccoun
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, long Original_PersonalAccount, decimal Original_Accrued, decimal Original_Received, System.DateTime Original_PaymentDate, int Original_AccountId, global::System.Nullable<int> Original_AccountEntityId) {
+        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_AccountId, decimal Original_Accrued, decimal Original_Received, System.DateTime Original_PaymentDate) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
             this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_CreatedDate));
             this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_LastSaveDate));
             this.Adapter.DeleteCommand.Parameters[3].Value = ((bool)(Original_IsDeleted));
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((long)(Original_PersonalAccount));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_AccountId));
             this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_Accrued));
             this.Adapter.DeleteCommand.Parameters[6].Value = ((decimal)(Original_Received));
             this.Adapter.DeleteCommand.Parameters[7].Value = ((System.DateTime)(Original_PaymentDate));
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((int)(Original_AccountId));
-            if ((Original_AccountEntityId.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((int)(Original_AccountEntityId.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -4601,27 +8369,14 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, ApartmentNumber, PersonalAccoun
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, string ApartmentNumber, long PersonalAccount, decimal Accrued, decimal Received, System.DateTime PaymentDate, int AccountId, global::System.Nullable<int> AccountEntityId) {
+        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int AccountId, decimal Accrued, decimal Received, System.DateTime PaymentDate) {
             this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
             this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
             this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(IsDeleted));
-            if ((ApartmentNumber == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(ApartmentNumber));
-            }
-            this.Adapter.InsertCommand.Parameters[4].Value = ((long)(PersonalAccount));
-            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(Accrued));
-            this.Adapter.InsertCommand.Parameters[6].Value = ((decimal)(Received));
-            this.Adapter.InsertCommand.Parameters[7].Value = ((System.DateTime)(PaymentDate));
-            this.Adapter.InsertCommand.Parameters[8].Value = ((int)(AccountId));
-            if ((AccountEntityId.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((int)(AccountEntityId.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(AccountId));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(Accrued));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(Received));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((System.DateTime)(PaymentDate));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -4646,61 +8401,776 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, ApartmentNumber, PersonalAccoun
                     System.DateTime CreatedDate, 
                     System.DateTime LastSaveDate, 
                     bool IsDeleted, 
-                    string ApartmentNumber, 
-                    long PersonalAccount, 
+                    int AccountId, 
                     decimal Accrued, 
                     decimal Received, 
                     System.DateTime PaymentDate, 
-                    int AccountId, 
-                    global::System.Nullable<int> AccountEntityId, 
                     int Original_Id, 
                     System.DateTime Original_CreatedDate, 
                     System.DateTime Original_LastSaveDate, 
                     bool Original_IsDeleted, 
-                    long Original_PersonalAccount, 
+                    int Original_AccountId, 
                     decimal Original_Accrued, 
                     decimal Original_Received, 
                     System.DateTime Original_PaymentDate, 
-                    int Original_AccountId, 
-                    global::System.Nullable<int> Original_AccountEntityId, 
                     int Id) {
             this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
             this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(IsDeleted));
-            if ((ApartmentNumber == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(AccountId));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(Accrued));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(Received));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(PaymentDate));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_AccountId));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((decimal)(Original_Accrued));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((decimal)(Original_Received));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((System.DateTime)(Original_PaymentDate));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((int)(Id));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int AccountId, decimal Accrued, decimal Received, System.DateTime PaymentDate, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_AccountId, decimal Original_Accrued, decimal Original_Received, System.DateTime Original_PaymentDate) {
+            return this.Update(CreatedDate, LastSaveDate, IsDeleted, AccountId, Accrued, Received, PaymentDate, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_AccountId, Original_Accrued, Original_Received, Original_PaymentDate, Original_Id);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class RateDescriptionsTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public RateDescriptionsTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "RateDescriptions";
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("CreatedDate", "CreatedDate");
+            tableMapping.ColumnMappings.Add("LastSaveDate", "LastSaveDate");
+            tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            tableMapping.ColumnMappings.Add("RateDocumentId", "RateDocumentId");
+            tableMapping.ColumnMappings.Add("Description", "Description");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM [dbo].[RateDescriptions] WHERE (([Id] = @Original_Id) AND ([CreatedDa" +
+                "te] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND (" +
+                "[IsDeleted] = @Original_IsDeleted) AND ([RateDocumentId] = @Original_RateDocumen" +
+                "tId))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RateDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RateDocumentId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[RateDescriptions] ([CreatedDate], [LastSaveDate], [IsDeleted], [RateDocumentId], [Description]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @RateDocumentId, @Description);
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, RateDocumentId, Description FROM RateDescriptions WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RateDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RateDocumentId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[RateDescriptions] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [RateDocumentId] = @RateDocumentId, [Description] = @Description WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([RateDocumentId] = @Original_RateDocumentId));
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, RateDocumentId, Description FROM RateDescriptions WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RateDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RateDocumentId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Description", global::System.Data.SqlDbType.NVarChar, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Description", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RateDocumentId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RateDocumentId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::BookKeeper.UI.Properties.Settings.Default.BookKeepingConnectionString1;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, RateDocumentId, Description FROM" +
+                " dbo.RateDescriptions";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(BookKeepingDataSet.RateDescriptionsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual BookKeepingDataSet.RateDescriptionsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            BookKeepingDataSet.RateDescriptionsDataTable dataTable = new BookKeepingDataSet.RateDescriptionsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet.RateDescriptionsDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "RateDescriptions");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_RateDocumentId) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_RateDocumentId));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int RateDocumentId, string Description) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(RateDocumentId));
+            if ((Description == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(ApartmentNumber));
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(Description));
             }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((long)(PersonalAccount));
-            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(Accrued));
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((decimal)(Received));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(PaymentDate));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(AccountId));
-            if ((AccountEntityId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(AccountEntityId.Value));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int RateDocumentId, string Description, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_RateDocumentId, int Id) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(RateDocumentId));
+            if ((Description == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Description));
             }
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_Id));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_RateDocumentId));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Id));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int RateDocumentId, string Description, int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_RateDocumentId) {
+            return this.Update(CreatedDate, LastSaveDate, IsDeleted, RateDocumentId, Description, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_RateDocumentId, Original_Id);
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class RateDocumentsTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.SqlClient.SqlDataAdapter _adapter;
+        
+        private global::System.Data.SqlClient.SqlConnection _connection;
+        
+        private global::System.Data.SqlClient.SqlTransaction _transaction;
+        
+        private global::System.Data.SqlClient.SqlCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public RateDocumentsTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.SqlClient.SqlDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.SqlClient.SqlCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.SqlClient.SqlTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.SqlClient.SqlCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.SqlClient.SqlDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "RateDocuments";
+            tableMapping.ColumnMappings.Add("Id", "Id");
+            tableMapping.ColumnMappings.Add("CreatedDate", "CreatedDate");
+            tableMapping.ColumnMappings.Add("LastSaveDate", "LastSaveDate");
+            tableMapping.ColumnMappings.Add("IsDeleted", "IsDeleted");
+            tableMapping.ColumnMappings.Add("StreetId", "StreetId");
+            tableMapping.ColumnMappings.Add("DefaultPrice", "DefaultPrice");
+            tableMapping.ColumnMappings.Add("Price", "Price");
+            tableMapping.ColumnMappings.Add("IsDefault", "IsDefault");
+            tableMapping.ColumnMappings.Add("RateRegisterDate", "RateRegisterDate");
+            tableMapping.ColumnMappings.Add("StartDate", "StartDate");
+            tableMapping.ColumnMappings.Add("EndDate", "EndDate");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[RateDocuments] WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([StreetId] = @Original_StreetId) AND ([DefaultPrice] = @Original_DefaultPrice) AND ([Price] = @Original_Price) AND ([IsDefault] = @Original_IsDefault) AND ([RateRegisterDate] = @Original_RateRegisterDate) AND ([StartDate] = @Original_StartDate) AND ([EndDate] = @Original_EndDate))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DefaultPrice", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "DefaultPrice", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Price", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Price", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDefault", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDefault", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RateRegisterDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RateRegisterDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StartDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StartDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_EndDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EndDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[RateDocuments] ([CreatedDate], [LastSaveDate], [IsDeleted], [StreetId], [DefaultPrice], [Price], [IsDefault], [RateRegisterDate], [StartDate], [EndDate]) VALUES (@CreatedDate, @LastSaveDate, @IsDeleted, @StreetId, @DefaultPrice, @Price, @IsDefault, @RateRegisterDate, @StartDate, @EndDate);
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, DefaultPrice, Price, IsDefault, RateRegisterDate, StartDate, EndDate FROM RateDocuments WHERE (Id = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DefaultPrice", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "DefaultPrice", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDefault", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDefault", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RateRegisterDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RateRegisterDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StartDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StartDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EndDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EndDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[RateDocuments] SET [CreatedDate] = @CreatedDate, [LastSaveDate] = @LastSaveDate, [IsDeleted] = @IsDeleted, [StreetId] = @StreetId, [DefaultPrice] = @DefaultPrice, [Price] = @Price, [IsDefault] = @IsDefault, [RateRegisterDate] = @RateRegisterDate, [StartDate] = @StartDate, [EndDate] = @EndDate WHERE (([Id] = @Original_Id) AND ([CreatedDate] = @Original_CreatedDate) AND ([LastSaveDate] = @Original_LastSaveDate) AND ([IsDeleted] = @Original_IsDeleted) AND ([StreetId] = @Original_StreetId) AND ([DefaultPrice] = @Original_DefaultPrice) AND ([Price] = @Original_Price) AND ([IsDefault] = @Original_IsDefault) AND ([RateRegisterDate] = @Original_RateRegisterDate) AND ([StartDate] = @Original_StartDate) AND ([EndDate] = @Original_EndDate));
+SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, DefaultPrice, Price, IsDefault, RateRegisterDate, StartDate, EndDate FROM RateDocuments WHERE (Id = @Id)";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@DefaultPrice", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "DefaultPrice", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Price", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Price", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsDefault", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDefault", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RateRegisterDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RateRegisterDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@StartDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StartDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@EndDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EndDate", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Id", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CreatedDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CreatedDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_LastSaveDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "LastSaveDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDeleted", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDeleted", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StreetId", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StreetId", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_DefaultPrice", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "DefaultPrice", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_Price", global::System.Data.SqlDbType.Decimal, 0, global::System.Data.ParameterDirection.Input, 18, 2, "Price", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_IsDefault", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "IsDefault", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RateRegisterDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RateRegisterDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_StartDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "StartDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_EndDate", global::System.Data.SqlDbType.DateTime2, 0, global::System.Data.ParameterDirection.Input, 0, 0, "EndDate", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Id", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "Id", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.SqlClient.SqlConnection();
+            this._connection.ConnectionString = global::BookKeeper.UI.Properties.Settings.Default.BookKeepingConnectionString1;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.SqlClient.SqlCommand[1];
+            this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT Id, CreatedDate, LastSaveDate, IsDeleted, StreetId, DefaultPrice, Price, I" +
+                "sDefault, RateRegisterDate, StartDate, EndDate FROM dbo.RateDocuments";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(BookKeepingDataSet.RateDocumentsDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual BookKeepingDataSet.RateDocumentsDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            BookKeepingDataSet.RateDocumentsDataTable dataTable = new BookKeepingDataSet.RateDocumentsDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet.RateDocumentsDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(BookKeepingDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "RateDocuments");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_Id, System.DateTime Original_CreatedDate, System.DateTime Original_LastSaveDate, bool Original_IsDeleted, int Original_StreetId, decimal Original_DefaultPrice, decimal Original_Price, bool Original_IsDefault, System.DateTime Original_RateRegisterDate, System.DateTime Original_StartDate, System.DateTime Original_EndDate) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Id));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((System.DateTime)(Original_CreatedDate));
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((System.DateTime)(Original_LastSaveDate));
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((bool)(Original_IsDeleted));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((int)(Original_StreetId));
+            this.Adapter.DeleteCommand.Parameters[5].Value = ((decimal)(Original_DefaultPrice));
+            this.Adapter.DeleteCommand.Parameters[6].Value = ((decimal)(Original_Price));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((bool)(Original_IsDefault));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((System.DateTime)(Original_RateRegisterDate));
+            this.Adapter.DeleteCommand.Parameters[9].Value = ((System.DateTime)(Original_StartDate));
+            this.Adapter.DeleteCommand.Parameters[10].Value = ((System.DateTime)(Original_EndDate));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(System.DateTime CreatedDate, System.DateTime LastSaveDate, bool IsDeleted, int StreetId, decimal DefaultPrice, decimal Price, bool IsDefault, System.DateTime RateRegisterDate, System.DateTime StartDate, System.DateTime EndDate) {
+            this.Adapter.InsertCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.InsertCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((int)(StreetId));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((decimal)(DefaultPrice));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((decimal)(Price));
+            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(IsDefault));
+            this.Adapter.InsertCommand.Parameters[7].Value = ((System.DateTime)(RateRegisterDate));
+            this.Adapter.InsertCommand.Parameters[8].Value = ((System.DateTime)(StartDate));
+            this.Adapter.InsertCommand.Parameters[9].Value = ((System.DateTime)(EndDate));
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(
+                    System.DateTime CreatedDate, 
+                    System.DateTime LastSaveDate, 
+                    bool IsDeleted, 
+                    int StreetId, 
+                    decimal DefaultPrice, 
+                    decimal Price, 
+                    bool IsDefault, 
+                    System.DateTime RateRegisterDate, 
+                    System.DateTime StartDate, 
+                    System.DateTime EndDate, 
+                    int Original_Id, 
+                    System.DateTime Original_CreatedDate, 
+                    System.DateTime Original_LastSaveDate, 
+                    bool Original_IsDeleted, 
+                    int Original_StreetId, 
+                    decimal Original_DefaultPrice, 
+                    decimal Original_Price, 
+                    bool Original_IsDefault, 
+                    System.DateTime Original_RateRegisterDate, 
+                    System.DateTime Original_StartDate, 
+                    System.DateTime Original_EndDate, 
+                    int Id) {
+            this.Adapter.UpdateCommand.Parameters[0].Value = ((System.DateTime)(CreatedDate));
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((System.DateTime)(LastSaveDate));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(IsDeleted));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(StreetId));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((decimal)(DefaultPrice));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((decimal)(Price));
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(IsDefault));
+            this.Adapter.UpdateCommand.Parameters[7].Value = ((System.DateTime)(RateRegisterDate));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((System.DateTime)(StartDate));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((System.DateTime)(EndDate));
             this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_Id));
             this.Adapter.UpdateCommand.Parameters[11].Value = ((System.DateTime)(Original_CreatedDate));
             this.Adapter.UpdateCommand.Parameters[12].Value = ((System.DateTime)(Original_LastSaveDate));
             this.Adapter.UpdateCommand.Parameters[13].Value = ((bool)(Original_IsDeleted));
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((long)(Original_PersonalAccount));
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((decimal)(Original_Accrued));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(Original_Received));
-            this.Adapter.UpdateCommand.Parameters[17].Value = ((System.DateTime)(Original_PaymentDate));
-            this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(Original_AccountId));
-            if ((Original_AccountEntityId.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[20].Value = ((int)(Original_AccountEntityId.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[20].Value = global::System.DBNull.Value;
-            }
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((int)(Original_StreetId));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((decimal)(Original_DefaultPrice));
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((decimal)(Original_Price));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((bool)(Original_IsDefault));
+            this.Adapter.UpdateCommand.Parameters[18].Value = ((System.DateTime)(Original_RateRegisterDate));
+            this.Adapter.UpdateCommand.Parameters[19].Value = ((System.DateTime)(Original_StartDate));
+            this.Adapter.UpdateCommand.Parameters[20].Value = ((System.DateTime)(Original_EndDate));
             this.Adapter.UpdateCommand.Parameters[21].Value = ((int)(Id));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -4726,24 +9196,25 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, ApartmentNumber, PersonalAccoun
                     System.DateTime CreatedDate, 
                     System.DateTime LastSaveDate, 
                     bool IsDeleted, 
-                    string ApartmentNumber, 
-                    long PersonalAccount, 
-                    decimal Accrued, 
-                    decimal Received, 
-                    System.DateTime PaymentDate, 
-                    int AccountId, 
-                    global::System.Nullable<int> AccountEntityId, 
+                    int StreetId, 
+                    decimal DefaultPrice, 
+                    decimal Price, 
+                    bool IsDefault, 
+                    System.DateTime RateRegisterDate, 
+                    System.DateTime StartDate, 
+                    System.DateTime EndDate, 
                     int Original_Id, 
                     System.DateTime Original_CreatedDate, 
                     System.DateTime Original_LastSaveDate, 
                     bool Original_IsDeleted, 
-                    long Original_PersonalAccount, 
-                    decimal Original_Accrued, 
-                    decimal Original_Received, 
-                    System.DateTime Original_PaymentDate, 
-                    int Original_AccountId, 
-                    global::System.Nullable<int> Original_AccountEntityId) {
-            return this.Update(CreatedDate, LastSaveDate, IsDeleted, ApartmentNumber, PersonalAccount, Accrued, Received, PaymentDate, AccountId, AccountEntityId, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_PersonalAccount, Original_Accrued, Original_Received, Original_PaymentDate, Original_AccountId, Original_AccountEntityId, Original_Id);
+                    int Original_StreetId, 
+                    decimal Original_DefaultPrice, 
+                    decimal Original_Price, 
+                    bool Original_IsDefault, 
+                    System.DateTime Original_RateRegisterDate, 
+                    System.DateTime Original_StartDate, 
+                    System.DateTime Original_EndDate) {
+            return this.Update(CreatedDate, LastSaveDate, IsDeleted, StreetId, DefaultPrice, Price, IsDefault, RateRegisterDate, StartDate, EndDate, Original_Id, Original_CreatedDate, Original_LastSaveDate, Original_IsDeleted, Original_StreetId, Original_DefaultPrice, Original_Price, Original_IsDefault, Original_RateRegisterDate, Original_StartDate, Original_EndDate, Original_Id);
         }
     }
     
@@ -5102,11 +9573,21 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
         
         private AccountsTableAdapter _accountsTableAdapter;
         
+        private DiscountDescriptionsTableAdapter _discountDescriptionsTableAdapter;
+        
+        private DiscountDocumentsTableAdapter _discountDocumentsTableAdapter;
+        
+        private DiscountPercentsTableAdapter _discountPercentsTableAdapter;
+        
         private DistrictsTableAdapter _districtsTableAdapter;
         
         private LocationsTableAdapter _locationsTableAdapter;
         
         private PaymentDocumentsTableAdapter _paymentDocumentsTableAdapter;
+        
+        private RateDescriptionsTableAdapter _rateDescriptionsTableAdapter;
+        
+        private RateDocumentsTableAdapter _rateDocumentsTableAdapter;
         
         private StreetsTableAdapter _streetsTableAdapter;
         
@@ -5136,6 +9617,48 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
             }
             set {
                 this._accountsTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public DiscountDescriptionsTableAdapter DiscountDescriptionsTableAdapter {
+            get {
+                return this._discountDescriptionsTableAdapter;
+            }
+            set {
+                this._discountDescriptionsTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public DiscountDocumentsTableAdapter DiscountDocumentsTableAdapter {
+            get {
+                return this._discountDocumentsTableAdapter;
+            }
+            set {
+                this._discountDocumentsTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public DiscountPercentsTableAdapter DiscountPercentsTableAdapter {
+            get {
+                return this._discountPercentsTableAdapter;
+            }
+            set {
+                this._discountPercentsTableAdapter = value;
             }
         }
         
@@ -5186,6 +9709,34 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
+        public RateDescriptionsTableAdapter RateDescriptionsTableAdapter {
+            get {
+                return this._rateDescriptionsTableAdapter;
+            }
+            set {
+                this._rateDescriptionsTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public RateDocumentsTableAdapter RateDocumentsTableAdapter {
+            get {
+                return this._rateDocumentsTableAdapter;
+            }
+            set {
+                this._rateDocumentsTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
         public StreetsTableAdapter StreetsTableAdapter {
             get {
                 return this._streetsTableAdapter;
@@ -5218,6 +9769,18 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                             && (this._accountsTableAdapter.Connection != null))) {
                     return this._accountsTableAdapter.Connection;
                 }
+                if (((this._discountDescriptionsTableAdapter != null) 
+                            && (this._discountDescriptionsTableAdapter.Connection != null))) {
+                    return this._discountDescriptionsTableAdapter.Connection;
+                }
+                if (((this._discountDocumentsTableAdapter != null) 
+                            && (this._discountDocumentsTableAdapter.Connection != null))) {
+                    return this._discountDocumentsTableAdapter.Connection;
+                }
+                if (((this._discountPercentsTableAdapter != null) 
+                            && (this._discountPercentsTableAdapter.Connection != null))) {
+                    return this._discountPercentsTableAdapter.Connection;
+                }
                 if (((this._districtsTableAdapter != null) 
                             && (this._districtsTableAdapter.Connection != null))) {
                     return this._districtsTableAdapter.Connection;
@@ -5229,6 +9792,14 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                 if (((this._paymentDocumentsTableAdapter != null) 
                             && (this._paymentDocumentsTableAdapter.Connection != null))) {
                     return this._paymentDocumentsTableAdapter.Connection;
+                }
+                if (((this._rateDescriptionsTableAdapter != null) 
+                            && (this._rateDescriptionsTableAdapter.Connection != null))) {
+                    return this._rateDescriptionsTableAdapter.Connection;
+                }
+                if (((this._rateDocumentsTableAdapter != null) 
+                            && (this._rateDocumentsTableAdapter.Connection != null))) {
+                    return this._rateDocumentsTableAdapter.Connection;
                 }
                 if (((this._streetsTableAdapter != null) 
                             && (this._streetsTableAdapter.Connection != null))) {
@@ -5250,6 +9821,15 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                 if ((this._accountsTableAdapter != null)) {
                     count = (count + 1);
                 }
+                if ((this._discountDescriptionsTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._discountDocumentsTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._discountPercentsTableAdapter != null)) {
+                    count = (count + 1);
+                }
                 if ((this._districtsTableAdapter != null)) {
                     count = (count + 1);
                 }
@@ -5257,6 +9837,12 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     count = (count + 1);
                 }
                 if ((this._paymentDocumentsTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._rateDescriptionsTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._rateDocumentsTableAdapter != null)) {
                     count = (count + 1);
                 }
                 if ((this._streetsTableAdapter != null)) {
@@ -5282,6 +9868,15 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._streetsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Streets.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._streetsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._accountsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Accounts.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -5291,12 +9886,39 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._streetsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Streets.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+            if ((this._discountDocumentsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DiscountDocuments.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._streetsTableAdapter.Update(updatedRows));
+                    result = (result + this._discountDocumentsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._rateDocumentsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.RateDocuments.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._rateDocumentsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._discountDescriptionsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DiscountDescriptions.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._discountDescriptionsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._discountPercentsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.DiscountPercents.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._discountPercentsTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -5318,6 +9940,15 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     allChangedRows.AddRange(updatedRows);
                 }
             }
+            if ((this._rateDescriptionsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.RateDescriptions.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._rateDescriptionsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             return result;
         }
         
@@ -5336,6 +9967,14 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._streetsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Streets.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._streetsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._accountsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Accounts.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -5344,11 +9983,35 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._streetsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Streets.Select(null, null, global::System.Data.DataViewRowState.Added);
+            if ((this._discountDocumentsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DiscountDocuments.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._streetsTableAdapter.Update(addedRows));
+                    result = (result + this._discountDocumentsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._rateDocumentsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.RateDocuments.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._rateDocumentsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._discountDescriptionsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DiscountDescriptions.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._discountDescriptionsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._discountPercentsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.DiscountPercents.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._discountPercentsTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -5368,6 +10031,14 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     allAddedRows.AddRange(addedRows);
                 }
             }
+            if ((this._rateDescriptionsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.RateDescriptions.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._rateDescriptionsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             return result;
         }
         
@@ -5378,6 +10049,14 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateDeletedRows(BookKeepingDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
+            if ((this._rateDescriptionsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.RateDescriptions.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._rateDescriptionsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._paymentDocumentsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.PaymentDocuments.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -5394,11 +10073,35 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._streetsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Streets.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+            if ((this._discountPercentsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.DiscountPercents.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._streetsTableAdapter.Update(deletedRows));
+                    result = (result + this._discountPercentsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._discountDescriptionsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.DiscountDescriptions.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._discountDescriptionsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._rateDocumentsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.RateDocuments.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._rateDocumentsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._discountDocumentsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.DiscountDocuments.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._discountDocumentsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -5407,6 +10110,14 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._accountsTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._streetsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Streets.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._streetsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -5462,6 +10173,21 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
+            if (((this._discountDescriptionsTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._discountDescriptionsTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._discountDocumentsTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._discountDocumentsTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._discountPercentsTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._discountPercentsTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
             if (((this._districtsTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._districtsTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
@@ -5474,6 +10200,16 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
             }
             if (((this._paymentDocumentsTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._paymentDocumentsTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._rateDescriptionsTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._rateDescriptionsTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
+                        "tring.");
+            }
+            if (((this._rateDocumentsTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._rateDocumentsTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("All TableAdapters managed by a TableAdapterManager must use the same connection s" +
                         "tring.");
             }
@@ -5523,6 +10259,33 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                         adaptersWithAcceptChangesDuringUpdate.Add(this._accountsTableAdapter.Adapter);
                     }
                 }
+                if ((this._discountDescriptionsTableAdapter != null)) {
+                    revertConnections.Add(this._discountDescriptionsTableAdapter, this._discountDescriptionsTableAdapter.Connection);
+                    this._discountDescriptionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._discountDescriptionsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._discountDescriptionsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._discountDescriptionsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._discountDescriptionsTableAdapter.Adapter);
+                    }
+                }
+                if ((this._discountDocumentsTableAdapter != null)) {
+                    revertConnections.Add(this._discountDocumentsTableAdapter, this._discountDocumentsTableAdapter.Connection);
+                    this._discountDocumentsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._discountDocumentsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._discountDocumentsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._discountDocumentsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._discountDocumentsTableAdapter.Adapter);
+                    }
+                }
+                if ((this._discountPercentsTableAdapter != null)) {
+                    revertConnections.Add(this._discountPercentsTableAdapter, this._discountPercentsTableAdapter.Connection);
+                    this._discountPercentsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._discountPercentsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._discountPercentsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._discountPercentsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._discountPercentsTableAdapter.Adapter);
+                    }
+                }
                 if ((this._districtsTableAdapter != null)) {
                     revertConnections.Add(this._districtsTableAdapter, this._districtsTableAdapter.Connection);
                     this._districtsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
@@ -5548,6 +10311,24 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     if (this._paymentDocumentsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._paymentDocumentsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._paymentDocumentsTableAdapter.Adapter);
+                    }
+                }
+                if ((this._rateDescriptionsTableAdapter != null)) {
+                    revertConnections.Add(this._rateDescriptionsTableAdapter, this._rateDescriptionsTableAdapter.Connection);
+                    this._rateDescriptionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._rateDescriptionsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._rateDescriptionsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._rateDescriptionsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._rateDescriptionsTableAdapter.Adapter);
+                    }
+                }
+                if ((this._rateDocumentsTableAdapter != null)) {
+                    revertConnections.Add(this._rateDocumentsTableAdapter, this._rateDocumentsTableAdapter.Connection);
+                    this._rateDocumentsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(workConnection));
+                    this._rateDocumentsTableAdapter.Transaction = ((global::System.Data.SqlClient.SqlTransaction)(workTransaction));
+                    if (this._rateDocumentsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._rateDocumentsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._rateDocumentsTableAdapter.Adapter);
                     }
                 }
                 if ((this._streetsTableAdapter != null)) {
@@ -5621,6 +10402,18 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                     this._accountsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._accountsTableAdapter]));
                     this._accountsTableAdapter.Transaction = null;
                 }
+                if ((this._discountDescriptionsTableAdapter != null)) {
+                    this._discountDescriptionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._discountDescriptionsTableAdapter]));
+                    this._discountDescriptionsTableAdapter.Transaction = null;
+                }
+                if ((this._discountDocumentsTableAdapter != null)) {
+                    this._discountDocumentsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._discountDocumentsTableAdapter]));
+                    this._discountDocumentsTableAdapter.Transaction = null;
+                }
+                if ((this._discountPercentsTableAdapter != null)) {
+                    this._discountPercentsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._discountPercentsTableAdapter]));
+                    this._discountPercentsTableAdapter.Transaction = null;
+                }
                 if ((this._districtsTableAdapter != null)) {
                     this._districtsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._districtsTableAdapter]));
                     this._districtsTableAdapter.Transaction = null;
@@ -5632,6 +10425,14 @@ SELECT Id, CreatedDate, LastSaveDate, IsDeleted, DistrictId, StreetName FROM Str
                 if ((this._paymentDocumentsTableAdapter != null)) {
                     this._paymentDocumentsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._paymentDocumentsTableAdapter]));
                     this._paymentDocumentsTableAdapter.Transaction = null;
+                }
+                if ((this._rateDescriptionsTableAdapter != null)) {
+                    this._rateDescriptionsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._rateDescriptionsTableAdapter]));
+                    this._rateDescriptionsTableAdapter.Transaction = null;
+                }
+                if ((this._rateDocumentsTableAdapter != null)) {
+                    this._rateDocumentsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._rateDocumentsTableAdapter]));
+                    this._rateDocumentsTableAdapter.Transaction = null;
                 }
                 if ((this._streetsTableAdapter != null)) {
                     this._streetsTableAdapter.Connection = ((global::System.Data.SqlClient.SqlConnection)(revertConnections[this._streetsTableAdapter]));
