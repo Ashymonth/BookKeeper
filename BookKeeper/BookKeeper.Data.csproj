@@ -225,20 +225,24 @@
     <Compile Include="Models\ExcelImport\LocationImport.cs" />
     <Compile Include="Models\HtmlImport\PaymentDetailsImport.cs" />
     <Compile Include="Models\HtmlImport\PaymentDocumentImport.cs" />
-    <Compile Include="Models\Rate.cs" />
+    <Compile Include="Models\RateModel.cs" />
+    <Compile Include="Models\ResponseModel.cs" />
+    <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\EntityService\AccountService.cs" />
-    <Compile Include="Services\EntityService\AddressService.cs" />
-    <Compile Include="Services\EntityService\DistrictService.cs" />
-    <Compile Include="Services\EntityService\LocationService.cs" />
+    <Compile Include="Services\EntityService\Address\StreetService.cs" />
+    <Compile Include="Services\EntityService\Address\DistrictService.cs" />
+    <Compile Include="Services\EntityService\Address\LocationService.cs" />
     <Compile Include="Services\EntityService\PaymentDocumentService.cs" />
-    <Compile Include="Services\EntityService\RateService.cs" />
+    <Compile Include="Services\EntityService\Rate\RateDescriptionService.cs" />
+    <Compile Include="Services\EntityService\Rate\RateDocumentService.cs" />
     <Compile Include="Services\Import\ExcelImportService.cs" />
     <Compile Include="Services\Import\HtmlImportService.cs" />
     <Compile Include="Services\Import\IImportService.cs" />
     <Compile Include="Services\Load\ExcelDataLoader.cs" />
     <Compile Include="Services\Load\HtmlLoadService.cs" />
     <Compile Include="Services\Load\IDataLoader.cs" />
+    <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\Service.cs" />
   </ItemGroup>
   <ItemGroup>

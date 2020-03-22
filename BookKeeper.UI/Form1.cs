@@ -1,15 +1,17 @@
 ﻿using Autofac;
 using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Infrastructure;
+using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService;
+using BookKeeper.UI.Models;
+using BookKeeper.UI.UI.Forms;
 using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
-using BookKeeper.UI.Models;
+using BookKeeper.Data.Services.EntityService.Address;
 
 namespace BookKeeper.UI
 {
@@ -66,7 +68,7 @@ namespace BookKeeper.UI
         {
             var search = new SearchModel()
             {
-                AddressId = (int) cmbStreet.SelectedItem,
+                AddressId = (int)cmbStreet.SelectedValue,
                 AccountType = cmbPersonalAccountType.SelectedIndex,
                 HouseNumber = txtHouse.Text,
                 BuildingNumber = txtBuilding.Text,
@@ -78,7 +80,11 @@ namespace BookKeeper.UI
 
             using (var scope = _container.BeginLifetimeScope())
             {
-              
+                var service = scope.Resolve<IAccountService>();
+                var result = service.GetWithInclude(x => x.StreetId == (int)cmbStreet.SelectedValue &&
+                    x.AccountType == Convert(cmbPersonalAccountType.SelectedIndex), x => x.PaymentDocuments);
+
+
             }
 
         }
@@ -89,15 +95,34 @@ namespace BookKeeper.UI
 
         private void btnShowDebtor_Click(object sender, EventArgs e)
         {
-            using (var scope = _container.BeginLifetimeScope())
+
+        }
+
+        private void btnAddRate_Click(object sender, EventArgs e)
+        {
+            using (var rate = new RateItemForm())
             {
-                var service = scope.Resolve<IAccountService>();
-                foreach (var accounts in metroListView1.Items[0].SubItems)
+                var dialogResult = rate.ShowDialog(this);
+
+                if (dialogResult == DialogResult.OK)
                 {
-                    var result = service.GetWithInclude(x => x.IsArchive == false && x.Account == (long)accounts,x=>x.PaymentDocuments).ToList();
-                    
+                    LoadItems(rate.RateModel);
                 }
             }
+        }
+
+        private void LoadItems(RateModel model)
+        {
+            var listViewItem = new ListViewItem(new[]
+            {
+                model.StreetId.ToString(),
+                model.House,
+                model.Building,
+                model.Price.ToString(CultureInfo.CurrentCulture),
+                model.Description,
+            })
+            { Tag = model };
+            lvlRates.Items.Add(listViewItem);
         }
     }
 }

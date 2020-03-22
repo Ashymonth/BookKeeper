@@ -23,7 +23,7 @@ namespace BookKeeper.Data.Data
 
         public virtual DbSet<DiscountPercentEntity> DiscountPercents { get; set; }
 
-        public virtual DbSet<DiscountDescriptionEntity> DiscountDescriptions { get; set; } 
+        public virtual DbSet<DiscountDescriptionEntity> DiscountDescriptions { get; set; }
 
         public virtual DbSet<RateDocumentEntity> RateDocuments { get; set; }
 

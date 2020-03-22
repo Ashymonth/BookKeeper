@@ -1,6 +1,6 @@
-﻿using System;
+﻿using BookKeeper.Data.Data.Entities.Payments;
+using System;
 using System.Collections.Generic;
-using BookKeeper.Data.Data.Entities.Payments;
 
 namespace BookKeeper.Data.Data.Entities
 {
@@ -24,6 +24,6 @@ namespace BookKeeper.Data.Data.Entities
 
         public bool IsArchive { get; set; }
 
-        public virtual ICollection<PaymentDocumentEntity> PaymentDocuments{ get; set; }
+        public virtual ICollection<PaymentDocumentEntity> PaymentDocuments { get; set; }
     }
 }

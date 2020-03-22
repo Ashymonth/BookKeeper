@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Autofac;
-using BookKeeper.Data.Data;
-using BookKeeper.Data.Data.Entities.Address;
-using BookKeeper.Data.Data.Entities.Payments;
+﻿using Autofac;
 using BookKeeper.Data.Infrastructure;
-using BookKeeper.Data.Models.ExcelImport;
-using BookKeeper.Data.Models.HtmlImport;
-using BookKeeper.Data.Services.Import;
 using BookKeeper.Data.Services.Load;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using System;
 
 namespace BookKeeper.Test
 {

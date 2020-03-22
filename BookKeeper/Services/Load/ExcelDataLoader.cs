@@ -6,6 +6,7 @@ using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BookKeeper.Data.Services.EntityService.Address;
 
 namespace BookKeeper.Data.Services.Load
 {
@@ -15,7 +16,7 @@ namespace BookKeeper.Data.Services.Load
         private readonly IDistrictService _districtService;
         private readonly IAddressService _addressService;
         private readonly IAccountService _accountService;
-        
+
 
         public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IAddressService addressService, IAccountService accountService)
         {
@@ -28,7 +29,7 @@ namespace BookKeeper.Data.Services.Load
         public void LoadData(string file)
         {
             var import = _import.ImportDataRow(file);
-            
+
             foreach (var districtsGroup in import.GroupBy(x => x.District.Name))
             {
                 var firstDistrict = districtsGroup.FirstOrDefault();
@@ -51,7 +52,7 @@ namespace BookKeeper.Data.Services.Load
                         {
                             account.IsArchive = account.IsEmpty && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
                             account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
-                            
+
                             accountsToUpdate.Add(account);
                             continue;
                         }
@@ -64,7 +65,7 @@ namespace BookKeeper.Data.Services.Load
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
                         };
 
-                        if(address.Locations == null)
+                        if (address.Locations == null)
                             address.Locations = new List<LocationEntity>();
 
                         address.Locations.Add(new LocationEntity

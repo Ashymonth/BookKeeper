@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using BookKeeper.Data.Data.Entities;
+﻿using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Payments;
 using BookKeeper.Data.Models.HtmlImport;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
+using System;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace BookKeeper.Data.Services.Load
 {
@@ -57,7 +54,7 @@ namespace BookKeeper.Data.Services.Load
             var accountsToUpdate = new List<AccountEntity>();
             foreach (var item in import.PaymentDetailsImports)
             {
-                
+
                 var personalAccount = ValidPersonalAccount(item.PersonalAccount);
                 var documentDate = ValidDateTime(import.DocumentData);
 

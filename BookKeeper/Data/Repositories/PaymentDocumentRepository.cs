@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookKeeper.Data.Data.Entities.Payments;
+﻿using BookKeeper.Data.Data.Entities.Payments;
 
 namespace BookKeeper.Data.Data.Repositories
 {
@@ -12,7 +7,7 @@ namespace BookKeeper.Data.Data.Repositories
 
     }
 
-    public class PaymentDocumentRepository :Repository<PaymentDocumentEntity>,IPaymentDocumentRepository
+    public class PaymentDocumentRepository : Repository<PaymentDocumentEntity>, IPaymentDocumentRepository
     {
         public PaymentDocumentRepository(ApplicationDbContext dbContext) : base(dbContext)
         {

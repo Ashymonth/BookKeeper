@@ -2,7 +2,7 @@
 using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Repositories;
 
-namespace BookKeeper.Data.Services.EntityService
+namespace BookKeeper.Data.Services.EntityService.Address
 {
     public interface ILocationService : IService<LocationEntity>
     {

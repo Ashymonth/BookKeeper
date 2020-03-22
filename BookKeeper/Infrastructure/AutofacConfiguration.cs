@@ -9,6 +9,7 @@ using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
 using BookKeeper.Data.Services.Load;
 using System.Collections.Generic;
+using BookKeeper.Data.Services.EntityService.Address;
 
 namespace BookKeeper.Data.Infrastructure
 {
@@ -45,7 +46,7 @@ namespace BookKeeper.Data.Infrastructure
                 .As(typeof(IAccountService))
                 .InstancePerLifetimeScope();
 
-            container.RegisterType(typeof(AddressService))
+            container.RegisterType(typeof(StreetService))
                 .As(typeof(IAddressService))
                 .InstancePerLifetimeScope();
 
@@ -67,6 +68,10 @@ namespace BookKeeper.Data.Infrastructure
 
             container.RegisterType(typeof(HtmlImportService))
                 .As<IImportService<List<PaymentDocumentImport>>>()
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(SearchService))
+                .As<ISearchService>()
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelDataLoader))

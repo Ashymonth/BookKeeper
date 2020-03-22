@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using BookKeeper.Data.Data.Entities.Rates;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using BookKeeper.Data.Data.Entities.Rates;
 
 namespace BookKeeper.Data.Data.Entities.Address
 {

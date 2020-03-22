@@ -1,13 +1,12 @@
-﻿using System;
+﻿using BookKeeper.Data.Infrastructure.Configuration;
+using BookKeeper.Data.Models.HtmlImport;
+using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
-using BookKeeper.Data.Infrastructure.Configuration;
-using BookKeeper.Data.Models.HtmlImport;
-using DocumentFormat.OpenXml.Spreadsheet;
-using HtmlAgilityPack;
 
 namespace BookKeeper.Data.Services.Import
 {
@@ -58,16 +57,16 @@ namespace BookKeeper.Data.Services.Import
                     _header = false;
                     continue;
                 }
-                if(_header) 
-                    continue;
-                
-                var cells = row.SelectNodes(Row);
-                if(cells == null)
+                if (_header)
                     continue;
 
-                if(cells.Count < 4)
+                var cells = row.SelectNodes(Row);
+                if (cells == null)
+                    continue;
+
+                if (cells.Count < 4)
                     break;
-                
+
                 if (cells[configuration.ReceivedCell].InnerText.ToLower().Trim().Contains("поступило"))
                     continue;
 
