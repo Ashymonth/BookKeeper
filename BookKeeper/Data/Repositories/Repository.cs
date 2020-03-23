@@ -11,6 +11,7 @@ namespace BookKeeper.Data.Data.Repositories
     {
         TEntity GetItem(Func<TEntity, bool> predicate);
         IEnumerable<TEntity> GetItems();
+        IEnumerable<TEntity> GetItems(Func<TEntity, bool> predicate);
         IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] expressions);
         IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperty);
         TEntity Add(TEntity entity);
@@ -42,6 +43,11 @@ namespace BookKeeper.Data.Data.Repositories
         public IEnumerable<TEntity> GetItems()
         {
             return _entities.Where(x => x.IsDeleted == false);
+        }
+
+        public IEnumerable<TEntity> GetItems(Func<TEntity, bool> predicate)
+        {
+            return _entities.Where(predicate);
         }
 
         public IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] expressions)

@@ -10,17 +10,19 @@ namespace BookKeeper.Data.Data.Entities.Rates
         public RateDocumentEntity()
         {
             RatesDescription = new List<RateDescriptionEntity>();
+            StartDate = CreatedDate = DateTime.Now;
         }
         public int StreetId { get; set; }
 
         [ForeignKey(nameof(StreetId))]
         public StreetEntity Street { get; set; }
+
+        public int LocationId { get; set; }
+        [ForeignKey(nameof(LocationId))]
         
         public decimal Price { get; set; }
 
-        public bool IsDefault { get; set; }
-
-        public DateTime RateRegisterDate { get; set; }
+        public bool IsDefaultPrice { get; set; }
 
         public DateTime StartDate { get; set; }
 

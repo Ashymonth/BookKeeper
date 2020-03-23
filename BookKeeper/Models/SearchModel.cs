@@ -1,10 +1,12 @@
-﻿namespace BookKeeper.UI.Models
+﻿using BookKeeper.Data.Data.Entities;
+
+namespace BookKeeper.Data.Models
 {
     public class SearchModel
     {
-        public int AddressId { get; set; }
+        public int StreetId { get; set; }
 
-        public int AccountType { get; set; }
+        public AccountType AccountType { get; set; }
 
         public string HouseNumber { get; set; }
 

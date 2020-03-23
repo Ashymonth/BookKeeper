@@ -14,16 +14,18 @@ namespace BookKeeper.Data.Services.Load
     {
         private readonly IImportService<List<ImportDataRow>> _import;
         private readonly IDistrictService _districtService;
-        private readonly IAddressService _addressService;
+        private readonly IStreetService _streetService;
         private readonly IAccountService _accountService;
+        private readonly ILocationService _locationService;
 
 
-        public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IAddressService addressService, IAccountService accountService)
+        public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IStreetService streetService, IAccountService accountService, ILocationService locationService)
         {
             _import = import;
             _districtService = districtService;
-            _addressService = addressService;
+            _streetService = streetService;
             _accountService = accountService;
+            _locationService = locationService;
         }
 
         public void LoadData(string file)
@@ -39,7 +41,7 @@ namespace BookKeeper.Data.Services.Load
                 foreach (var addressGroup in districtsGroup.GroupBy(x => x.Address.Name))
                 {
                     var firstAddress = addressGroup.FirstOrDefault();
-                    var address = AddOrCreate(firstAddress?.Address, district.Id);
+                    var street = AddOrCreate(firstAddress?.Address, district.Id);
 
                     var accountsToUpdate = new List<AccountEntity>();
                     var accountsToAdd = new List<AccountEntity>();
@@ -65,19 +67,24 @@ namespace BookKeeper.Data.Services.Load
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
                         };
 
-                        if (address.Locations == null)
-                            address.Locations = new List<LocationEntity>();
 
-                        address.Locations.Add(new LocationEntity
+
+                        if (street.Locations == null)
+                            street.Locations = new List<LocationEntity>();
+
+                        var location = new LocationEntity
                         {
                             HouseNumber = dataRow.LocationImport.HouseNumber,
                             BuildingCorpus = dataRow.LocationImport.BuildingNumber,
                             ApartmentNumber = dataRow.LocationImport.ApartmentNumber,
-                            StreetId = address.Id,
-                        });
+                            StreetId = street.Id,
+                            AccountId = account.Id
+                        };
+                        street.Locations.Add(location);
 
-                        account.StreetId = address.Id;
-
+                        account.StreetId = street.Id;
+                        account.Location = location;
+                        
                         accountsToAdd.Add(account);
                     }
                     if (accountsToAdd.Count != 0)
@@ -100,11 +107,11 @@ namespace BookKeeper.Data.Services.Load
 
         private StreetEntity AddOrCreate(AddressImport import, int districtId)
         {
-            var result = _addressService.GetItem(x => x.StreetName == import.Name);
+            var result = _streetService.GetItem(x => x.StreetName == import.Name);
             if (result != null)
                 return result;
 
-            return _addressService.Add(new StreetEntity
+            return _streetService.Add(new StreetEntity
             {
                 StreetName = import.Name,
                 DistrictId = districtId,

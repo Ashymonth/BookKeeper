@@ -1,6 +1,8 @@
 ﻿using BookKeeper.Data.Data.Entities.Payments;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using BookKeeper.Data.Data.Entities.Address;
 
 namespace BookKeeper.Data.Data.Entities
 {
@@ -25,5 +27,8 @@ namespace BookKeeper.Data.Data.Entities
         public bool IsArchive { get; set; }
 
         public virtual ICollection<PaymentDocumentEntity> PaymentDocuments { get; set; }
+
+        public virtual LocationEntity Location { get; set; }
+
     }
 }

@@ -2,7 +2,7 @@
 {
     public class RateModel
     {
-        public int StreetId { get; set; }
+        public string Street { get; set; }
 
         public string House { get; set; }
 
@@ -10,6 +10,6 @@
 
         public string Description { get; set; }
 
-        public decimal Price { get; set; }
+        public string Price { get; set; }
     }
 }

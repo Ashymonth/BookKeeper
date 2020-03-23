@@ -7,6 +7,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using BookKeeper.Data.Infrastructure.Formats;
 
 namespace BookKeeper.Data.Services.Import
 {
@@ -29,6 +30,8 @@ namespace BookKeeper.Data.Services.Import
         {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
+
+            file = HtmlFormatValidator.ValidateFormat(file);
 
             var html = new HtmlDocument();
 

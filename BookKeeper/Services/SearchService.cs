@@ -1,39 +1,67 @@
-﻿using BookKeeper.Data.Data.Entities;
+﻿using System;
+using System.Collections.Generic;
+using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Services.EntityService;
-using BookKeeper.UI.Models;
 using System.Linq;
+using BookKeeper.Data.Data.Entities.Address;
+using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService.Address;
 
 namespace BookKeeper.Data.Services
 {
     public interface ISearchService
     {
-        AccountEntity FindAccountEntity(SearchModel model);
+        IEnumerable<AccountEntity> FindAccountEntity(SearchModel model);
     }
 
     public class SearchService : ISearchService
     {
-        private readonly IAddressService _addressService;
+        private readonly IStreetService _streetService;
+        private readonly ILocationService _locationService;
         private readonly IAccountService _accountService;
 
-        public SearchService(IAddressService addressService, IAccountService accountService)
+        public SearchService(IStreetService streetService, IAccountService accountService, ILocationService locationService)
         {
-            _addressService = addressService;
+            _streetService = streetService;
             _accountService = accountService;
+            _locationService = locationService;
         }
 
-        public AccountEntity FindAccountEntity(SearchModel model)
+        public IEnumerable<AccountEntity> FindAccountEntity(SearchModel model)
         {
-            var result = _addressService.GetWithInclude(x => x.Id == model.AddressId && x.IsDeleted == false, entity => entity.Locations);
 
-            foreach (var entity in result)
+            if (!string.IsNullOrWhiteSpace(model.HouseNumber) && !string.IsNullOrWhiteSpace(model.BuildingNumber) &&
+                !string.IsNullOrWhiteSpace(model.ApartmentNumber))
             {
-                foreach (var location in entity.Locations.Where(x => x.HouseNumber == model.HouseNumber && x.BuildingCorpus == model.BuildingNumber && x.ApartmentNumber == model.ApartmentNumber))
+                var locationEntity = _locationService.GetItems(x =>
+                    x.HouseNumber.Equals(model.HouseNumber, StringComparison.OrdinalIgnoreCase) &&
+                    x.BuildingCorpus.Equals(model.BuildingNumber, StringComparison.OrdinalIgnoreCase) &&
+                    x.ApartmentNumber.Equals(model.ApartmentNumber, StringComparison.OrdinalIgnoreCase) &&
+                    x.StreetId == model.StreetId);
+
+                var accounts = new List<AccountEntity>();
+
+                foreach (var location in locationEntity)
                 {
-                    var re = location.Street;
+                    var account = _accountService.GetWithInclude(x => x.StreetId == model.StreetId && x.IsArchive == false, x => x.PaymentDocuments, x => x.Location.Id == location.Id);
+                    accounts.AddRange(account);
                 }
+
+                return accounts;
+
+
             }
 
+            if (string.IsNullOrWhiteSpace(model.HouseNumber))
+            {
+                var accounts = _accountService.GetWithInclude(x => x.StreetId == model.StreetId &&
+                                                                  x.AccountType == model.AccountType &&
+                                                                  x.IsArchive == false, x => x.PaymentDocuments);
+
+                return accounts;
+            }
+
+            var result = _streetService.GetWithInclude(x => x.Id == model.StreetId && x.IsDeleted == false, entity => entity.Locations);
             return null;
 
 

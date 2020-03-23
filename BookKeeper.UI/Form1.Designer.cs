@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.btnFiles = new MetroFramework.Controls.MetroButton();
             this.btnShowDebtor = new MetroFramework.Controls.MetroButton();
             this.metroButton3 = new MetroFramework.Controls.MetroButton();
             this.metroButton4 = new MetroFramework.Controls.MetroButton();
@@ -49,35 +50,36 @@
             this.metroDateTime2 = new MetroFramework.Controls.MetroDateTime();
             this.metroCheckBox1 = new MetroFramework.Controls.MetroCheckBox();
             this.btnClear = new MetroFramework.Controls.MetroButton();
-            this.metroButton5 = new MetroFramework.Controls.MetroButton();
+            this.btnAccept = new MetroFramework.Controls.MetroButton();
             this.metroTabPage2 = new MetroFramework.Controls.MetroTabPage();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.lvlRates = new MetroFramework.Controls.MetroListView();
-            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnAddRate = new MetroFramework.Controls.MetroButton();
-            this.metroTabPage4 = new MetroFramework.Controls.MetroTabPage();
-            this.metroContextMenu1 = new MetroFramework.Controls.MetroContextMenu(this.components);
-            this.базаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.оплатаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.bookKeepingDataSet = new BookKeeper.UI.BookKeepingDataSet();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnAddRate = new MetroFramework.Controls.MetroButton();
+            this.metroTabPage4 = new MetroFramework.Controls.MetroTabPage();
+            this.cntFilesMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.btnLoadBase = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnLoadPayments = new System.Windows.Forms.ToolStripMenuItem();
+            this.bookKeepingDataSet = new BookKeeper.UI.BookKeepingDataSet();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.flowLayoutPanel1.SuspendLayout();
             this.metroTabControl1.SuspendLayout();
             this.metroTabPage1.SuspendLayout();
             this.flpFilter.SuspendLayout();
             this.metroTabPage3.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
-            this.metroContextMenu1.SuspendLayout();
+            this.cntFilesMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bookKeepingDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Controls.Add(this.metroButton1);
+            this.flowLayoutPanel1.Controls.Add(this.btnFiles);
             this.flowLayoutPanel1.Controls.Add(this.btnShowDebtor);
             this.flowLayoutPanel1.Controls.Add(this.metroButton3);
             this.flowLayoutPanel1.Controls.Add(this.metroButton4);
@@ -85,21 +87,21 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 60);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1541, 32);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1981, 32);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
-            // metroButton1
+            // btnFiles
             // 
-            this.metroButton1.Location = new System.Drawing.Point(8, 3);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(125, 23);
-            this.metroButton1.Style = MetroFramework.MetroColorStyle.Red;
-            this.metroButton1.TabIndex = 0;
-            this.metroButton1.Text = "Загрузка файлов";
-            this.metroButton1.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.metroButton1.UseCustomBackColor = true;
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click_1);
+            this.btnFiles.Location = new System.Drawing.Point(8, 3);
+            this.btnFiles.Name = "btnFiles";
+            this.btnFiles.Size = new System.Drawing.Size(125, 23);
+            this.btnFiles.Style = MetroFramework.MetroColorStyle.Red;
+            this.btnFiles.TabIndex = 0;
+            this.btnFiles.Text = "Загрузка файлов";
+            this.btnFiles.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.btnFiles.UseCustomBackColor = true;
+            this.btnFiles.UseSelectable = true;
+            this.btnFiles.Click += new System.EventHandler(this.btnFiles_Click);
             // 
             // btnShowDebtor
             // 
@@ -109,22 +111,21 @@
             this.btnShowDebtor.TabIndex = 1;
             this.btnShowDebtor.Text = "Показать не оплаченные";
             this.btnShowDebtor.UseSelectable = true;
-            this.btnShowDebtor.Click += new System.EventHandler(this.btnShowDebtor_Click);
             // 
             // metroButton3
             // 
             this.metroButton3.Location = new System.Drawing.Point(312, 3);
             this.metroButton3.Name = "metroButton3";
-            this.metroButton3.Size = new System.Drawing.Size(75, 23);
+            this.metroButton3.Size = new System.Drawing.Size(123, 23);
             this.metroButton3.TabIndex = 2;
             this.metroButton3.Text = "metroButton3";
             this.metroButton3.UseSelectable = true;
             // 
             // metroButton4
             // 
-            this.metroButton4.Location = new System.Drawing.Point(393, 3);
+            this.metroButton4.Location = new System.Drawing.Point(441, 3);
             this.metroButton4.Name = "metroButton4";
-            this.metroButton4.Size = new System.Drawing.Size(75, 23);
+            this.metroButton4.Size = new System.Drawing.Size(165, 23);
             this.metroButton4.TabIndex = 3;
             this.metroButton4.Text = "metroButton4";
             this.metroButton4.UseSelectable = true;
@@ -137,7 +138,7 @@
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(20, 92);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(1541, 24);
+            this.metroPanel1.Size = new System.Drawing.Size(1981, 24);
             this.metroPanel1.TabIndex = 3;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
@@ -152,8 +153,8 @@
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 116);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 2;
-            this.metroTabControl1.Size = new System.Drawing.Size(1541, 782);
+            this.metroTabControl1.SelectedIndex = 0;
+            this.metroTabControl1.Size = new System.Drawing.Size(1981, 782);
             this.metroTabControl1.TabIndex = 4;
             this.metroTabControl1.UseSelectable = true;
             // 
@@ -167,7 +168,7 @@
             this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage1.Name = "metroTabPage1";
             this.metroTabPage1.Padding = new System.Windows.Forms.Padding(5);
-            this.metroTabPage1.Size = new System.Drawing.Size(1533, 740);
+            this.metroTabPage1.Size = new System.Drawing.Size(1973, 740);
             this.metroTabPage1.TabIndex = 0;
             this.metroTabPage1.Text = "Месячный отчет";
             this.metroTabPage1.VerticalScrollbarBarColor = true;
@@ -185,7 +186,7 @@
             this.lvlMonthReport.Location = new System.Drawing.Point(5, 45);
             this.lvlMonthReport.Name = "lvlMonthReport";
             this.lvlMonthReport.OwnerDraw = true;
-            this.lvlMonthReport.Size = new System.Drawing.Size(1523, 690);
+            this.lvlMonthReport.Size = new System.Drawing.Size(1963, 690);
             this.lvlMonthReport.TabIndex = 5;
             this.lvlMonthReport.UseCompatibleStateImageBehavior = false;
             this.lvlMonthReport.UseSelectable = true;
@@ -207,12 +208,12 @@
             this.flpFilter.Controls.Add(this.metroDateTime2);
             this.flpFilter.Controls.Add(this.metroCheckBox1);
             this.flpFilter.Controls.Add(this.btnClear);
-            this.flpFilter.Controls.Add(this.metroButton5);
+            this.flpFilter.Controls.Add(this.btnAccept);
             this.flpFilter.Dock = System.Windows.Forms.DockStyle.Top;
             this.flpFilter.Location = new System.Drawing.Point(5, 5);
             this.flpFilter.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.flpFilter.Name = "flpFilter";
-            this.flpFilter.Size = new System.Drawing.Size(1523, 40);
+            this.flpFilter.Size = new System.Drawing.Size(1963, 40);
             this.flpFilter.TabIndex = 4;
             // 
             // cmbStreet
@@ -339,6 +340,7 @@
             // 
             // metroDateTime1
             // 
+            this.metroDateTime1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.metroDateTime1.Location = new System.Drawing.Point(684, 3);
             this.metroDateTime1.MinimumSize = new System.Drawing.Size(0, 29);
             this.metroDateTime1.Name = "metroDateTime1";
@@ -347,6 +349,7 @@
             // 
             // metroDateTime2
             // 
+            this.metroDateTime2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.metroDateTime2.Location = new System.Drawing.Point(890, 3);
             this.metroDateTime2.MinimumSize = new System.Drawing.Size(0, 29);
             this.metroDateTime2.Name = "metroDateTime2";
@@ -355,6 +358,7 @@
             // 
             // metroCheckBox1
             // 
+            this.metroCheckBox1.Appearance = System.Windows.Forms.Appearance.Button;
             this.metroCheckBox1.AutoSize = true;
             this.metroCheckBox1.BackColor = System.Drawing.Color.Transparent;
             this.metroCheckBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
@@ -364,6 +368,8 @@
             this.metroCheckBox1.Size = new System.Drawing.Size(57, 30);
             this.metroCheckBox1.TabIndex = 8;
             this.metroCheckBox1.Text = "Архив";
+            this.metroCheckBox1.UseCustomBackColor = true;
+            this.metroCheckBox1.UseCustomForeColor = true;
             this.metroCheckBox1.UseSelectable = true;
             // 
             // btnClear
@@ -375,20 +381,20 @@
             this.btnClear.Text = "Сбросить";
             this.btnClear.UseSelectable = true;
             // 
-            // metroButton5
+            // btnAccept
             // 
-            this.metroButton5.AutoSize = true;
-            this.metroButton5.Location = new System.Drawing.Point(1290, 3);
-            this.metroButton5.Name = "metroButton5";
-            this.metroButton5.Size = new System.Drawing.Size(121, 29);
-            this.metroButton5.Style = MetroFramework.MetroColorStyle.Silver;
-            this.metroButton5.TabIndex = 7;
-            this.metroButton5.Text = "Применить";
-            this.metroButton5.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.metroButton5.UseCustomBackColor = true;
-            this.metroButton5.UseCustomForeColor = true;
-            this.metroButton5.UseSelectable = true;
-            this.metroButton5.Click += new System.EventHandler(this.metroButton5_Click);
+            this.btnAccept.AutoSize = true;
+            this.btnAccept.Location = new System.Drawing.Point(1290, 3);
+            this.btnAccept.Name = "btnAccept";
+            this.btnAccept.Size = new System.Drawing.Size(121, 29);
+            this.btnAccept.Style = MetroFramework.MetroColorStyle.Silver;
+            this.btnAccept.TabIndex = 7;
+            this.btnAccept.Text = "Применить";
+            this.btnAccept.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.btnAccept.UseCustomBackColor = true;
+            this.btnAccept.UseCustomForeColor = true;
+            this.btnAccept.UseSelectable = true;
+            this.btnAccept.Click += new System.EventHandler(this.btnAccept_Click);
             // 
             // metroTabPage2
             // 
@@ -397,7 +403,7 @@
             this.metroTabPage2.HorizontalScrollbarSize = 10;
             this.metroTabPage2.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage2.Name = "metroTabPage2";
-            this.metroTabPage2.Size = new System.Drawing.Size(1533, 740);
+            this.metroTabPage2.Size = new System.Drawing.Size(1973, 740);
             this.metroTabPage2.TabIndex = 1;
             this.metroTabPage2.Text = "Общий отчет";
             this.metroTabPage2.VerticalScrollbarBarColor = true;
@@ -414,7 +420,7 @@
             this.metroTabPage3.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage3.Name = "metroTabPage3";
             this.metroTabPage3.Padding = new System.Windows.Forms.Padding(5);
-            this.metroTabPage3.Size = new System.Drawing.Size(1533, 740);
+            this.metroTabPage3.Size = new System.Drawing.Size(1973, 740);
             this.metroTabPage3.TabIndex = 2;
             this.metroTabPage3.Text = "Тарифы";
             this.metroTabPage3.VerticalScrollbarBarColor = true;
@@ -423,6 +429,7 @@
             // 
             // lvlRates
             // 
+            this.lvlRates.CheckBoxes = true;
             this.lvlRates.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader2,
             this.columnHeader3,
@@ -433,74 +440,17 @@
             this.lvlRates.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lvlRates.FullRowSelect = true;
             this.lvlRates.GridLines = true;
+            listViewItem4.StateImageIndex = 0;
+            this.lvlRates.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem4});
             this.lvlRates.Location = new System.Drawing.Point(5, 5);
             this.lvlRates.Name = "lvlRates";
             this.lvlRates.OwnerDraw = true;
-            this.lvlRates.Size = new System.Drawing.Size(1523, 691);
+            this.lvlRates.Size = new System.Drawing.Size(1963, 691);
             this.lvlRates.TabIndex = 3;
             this.lvlRates.UseCompatibleStateImageBehavior = false;
             this.lvlRates.UseSelectable = true;
             this.lvlRates.View = System.Windows.Forms.View.Details;
-            // 
-            // flowLayoutPanel3
-            // 
-            this.flowLayoutPanel3.Controls.Add(this.btnAddRate);
-            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel3.Location = new System.Drawing.Point(5, 696);
-            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(5);
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(1523, 39);
-            this.flowLayoutPanel3.TabIndex = 2;
-            // 
-            // btnAddRate
-            // 
-            this.btnAddRate.Location = new System.Drawing.Point(1391, 8);
-            this.btnAddRate.Name = "btnAddRate";
-            this.btnAddRate.Size = new System.Drawing.Size(119, 23);
-            this.btnAddRate.TabIndex = 0;
-            this.btnAddRate.Text = "Добавить тариф";
-            this.btnAddRate.UseSelectable = true;
-            this.btnAddRate.Click += new System.EventHandler(this.btnAddRate_Click);
-            // 
-            // metroTabPage4
-            // 
-            this.metroTabPage4.HorizontalScrollbarBarColor = true;
-            this.metroTabPage4.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroTabPage4.HorizontalScrollbarSize = 10;
-            this.metroTabPage4.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage4.Name = "metroTabPage4";
-            this.metroTabPage4.Size = new System.Drawing.Size(1533, 740);
-            this.metroTabPage4.TabIndex = 3;
-            this.metroTabPage4.Text = "Льготы";
-            this.metroTabPage4.VerticalScrollbarBarColor = true;
-            this.metroTabPage4.VerticalScrollbarHighlightOnWheel = false;
-            this.metroTabPage4.VerticalScrollbarSize = 10;
-            // 
-            // metroContextMenu1
-            // 
-            this.metroContextMenu1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.базаToolStripMenuItem,
-            this.оплатаToolStripMenuItem});
-            this.metroContextMenu1.Name = "metroContextMenu1";
-            this.metroContextMenu1.Size = new System.Drawing.Size(115, 48);
-            // 
-            // базаToolStripMenuItem
-            // 
-            this.базаToolStripMenuItem.Name = "базаToolStripMenuItem";
-            this.базаToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.базаToolStripMenuItem.Text = "База";
-            // 
-            // оплатаToolStripMenuItem
-            // 
-            this.оплатаToolStripMenuItem.Name = "оплатаToolStripMenuItem";
-            this.оплатаToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
-            this.оплатаToolStripMenuItem.Text = "Оплата";
-            // 
-            // bookKeepingDataSet
-            // 
-            this.bookKeepingDataSet.DataSetName = "BookKeepingDataSet";
-            this.bookKeepingDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // columnHeader2
             // 
@@ -525,13 +475,76 @@
             // columnHeader7
             // 
             this.columnHeader7.Text = "Описание";
-            this.columnHeader7.Width = 224;
+            this.columnHeader7.Width = 544;
+            // 
+            // flowLayoutPanel3
+            // 
+            this.flowLayoutPanel3.Controls.Add(this.btnAddRate);
+            this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel3.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
+            this.flowLayoutPanel3.Location = new System.Drawing.Point(5, 696);
+            this.flowLayoutPanel3.Name = "flowLayoutPanel3";
+            this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(5);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1963, 39);
+            this.flowLayoutPanel3.TabIndex = 2;
+            // 
+            // btnAddRate
+            // 
+            this.btnAddRate.Location = new System.Drawing.Point(1831, 8);
+            this.btnAddRate.Name = "btnAddRate";
+            this.btnAddRate.Size = new System.Drawing.Size(119, 23);
+            this.btnAddRate.TabIndex = 0;
+            this.btnAddRate.Text = "Добавить тариф";
+            this.btnAddRate.UseSelectable = true;
+            this.btnAddRate.Click += new System.EventHandler(this.btnAddRate_Click);
+            // 
+            // metroTabPage4
+            // 
+            this.metroTabPage4.HorizontalScrollbarBarColor = true;
+            this.metroTabPage4.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroTabPage4.HorizontalScrollbarSize = 10;
+            this.metroTabPage4.Location = new System.Drawing.Point(4, 38);
+            this.metroTabPage4.Name = "metroTabPage4";
+            this.metroTabPage4.Size = new System.Drawing.Size(1973, 740);
+            this.metroTabPage4.TabIndex = 3;
+            this.metroTabPage4.Text = "Льготы";
+            this.metroTabPage4.VerticalScrollbarBarColor = true;
+            this.metroTabPage4.VerticalScrollbarHighlightOnWheel = false;
+            this.metroTabPage4.VerticalScrollbarSize = 10;
+            // 
+            // cntFilesMenu
+            // 
+            this.cntFilesMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnLoadBase,
+            this.btnLoadPayments});
+            this.cntFilesMenu.Name = "metroContextMenu1";
+            this.cntFilesMenu.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.cntFilesMenu.Size = new System.Drawing.Size(115, 48);
+            // 
+            // btnLoadBase
+            // 
+            this.btnLoadBase.Name = "btnLoadBase";
+            this.btnLoadBase.Size = new System.Drawing.Size(180, 22);
+            this.btnLoadBase.Text = "База";
+            this.btnLoadBase.Click += new System.EventHandler(this.btnLoadBase_Click);
+            // 
+            // btnLoadPayments
+            // 
+            this.btnLoadPayments.Name = "btnLoadPayments";
+            this.btnLoadPayments.Size = new System.Drawing.Size(180, 22);
+            this.btnLoadPayments.Text = "Оплата";
+            this.btnLoadPayments.Click += new System.EventHandler(this.btnLoadPayments_Click);
+            // 
+            // bookKeepingDataSet
+            // 
+            this.bookKeepingDataSet.DataSetName = "BookKeepingDataSet";
+            this.bookKeepingDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1581, 918);
+            this.ClientSize = new System.Drawing.Size(2021, 918);
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -545,7 +558,7 @@
             this.flpFilter.PerformLayout();
             this.metroTabPage3.ResumeLayout(false);
             this.flowLayoutPanel3.ResumeLayout(false);
-            this.metroContextMenu1.ResumeLayout(false);
+            this.cntFilesMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.bookKeepingDataSet)).EndInit();
             this.ResumeLayout(false);
 
@@ -553,7 +566,7 @@
 
         #endregion
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private MetroFramework.Controls.MetroButton metroButton1;
+        private MetroFramework.Controls.MetroButton btnFiles;
         private MetroFramework.Controls.MetroButton btnShowDebtor;
         private MetroFramework.Controls.MetroButton metroButton3;
         private MetroFramework.Controls.MetroButton metroButton4;
@@ -573,11 +586,11 @@
         private MetroFramework.Controls.MetroTabPage metroTabPage3;
         private MetroFramework.Controls.MetroTabPage metroTabPage4;
         private MetroFramework.Controls.MetroCheckBox metroCheckBox1;
-        private MetroFramework.Controls.MetroButton metroButton5;
+        private MetroFramework.Controls.MetroButton btnAccept;
         private MetroFramework.Controls.MetroComboBox cmbPersonalAccountType;
-        private MetroFramework.Controls.MetroContextMenu metroContextMenu1;
-        private System.Windows.Forms.ToolStripMenuItem базаToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem оплатаToolStripMenuItem;
+        private MetroFramework.Controls.MetroContextMenu cntFilesMenu;
+        private System.Windows.Forms.ToolStripMenuItem btnLoadBase;
+        private System.Windows.Forms.ToolStripMenuItem btnLoadPayments;
         private MetroFramework.Controls.MetroListView lvlRates;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private MetroFramework.Controls.MetroButton btnAddRate;
@@ -588,6 +601,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader4;
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
 

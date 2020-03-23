@@ -31,13 +31,11 @@ namespace BookKeeper.Data.Services.Load
 
         private readonly IImportService<List<PaymentDocumentImport>> _importService;
         private readonly IAccountService _accountService;
-        private readonly IPaymentDocumentService _paymentDocumentService;
 
-        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService, IPaymentDocumentService paymentDocumentService)
+        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService)
         {
             _importService = importService;
             _accountService = accountService;
-            _paymentDocumentService = paymentDocumentService;
         }
         public void LoadData(string file)
         {

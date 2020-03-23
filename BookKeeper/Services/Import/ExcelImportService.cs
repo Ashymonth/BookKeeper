@@ -3,6 +3,7 @@ using BookKeeper.Data.Models.ExcelImport;
 using ClosedXML.Excel;
 using System.Collections.Generic;
 using System.Linq;
+using BookKeeper.Data.Infrastructure.Formats;
 
 namespace BookKeeper.Data.Services.Import
 {
@@ -14,6 +15,8 @@ namespace BookKeeper.Data.Services.Import
 
         public List<ImportDataRow> ImportDataRow(string file)
         {
+            file = ExcelFormatValidator.ValidateFormat(file);
+
             var configuration = _configuration.Load();
 
             var importData = new List<ImportDataRow>();

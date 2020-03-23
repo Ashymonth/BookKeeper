@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Security.Permissions;
 
 namespace BookKeeper.Data.Data.Entities.Address
 {
@@ -6,8 +7,13 @@ namespace BookKeeper.Data.Data.Entities.Address
     {
         public int StreetId { get; set; }
 
+        public int AccountId { get; set; }
+
         [ForeignKey(nameof(StreetId))]
         public StreetEntity Street { get; set; }
+
+        [ForeignKey(nameof(AccountId))] 
+        public AccountEntity Account { get; set; }
 
         public string HouseNumber { get; set; }
 

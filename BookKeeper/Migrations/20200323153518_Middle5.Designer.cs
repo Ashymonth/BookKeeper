@@ -4,14 +4,16 @@ using BookKeeper.Data.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BookKeeper.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200323153518_Middle5")]
+    partial class Middle5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,6 +51,9 @@ namespace BookKeeper.Data.Migrations
 
                     b.Property<DateTime>("LastSaveDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
 
                     b.Property<int>("StreetId")
                         .HasColumnType("int");
@@ -92,9 +97,6 @@ namespace BookKeeper.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ApartmentNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -117,9 +119,6 @@ namespace BookKeeper.Data.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("AccountId")
-                        .IsUnique();
 
                     b.HasIndex("StreetId");
 
@@ -358,12 +357,6 @@ namespace BookKeeper.Data.Migrations
 
             modelBuilder.Entity("BookKeeper.Data.Data.Entities.Address.LocationEntity", b =>
                 {
-                    b.HasOne("BookKeeper.Data.Data.Entities.AccountEntity", "Account")
-                        .WithOne("Location")
-                        .HasForeignKey("BookKeeper.Data.Data.Entities.Address.LocationEntity", "AccountId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("BookKeeper.Data.Data.Entities.Address.StreetEntity", "Street")
                         .WithMany("Locations")
                         .HasForeignKey("StreetId")
