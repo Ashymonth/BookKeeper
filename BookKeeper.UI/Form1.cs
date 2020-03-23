@@ -200,23 +200,27 @@ namespace BookKeeper.UI
 
         private void btnLoadPayments_Click(object sender, EventArgs e)
         {
+            var files = default(string[]);
             using (var dialog = new OpenFileDialog())
             {
                 dialog.Filter = @"Html files(*.html;*.htm)|*.html;*htm|All files(*.*)|*.*";
                 dialog.Multiselect = true;
-                if (dialog.ShowDialog() == DialogResult.OK)
+                if (dialog.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                files = dialog.FileNames;
+            }
+
+            using (var form = new ProgressForm())
+            {
+                form.ShowDialog(this);
+                foreach (var fileName in files)
                 {
-                    var form = new ProgressForm();
-                    form.Show();
-                    foreach (var fileName in dialog.FileNames)
+                    using (var scope = _container.BeginLifetimeScope())
                     {
-                        using (var scope = _container.BeginLifetimeScope())
-                        {
-                            var service = scope.ResolveNamed<IDataLoader>("Html");
-                            service.LoadData(fileName);
-                        }
+                        var service = scope.ResolveNamed<IDataLoader>("Html");
+                        service.LoadData(fileName);
                     }
-                    form.Dispose();
                 }
             }
         }

@@ -3,8 +3,6 @@ using System.IO;
 
 namespace BookKeeper.Data.Infrastructure.Formats
 {
-
-
     public static class HtmlFormatValidator
     {
         /// <summary>
@@ -14,20 +12,21 @@ namespace BookKeeper.Data.Infrastructure.Formats
         /// <returns></returns>
         public static string ValidateFormat(string file)
         {
-            if (file == null)
-            {
-                return null;
-            }
+            if (string.IsNullOrWhiteSpace(file))
+                throw new ArgumentNullException(nameof(file));
+
+            if (!File.Exists(file))
+                throw new FileNotFoundException(nameof(file));
+
+            if (!Path.GetExtension(file).Equals(".htm", StringComparison.OrdinalIgnoreCase))
+                return file;
+
+            var newFile = $"{Path.GetFileNameWithoutExtension(file)}.html";
 
             try
             {
-                if (!Path.GetExtension(file).Equals(".htm", StringComparison.OrdinalIgnoreCase))
-                    return file;
-                
-
-                var newFile = $"{Path.GetFileNameWithoutExtension(file)}.html";
-
                 File.Copy(file, newFile);
+
                 return newFile;
             }
             catch (IOException)

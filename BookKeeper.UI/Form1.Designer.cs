@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnFiles = new MetroFramework.Controls.MetroButton();
             this.btnShowDebtor = new MetroFramework.Controls.MetroButton();
@@ -87,7 +87,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 60);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1981, 32);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1900, 32);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // btnFiles
@@ -138,7 +138,7 @@
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(20, 92);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(1981, 24);
+            this.metroPanel1.Size = new System.Drawing.Size(1900, 24);
             this.metroPanel1.TabIndex = 3;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
@@ -154,7 +154,7 @@
             this.metroTabControl1.Location = new System.Drawing.Point(20, 116);
             this.metroTabControl1.Name = "metroTabControl1";
             this.metroTabControl1.SelectedIndex = 0;
-            this.metroTabControl1.Size = new System.Drawing.Size(1981, 782);
+            this.metroTabControl1.Size = new System.Drawing.Size(1900, 782);
             this.metroTabControl1.TabIndex = 4;
             this.metroTabControl1.UseSelectable = true;
             // 
@@ -168,7 +168,7 @@
             this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage1.Name = "metroTabPage1";
             this.metroTabPage1.Padding = new System.Windows.Forms.Padding(5);
-            this.metroTabPage1.Size = new System.Drawing.Size(1973, 740);
+            this.metroTabPage1.Size = new System.Drawing.Size(1892, 740);
             this.metroTabPage1.TabIndex = 0;
             this.metroTabPage1.Text = "Месячный отчет";
             this.metroTabPage1.VerticalScrollbarBarColor = true;
@@ -186,7 +186,7 @@
             this.lvlMonthReport.Location = new System.Drawing.Point(5, 45);
             this.lvlMonthReport.Name = "lvlMonthReport";
             this.lvlMonthReport.OwnerDraw = true;
-            this.lvlMonthReport.Size = new System.Drawing.Size(1963, 690);
+            this.lvlMonthReport.Size = new System.Drawing.Size(1882, 690);
             this.lvlMonthReport.TabIndex = 5;
             this.lvlMonthReport.UseCompatibleStateImageBehavior = false;
             this.lvlMonthReport.UseSelectable = true;
@@ -213,7 +213,7 @@
             this.flpFilter.Location = new System.Drawing.Point(5, 5);
             this.flpFilter.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.flpFilter.Name = "flpFilter";
-            this.flpFilter.Size = new System.Drawing.Size(1963, 40);
+            this.flpFilter.Size = new System.Drawing.Size(1882, 40);
             this.flpFilter.TabIndex = 4;
             // 
             // cmbStreet
@@ -440,9 +440,9 @@
             this.lvlRates.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lvlRates.FullRowSelect = true;
             this.lvlRates.GridLines = true;
-            listViewItem4.StateImageIndex = 0;
+            listViewItem1.StateImageIndex = 0;
             this.lvlRates.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4});
+            listViewItem1});
             this.lvlRates.Location = new System.Drawing.Point(5, 5);
             this.lvlRates.Name = "lvlRates";
             this.lvlRates.OwnerDraw = true;
@@ -524,14 +524,14 @@
             // btnLoadBase
             // 
             this.btnLoadBase.Name = "btnLoadBase";
-            this.btnLoadBase.Size = new System.Drawing.Size(180, 22);
+            this.btnLoadBase.Size = new System.Drawing.Size(114, 22);
             this.btnLoadBase.Text = "База";
             this.btnLoadBase.Click += new System.EventHandler(this.btnLoadBase_Click);
             // 
             // btnLoadPayments
             // 
             this.btnLoadPayments.Name = "btnLoadPayments";
-            this.btnLoadPayments.Size = new System.Drawing.Size(180, 22);
+            this.btnLoadPayments.Size = new System.Drawing.Size(114, 22);
             this.btnLoadPayments.Text = "Оплата";
             this.btnLoadPayments.Click += new System.EventHandler(this.btnLoadPayments_Click);
             // 
@@ -544,7 +544,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(2021, 918);
+            this.ClientSize = new System.Drawing.Size(1940, 918);
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.flowLayoutPanel1);

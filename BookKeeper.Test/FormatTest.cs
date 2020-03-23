@@ -30,7 +30,7 @@ namespace BookKeeper.Test
         public void HtmlFormatTest()
         {
             
-            const string wrongFileExtension = @"D:\1.htm";
+            const string wrongFileExtension = @"C:\Users\Lourens\Documents\Материалы\1.htm";
             const string correctFileExtension = "test.html";
 
 

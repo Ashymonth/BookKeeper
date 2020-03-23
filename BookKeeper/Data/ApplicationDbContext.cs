@@ -33,7 +33,7 @@ namespace BookKeeper.Data.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BookKeepingTest;Trusted_Connection=True;MultipleActiveResultSets=True;");
+            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BookKeeping;Trusted_Connection=True;MultipleActiveResultSets=True;");
             base.OnConfiguring(optionsBuilder);
         }
     }

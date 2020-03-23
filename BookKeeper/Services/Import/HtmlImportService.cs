@@ -28,8 +28,11 @@ namespace BookKeeper.Data.Services.Import
 
         public List<PaymentDocumentImport> ImportDataRow(string file)
         {
-            if (file == null)
+            if (string.IsNullOrWhiteSpace(file))
                 throw new ArgumentNullException(nameof(file));
+
+            if (!File.Exists(file))
+                throw new FileNotFoundException(nameof(file));
 
             file = HtmlFormatValidator.ValidateFormat(file);
 
