@@ -43,7 +43,7 @@ namespace BookKeeper.Data.Services
 
                 foreach (var location in locationEntity)
                 {
-                    var account = _accountService.GetWithInclude(x => x.StreetId == model.StreetId && x.IsArchive == false, x => x.PaymentDocuments, x => x.Location.Id == location.Id);
+                    var account = _accountService.GetWithInclude(x => x.StreetId == model.StreetId && x.IsArchive == false, x => x.PaymentDocuments);
                     accounts.AddRange(account);
                 }
 

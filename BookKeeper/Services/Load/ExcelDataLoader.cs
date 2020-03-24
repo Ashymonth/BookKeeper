@@ -78,7 +78,6 @@ namespace BookKeeper.Data.Services.Load
                             BuildingCorpus = dataRow.LocationImport.BuildingNumber,
                             ApartmentNumber = dataRow.LocationImport.ApartmentNumber,
                             StreetId = street.Id,
-                            AccountId = account.Id
                         };
                         street.Locations.Add(location);
 

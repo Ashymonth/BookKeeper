@@ -70,7 +70,6 @@ namespace BookKeeper.UI
                 {
                     LoadAccountsInfo(result);
                 }
-
             }
         }
 
@@ -229,6 +228,5 @@ namespace BookKeeper.UI
         {
             cntFilesMenu.Show(btnFiles, 0, btnFiles.Height);
         }
-
     }
 }

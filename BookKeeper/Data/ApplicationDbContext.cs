@@ -36,5 +36,7 @@ namespace BookKeeper.Data.Data
             optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BookKeeping;Trusted_Connection=True;MultipleActiveResultSets=True;");
             base.OnConfiguring(optionsBuilder);
         }
+
+       
     }
 }

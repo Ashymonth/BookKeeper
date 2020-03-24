@@ -16,6 +16,11 @@ namespace BookKeeper.Data.Data.Entities
     {
         public int StreetId { get; set; }
 
+        public int LocationId { get; set; }
+
+        [ForeignKey(nameof(LocationId))]
+        public LocationEntity Location { get; set; }
+
         public long Account { get; set; }
 
         public DateTime AccountCreationDate { get; set; }
@@ -28,7 +33,6 @@ namespace BookKeeper.Data.Data.Entities
 
         public virtual ICollection<PaymentDocumentEntity> PaymentDocuments { get; set; }
 
-        public virtual LocationEntity Location { get; set; }
 
     }
 }
