@@ -25,11 +25,11 @@ namespace BookKeeper.Data.Infrastructure.Formats
 
             try
             {
-                File.Copy(file, newFile);
+                File.Copy(file, newFile,true);
 
                 return newFile;
             }
-            catch (IOException)
+            catch (IOException e)
             {
                 return null;
             }

@@ -2,22 +2,19 @@
 using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Models;
-using BookKeeper.Data.Services.EntityService;
-using BookKeeper.UI.UI.Forms;
-using MetroFramework.Forms;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.SqlClient;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Windows.Forms;
 using BookKeeper.Data.Services;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Rate;
 using BookKeeper.Data.Services.Load;
+using BookKeeper.UI.UI.Forms;
+using MetroFramework.Forms;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Globalization;
+using System.Linq;
+using System.Threading;
+using System.Windows.Forms;
 
 namespace BookKeeper.UI
 {
@@ -209,18 +206,20 @@ namespace BookKeeper.UI
                 files = dialog.FileNames;
             }
 
-            using (var form = new ProgressForm())
-            {
-                form.ShowDialog(this);
-                foreach (var fileName in files)
-                {
-                    using (var scope = _container.BeginLifetimeScope())
-                    {
-                        var service = scope.ResolveNamed<IDataLoader>("Html");
-                        service.LoadData(fileName);
-                    }
-                }
-            }
+            var form = new ProgressForm();
+
+            form.ShowDialog();
+            //foreach (var fileName in files)
+            //{
+            //    using (var scope = _container.BeginLifetimeScope())
+            //    {
+            //        var service = scope.ResolveNamed<IDataLoader>("Html");
+            //        service.LoadData(fileName);
+            //    }
+            //}
+            Thread.Sleep(5000);
+            form.Dispose();
+
         }
 
         private void btnFiles_Click(object sender, EventArgs e)
