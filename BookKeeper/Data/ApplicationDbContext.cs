@@ -9,7 +9,6 @@ namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
-
         public virtual DbSet<DistrictEntity> Districts { get; set; }
 
         public virtual DbSet<StreetEntity> Streets { get; set; }

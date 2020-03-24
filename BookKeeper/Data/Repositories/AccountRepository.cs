@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Linq.Expressions;
 using BookKeeper.Data.Data.Entities;
+using BookKeeper.Data.Data.Entities.Address;
+using LinqKit;
 
 namespace BookKeeper.Data.Data.Repositories
 {
@@ -18,21 +21,5 @@ namespace BookKeeper.Data.Data.Repositories
             _dbContext = dbContext;
         }
 
-        public void Som()
-        {
-            //var query = from account in _dbContext.Accounts.Include(x=>x.PaymentDocuments)
-            //    join locations in _dbContext.Locations
-            //        on account.Id equals locations.
-            //    where locations.IsDeleted == false &&
-            //          locations.HouseNumber == "105" &&
-            //          locations.BuildingCorpus == "2B" &&
-            //          locations.ApartmentNumber == "540"
-            //    join payments in _dbContext.PaymentDocuments
-            //        on account.Id equals payments.AccountId
-            //    where payments.PaymentDate > DateTime.Now
-            //    where payments.PaymentDate < DateTime.Now
-            //    select account;
-
-        }
     }
 }

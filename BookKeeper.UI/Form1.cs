@@ -228,5 +228,21 @@ namespace BookKeeper.UI
         {
             cntFilesMenu.Show(btnFiles, 0, btnFiles.Height);
         }
+
+        private void btnAddDiscount_Click(object sender, EventArgs e)
+        {
+            using (var form = new DiscountAddressItemForm())
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            using (var form = new DiscountAccountItemForm())
+            {
+                form.ShowDialog();
+            }
+        }
     }
 }

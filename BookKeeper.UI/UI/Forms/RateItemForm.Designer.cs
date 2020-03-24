@@ -72,9 +72,9 @@
             // 
             // 
             this.txtHouse.CustomButton.Image = null;
-            this.txtHouse.CustomButton.Location = new System.Drawing.Point(99, 1);
+            this.txtHouse.CustomButton.Location = new System.Drawing.Point(103, 2);
             this.txtHouse.CustomButton.Name = "";
-            this.txtHouse.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.txtHouse.CustomButton.Size = new System.Drawing.Size(15, 15);
             this.txtHouse.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtHouse.CustomButton.TabIndex = 1;
             this.txtHouse.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -104,9 +104,9 @@
             // 
             // 
             this.txtBuilding.CustomButton.Image = null;
-            this.txtBuilding.CustomButton.Location = new System.Drawing.Point(99, 1);
+            this.txtBuilding.CustomButton.Location = new System.Drawing.Point(103, 2);
             this.txtBuilding.CustomButton.Name = "";
-            this.txtBuilding.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.txtBuilding.CustomButton.Size = new System.Drawing.Size(15, 15);
             this.txtBuilding.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtBuilding.CustomButton.TabIndex = 1;
             this.txtBuilding.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -136,16 +136,16 @@
             // 
             // 
             this.txtDescription.CustomButton.Image = null;
-            this.txtDescription.CustomButton.Location = new System.Drawing.Point(99, 1);
+            this.txtDescription.CustomButton.Location = new System.Drawing.Point(369, 1);
             this.txtDescription.CustomButton.Name = "";
-            this.txtDescription.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.txtDescription.CustomButton.Size = new System.Drawing.Size(59, 59);
             this.txtDescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtDescription.CustomButton.TabIndex = 1;
             this.txtDescription.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtDescription.CustomButton.UseSelectable = true;
             this.txtDescription.CustomButton.Visible = false;
             this.txtDescription.Lines = new string[0];
-            this.txtDescription.Location = new System.Drawing.Point(23, 170);
+            this.txtDescription.Location = new System.Drawing.Point(23, 167);
             this.txtDescription.MaxLength = 32767;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.PasswordChar = '\0';
