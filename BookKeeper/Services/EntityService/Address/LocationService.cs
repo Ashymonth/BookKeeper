@@ -1,16 +1,20 @@
-﻿using BookKeeper.Data.Data;
+﻿using System.Linq;
+using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Repositories;
+using BookKeeper.Data.Models;
 
 namespace BookKeeper.Data.Services.EntityService.Address
 {
     public interface ILocationService : IService<LocationEntity>
     {
         LocationEntity Add(string houseNumber, string houseBuilding, string apartmentNumber, int addressId);
+     
     }
 
     public class LocationService : Service<LocationEntity>, ILocationService
     {
+
         public LocationService(IRepository<LocationEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
@@ -27,5 +31,7 @@ namespace BookKeeper.Data.Services.EntityService.Address
             base.Add(entity);
             return entity;
         }
+
+        
     }
 }
