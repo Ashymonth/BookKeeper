@@ -20,15 +20,15 @@ namespace BookKeeper.Data.Infrastructure
         {
             var container = new ContainerBuilder();
 
+            container.RegisterType(typeof(ApplicationDbContext))
+                .InstancePerLifetimeScope();
+
             container.RegisterType(typeof(ExcelConfiguration))
                 .As<IConfiguration<ExcelConfiguration>>()
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(HtmlConfiguration))
                 .As<IConfiguration<HtmlConfiguration>>()
-                .InstancePerLifetimeScope();
-
-            container.RegisterType(typeof(ApplicationDbContext))
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(UnitOfWork))

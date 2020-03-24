@@ -67,8 +67,6 @@ namespace BookKeeper.Data.Services.Load
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
                         };
 
-
-
                         if (street.Locations == null)
                             street.Locations = new List<LocationEntity>();
 

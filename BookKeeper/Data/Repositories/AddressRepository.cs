@@ -1,6 +1,6 @@
 ﻿using BookKeeper.Data.Data.Entities.Address;
-using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace BookKeeper.Data.Data.Repositories
 {

@@ -67,7 +67,6 @@
             this.cntFilesMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnLoadBase = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLoadPayments = new System.Windows.Forms.ToolStripMenuItem();
-            this.bookKeepingDataSet = new BookKeeper.UI.BookKeepingDataSet();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.metroListView1 = new MetroFramework.Controls.MetroListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -84,7 +83,6 @@
             this.metroTabPage4.SuspendLayout();
             this.flowLayoutPanel2.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bookKeepingDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -568,11 +566,6 @@
             this.btnLoadPayments.Text = "Оплата";
             this.btnLoadPayments.Click += new System.EventHandler(this.btnLoadPayments_Click);
             // 
-            // bookKeepingDataSet
-            // 
-            this.bookKeepingDataSet.DataSetName = "BookKeepingDataSet";
-            this.bookKeepingDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // metroListView1
             // 
             this.metroListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -644,7 +637,6 @@
             this.metroTabPage4.ResumeLayout(false);
             this.flowLayoutPanel2.ResumeLayout(false);
             this.cntFilesMenu.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.bookKeepingDataSet)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -678,7 +670,6 @@
         private System.Windows.Forms.ToolStripMenuItem btnLoadPayments;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
         private MetroFramework.Controls.MetroButton btnAddRate;
-        private BookKeepingDataSet bookKeepingDataSet;
         private MetroFramework.Controls.MetroButton btnClear;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private MetroFramework.Controls.MetroListView lvlRates;

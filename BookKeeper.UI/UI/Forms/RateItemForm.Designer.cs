@@ -30,22 +30,16 @@
         {
             this.components = new System.ComponentModel.Container();
             this.cmbStreet = new MetroFramework.Controls.MetroComboBox();
-            this.streetsBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.bookKeepingDataSet = new BookKeeper.UI.BookKeepingDataSet();
             this.txtHouse = new MetroFramework.Controls.MetroTextBox();
             this.txtBuilding = new MetroFramework.Controls.MetroTextBox();
             this.txtDescription = new MetroFramework.Controls.MetroTextBox();
             this.btnSave = new MetroFramework.Controls.MetroButton();
             this.btnCancel = new MetroFramework.Controls.MetroButton();
-            this.streetsTableAdapter = new BookKeeper.UI.BookKeepingDataSetTableAdapters.StreetsTableAdapter();
             this.txtPrice = new System.Windows.Forms.MaskedTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.streetsBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bookKeepingDataSet)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbStreet
             // 
-            this.cmbStreet.DataSource = this.streetsBindingSource;
             this.cmbStreet.DisplayMember = "StreetName";
             this.cmbStreet.FormattingEnabled = true;
             this.cmbStreet.ItemHeight = 23;
@@ -56,19 +50,7 @@
             this.cmbStreet.UseSelectable = true;
             this.cmbStreet.ValueMember = "Id";
             // 
-            // streetsBindingSource
-            // 
-            this.streetsBindingSource.DataMember = "Streets";
-            this.streetsBindingSource.DataSource = this.bookKeepingDataSet;
-            // 
-            // bookKeepingDataSet
-            // 
-            this.bookKeepingDataSet.DataSetName = "BookKeepingDataSet";
-            this.bookKeepingDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // txtHouse
-            // 
-            // 
             // 
             // 
             this.txtHouse.CustomButton.Image = null;
@@ -184,10 +166,6 @@
             this.btnCancel.UseSelectable = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // streetsTableAdapter
-            // 
-            this.streetsTableAdapter.ClearBeforeFill = true;
-            // 
             // txtPrice
             // 
             this.txtPrice.Location = new System.Drawing.Point(331, 116);
@@ -217,8 +195,6 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Тариф";
             this.Load += new System.EventHandler(this.RateItemForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.streetsBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bookKeepingDataSet)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,9 +208,6 @@
         private MetroFramework.Controls.MetroTextBox txtDescription;
         private MetroFramework.Controls.MetroButton btnSave;
         private MetroFramework.Controls.MetroButton btnCancel;
-        private BookKeepingDataSet bookKeepingDataSet;
-        private System.Windows.Forms.BindingSource streetsBindingSource;
-        private BookKeepingDataSetTableAdapters.StreetsTableAdapter streetsTableAdapter;
         private System.Windows.Forms.MaskedTextBox txtPrice;
     }
 }

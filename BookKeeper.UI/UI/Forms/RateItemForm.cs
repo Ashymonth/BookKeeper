@@ -1,16 +1,13 @@
 ﻿using Autofac;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Models;
-using BookKeeper.Data.Services.EntityService;
 using MetroFramework.Forms;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Rate;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace BookKeeper.UI.UI.Forms
 {

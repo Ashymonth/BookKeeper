@@ -8,6 +8,7 @@ using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -17,14 +18,12 @@ using BookKeeper.Data.Services;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Rate;
 using BookKeeper.Data.Services.Load;
-using Microsoft.Data.SqlClient;
-using IContainer = Autofac.IContainer;
 
 namespace BookKeeper.UI
 {
     public partial class Form1 : MetroForm
     {
-        private readonly IContainer _container;
+        private readonly Autofac.IContainer _container;
 
         public Form1()
         {
@@ -64,7 +63,7 @@ namespace BookKeeper.UI
             using (var scope = _container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<ISearchService>();
-                var result = service.FindAccountEntity(searchModel).ToList();
+                var result = service.FindAccount(searchModel).ToList();
 
                 if (result.Count() != 0)
                 {

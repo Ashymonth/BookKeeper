@@ -7,8 +7,6 @@ using BookKeeper.Data.Infrastructure.Formats;
 
 namespace BookKeeper.Data.Services.Import
 {
-
-
     public class ExcelImportService : IImportService<List<ImportDataRow>>
     {
         private readonly IConfiguration<ExcelConfiguration> _configuration = new ExcelConfiguration();

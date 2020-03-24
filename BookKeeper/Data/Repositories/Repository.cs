@@ -1,7 +1,9 @@
 ﻿using BookKeeper.Data.Data.Entities;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Migrations;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -86,7 +88,7 @@ namespace BookKeeper.Data.Data.Repositories
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            _entities.Update(entity);
+            _entities.SingleUpdate(entity);
         }
 
         public void Update(IEnumerable<TEntity> entities)
@@ -94,7 +96,7 @@ namespace BookKeeper.Data.Data.Repositories
             if (entities == null)
                 throw new ArgumentNullException(nameof(entities));
 
-            _entities.UpdateRange(entities);
+            _entities.BulkUpdate<TEntity>(entities);
         }
 
         public void Delete(TEntity entity)
@@ -108,7 +110,7 @@ namespace BookKeeper.Data.Data.Repositories
         private IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = _entities.AsNoTracking();
-            return includeProperties.Aggregate(query, (current, includeProperty) => current.Include(includeProperty));
+            return includeProperties.Aggregate(query, (current, includeProperty) => (DbQuery<TEntity>) current.Include(includeProperty));
         }
     }
 }
