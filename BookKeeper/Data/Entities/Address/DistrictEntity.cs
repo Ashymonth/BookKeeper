@@ -1,4 +1,6 @@
-﻿namespace BookKeeper.Data.Data.Entities.Address
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BookKeeper.Data.Data.Entities.Address
 {
     public enum DistrictType
     {
@@ -6,6 +8,7 @@
         Private
     }
 
+    [Table("District")]
     public class DistrictEntity : BaseEntity
     {
         public int Code { get; set; }

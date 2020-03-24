@@ -19,7 +19,7 @@ namespace BookKeeper.Data.Data.Entities
         public int LocationId { get; set; }
 
         [ForeignKey(nameof(LocationId))]
-        public LocationEntity Location { get; set; }
+        public virtual LocationEntity Location { get; set; }
 
         public long Account { get; set; }
 

@@ -98,7 +98,7 @@ namespace BookKeeper.Data.Services.Load
 
         private DistrictEntity AddOrCreate(DistrictImport import)
         {
-            var result = _districtService.GetItem(x => x.Name == import.Name);
+            var result = _districtService.GetItem(x => x.Code == import.Code);
             return result ?? _districtService.Add(import.Code, import.Name);
         }
 

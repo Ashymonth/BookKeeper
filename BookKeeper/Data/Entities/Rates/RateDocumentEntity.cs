@@ -14,12 +14,14 @@ namespace BookKeeper.Data.Data.Entities.Rates
         }
         public int StreetId { get; set; }
 
-        [ForeignKey(nameof(StreetId))]
-        public StreetEntity Street { get; set; }
+        //[ForeignKey(nameof(StreetId))]
+        //public StreetEntity Street { get; set; }
 
         public int LocationId { get; set; }
-        [ForeignKey(nameof(LocationId))]
         
+        //[ForeignKey(nameof(LocationId))]
+        //public virtual LocationEntity Location { get; set; }
+
         public decimal Price { get; set; }
 
         public bool IsDefaultPrice { get; set; }

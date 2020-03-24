@@ -11,7 +11,6 @@ namespace BookKeeper.Data.Data
     {
         public ApplicationDbContext(): base("BookKeeper")
         {
-            
         }
         public virtual DbSet<DistrictEntity> Districts { get; set; }
 

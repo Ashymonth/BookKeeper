@@ -59,6 +59,7 @@
     <Compile Include="Infrastructure\Configuration\IConfiguration.cs" />
     <Compile Include="Infrastructure\Formats\ExcelFormatValidator.cs" />
     <Compile Include="Infrastructure\Formats\HtmlFormatValidator.cs" />
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />
     <Compile Include="Models\ExcelImport\AddressImport.cs" />
     <Compile Include="Models\ExcelImport\DistrictImport.cs" />
@@ -117,9 +118,7 @@
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Migrations\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
