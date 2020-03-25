@@ -59,7 +59,18 @@ namespace BookKeeper.UI.UI.Forms
 
                 var service = scope.Resolve<IRateDocumentService>();
 
-                var document = service.AddRateDocument((int)cmbStreet.SelectedValue, location.Id, txtDescription.Text,
+                int streetId;
+                if (cmbStreet.SelectedValue is int id)
+                {
+                    streetId = id;
+                }
+                else
+                {
+                    MessageBox.Show("Укажите улицу");
+                    return;
+                }
+
+                var document = service.AddRateDocument(streetId, location.Id, txtDescription.Text,
                     Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")));
 
                 RateModel = new RateModel
@@ -69,6 +80,7 @@ namespace BookKeeper.UI.UI.Forms
                     Building = txtBuilding.Text,
                     Price = txtPrice.Text,
                     Description = txtDescription.Text,
+                    RateId = document.Id
                 };
             }
         }

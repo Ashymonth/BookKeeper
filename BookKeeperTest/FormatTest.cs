@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookKeeper.Data.Infrastructure.Formats;
+﻿using BookKeeper.Data.Infrastructure.Formats;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace BookKeeperTest
 {

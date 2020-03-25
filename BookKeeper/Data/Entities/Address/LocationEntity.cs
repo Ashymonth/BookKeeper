@@ -2,6 +2,7 @@
 
 namespace BookKeeper.Data.Data.Entities.Address
 {
+    [Table("Location")]
     public class LocationEntity : BaseEntity
     {
         public int StreetId { get; set; }

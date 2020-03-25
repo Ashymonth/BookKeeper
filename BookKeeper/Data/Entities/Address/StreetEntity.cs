@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookKeeper.Data.Data.Entities.Address
 {
+    [Table("Street")]
     public class StreetEntity : BaseEntity
     {
         public int DistrictId { get; set; }

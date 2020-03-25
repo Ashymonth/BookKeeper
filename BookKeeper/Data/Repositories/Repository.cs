@@ -12,14 +12,25 @@ namespace BookKeeper.Data.Data.Repositories
     public interface IRepository<TEntity> where TEntity : BaseEntity
     {
         TEntity GetItem(Func<TEntity, bool> predicate);
-        IEnumerable<TEntity> GetItems();
+
+        TEntity GetItemById(int id);
+
         IEnumerable<TEntity> GetItems(Func<TEntity, bool> predicate);
+
+        IEnumerable<TEntity> GetItems();
+
         IEnumerable<TEntity> GetWithInclude(params Expression<Func<TEntity, object>>[] expressions);
+
         IEnumerable<TEntity> GetWithInclude(Func<TEntity, bool> predicate, params Expression<Func<TEntity, object>>[] includeProperty);
+
         TEntity Add(TEntity entity);
+
         void Add(IEnumerable<TEntity> entities);
+
         void Update(TEntity entity);
+
         void Update(IEnumerable<TEntity> entities);
+
         void Delete(TEntity entity);
     }
 
@@ -40,6 +51,11 @@ namespace BookKeeper.Data.Data.Repositories
                 throw new ArgumentNullException(nameof(predicate));
 
             return _entities.FirstOrDefault(predicate);
+        }
+
+        public TEntity GetItemById(int id)
+        {
+            return _entities.Find(id);
         }
 
         public IEnumerable<TEntity> GetItems()

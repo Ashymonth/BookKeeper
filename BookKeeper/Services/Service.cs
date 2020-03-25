@@ -10,14 +10,25 @@ namespace BookKeeper.Data.Services
     public interface IService<TModel> where TModel : BaseEntity
     {
         TModel Add(TModel entity);
+
         void Add(IList<TModel> entities);
+        
         int Update(TModel entity);
+        
         void Update(IEnumerable<TModel> entities);
+        
         void Delete(TModel entity);
+        
         TModel GetItem(Func<TModel, bool> predicate);
+
+        TModel GetItemById(int id);
+        
         IEnumerable<TModel> GetItems();
+        
         IEnumerable<TModel> GetItems(Func<TModel, bool> predicate);
+        
         IEnumerable<TModel> GetWithInclude(params Expression<Func<TModel, object>>[] expressions);
+        
         IEnumerable<TModel> GetWithInclude(Func<TModel, bool> predicate, params Expression<Func<TModel, object>>[] includeProperty);
     }
 
@@ -85,6 +96,11 @@ namespace BookKeeper.Data.Services
                 throw new ArgumentNullException(nameof(predicate));
 
             return _repository.GetItem(predicate);
+        }
+
+        public TModel GetItemById(int id)
+        {
+            return _repository.GetItemById(id);
         }
 
         public IEnumerable<TModel> GetItems()

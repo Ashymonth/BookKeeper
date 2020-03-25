@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookKeeper.Data.Data.Entities.Payments
 {
+    [Table("PaymentDocument")]
     public class PaymentDocumentEntity : BaseEntity
     {
         public int AccountId { get; set; }

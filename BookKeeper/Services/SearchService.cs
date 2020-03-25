@@ -1,34 +1,59 @@
 ﻿using System;
-using System.Collections.Generic;
 using BookKeeper.Data.Data.Entities;
-using BookKeeper.Data.Services.EntityService;
-using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Models;
+using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Address;
+using System.Collections.Generic;
+using System.Linq.Expressions;
+using DocumentFormat.OpenXml.Drawing;
+using LinqKit;
+using static System.String;
 
 namespace BookKeeper.Data.Services
 {
     public interface ISearchService
     {
-        IEnumerable<AccountEntity> FindAccount(SearchModel model);
+        IEnumerable<AccountEntity> FindAccounts(SearchModel model);
     }
 
     public class SearchService : ISearchService
     {
-        private readonly IStreetService _streetService;
-        private readonly ILocationService _locationService;
         private readonly IAccountService _accountService;
-        
-        public SearchService(IStreetService streetService, IAccountService accountService, ILocationService locationService)
+
+        public SearchService(IAccountService accountService)
         {
-            _streetService = streetService;
             _accountService = accountService;
-            _locationService = locationService;
         }
 
-        public IEnumerable<AccountEntity> FindAccount(SearchModel model)
+        public IEnumerable<AccountEntity> FindAccounts(SearchModel model)
         {
-            throw new NotImplementedException();
+            var account = PredicateBuilder.New<AccountEntity>();
+
+            Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
+                entity.StreetId == model.StreetId && entity.IsDeleted == false &&
+                entity.AccountType == model.AccountType && entity.IsArchive == model.IsArchive;
+
+            Expression<Func<AccountEntity, bool>> housePredicate =
+                house => string.Equals(house.Location.HouseNumber, model.HouseNumber, StringComparison.CurrentCultureIgnoreCase);
+
+            Expression<Func<AccountEntity, bool>> buildingPredicate =
+                building => string.Equals(building.Location.BuildingCorpus, model.BuildingNumber, StringComparison.CurrentCultureIgnoreCase);
+
+            Expression<Func<AccountEntity, bool>> apartmentPredicate =
+                apartment => string.Equals(apartment.Location.HouseNumber, model.HouseNumber, StringComparison.CurrentCultureIgnoreCase);
+
+            account.And(defaultPredicate);
+
+            if (IsNullOrWhiteSpace(model.HouseNumber) == false)
+                account.And(housePredicate);
+
+            if (IsNullOrWhiteSpace(model.BuildingNumber) == false)
+                account.And(buildingPredicate);
+
+            if (IsNullOrWhiteSpace(model.ApartmentNumber) == false)
+                account.And(apartmentPredicate);
+
+            return _accountService.GetWithInclude(account,x=>x.Location,x=>x.PaymentDocuments);
         }
     }
 }

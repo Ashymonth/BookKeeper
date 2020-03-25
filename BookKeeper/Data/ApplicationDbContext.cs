@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Entities.Discounts;
@@ -32,10 +33,10 @@ namespace BookKeeper.Data.Data
 
         public virtual DbSet<RateDescriptionEntity> RateDescriptions { get; set; }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=BookKeeping;Trusted_Connection=True;MultipleActiveResultSets=True;");
-        //    base.OnConfiguring(optionsBuilder);
-        //}
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            modelBuilder.Properties<DateTime>().Configure(x=>x.HasColumnType("datetime2"));
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

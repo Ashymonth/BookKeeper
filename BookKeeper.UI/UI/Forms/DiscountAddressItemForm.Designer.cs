@@ -195,6 +195,7 @@
             this.btnSaveDiscount.TabIndex = 7;
             this.btnSaveDiscount.Text = "Сохранить";
             this.btnSaveDiscount.UseSelectable = true;
+            this.btnSaveDiscount.Click += new System.EventHandler(this.btnSaveDiscount_Click);
             // 
             // dtnCancelDiscount
             // 

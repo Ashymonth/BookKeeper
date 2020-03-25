@@ -45,6 +45,12 @@
     <Compile Include="Program.cs" />
     <Compile Include="ProgressReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Forms\AccountDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\AccountDetailsForm.Designer.cs">
+      <DependentUpon>AccountDetailsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\DiscountAccountItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -81,6 +87,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\Forms\AccountDetailsForm.resx">
+      <DependentUpon>AccountDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\DiscountAccountItemForm.resx">
       <DependentUpon>DiscountAccountItemForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -128,6 +137,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />

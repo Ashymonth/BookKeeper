@@ -36,5 +36,10 @@ namespace BookKeeper.UI.UI.Forms
                 cmbStreets.ValueMember = "Id";
             }
         }
+
+        private void btnSaveDiscount_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -2,6 +2,7 @@
 
 namespace BookKeeper.Data.Data.Entities.Rates
 {
+    [Table("RateDescription")]
     public class RateDescriptionEntity : BaseEntity
     {
         public int RateDocumentId { get; set; }

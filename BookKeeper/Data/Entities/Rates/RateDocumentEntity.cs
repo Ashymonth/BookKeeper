@@ -1,10 +1,10 @@
-﻿using BookKeeper.Data.Data.Entities.Address;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BookKeeper.Data.Data.Entities.Rates
 {
+    [Table("RateDocument")]
     public class RateDocumentEntity : BaseEntity
     {
         public RateDocumentEntity()
@@ -18,7 +18,7 @@ namespace BookKeeper.Data.Data.Entities.Rates
         //public StreetEntity Street { get; set; }
 
         public int LocationId { get; set; }
-        
+
         //[ForeignKey(nameof(LocationId))]
         //public virtual LocationEntity Location { get; set; }
 
@@ -30,7 +30,7 @@ namespace BookKeeper.Data.Data.Entities.Rates
 
         public DateTime EndDate { get; set; }
 
-        public  ICollection<RateDescriptionEntity> RatesDescription { get; set; }
+        public ICollection<RateDescriptionEntity> RatesDescription { get; set; }
 
     }
 }

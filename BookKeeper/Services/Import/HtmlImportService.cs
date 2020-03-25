@@ -36,11 +36,16 @@ namespace BookKeeper.Data.Services.Import
 
             file = HtmlFormatValidator.ValidateFormat(file);
 
+            if(file == null)
+                throw new FileNotFoundException(nameof(file));
+
             var html = new HtmlDocument();
 
             html.LoadHtml(File.ReadAllText(file, Encoding.UTF8));
 
             var configuration = _configuration.Load();
+            if(configuration == null)
+                throw new FileNotFoundException(nameof(configuration));
 
             var paymentDocument = new List<PaymentDocumentImport>();
 
