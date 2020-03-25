@@ -226,9 +226,9 @@ namespace BookKeeper.UI
             using (var scope = _container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<IRateDocumentService>();
-                var t = lvlRates.Items.IndexOf(lvlRates.FocusedItem.Index).Tag;
+                var t = lvlRates.Items;
                 var document = service.GetItemById((int)lvlRates.FocusedItem.Tag);
-                
+
             }
         }
 
@@ -305,10 +305,9 @@ namespace BookKeeper.UI
                             location.BuildingCorpus,
                             rate.Price.ToString(CultureInfo.CurrentCulture),
                             descriptionEntity.Description
-                        });
-                        {
-                            Tag = rate.Id;
-                        }
+                        })
+                        {Tag = rate};
+
                         lvlRates.Items.Add(listView);
                     }
                 }
