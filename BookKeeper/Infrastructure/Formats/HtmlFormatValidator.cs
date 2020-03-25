@@ -29,7 +29,7 @@ namespace BookKeeper.Data.Infrastructure.Formats
 
                 return newFile;
             }
-            catch (IOException)
+            catch (IOException e)
             {
                 return null;
             }
