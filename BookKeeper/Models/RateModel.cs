@@ -1,4 +1,7 @@
-﻿namespace BookKeeper.Data.Models
+﻿using System.Security.AccessControl;
+using BookKeeper.Data.Data.Entities.Rates;
+
+namespace BookKeeper.Data.Models
 {
     public class RateModel
     {
@@ -12,6 +15,6 @@
 
         public string Price { get; set; }
 
-        public int RateId { get; set; }
+        public RateDocumentEntity RateDocument { get; set; }
     }
 }

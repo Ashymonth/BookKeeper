@@ -5,7 +5,9 @@ using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
+using BookKeeper.Data.Services.EntityService.Rate;
 
 namespace BookKeeper.Data.Services.Load
 {
@@ -31,11 +33,13 @@ namespace BookKeeper.Data.Services.Load
 
         private readonly IImportService<List<PaymentDocumentImport>> _importService;
         private readonly IAccountService _accountService;
+        private readonly IPaymentDocumentService _documentService;
 
-        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService)
+        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService, IPaymentDocumentService documentService)
         {
             _importService = importService;
             _accountService = accountService;
+            _documentService = documentService;
         }
         public void LoadData(string file)
         {
@@ -50,16 +54,29 @@ namespace BookKeeper.Data.Services.Load
         private void AddPaymentDocument(PaymentDocumentImport import)
         {
             var accountsToUpdate = new List<AccountEntity>();
+            var documentsToUpdate = new List<PaymentDocumentEntity>();
             foreach (var item in import.PaymentDetailsImports)
             {
 
                 var personalAccount = ValidPersonalAccount(item.PersonalAccount);
                 var documentDate = ValidDateTime(import.DocumentData);
 
-                var account = _accountService.GetItem(x => x.Account == personalAccount);
 
+
+                var account = _accountService.GetItem(x => x.Account == personalAccount);
                 if (account == null)
                     continue;
+
+                var paymentDocument = account.PaymentDocuments.Where(x => x.PaymentDate == documentDate).ToList();
+                if (paymentDocument.Count() != 0)
+                {
+                    documentsToUpdate
+                        .AddRange(paymentDocument
+                            .Where(entity => entity.Accrued != item.Accrued || 
+                                             entity.Received != item.Received &&
+                                             entity.IsDeleted == false));
+                    continue;
+                }
 
                 if (account.PaymentDocuments == null)
                     account.PaymentDocuments = new List<PaymentDocumentEntity>();
@@ -75,7 +92,15 @@ namespace BookKeeper.Data.Services.Load
                 accountsToUpdate.Add(account);
             }
 
-            _accountService.Update(accountsToUpdate);
+            if (accountsToUpdate.Count != 0)
+            {
+                _accountService.Update(accountsToUpdate);
+            }
+
+            if (documentsToUpdate.Count != 0)
+            {
+                _documentService.Update(documentsToUpdate);
+            }
         }
 
         private static long ValidPersonalAccount(long personalAccount)

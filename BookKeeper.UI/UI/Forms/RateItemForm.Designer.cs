@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.cmbStreet = new MetroFramework.Controls.MetroComboBox();
             this.txtHouse = new MetroFramework.Controls.MetroTextBox();
             this.txtBuilding = new MetroFramework.Controls.MetroTextBox();
@@ -51,6 +50,8 @@
             this.cmbStreet.ValueMember = "Id";
             // 
             // txtHouse
+            // 
+            // 
             // 
             // 
             this.txtHouse.CustomButton.Image = null;
@@ -146,7 +147,6 @@
             // 
             // btnSave
             // 
-            this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSave.Location = new System.Drawing.Point(331, 266);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 23);

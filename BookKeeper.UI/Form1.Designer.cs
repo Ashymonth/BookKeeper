@@ -57,6 +57,7 @@
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddRate = new MetroFramework.Controls.MetroButton();
+            this.btnDeleteRate = new MetroFramework.Controls.MetroButton();
             this.tbpMonthReport = new MetroFramework.Controls.MetroTabPage();
             this.lvlMonthReport = new MetroFramework.Controls.MetroListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -73,7 +74,6 @@
             this.btnFind = new MetroFramework.Controls.MetroButton();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.btnDeleteRate = new MetroFramework.Controls.MetroButton();
             this.flowLayoutPanel1.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
             this.metroTabPage4.SuspendLayout();
@@ -347,11 +347,21 @@
             // 
             this.btnAddRate.Location = new System.Drawing.Point(8, 8);
             this.btnAddRate.Name = "btnAddRate";
-            this.btnAddRate.Size = new System.Drawing.Size(140, 23);
+            this.btnAddRate.Size = new System.Drawing.Size(116, 23);
             this.btnAddRate.TabIndex = 0;
-            this.btnAddRate.Text = "Добавить тариф";
+            this.btnAddRate.Text = "Добавить";
             this.btnAddRate.UseSelectable = true;
             this.btnAddRate.Click += new System.EventHandler(this.btnAddRate_Click);
+            // 
+            // btnDeleteRate
+            // 
+            this.btnDeleteRate.Location = new System.Drawing.Point(130, 8);
+            this.btnDeleteRate.Name = "btnDeleteRate";
+            this.btnDeleteRate.Size = new System.Drawing.Size(140, 23);
+            this.btnDeleteRate.TabIndex = 1;
+            this.btnDeleteRate.Text = "Удалить выбранные";
+            this.btnDeleteRate.UseSelectable = true;
+            this.btnDeleteRate.Click += new System.EventHandler(this.btnDeleteRate_Click);
             // 
             // tbpMonthReport
             // 
@@ -538,7 +548,7 @@
             // 
             this.metroDateTime1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.metroDateTime1.Location = new System.Drawing.Point(684, 3);
-            this.metroDateTime1.MinimumSize = new System.Drawing.Size(0, 29);
+            this.metroDateTime1.MinimumSize = new System.Drawing.Size(4, 29);
             this.metroDateTime1.Name = "metroDateTime1";
             this.metroDateTime1.Size = new System.Drawing.Size(200, 29);
             this.metroDateTime1.TabIndex = 4;
@@ -547,7 +557,7 @@
             // 
             this.metroDateTime2.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.metroDateTime2.Location = new System.Drawing.Point(890, 3);
-            this.metroDateTime2.MinimumSize = new System.Drawing.Size(0, 29);
+            this.metroDateTime2.MinimumSize = new System.Drawing.Size(4, 29);
             this.metroDateTime2.Name = "metroDateTime2";
             this.metroDateTime2.Size = new System.Drawing.Size(200, 29);
             this.metroDateTime2.TabIndex = 5;
@@ -609,16 +619,6 @@
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork_1);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // btnDeleteRate
-            // 
-            this.btnDeleteRate.Location = new System.Drawing.Point(154, 8);
-            this.btnDeleteRate.Name = "btnDeleteRate";
-            this.btnDeleteRate.Size = new System.Drawing.Size(140, 23);
-            this.btnDeleteRate.TabIndex = 1;
-            this.btnDeleteRate.Text = "Удалить тариф";
-            this.btnDeleteRate.UseSelectable = true;
-            this.btnDeleteRate.Click += new System.EventHandler(this.btnDeleteRate_Click);
             // 
             // Form1
             // 

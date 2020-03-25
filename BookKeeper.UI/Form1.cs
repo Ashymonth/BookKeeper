@@ -24,7 +24,7 @@ namespace BookKeeper.UI
         #region Initialize
 
         private readonly Autofac.IContainer _container;
-        private readonly ProgressForm _form = new ProgressForm();
+        private ProgressForm _form;
         private string[] _files;
 
         public Form1()
@@ -66,7 +66,7 @@ namespace BookKeeper.UI
             {
                 backgroundWorker1.RunWorkerAsync("Excel");
             }
-
+            _form = new ProgressForm();
             _form.ShowDialog();
 
         }
@@ -88,7 +88,7 @@ namespace BookKeeper.UI
             {
                 backgroundWorker1.RunWorkerAsync("Html");
             }
-
+            _form = new ProgressForm();
             _form.ShowDialog();
         }
 
@@ -143,8 +143,10 @@ namespace BookKeeper.UI
             var accounts = accountEntities.ToList();
 
             var dates = accounts.Select(x => x.PaymentDocuments).FirstOrDefault();
-            if (dates == null || accounts.Count == 0)
+
+            if (dates == null || dates.Count == 0)
             {
+                MessageBox.Show("По данным критериям не найдено записей");
                 return;
             }
 
@@ -160,8 +162,11 @@ namespace BookKeeper.UI
                     lvlMonthReport.Items.Add(new ListViewItem(new[]
                     {
                         accountEntity.Account.ToString(),
-                        documentEntity.Accrued.ToString(CultureInfo.CurrentCulture),
-                    }));
+                        documentEntity.Received.ToString(CultureInfo.CurrentCulture),
+                    })
+                    {
+                        Tag = accountEntity
+                    });
                 }
             }
         }
@@ -223,12 +228,55 @@ namespace BookKeeper.UI
 
         private void btnDeleteRate_Click(object sender, EventArgs e)
         {
-            using (var scope = _container.BeginLifetimeScope())
+            foreach (ListViewItem item in lvlRates.CheckedItems)
             {
-                var service = scope.Resolve<IRateDocumentService>();
-                var t = lvlRates.Items;
-                var document = service.GetItemById((int)lvlRates.FocusedItem.Tag);
+                DeleteItems(item);
+            }
+        }
+        private void lvlMonthReport_DoubleClick(object sender, EventArgs e)
+        {
+            var item = lvlMonthReport.FocusedItem;
+            if (item.Text.Length != 8)
+                return;
 
+            var accountNumber = item.Text;
+            AccountEntity accountDetails = null;
+            try
+            {
+                using (var scope = _container.BeginLifetimeScope())
+                {
+                    var service = scope.Resolve<IAccountService>();
+                    accountDetails = service.GetWithInclude(x => x.Account == System.Convert.ToInt64(accountNumber),
+                        x => x.Location, x => x.PaymentDocuments).FirstOrDefault();
+                }
+            }
+            catch (ArgumentOutOfRangeException exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+
+            if (accountDetails == null)
+            {
+                MessageBox.Show("Аккаунт не найден");
+                return;
+            }
+
+            var accountPayment = accountDetails.PaymentDocuments.FirstOrDefault();
+
+
+            using (var form = new AccountDetailsForm())
+            {
+                form.AccountDetailsModel = new AccountDetailsModel
+                {
+                    Account = accountDetails.Account.ToString(),
+                    Street = cmbStreet.Text,
+                    House = accountDetails.Location.HouseNumber,
+                    Building = accountDetails.Location.BuildingCorpus,
+                    Apartment = accountDetails.Location.ApartmentNumber,
+                    Accrued = accountPayment?.Accrued.ToString(CultureInfo.CurrentCulture),
+                    Received = accountPayment?.Received.ToString(CultureInfo.CurrentCulture)
+                };
+                form.ShowDialog();
             }
         }
 
@@ -248,14 +296,31 @@ namespace BookKeeper.UI
                     model.Building,
                     model.Price,
                     model.Description,
+
                 })
-            { Tag = model.RateId };
+            { Tag = model.RateDocument };
 
             lvlRates.Items.Add(listViewItem);
         }
 
+        private void DeleteItems(ListViewItem item)
+        {
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var service = scope.Resolve<IRateDocumentService>();
 
+                if (!(item.Tag is RateDocumentEntity rate))
+                    return;
 
+                var document = service.GetItemById(rate.Id);
+                if (document == null)
+                    return;
+
+                service.Delete(document);
+
+                lvlRates.Items.Remove(item);
+            }
+        }
         #endregion
 
         #endregion
@@ -306,7 +371,7 @@ namespace BookKeeper.UI
                             rate.Price.ToString(CultureInfo.CurrentCulture),
                             descriptionEntity.Description
                         })
-                        {Tag = rate};
+                        { Tag = rate };
 
                         lvlRates.Items.Add(listView);
                     }
@@ -339,52 +404,7 @@ namespace BookKeeper.UI
         }
         #endregion
 
-        private void lvlMonthReport_DoubleClick(object sender, EventArgs e)
-        {
-            var item = lvlMonthReport.FocusedItem;
-            if (item.Text.Length != 8)
-                return;
 
-            var accountNumber = item.Text;
-            AccountEntity accountDetails = null;
-            try
-            {
-                using (var scope = _container.BeginLifetimeScope())
-                {
-                    var service = scope.Resolve<IAccountService>();
-                    accountDetails = service.GetWithInclude(x => x.Account == System.Convert.ToInt64(accountNumber),
-                        x => x.Location, x => x.PaymentDocuments).FirstOrDefault();
-                }
-            }
-            catch (ArgumentOutOfRangeException exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-
-            if (accountDetails == null)
-            {
-                MessageBox.Show("Аккаунт не найден");
-                return;
-            }
-
-            var accountPayment = accountDetails.PaymentDocuments.FirstOrDefault();
-
-
-            using (var form = new AccountDetailsForm())
-            {
-                form.AccountDetailsModel = new AccountDetailsModel
-                {
-                    Account = accountDetails.Account.ToString(),
-                    Street = cmbStreet.Text,
-                    House = accountDetails.Location.HouseNumber,
-                    Building = accountDetails.Location.BuildingCorpus,
-                    Apartment = accountDetails.Location.ApartmentNumber,
-                    Accrued = accountPayment?.Accrued.ToString(CultureInfo.CurrentCulture),
-                    Received = accountPayment?.Received.ToString(CultureInfo.CurrentCulture)
-                };
-                form.ShowDialog();
-            }
-        }
 
         private void btnShowDebtor_Click(object sender, EventArgs e)
         {

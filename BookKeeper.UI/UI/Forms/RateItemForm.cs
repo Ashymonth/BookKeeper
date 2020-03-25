@@ -6,6 +6,8 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using BookKeeper.Data.Data.Entities.Address;
+using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Rate;
 
@@ -38,10 +40,9 @@ namespace BookKeeper.UI.UI.Forms
         private void RateItemForm_Load(object sender, EventArgs e)
         {
             Initialize();
-
         }
 
-        public RateModel RateModel;
+        public RateModel RateModel { get; set; }
         private void btnSave_Click(object sender, EventArgs e)
         {
             using (var scope = _container.BeginLifetimeScope())
@@ -73,16 +74,21 @@ namespace BookKeeper.UI.UI.Forms
                 var document = service.AddRateDocument(streetId, location.Id, txtDescription.Text,
                     Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")));
 
-                RateModel = new RateModel
+
+                if (cmbStreet.SelectedItem is StreetEntity result)
                 {
-                    Street = cmbStreet.SelectedText,
-                    House = txtHouse.Text,
-                    Building = txtBuilding.Text,
-                    Price = txtPrice.Text,
-                    Description = txtDescription.Text,
-                    RateId = document.Id
-                };
+                    RateModel = new RateModel
+                    {
+                        Street = result.StreetName,
+                        House = txtHouse.Text,
+                        Building = txtBuilding.Text,
+                        Price = txtPrice.Text,
+                        Description = txtDescription.Text,
+                        RateDocument = document
+                    };
+                }
             }
+            DialogResult = DialogResult.OK;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
