@@ -15,12 +15,13 @@ namespace BookKeeper.Data.Data.Entities.Discounts
     {
         public int StreetId { get; set; }
 
-        [ForeignKey(nameof(StreetId))]
         public StreetEntity Street { get; set; }
 
         public DiscountType Type { get; set; }
 
         public DateTime StartDate { get; set; }
+
+        public DateTime UpdateDate { get; set; }
 
         public DateTime EndDate { get; set; }
 

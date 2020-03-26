@@ -129,6 +129,27 @@ namespace BookKeeper.UI
                 }
             }
         }
+        private void lvlMonthReport_DoubleClick(object sender, EventArgs e)
+        {
+            if (lvlMonthReport.FocusedItem.Tag is AccountEntity account)
+            {
+                using (var form = new AccountDetailsForm())
+                {
+                    //form.AccountDetailsModel = new AccountDetailsModel
+                    //{
+                    //    Account =account.Account.ToString(),
+                    //    Street = cmbStreet.Text,
+                    //    House = account.Location.HouseNumber,
+                    //    Building = account.Location.BuildingCorpus,
+                    //    Apartment = account.Location.ApartmentNumber,
+                    //    Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued.ToString(CultureInfo.CurrentCulture),
+                    //    Received = account.PaymentDocuments.FirstOrDefault()?.Received.ToString(CultureInfo.CurrentCulture),
+                    //};
+                    form.Account = account;
+                    form.ShowDialog();
+                }
+            }
+        }
 
         #endregion
 
@@ -157,17 +178,16 @@ namespace BookKeeper.UI
 
             foreach (var accountEntity in accounts)
             {
+                var item = new ListViewItem(new[] { accountEntity.Account.ToString() });
+
                 foreach (var documentEntity in accountEntity.PaymentDocuments)
                 {
-                    lvlMonthReport.Items.Add(new ListViewItem(new[]
-                    {
-                        accountEntity.Account.ToString(),
-                        documentEntity.Received.ToString(CultureInfo.CurrentCulture),
-                    })
-                    {
-                        Tag = accountEntity
-                    });
+                    item.SubItems.Add(documentEntity.Received.ToString(CultureInfo.CurrentCulture));
                 }
+
+                item.Tag = accountEntity;
+
+                lvlMonthReport.Items.Add(item);
             }
         }
 
@@ -178,7 +198,6 @@ namespace BookKeeper.UI
 
 
         #endregion
-
 
         #region LoadStartValue
 
@@ -231,52 +250,6 @@ namespace BookKeeper.UI
             foreach (ListViewItem item in lvlRates.CheckedItems)
             {
                 DeleteItems(item);
-            }
-        }
-        private void lvlMonthReport_DoubleClick(object sender, EventArgs e)
-        {
-            var item = lvlMonthReport.FocusedItem;
-            if (item.Text.Length != 8)
-                return;
-
-            var accountNumber = item.Text;
-            AccountEntity accountDetails = null;
-            try
-            {
-                using (var scope = _container.BeginLifetimeScope())
-                {
-                    var service = scope.Resolve<IAccountService>();
-                    accountDetails = service.GetWithInclude(x => x.Account == System.Convert.ToInt64(accountNumber),
-                        x => x.Location, x => x.PaymentDocuments).FirstOrDefault();
-                }
-            }
-            catch (ArgumentOutOfRangeException exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-
-            if (accountDetails == null)
-            {
-                MessageBox.Show("Аккаунт не найден");
-                return;
-            }
-
-            var accountPayment = accountDetails.PaymentDocuments.FirstOrDefault();
-
-
-            using (var form = new AccountDetailsForm())
-            {
-                form.AccountDetailsModel = new AccountDetailsModel
-                {
-                    Account = accountDetails.Account.ToString(),
-                    Street = cmbStreet.Text,
-                    House = accountDetails.Location.HouseNumber,
-                    Building = accountDetails.Location.BuildingCorpus,
-                    Apartment = accountDetails.Location.ApartmentNumber,
-                    Accrued = accountPayment?.Accrued.ToString(CultureInfo.CurrentCulture),
-                    Received = accountPayment?.Received.ToString(CultureInfo.CurrentCulture)
-                };
-                form.ShowDialog();
             }
         }
 
@@ -403,8 +376,6 @@ namespace BookKeeper.UI
             _form.Dispose();
         }
         #endregion
-
-
 
         private void btnShowDebtor_Click(object sender, EventArgs e)
         {

@@ -53,7 +53,11 @@ namespace BookKeeper.Data.Services
             if (IsNullOrWhiteSpace(model.ApartmentNumber) == false)
                 account.And(apartmentPredicate);
 
-            return _accountService.GetWithInclude(account,x=>x.Location,x=>x.PaymentDocuments);
+            return _accountService.GetWithInclude(account,
+                x=>x.Location,
+                x=>x.PaymentDocuments,
+                x=>x.Location.Street,
+                x=>x.Location.Street.Rates);
         }
     }
 }

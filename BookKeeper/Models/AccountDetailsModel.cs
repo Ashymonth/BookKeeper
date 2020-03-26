@@ -10,6 +10,8 @@ namespace BookKeeper.Data.Models
     {
         public string Account { get; set; }
 
+        public bool IsArchive { get; set; }
+
         public string Street { get; set; }
 
         public string House { get; set; }
@@ -25,5 +27,6 @@ namespace BookKeeper.Data.Models
         public string Rate { get; set; }
 
         public string Discount { get; set; }
+
     }
 }
