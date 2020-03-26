@@ -92,7 +92,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                     var result = descriptionService.GetItemById(entity.Id);
                     if (result != null)
                     {
-                        descriptionService.Delete(entity);
+                        descriptionService.Delete(result);
                         LoadItems();
                     }
                 }

@@ -325,7 +325,7 @@ namespace BookKeeper.UI
             }
         }
 
-        
+
         #endregion
 
         #region Methods
@@ -485,11 +485,64 @@ namespace BookKeeper.UI
             txtApartment.Text = string.Empty;
         }
 
-
-
-
-
         #endregion
 
+        private void btnShowDebtor_Click(object sender, EventArgs e)
+        {
+            if (cmbStreet.SelectedValue is int streetId)
+            {
+                var searchModel = new SearchModel
+                {
+                    StreetId = streetId,
+                    AccountType = Convert(cmbPersonalAccountType.SelectedIndex),
+                    HouseNumber = txtHouse.Text,
+                    BuildingNumber = txtBuilding.Text,
+                    ApartmentNumber = txtApartment.Text,
+                    IsArchive = metroCheckBox1.Checked
+                };
+                using (var scope = _container.BeginLifetimeScope())
+                {
+                    var service = scope.Resolve<ISearchService>();
+                    var result = service.FindAccounts(searchModel);
+
+                    if (result != null)
+                    {
+                        lvlMonthReport.Clear();
+                        lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+                        lvlMonthReport.Columns.Add("Счет");
+
+                        var accounts = result.ToList();
+
+                        var dates = accounts.Select(x => x.PaymentDocuments).FirstOrDefault();
+
+                        if (dates == null || dates.Count == 0)
+                        {
+                            MessageBox.Show("По данным критериям не найдено записей");
+                            return;
+                        }
+
+                        foreach (var date in dates)
+                        {
+                            lvlMonthReport.Columns.Add(date.PaymentDate.ToShortDateString());
+                        }
+
+                        foreach (var accountEntity in accounts)
+                        {
+                            var item = new ListViewItem(new[] { accountEntity.Account.ToString() });
+
+                            foreach (var documentEntity in accountEntity.PaymentDocuments)
+                            {
+                                if((documentEntity.Accrued - documentEntity.Received) < 0)
+                                 item.SubItems.Add(documentEntity.Received.ToString(CultureInfo.CurrentCulture));
+                            }
+
+                            item.Tag = accountEntity;
+
+                            lvlMonthReport.Items.Add(item);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

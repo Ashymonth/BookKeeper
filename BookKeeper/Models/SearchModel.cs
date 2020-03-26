@@ -1,4 +1,5 @@
-﻿using BookKeeper.Data.Data.Entities;
+﻿using System;
+using BookKeeper.Data.Data.Entities;
 
 namespace BookKeeper.Data.Models
 {
@@ -17,6 +18,12 @@ namespace BookKeeper.Data.Models
         public bool IsArchive { get; set; }
 
         public bool IsNoneBuilding { get; set; }
+
+        public bool IsNotPayed { get; set; }
+
+        public DateTime From { get; set; }
+
+        public DateTime To { get; set; }
 
     }
 }

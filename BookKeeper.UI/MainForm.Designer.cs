@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnFiles = new MetroFramework.Controls.MetroButton();
             this.btnShowDebtor = new MetroFramework.Controls.MetroButton();
@@ -49,6 +49,8 @@
             this.btnDiscountOnAddress = new MetroFramework.Controls.MetroButton();
             this.btnDiscountOnAccount = new MetroFramework.Controls.MetroButton();
             this.btnAddDiscountPercent = new MetroFramework.Controls.MetroButton();
+            this.dtnDiscountDescription = new MetroFramework.Controls.MetroButton();
+            this.btnViewDiscountsParams = new MetroFramework.Controls.MetroButton();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.lvlRates = new MetroFramework.Controls.MetroListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -76,8 +78,6 @@
             this.btnFind = new MetroFramework.Controls.MetroButton();
             this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.dtnDiscountDescription = new MetroFramework.Controls.MetroButton();
-            this.btnViewDiscountsParams = new MetroFramework.Controls.MetroButton();
             this.flowLayoutPanel1.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
             this.metroTabPage4.SuspendLayout();
@@ -123,6 +123,7 @@
             this.btnShowDebtor.TabIndex = 1;
             this.btnShowDebtor.Text = "Показать не оплаченные";
             this.btnShowDebtor.UseSelectable = true;
+            this.btnShowDebtor.Click += new System.EventHandler(this.btnShowDebtor_Click);
             // 
             // metroButton3
             // 
@@ -280,6 +281,25 @@
             this.btnAddDiscountPercent.UseSelectable = true;
             this.btnAddDiscountPercent.Click += new System.EventHandler(this.btnAddDiscountPercent_Click);
             // 
+            // dtnDiscountDescription
+            // 
+            this.dtnDiscountDescription.Location = new System.Drawing.Point(432, 8);
+            this.dtnDiscountDescription.Name = "dtnDiscountDescription";
+            this.dtnDiscountDescription.Size = new System.Drawing.Size(178, 23);
+            this.dtnDiscountDescription.TabIndex = 3;
+            this.dtnDiscountDescription.Text = "Добавить описание льготы";
+            this.dtnDiscountDescription.UseSelectable = true;
+            this.dtnDiscountDescription.Click += new System.EventHandler(this.dtnDiscountDescription_Click);
+            // 
+            // btnViewDiscountsParams
+            // 
+            this.btnViewDiscountsParams.Location = new System.Drawing.Point(616, 8);
+            this.btnViewDiscountsParams.Name = "btnViewDiscountsParams";
+            this.btnViewDiscountsParams.Size = new System.Drawing.Size(177, 23);
+            this.btnViewDiscountsParams.TabIndex = 4;
+            this.btnViewDiscountsParams.Text = "Изменить описание и скидку";
+            this.btnViewDiscountsParams.UseSelectable = true;
+            // 
             // metroTabPage3
             // 
             this.metroTabPage3.Controls.Add(this.lvlRates);
@@ -310,9 +330,9 @@
             this.lvlRates.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lvlRates.FullRowSelect = true;
             this.lvlRates.GridLines = true;
-            listViewItem2.StateImageIndex = 0;
+            listViewItem1.StateImageIndex = 0;
             this.lvlRates.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.lvlRates.Location = new System.Drawing.Point(5, 44);
             this.lvlRates.Name = "lvlRates";
             this.lvlRates.OwnerDraw = true;
@@ -644,7 +664,7 @@
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 116);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 2;
+            this.metroTabControl1.SelectedIndex = 0;
             this.metroTabControl1.Size = new System.Drawing.Size(1593, 782);
             this.metroTabControl1.TabIndex = 4;
             this.metroTabControl1.UseSelectable = true;
@@ -653,25 +673,6 @@
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork_1);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // dtnDiscountDescription
-            // 
-            this.dtnDiscountDescription.Location = new System.Drawing.Point(432, 8);
-            this.dtnDiscountDescription.Name = "dtnDiscountDescription";
-            this.dtnDiscountDescription.Size = new System.Drawing.Size(178, 23);
-            this.dtnDiscountDescription.TabIndex = 3;
-            this.dtnDiscountDescription.Text = "Добавить описание льготы";
-            this.dtnDiscountDescription.UseSelectable = true;
-            this.dtnDiscountDescription.Click += new System.EventHandler(this.dtnDiscountDescription_Click);
-            // 
-            // btnViewDiscountsParams
-            // 
-            this.btnViewDiscountsParams.Location = new System.Drawing.Point(616, 8);
-            this.btnViewDiscountsParams.Name = "btnViewDiscountsParams";
-            this.btnViewDiscountsParams.Size = new System.Drawing.Size(177, 23);
-            this.btnViewDiscountsParams.TabIndex = 4;
-            this.btnViewDiscountsParams.Text = "Изменить описание и скидку";
-            this.btnViewDiscountsParams.UseSelectable = true;
             // 
             // MainForm
             // 

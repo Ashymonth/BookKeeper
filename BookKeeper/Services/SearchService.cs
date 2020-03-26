@@ -4,7 +4,9 @@ using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Address;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
+using BookKeeper.Data.Data.Entities.Payments;
 using DocumentFormat.OpenXml.Drawing;
 using LinqKit;
 using static System.String;
@@ -14,6 +16,7 @@ namespace BookKeeper.Data.Services
     public interface ISearchService
     {
         IEnumerable<AccountEntity> FindAccounts(SearchModel model);
+        IEnumerable<AccountEntity> FindNotPayedAccounts(SearchModel model);
     }
 
     public class SearchService : ISearchService
@@ -46,6 +49,7 @@ namespace BookKeeper.Data.Services
             Expression<Func<AccountEntity, bool>> apartmentPredicate =
                 apartment => string.Equals(apartment.Location.HouseNumber, model.HouseNumber, StringComparison.CurrentCultureIgnoreCase);
 
+
             account.And(defaultPredicate);
 
             if (IsNullOrWhiteSpace(model.HouseNumber) == false)
@@ -65,6 +69,11 @@ namespace BookKeeper.Data.Services
                 x=>x.PaymentDocuments,
                 x=>x.Location.Street,
                 x=>x.Location.Street.Rates);
+        }
+
+        public IEnumerable<AccountEntity> FindNotPayedAccounts(SearchModel model)
+        {
+            return _accountService.GetWithInclude(x => x.PaymentDocuments.Where(z => (z.Accrued - z.Received) < 0));
         }
     }
 }
