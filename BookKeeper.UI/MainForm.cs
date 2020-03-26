@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BookKeeper.Data.Data.Entities;
+using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Models;
 using BookKeeper.Data.Services;
@@ -12,14 +13,15 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using BookKeeper.Data.Data.Entities.Rates;
-using BookKeeper.Data.Services.EntityService;
+using BookKeeper.Data.Data.Entities.Discounts;
+using BookKeeper.Data.Services.EntityService.Discount;
 
 namespace BookKeeper.UI
 {
-    public partial class Form1 : MetroForm
+    public partial class MainForm : MetroForm
     {
         #region Initialize
 
@@ -27,7 +29,7 @@ namespace BookKeeper.UI
         private ProgressForm _form;
         private string[] _files;
 
-        public Form1()
+        public MainForm()
         {
 
             InitializeComponent();
@@ -67,7 +69,8 @@ namespace BookKeeper.UI
                 backgroundWorker1.RunWorkerAsync("Excel");
             }
             _form = new ProgressForm();
-            _form.ShowDialog();
+            _form.ShowDialog(this);
+            LoadAddresses();
 
         }
 
@@ -89,7 +92,7 @@ namespace BookKeeper.UI
                 backgroundWorker1.RunWorkerAsync("Html");
             }
             _form = new ProgressForm();
-            _form.ShowDialog();
+            _form.ShowDialog(this);
         }
 
         #endregion
@@ -116,6 +119,7 @@ namespace BookKeeper.UI
             catch (NullReferenceException)
             {
                 MessageBox.Show("Выберите улицу");
+                return;
             }
 
             using (var scope = _container.BeginLifetimeScope())
@@ -153,7 +157,7 @@ namespace BookKeeper.UI
 
         #endregion
 
-        #region Helps Method
+        #region Methods
 
         private void LoadAccountsInfo(IEnumerable<AccountEntity> accountEntities)
         {
@@ -296,30 +300,8 @@ namespace BookKeeper.UI
         }
         #endregion
 
-        #endregion
+        #region Load start rates
 
-        #region DiscountListView
-
-        #region Buttons
-
-        private void btnAddDiscount_Click(object sender, EventArgs e)
-        {
-            using (var form = new DiscountAddressItemForm())
-            {
-                form.ShowDialog();
-            }
-        }
-
-        private void metroButton1_Click(object sender, EventArgs e)
-        {
-            using (var form = new DiscountAccountItemForm())
-            {
-                form.ShowDialog();
-            }
-        }
-        #endregion
-
-        #region Load start value
         private void LoadRates()
         {
             using (var scope = _container.BeginLifetimeScope())
@@ -337,17 +319,107 @@ namespace BookKeeper.UI
                         var location = locationService.GetItem(x => x.Id == rate.LocationId);
 
                         var listView = new ListViewItem(new[]
-                        {
-                            street.StreetName,
-                            location.HouseNumber,
-                            location.BuildingCorpus,
-                            rate.Price.ToString(CultureInfo.CurrentCulture),
-                            descriptionEntity.Description
-                        })
-                        { Tag = rate };
+                            {
+                                street.StreetName,
+                                location.HouseNumber,
+                                location.BuildingCorpus,
+                                rate.Price.ToString(CultureInfo.CurrentCulture),
+                                descriptionEntity.Description
+                            })
+                            { Tag = rate };
 
                         lvlRates.Items.Add(listView);
                     }
+                }
+            }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region DiscountListView
+
+        #region Buttons
+
+        private void btnAddDiscount_Click(object sender, EventArgs e)
+        {
+            using (var form = new DiscountOnAddressForm())
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void btnDiscountOnAccount_Click(object sender, EventArgs e)
+        {
+            using (var form = new DiscountAccountItemForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LoadDiscount(form.DiscountModel);
+                }
+            }
+        }
+        private void dtnDiscountAndDescription_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new DiscountPercentItem())
+            {
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+
+                }
+            }
+        }
+        #endregion
+
+        #region Methods
+
+        private void LoadDiscount(DiscountModel model)
+        {
+            switch (model.Type)
+            {
+                case DiscountType.PersonalAccount:
+                    {
+                        var listViewItem = new ListViewItem(new[]
+                            {
+                            "Счет", model.Account, model.Price, model.Description
+                        })
+                        { Tag = model };
+                        lvlDiscounts.Items.Add(listViewItem);
+                        break;
+                    }
+                case DiscountType.Address:
+                    {
+                        var listview = new ListViewItem(new[]
+                        {
+                            "Адрес",model.Address,model.Price,model.Description
+                        })
+                        { Tag = model };
+                        break;
+                    }
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        #endregion
+
+        #region Load start value
+
+        public void LoadDiscounts()
+        {
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var discountService = scope.Resolve<IDiscountDocumentService>();
+                var discounts = discountService.GetItems(x => x.IsDeleted == false).ToList();
+                foreach (var discount in discounts)
+                {
+                    var type = discount.AccountId == 0 ? "Счет" : "Адрес";
+                    //var listViewItem = new ListViewItem(new []
+                    //{
+                    //    type,discount.
+                    //});
                 }
             }
         }
@@ -360,26 +432,34 @@ namespace BookKeeper.UI
 
         private void backgroundWorker1_DoWork_1(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            var options = e.Argument as string;
-            foreach (var file in _files)
+
+            if (e.Argument is string options)
             {
-                using (var scope = _container.BeginLifetimeScope())
+                foreach (var file in _files)
                 {
-                    var service = scope.ResolveNamed<IDataLoader>(options);
-                    service.LoadData(file);
+                    using (var scope = _container.BeginLifetimeScope())
+                    {
+                        var service = scope.ResolveNamed<IDataLoader>(options);
+                        try
+                        {
+                            service.LoadData(file);
+                        }
+                        catch (FileLoadException )
+                        {
+                            MessageBox.Show("Не удалось загрузить данные из файла");
+                            return;
+                        }
+                    }
                 }
             }
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
-            _form.Dispose();
+            _form.Close();
         }
+
         #endregion
 
-        private void btnShowDebtor_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace BookKeeper.UI.UI.Forms
 {
-    partial class DiscountAddressItemForm
+    partial class DiscountOnAddressForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,10 +32,10 @@
             this.metroTextBox2 = new MetroFramework.Controls.MetroTextBox();
             this.metroTextBox3 = new MetroFramework.Controls.MetroTextBox();
             this.cmbStreets = new MetroFramework.Controls.MetroComboBox();
-            this.metroComboBox2 = new MetroFramework.Controls.MetroComboBox();
-            this.metroTextBox4 = new MetroFramework.Controls.MetroTextBox();
+            this.cmbPercent = new MetroFramework.Controls.MetroComboBox();
             this.btnSaveDiscount = new MetroFramework.Controls.MetroButton();
             this.dtnCancelDiscount = new MetroFramework.Controls.MetroButton();
+            this.cmbDescription = new MetroFramework.Controls.MetroComboBox();
             this.SuspendLayout();
             // 
             // metroTextBox1
@@ -53,7 +53,7 @@
             this.metroTextBox1.CustomButton.UseSelectable = true;
             this.metroTextBox1.CustomButton.Visible = false;
             this.metroTextBox1.Lines = new string[0];
-            this.metroTextBox1.Location = new System.Drawing.Point(23, 142);
+            this.metroTextBox1.Location = new System.Drawing.Point(348, 75);
             this.metroTextBox1.MaxLength = 32767;
             this.metroTextBox1.Name = "metroTextBox1";
             this.metroTextBox1.PasswordChar = '\0';
@@ -85,7 +85,7 @@
             this.metroTextBox2.CustomButton.UseSelectable = true;
             this.metroTextBox2.CustomButton.Visible = false;
             this.metroTextBox2.Lines = new string[0];
-            this.metroTextBox2.Location = new System.Drawing.Point(167, 142);
+            this.metroTextBox2.Location = new System.Drawing.Point(348, 142);
             this.metroTextBox2.MaxLength = 32767;
             this.metroTextBox2.Name = "metroTextBox2";
             this.metroTextBox2.PasswordChar = '\0';
@@ -117,7 +117,7 @@
             this.metroTextBox3.CustomButton.UseSelectable = true;
             this.metroTextBox3.CustomButton.Visible = false;
             this.metroTextBox3.Lines = new string[0];
-            this.metroTextBox3.Location = new System.Drawing.Point(320, 142);
+            this.metroTextBox3.Location = new System.Drawing.Point(348, 214);
             this.metroTextBox3.MaxLength = 32767;
             this.metroTextBox3.Name = "metroTextBox3";
             this.metroTextBox3.PasswordChar = '\0';
@@ -138,58 +138,26 @@
             // 
             this.cmbStreets.FormattingEnabled = true;
             this.cmbStreets.ItemHeight = 23;
-            this.cmbStreets.Location = new System.Drawing.Point(23, 73);
+            this.cmbStreets.Location = new System.Drawing.Point(23, 75);
             this.cmbStreets.Name = "cmbStreets";
-            this.cmbStreets.Size = new System.Drawing.Size(570, 29);
+            this.cmbStreets.Size = new System.Drawing.Size(277, 29);
             this.cmbStreets.TabIndex = 4;
             this.cmbStreets.UseSelectable = true;
             // 
-            // metroComboBox2
+            // cmbPercent
             // 
-            this.metroComboBox2.FormattingEnabled = true;
-            this.metroComboBox2.ItemHeight = 23;
-            this.metroComboBox2.Location = new System.Drawing.Point(472, 142);
-            this.metroComboBox2.Name = "metroComboBox2";
-            this.metroComboBox2.Size = new System.Drawing.Size(121, 29);
-            this.metroComboBox2.TabIndex = 5;
-            this.metroComboBox2.UseSelectable = true;
-            // 
-            // metroTextBox4
-            // 
-            // 
-            // 
-            // 
-            this.metroTextBox4.CustomButton.Image = null;
-            this.metroTextBox4.CustomButton.Location = new System.Drawing.Point(511, 2);
-            this.metroTextBox4.CustomButton.Name = "";
-            this.metroTextBox4.CustomButton.Size = new System.Drawing.Size(55, 55);
-            this.metroTextBox4.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.metroTextBox4.CustomButton.TabIndex = 1;
-            this.metroTextBox4.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.metroTextBox4.CustomButton.UseSelectable = true;
-            this.metroTextBox4.CustomButton.Visible = false;
-            this.metroTextBox4.Lines = new string[0];
-            this.metroTextBox4.Location = new System.Drawing.Point(23, 218);
-            this.metroTextBox4.MaxLength = 32767;
-            this.metroTextBox4.Name = "metroTextBox4";
-            this.metroTextBox4.PasswordChar = '\0';
-            this.metroTextBox4.PromptText = "Описание";
-            this.metroTextBox4.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
-            this.metroTextBox4.SelectedText = "";
-            this.metroTextBox4.SelectionLength = 0;
-            this.metroTextBox4.SelectionStart = 0;
-            this.metroTextBox4.ShortcutsEnabled = true;
-            this.metroTextBox4.Size = new System.Drawing.Size(569, 60);
-            this.metroTextBox4.TabIndex = 6;
-            this.metroTextBox4.UseSelectable = true;
-            this.metroTextBox4.WaterMark = "Описание";
-            this.metroTextBox4.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.metroTextBox4.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.cmbPercent.FormattingEnabled = true;
+            this.cmbPercent.ItemHeight = 23;
+            this.cmbPercent.Location = new System.Drawing.Point(23, 142);
+            this.cmbPercent.Name = "cmbPercent";
+            this.cmbPercent.Size = new System.Drawing.Size(277, 29);
+            this.cmbPercent.TabIndex = 5;
+            this.cmbPercent.UseSelectable = true;
             // 
             // btnSaveDiscount
             // 
             this.btnSaveDiscount.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSaveDiscount.Location = new System.Drawing.Point(472, 302);
+            this.btnSaveDiscount.Location = new System.Drawing.Point(348, 304);
             this.btnSaveDiscount.Name = "btnSaveDiscount";
             this.btnSaveDiscount.Size = new System.Drawing.Size(120, 23);
             this.btnSaveDiscount.TabIndex = 7;
@@ -207,15 +175,25 @@
             this.dtnCancelDiscount.Text = "Отменить";
             this.dtnCancelDiscount.UseSelectable = true;
             // 
+            // cmbDescription
+            // 
+            this.cmbDescription.FormattingEnabled = true;
+            this.cmbDescription.ItemHeight = 23;
+            this.cmbDescription.Location = new System.Drawing.Point(23, 214);
+            this.cmbDescription.Name = "cmbDescription";
+            this.cmbDescription.Size = new System.Drawing.Size(277, 29);
+            this.cmbDescription.TabIndex = 9;
+            this.cmbDescription.UseSelectable = true;
+            // 
             // DiscountAddressItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(639, 350);
+            this.ClientSize = new System.Drawing.Size(513, 350);
+            this.Controls.Add(this.cmbDescription);
             this.Controls.Add(this.dtnCancelDiscount);
             this.Controls.Add(this.btnSaveDiscount);
-            this.Controls.Add(this.metroTextBox4);
-            this.Controls.Add(this.metroComboBox2);
+            this.Controls.Add(this.cmbPercent);
             this.Controls.Add(this.cmbStreets);
             this.Controls.Add(this.metroTextBox3);
             this.Controls.Add(this.metroTextBox2);
@@ -233,9 +211,9 @@
         private MetroFramework.Controls.MetroTextBox metroTextBox2;
         private MetroFramework.Controls.MetroTextBox metroTextBox3;
         private MetroFramework.Controls.MetroComboBox cmbStreets;
-        private MetroFramework.Controls.MetroComboBox metroComboBox2;
-        private MetroFramework.Controls.MetroTextBox metroTextBox4;
+        private MetroFramework.Controls.MetroComboBox cmbPercent;
         private MetroFramework.Controls.MetroButton btnSaveDiscount;
         private MetroFramework.Controls.MetroButton dtnCancelDiscount;
+        private MetroFramework.Controls.MetroComboBox cmbDescription;
     }
 }

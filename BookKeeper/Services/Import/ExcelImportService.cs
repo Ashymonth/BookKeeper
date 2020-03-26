@@ -2,6 +2,7 @@
 using BookKeeper.Data.Models.ExcelImport;
 using ClosedXML.Excel;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using BookKeeper.Data.Infrastructure.Formats;
 
@@ -55,6 +56,9 @@ namespace BookKeeper.Data.Services.Import
                         }
                     }));
             }
+
+            if (importData.Count == 0)
+                throw new FileLoadException();
             return importData;
         }
     }

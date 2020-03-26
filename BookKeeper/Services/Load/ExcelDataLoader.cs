@@ -53,8 +53,11 @@ namespace BookKeeper.Data.Services.Load
                         if (account != null)
                         {
                             account.IsArchive = account.IsEmpty && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
-                            account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
+                            account.IsEmptyAgain = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode) &&
+                                                   account.IsEmpty;//TODO CHECK THIS 
 
+                            account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
+                            
                             accountsToUpdate.Add(account);
                             continue;
                         }

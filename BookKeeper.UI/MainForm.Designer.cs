@@ -1,6 +1,6 @@
 ﻿namespace BookKeeper.UI
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnFiles = new MetroFramework.Controls.MetroButton();
             this.btnShowDebtor = new MetroFramework.Controls.MetroButton();
@@ -40,14 +40,15 @@
             this.btnLoadBase = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLoadPayments = new System.Windows.Forms.ToolStripMenuItem();
             this.metroTabPage4 = new MetroFramework.Controls.MetroTabPage();
-            this.metroListView1 = new MetroFramework.Controls.MetroListView();
+            this.lvlDiscounts = new MetroFramework.Controls.MetroListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader9 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnAddDiscount = new MetroFramework.Controls.MetroButton();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
+            this.btnDiscountOnAddress = new MetroFramework.Controls.MetroButton();
+            this.btnDiscountOnAccount = new MetroFramework.Controls.MetroButton();
+            this.dtnDiscountAndDescription = new MetroFramework.Controls.MetroButton();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.lvlRates = new MetroFramework.Controls.MetroListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -119,7 +120,6 @@
             this.btnShowDebtor.TabIndex = 1;
             this.btnShowDebtor.Text = "Показать не оплаченные";
             this.btnShowDebtor.UseSelectable = true;
-            this.btnShowDebtor.Click += new System.EventHandler(this.btnShowDebtor_Click);
             // 
             // metroButton3
             // 
@@ -178,7 +178,7 @@
             // 
             // metroTabPage4
             // 
-            this.metroTabPage4.Controls.Add(this.metroListView1);
+            this.metroTabPage4.Controls.Add(this.lvlDiscounts);
             this.metroTabPage4.Controls.Add(this.flowLayoutPanel2);
             this.metroTabPage4.HorizontalScrollbarBarColor = true;
             this.metroTabPage4.HorizontalScrollbarHighlightOnWheel = false;
@@ -193,25 +193,25 @@
             this.metroTabPage4.VerticalScrollbarHighlightOnWheel = false;
             this.metroTabPage4.VerticalScrollbarSize = 10;
             // 
-            // metroListView1
+            // lvlDiscounts
             // 
-            this.metroListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.lvlDiscounts.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader5,
             this.columnHeader8,
             this.columnHeader9,
             this.columnHeader10});
-            this.metroListView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroListView1.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.metroListView1.FullRowSelect = true;
-            this.metroListView1.GridLines = true;
-            this.metroListView1.Location = new System.Drawing.Point(5, 45);
-            this.metroListView1.Name = "metroListView1";
-            this.metroListView1.OwnerDraw = true;
-            this.metroListView1.Size = new System.Drawing.Size(1428, 690);
-            this.metroListView1.TabIndex = 3;
-            this.metroListView1.UseCompatibleStateImageBehavior = false;
-            this.metroListView1.UseSelectable = true;
-            this.metroListView1.View = System.Windows.Forms.View.Details;
+            this.lvlDiscounts.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvlDiscounts.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.lvlDiscounts.FullRowSelect = true;
+            this.lvlDiscounts.GridLines = true;
+            this.lvlDiscounts.Location = new System.Drawing.Point(5, 45);
+            this.lvlDiscounts.Name = "lvlDiscounts";
+            this.lvlDiscounts.OwnerDraw = true;
+            this.lvlDiscounts.Size = new System.Drawing.Size(1428, 690);
+            this.lvlDiscounts.TabIndex = 3;
+            this.lvlDiscounts.UseCompatibleStateImageBehavior = false;
+            this.lvlDiscounts.UseSelectable = true;
+            this.lvlDiscounts.View = System.Windows.Forms.View.Details;
             // 
             // columnHeader5
             // 
@@ -235,8 +235,9 @@
             // 
             // flowLayoutPanel2
             // 
-            this.flowLayoutPanel2.Controls.Add(this.btnAddDiscount);
-            this.flowLayoutPanel2.Controls.Add(this.metroButton1);
+            this.flowLayoutPanel2.Controls.Add(this.btnDiscountOnAddress);
+            this.flowLayoutPanel2.Controls.Add(this.btnDiscountOnAccount);
+            this.flowLayoutPanel2.Controls.Add(this.dtnDiscountAndDescription);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(5, 5);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
@@ -244,25 +245,35 @@
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1428, 40);
             this.flowLayoutPanel2.TabIndex = 2;
             // 
-            // btnAddDiscount
+            // btnDiscountOnAddress
             // 
-            this.btnAddDiscount.Location = new System.Drawing.Point(8, 8);
-            this.btnAddDiscount.Name = "btnAddDiscount";
-            this.btnAddDiscount.Size = new System.Drawing.Size(116, 23);
-            this.btnAddDiscount.TabIndex = 0;
-            this.btnAddDiscount.Text = "Добавить счет";
-            this.btnAddDiscount.UseSelectable = true;
-            this.btnAddDiscount.Click += new System.EventHandler(this.btnAddDiscount_Click);
+            this.btnDiscountOnAddress.Location = new System.Drawing.Point(8, 8);
+            this.btnDiscountOnAddress.Name = "btnDiscountOnAddress";
+            this.btnDiscountOnAddress.Size = new System.Drawing.Size(116, 23);
+            this.btnDiscountOnAddress.TabIndex = 0;
+            this.btnDiscountOnAddress.Text = "Добавить адрес";
+            this.btnDiscountOnAddress.UseSelectable = true;
+            this.btnDiscountOnAddress.Click += new System.EventHandler(this.btnAddDiscount_Click);
             // 
-            // metroButton1
+            // btnDiscountOnAccount
             // 
-            this.metroButton1.Location = new System.Drawing.Point(130, 8);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(112, 23);
-            this.metroButton1.TabIndex = 1;
-            this.metroButton1.Text = "Добавить адрес";
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
+            this.btnDiscountOnAccount.Location = new System.Drawing.Point(130, 8);
+            this.btnDiscountOnAccount.Name = "btnDiscountOnAccount";
+            this.btnDiscountOnAccount.Size = new System.Drawing.Size(112, 23);
+            this.btnDiscountOnAccount.TabIndex = 1;
+            this.btnDiscountOnAccount.Text = "Добавить счет";
+            this.btnDiscountOnAccount.UseSelectable = true;
+            this.btnDiscountOnAccount.Click += new System.EventHandler(this.btnDiscountOnAccount_Click);
+            // 
+            // dtnDiscountAndDescription
+            // 
+            this.dtnDiscountAndDescription.Location = new System.Drawing.Point(248, 8);
+            this.dtnDiscountAndDescription.Name = "dtnDiscountAndDescription";
+            this.dtnDiscountAndDescription.Size = new System.Drawing.Size(178, 23);
+            this.dtnDiscountAndDescription.TabIndex = 2;
+            this.dtnDiscountAndDescription.Text = "Добавить скидку с описанием";
+            this.dtnDiscountAndDescription.UseSelectable = true;
+            this.dtnDiscountAndDescription.Click += new System.EventHandler(this.dtnDiscountAndDescription_Click);
             // 
             // metroTabPage3
             // 
@@ -294,9 +305,9 @@
             this.lvlRates.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lvlRates.FullRowSelect = true;
             this.lvlRates.GridLines = true;
-            listViewItem2.StateImageIndex = 0;
+            listViewItem1.StateImageIndex = 0;
             this.lvlRates.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
+            listViewItem1});
             this.lvlRates.Location = new System.Drawing.Point(5, 44);
             this.lvlRates.Name = "lvlRates";
             this.lvlRates.OwnerDraw = true;
@@ -610,7 +621,7 @@
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 116);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
+            this.metroTabControl1.SelectedIndex = 2;
             this.metroTabControl1.Size = new System.Drawing.Size(1446, 782);
             this.metroTabControl1.TabIndex = 4;
             this.metroTabControl1.UseSelectable = true;
@@ -620,7 +631,7 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork_1);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // Form1
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -628,7 +639,7 @@
             this.Controls.Add(this.metroTabControl1);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Name = "Form1";
+            this.Name = "MainForm";
             this.Text = "Учет";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
@@ -656,14 +667,14 @@
         private System.Windows.Forms.ToolStripMenuItem btnLoadBase;
         private System.Windows.Forms.ToolStripMenuItem btnLoadPayments;
         private MetroFramework.Controls.MetroTabPage metroTabPage4;
-        private MetroFramework.Controls.MetroListView metroListView1;
+        private MetroFramework.Controls.MetroListView lvlDiscounts;
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private System.Windows.Forms.ColumnHeader columnHeader8;
         private System.Windows.Forms.ColumnHeader columnHeader9;
         private System.Windows.Forms.ColumnHeader columnHeader10;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel2;
-        private MetroFramework.Controls.MetroButton btnAddDiscount;
-        private MetroFramework.Controls.MetroButton metroButton1;
+        private MetroFramework.Controls.MetroButton btnDiscountOnAddress;
+        private MetroFramework.Controls.MetroButton btnDiscountOnAccount;
         private MetroFramework.Controls.MetroTabPage metroTabPage3;
         private MetroFramework.Controls.MetroListView lvlRates;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -690,6 +701,7 @@
         private MetroFramework.Controls.MetroTabControl metroTabControl1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private MetroFramework.Controls.MetroButton btnDeleteRate;
+        private MetroFramework.Controls.MetroButton dtnDiscountAndDescription;
     }
 }
 

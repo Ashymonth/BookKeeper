@@ -47,13 +47,14 @@ namespace BookKeeper.UI.UI.Forms
         //txtDiscount.Text = AccountDetailsModel.Discount;
         private void metroButton1_Click(object sender, System.EventArgs e)
         {
-            if (DialogResult == DialogResult.OK)
+            DialogResult = DialogResult.None;
+
+            using (var scope = _container.BeginLifetimeScope())
             {
-                using (var scope = _container.BeginLifetimeScope())
-                {
-                    var service = scope.Resolve<IAccountService>();
-                    service.Update(Account);
-                }
+                var service = scope.Resolve<IAccountService>();
+                service.Update(Account);
+
+                DialogResult = DialogResult.OK;
             }
         }
     }

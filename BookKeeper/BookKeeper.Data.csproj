@@ -61,6 +61,7 @@
     <Compile Include="Infrastructure\Formats\HtmlFormatValidator.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountDetailsModel.cs" />
+    <Compile Include="Models\DiscountModel.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />
     <Compile Include="Models\ExcelImport\AddressImport.cs" />
     <Compile Include="Models\ExcelImport\DistrictImport.cs" />
@@ -68,7 +69,6 @@
     <Compile Include="Models\ExcelImport\LocationImport.cs" />
     <Compile Include="Models\HtmlImport\PaymentDetailsImport.cs" />
     <Compile Include="Models\HtmlImport\PaymentDocumentImport.cs" />
-    <Compile Include="Models\RateDeleteModel.cs" />
     <Compile Include="Models\RateModel.cs" />
     <Compile Include="Models\ResponseModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
@@ -77,6 +77,9 @@
     <Compile Include="Services\EntityService\Address\StreetService.cs" />
     <Compile Include="Services\EntityService\Address\DistrictService.cs" />
     <Compile Include="Services\EntityService\Address\LocationService.cs" />
+    <Compile Include="Services\EntityService\Discount\DiscountDescriptionService.cs" />
+    <Compile Include="Services\EntityService\Discount\DiscountDocumentService.cs" />
+    <Compile Include="Services\EntityService\Discount\DiscountPercentService.cs" />
     <Compile Include="Services\EntityService\PaymentDocumentService.cs" />
     <Compile Include="Services\EntityService\Rate\RateDescriptionService.cs" />
     <Compile Include="Services\EntityService\Rate\RateDocumentService.cs" />

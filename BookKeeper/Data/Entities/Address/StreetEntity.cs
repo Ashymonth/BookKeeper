@@ -1,6 +1,7 @@
 ﻿using BookKeeper.Data.Data.Entities.Rates;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using BookKeeper.Data.Data.Entities.Discounts;
 
 namespace BookKeeper.Data.Data.Entities.Address
 {
@@ -17,6 +18,8 @@ namespace BookKeeper.Data.Data.Entities.Address
         public virtual ICollection<LocationEntity> Locations { get; set; }
 
         public virtual ICollection<RateDocumentEntity> Rates { get; set; }
+
+        public virtual ICollection<DiscountDocumentEntity> Discounts { get; set; }
 
     }
 }

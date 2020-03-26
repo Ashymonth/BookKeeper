@@ -11,23 +11,29 @@ namespace BookKeeper.Data.Data.Entities.Discounts
         PersonalAccount
     }
 
+    [Table("DiscountDocuments")]
     public class DiscountDocumentEntity : BaseEntity
     {
-        public int StreetId { get; set; }
+        public int? StreetId { get; set; }
 
+        public int? AccountId { get; set; }
+
+        [ForeignKey(nameof(StreetId))]
         public StreetEntity Street { get; set; }
+
+        [ForeignKey(nameof(AccountId))] 
+        public AccountEntity Account { get; set; }
 
         public DiscountType Type { get; set; }
 
         public DateTime StartDate { get; set; }
 
-        public DateTime UpdateDate { get; set; }
-
         public DateTime EndDate { get; set; }
 
-        public decimal DiscountPercent { get; set; }
+        public decimal Percent { get; set; }
 
-        public ICollection<DiscountDescriptionEntity> DiscountDescriptions { get; set; }
+        public string Description { get; set; }
 
+        
     }
 }

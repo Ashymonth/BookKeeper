@@ -35,11 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProgressReport.cs" />
@@ -50,17 +50,23 @@
     <Compile Include="UI\Forms\AccountDetailsForm.Designer.cs">
       <DependentUpon>AccountDetailsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\DiscountAccountItemForm.cs">
+    <Compile Include="UI\Forms\DiscountOnAccountForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\DiscountAccountItemForm.Designer.cs">
-      <DependentUpon>DiscountAccountItemForm.cs</DependentUpon>
+    <Compile Include="UI\Forms\DiscountOnAccountForm.Designer.cs">
+      <DependentUpon>DiscountOnAccountForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\DiscountAddressItemForm.cs">
+    <Compile Include="UI\Forms\DiscountOnAddressForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\DiscountAddressItemForm.Designer.cs">
-      <DependentUpon>DiscountAddressItemForm.cs</DependentUpon>
+    <Compile Include="UI\Forms\DiscountOnAddressForm.Designer.cs">
+      <DependentUpon>DiscountOnAddressForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\DiscountPercentItem.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\DiscountPercentItem.Designer.cs">
+      <DependentUpon>DiscountPercentItem.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\ProgressForm.cs">
       <SubType>Form</SubType>
@@ -74,8 +80,8 @@
     <Compile Include="UI\Forms\RateItemForm.Designer.cs">
       <DependentUpon>RateItemForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -89,11 +95,14 @@
     <EmbeddedResource Include="UI\Forms\AccountDetailsForm.resx">
       <DependentUpon>AccountDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\DiscountAccountItemForm.resx">
-      <DependentUpon>DiscountAccountItemForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\DiscountOnAccountForm.resx">
+      <DependentUpon>DiscountOnAccountForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\DiscountAddressItemForm.resx">
-      <DependentUpon>DiscountAddressItemForm.cs</DependentUpon>
+    <EmbeddedResource Include="UI\Forms\DiscountOnAddressForm.resx">
+      <DependentUpon>DiscountOnAddressForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\DiscountPercentItem.resx">
+      <DependentUpon>DiscountPercentItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>

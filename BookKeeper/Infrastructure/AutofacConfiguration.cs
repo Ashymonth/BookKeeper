@@ -10,6 +10,7 @@ using BookKeeper.Data.Services.Import;
 using BookKeeper.Data.Services.Load;
 using System.Collections.Generic;
 using BookKeeper.Data.Services.EntityService.Address;
+using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
 
 namespace BookKeeper.Data.Infrastructure
@@ -69,6 +70,18 @@ namespace BookKeeper.Data.Infrastructure
 
             container.RegisterType(typeof(ExcelImportService))
                .As<IImportService<List<ImportDataRow>>>()
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(DiscountDocumentService))
+                .As<IDiscountDocumentService>()
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(DiscountPercentService))
+                .As<IDiscountPercentService>()
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(DiscountDescriptionService))
+                .As<IDiscountDescriptionService>()
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(HtmlImportService))
