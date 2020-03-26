@@ -18,6 +18,12 @@ using System.Linq;
 using System.Windows.Forms;
 using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Services.EntityService.Discount;
+using BookKeeper.UI.Models.Account;
+using BookKeeper.UI.Models.Discount;
+using BookKeeper.UI.Models.Rate;
+using BookKeeper.UI.UI.Forms.Account;
+using BookKeeper.UI.UI.Forms.Discount;
+using BookKeeper.UI.UI.Forms.Rate;
 
 namespace BookKeeper.UI
 {
@@ -103,34 +109,32 @@ namespace BookKeeper.UI
 
         private void btnFind_Click(object sender, EventArgs e)
         {
-            SearchModel searchModel = null;
-            try
+            if (cmbStreet.SelectedValue is int streetId)
             {
-                searchModel = new SearchModel
+                var searchModel = new SearchModel
                 {
-                    StreetId = (int)cmbStreet.SelectedValue,
+                    StreetId = streetId,
                     AccountType = Convert(cmbPersonalAccountType.SelectedIndex),
                     HouseNumber = txtHouse.Text,
                     BuildingNumber = txtBuilding.Text,
                     ApartmentNumber = txtApartment.Text,
                     IsArchive = metroCheckBox1.Checked
                 };
-            }
-            catch (NullReferenceException)
-            {
-                MessageBox.Show("Выберите улицу");
-                return;
-            }
-
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var service = scope.Resolve<ISearchService>();
-                var result = service.FindAccounts(searchModel);
-
-                if (result != null)
+                using (var scope = _container.BeginLifetimeScope())
                 {
-                    LoadAccountsInfo(result);
+                    var service = scope.Resolve<ISearchService>();
+                    var result = service.FindAccounts(searchModel);
+
+                    if (result != null)
+                    {
+                        LoadAccountsInfo(result);
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Улица не выбрана");
+                return;
             }
         }
         private void lvlMonthReport_DoubleClick(object sender, EventArgs e)
@@ -139,17 +143,16 @@ namespace BookKeeper.UI
             {
                 using (var form = new AccountDetailsForm())
                 {
-                    //form.AccountDetailsModel = new AccountDetailsModel
-                    //{
-                    //    Account =account.Account.ToString(),
-                    //    Street = cmbStreet.Text,
-                    //    House = account.Location.HouseNumber,
-                    //    Building = account.Location.BuildingCorpus,
-                    //    Apartment = account.Location.ApartmentNumber,
-                    //    Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued.ToString(CultureInfo.CurrentCulture),
-                    //    Received = account.PaymentDocuments.FirstOrDefault()?.Received.ToString(CultureInfo.CurrentCulture),
-                    //};
-                    form.Account = account;
+                    form.AccountDetailsModel = new AccountDetailsModel
+                    {
+                        Account = account.Account.ToString(),
+                        Street = cmbStreet.Text,
+                        House = account.Location.HouseNumber,
+                        Building = account.Location.BuildingCorpus,
+                        Apartment = account.Location.ApartmentNumber,
+                        Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued.ToString(CultureInfo.CurrentCulture),
+                        Received = account.PaymentDocuments.FirstOrDefault()?.Received.ToString(CultureInfo.CurrentCulture),
+                    };
                     form.ShowDialog();
                 }
             }
@@ -200,33 +203,6 @@ namespace BookKeeper.UI
             return index == 0 ? AccountType.Municipal : AccountType.Private;
         }
 
-
-        #endregion
-
-        #region LoadStartValue
-
-        private void LoadAddresses()
-        {
-            try
-            {
-                cmbPersonalAccountType.SelectedIndex = 0;
-
-                using (var scope = _container.BeginLifetimeScope())
-                {
-                    var service = scope.Resolve<IStreetService>();
-
-                    var result = service.GetItems(x => x.IsDeleted == false).ToList();
-
-                    cmbStreet.DataSource = result;
-                    cmbStreet.DisplayMember = "StreetName";
-                    cmbStreet.ValueMember = "Id";
-                }
-            }
-            catch (SqlException exception)
-            {
-                MessageBox.Show(exception.Message);
-            }
-        }
 
         #endregion
 
@@ -300,41 +276,7 @@ namespace BookKeeper.UI
         }
         #endregion
 
-        #region Load start rates
 
-        private void LoadRates()
-        {
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var documentService = scope.Resolve<IRateDocumentService>();
-                var addressService = scope.Resolve<IStreetService>();
-                var locationService = scope.Resolve<ILocationService>();
-
-                var rates = documentService.GetWithInclude(x => x.RatesDescription);
-                foreach (var rate in rates)
-                {
-                    foreach (var descriptionEntity in rate.RatesDescription)
-                    {
-                        var street = addressService.GetItem(x => x.Id == rate.StreetId);
-                        var location = locationService.GetItem(x => x.Id == rate.LocationId);
-
-                        var listView = new ListViewItem(new[]
-                            {
-                                street.StreetName,
-                                location.HouseNumber,
-                                location.BuildingCorpus,
-                                rate.Price.ToString(CultureInfo.CurrentCulture),
-                                descriptionEntity.Description
-                            })
-                            { Tag = rate };
-
-                        lvlRates.Items.Add(listView);
-                    }
-                }
-            }
-        }
-
-        #endregion
 
         #endregion
 
@@ -360,16 +302,30 @@ namespace BookKeeper.UI
                 }
             }
         }
-        private void dtnDiscountAndDescription_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new DiscountPercentItem())
-            {
-                if (dialog.ShowDialog() == DialogResult.OK)
-                {
 
+        private void btnAddDiscountPercent_Click(object sender, EventArgs e)
+        {
+            using (var form = new DiscountPercentItem())
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    MessageBox.Show("Успешно");
                 }
             }
         }
+
+        private void dtnDiscountDescription_Click(object sender, EventArgs e)
+        {
+            using (var form = new DiscountDescriptionItem())
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                {
+                    MessageBox.Show("Успешно");
+                }
+            }
+        }
+
+        
         #endregion
 
         #region Methods
@@ -444,7 +400,7 @@ namespace BookKeeper.UI
                         {
                             service.LoadData(file);
                         }
-                        catch (FileLoadException )
+                        catch (FileLoadException)
                         {
                             MessageBox.Show("Не удалось загрузить данные из файла");
                             return;
@@ -458,6 +414,80 @@ namespace BookKeeper.UI
         {
             _form.Close();
         }
+
+        #endregion
+
+        #region Load Items on Start
+
+        private void LoadAddresses()
+        {
+            try
+            {
+                cmbPersonalAccountType.SelectedIndex = 0;
+
+                using (var scope = _container.BeginLifetimeScope())
+                {
+                    var service = scope.Resolve<IStreetService>();
+
+                    var result = service.GetItems(x => x.IsDeleted == false).ToList();
+
+                    cmbStreet.DataSource = result;
+                    cmbStreet.DisplayMember = "StreetName";
+                    cmbStreet.ValueMember = "Id";
+                }
+            }
+            catch (SqlException exception)
+            {
+                MessageBox.Show(exception.Message);
+            }
+        }
+
+        private void LoadRates()
+        {
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var documentService = scope.Resolve<IRateDocumentService>();
+                var addressService = scope.Resolve<IStreetService>();
+                var locationService = scope.Resolve<ILocationService>();
+
+                var rates = documentService.GetWithInclude(x => x.RatesDescription);
+                foreach (var rate in rates)
+                {
+                    foreach (var descriptionEntity in rate.RatesDescription)
+                    {
+                        var street = addressService.GetItem(x => x.Id == rate.StreetId);
+                        var location = locationService.GetItem(x => x.Id == rate.LocationId);
+
+                        var listView = new ListViewItem(new[]
+                            {
+                                street.StreetName,
+                                location.HouseNumber,
+                                location.BuildingCorpus,
+                                rate.Price.ToString(CultureInfo.CurrentCulture),
+                                descriptionEntity.Description
+                            })
+                        { Tag = rate };
+
+                        lvlRates.Items.Add(listView);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Filter buttons
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            txtHouse.Text = string.Empty;
+            txtBuilding.Text = string.Empty;
+            txtApartment.Text = string.Empty;
+        }
+
+
+
+
 
         #endregion
 

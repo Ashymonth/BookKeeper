@@ -16,5 +16,7 @@ namespace BookKeeper.Data.Models
 
         public bool IsArchive { get; set; }
 
+        public bool IsNoneBuilding { get; set; }
+
     }
 }

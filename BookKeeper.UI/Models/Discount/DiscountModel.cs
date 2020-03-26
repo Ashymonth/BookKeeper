@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookKeeper.Data.Data.Entities.Discounts;
+﻿using BookKeeper.Data.Data.Entities.Discounts;
 
-namespace BookKeeper.Data.Models
+namespace BookKeeper.UI.Models.Discount
 {
     public class DiscountModel
     {

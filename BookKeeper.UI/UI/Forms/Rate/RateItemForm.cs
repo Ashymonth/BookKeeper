@@ -1,17 +1,17 @@
-﻿using Autofac;
-using BookKeeper.Data.Infrastructure;
-using BookKeeper.Data.Models;
-using MetroFramework.Forms;
-using System;
+﻿using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using Autofac;
 using BookKeeper.Data.Data.Entities.Address;
-using BookKeeper.Data.Data.Entities.Rates;
+using BookKeeper.Data.Infrastructure;
+using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Rate;
+using BookKeeper.UI.Models.Rate;
+using MetroFramework.Forms;
 
-namespace BookKeeper.UI.UI.Forms
+namespace BookKeeper.UI.UI.Forms.Rate
 {
     public partial class RateItemForm : MetroForm
     {

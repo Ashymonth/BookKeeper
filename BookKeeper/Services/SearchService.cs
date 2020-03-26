@@ -39,6 +39,10 @@ namespace BookKeeper.Data.Services
             Expression<Func<AccountEntity, bool>> buildingPredicate =
                 building => string.Equals(building.Location.BuildingCorpus, model.BuildingNumber, StringComparison.CurrentCultureIgnoreCase);
 
+            Expression<Func<AccountEntity, bool>> emptyBuildingPredicate =
+                emptyBuilding => string.Equals(emptyBuilding.Location.BuildingCorpus, string.Empty) ||
+                                 emptyBuilding.Location.BuildingCorpus == "";
+
             Expression<Func<AccountEntity, bool>> apartmentPredicate =
                 apartment => string.Equals(apartment.Location.HouseNumber, model.HouseNumber, StringComparison.CurrentCultureIgnoreCase);
 
@@ -49,6 +53,9 @@ namespace BookKeeper.Data.Services
 
             if (IsNullOrWhiteSpace(model.BuildingNumber) == false)
                 account.And(buildingPredicate);
+
+            if (model.IsNoneBuilding)
+                account.And(emptyBuildingPredicate);
 
             if (IsNullOrWhiteSpace(model.ApartmentNumber) == false)
                 account.And(apartmentPredicate);

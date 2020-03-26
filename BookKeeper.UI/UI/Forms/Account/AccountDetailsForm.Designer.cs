@@ -1,4 +1,4 @@
-﻿namespace BookKeeper.UI.UI.Forms
+﻿namespace BookKeeper.UI.UI.Forms.Account
 {
     partial class AccountDetailsForm
     {
@@ -459,6 +459,7 @@
             this.metroButton2.TabIndex = 3;
             this.metroButton2.Text = "Закрыть";
             this.metroButton2.UseSelectable = true;
+            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
             // 
             // AccountDetailsForm
             // 

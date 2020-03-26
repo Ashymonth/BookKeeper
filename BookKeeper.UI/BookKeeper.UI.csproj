@@ -41,31 +41,40 @@
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Models\Account\AccountDetailsModel.cs" />
+    <Compile Include="Models\Discount\DiscountModel.cs" />
+    <Compile Include="Models\Rate\RateModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProgressReport.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Forms\AccountDetailsForm.cs">
+    <Compile Include="UI\Forms\Account\AccountDetailsForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\AccountDetailsForm.Designer.cs">
+    <Compile Include="UI\Forms\Account\AccountDetailsForm.Designer.cs">
       <DependentUpon>AccountDetailsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\DiscountOnAccountForm.cs">
+    <Compile Include="UI\Forms\Discount\DiscountDescriptionItem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\DiscountOnAccountForm.Designer.cs">
+    <Compile Include="UI\Forms\Discount\DiscountDescriptionItem.Designer.cs">
+      <DependentUpon>DiscountDescriptionItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Discount\DiscountOnAccountForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Discount\DiscountOnAccountForm.Designer.cs">
       <DependentUpon>DiscountOnAccountForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\DiscountOnAddressForm.cs">
+    <Compile Include="UI\Forms\Discount\DiscountOnAddressForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\DiscountOnAddressForm.Designer.cs">
+    <Compile Include="UI\Forms\Discount\DiscountOnAddressForm.Designer.cs">
       <DependentUpon>DiscountOnAddressForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\DiscountPercentItem.cs">
+    <Compile Include="UI\Forms\Discount\DiscountPercentItem.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\DiscountPercentItem.Designer.cs">
+    <Compile Include="UI\Forms\Discount\DiscountPercentItem.Designer.cs">
       <DependentUpon>DiscountPercentItem.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\ProgressForm.cs">
@@ -74,10 +83,10 @@
     <Compile Include="UI\Forms\ProgressForm.Designer.cs">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\RateItemForm.cs">
+    <Compile Include="UI\Forms\Rate\RateItemForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\RateItemForm.Designer.cs">
+    <Compile Include="UI\Forms\Rate\RateItemForm.Designer.cs">
       <DependentUpon>RateItemForm.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MainForm.resx">
@@ -92,22 +101,25 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="UI\Forms\AccountDetailsForm.resx">
+    <EmbeddedResource Include="UI\Forms\Account\AccountDetailsForm.resx">
       <DependentUpon>AccountDetailsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\DiscountOnAccountForm.resx">
+    <EmbeddedResource Include="UI\Forms\Discount\DiscountDescriptionItem.resx">
+      <DependentUpon>DiscountDescriptionItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Discount\DiscountOnAccountForm.resx">
       <DependentUpon>DiscountOnAccountForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\DiscountOnAddressForm.resx">
+    <EmbeddedResource Include="UI\Forms\Discount\DiscountOnAddressForm.resx">
       <DependentUpon>DiscountOnAddressForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\DiscountPercentItem.resx">
+    <EmbeddedResource Include="UI\Forms\Discount\DiscountPercentItem.resx">
       <DependentUpon>DiscountPercentItem.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\RateItemForm.resx">
+    <EmbeddedResource Include="UI\Forms\Rate\RateItemForm.resx">
       <DependentUpon>RateItemForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
@@ -150,6 +162,7 @@
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.1.1.1\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.1.1\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

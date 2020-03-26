@@ -1,12 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using Autofac;
 using BookKeeper.Data.Data.Entities.Discounts;
@@ -14,10 +8,11 @@ using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Discount;
+using BookKeeper.UI.Models.Discount;
 using MetroFramework.Forms;
 using IContainer = Autofac.IContainer;
 
-namespace BookKeeper.UI.UI.Forms
+namespace BookKeeper.UI.UI.Forms.Discount
 {
     public partial class DiscountAccountItemForm : MetroForm
     {

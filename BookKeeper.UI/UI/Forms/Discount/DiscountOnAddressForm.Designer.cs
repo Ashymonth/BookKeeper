@@ -1,4 +1,4 @@
-﻿namespace BookKeeper.UI.UI.Forms
+﻿namespace BookKeeper.UI.UI.Forms.Discount
 {
     partial class DiscountOnAddressForm
     {

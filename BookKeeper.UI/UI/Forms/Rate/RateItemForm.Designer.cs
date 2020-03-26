@@ -1,4 +1,4 @@
-﻿namespace BookKeeper.UI.UI.Forms
+﻿namespace BookKeeper.UI.UI.Forms.Rate
 {
     partial class RateItemForm
     {

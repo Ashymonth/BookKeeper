@@ -1,14 +1,9 @@
-﻿using Autofac;
+﻿using System;
 using BookKeeper.Data.Infrastructure;
-using BookKeeper.Data.Services.EntityService.Address;
-using BookKeeper.Data.Services.EntityService.Discount;
 using MetroFramework.Forms;
-using System;
-using System.Linq;
-using System.Windows.Forms;
 using IContainer = Autofac.IContainer;
 
-namespace BookKeeper.UI.UI.Forms
+namespace BookKeeper.UI.UI.Forms.Discount
 {
     public partial class DiscountOnAddressForm : MetroForm
     {

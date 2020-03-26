@@ -119,7 +119,7 @@ namespace BookKeeper.Data.Data.Repositories
         {
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
-
+            
             _entities.Remove(entity);
         }
 

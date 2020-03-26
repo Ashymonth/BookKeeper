@@ -1,7 +1,6 @@
-﻿using System.Security.AccessControl;
-using BookKeeper.Data.Data.Entities.Rates;
+﻿using BookKeeper.Data.Data.Entities.Rates;
 
-namespace BookKeeper.Data.Models
+namespace BookKeeper.UI.Models.Rate
 {
     public class RateModel
     {
