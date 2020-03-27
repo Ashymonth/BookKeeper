@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using BookKeeper.Data.Data.Entities.Rates;
 
 namespace BookKeeper.Data.Data.Entities.Address
 {
@@ -15,6 +17,8 @@ namespace BookKeeper.Data.Data.Entities.Address
         public string BuildingCorpus { get; set; }
 
         public string ApartmentNumber { get; set; }
+
+        public ICollection<RateDocumentEntity> RateDocuments { get; set; }
 
     }
 }

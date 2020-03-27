@@ -49,7 +49,6 @@ namespace BookKeeper.Data.Services
             Expression<Func<AccountEntity, bool>> apartmentPredicate =
                 apartment => string.Equals(apartment.Location.HouseNumber, model.HouseNumber, StringComparison.CurrentCultureIgnoreCase);
 
-
             account.And(defaultPredicate);
 
             if (IsNullOrWhiteSpace(model.HouseNumber) == false)
@@ -63,6 +62,7 @@ namespace BookKeeper.Data.Services
 
             if (IsNullOrWhiteSpace(model.ApartmentNumber) == false)
                 account.And(apartmentPredicate);
+
 
             return _accountService.GetWithInclude(account,
                 x=>x.Location,

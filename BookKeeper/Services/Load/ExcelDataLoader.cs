@@ -36,12 +36,18 @@ namespace BookKeeper.Data.Services.Load
             {
                 var firstDistrict = districtsGroup.FirstOrDefault();
 
-                var district = AddOrCreate(firstDistrict?.District);
+                if(firstDistrict==null)
+                    continue;
+
+                var district = AddOrCreate(firstDistrict.District);
 
                 foreach (var addressGroup in districtsGroup.GroupBy(x => x.Address.Name))
                 {
                     var firstAddress = addressGroup.FirstOrDefault();
-                    var street = AddOrCreate(firstAddress?.Address, district.Id);
+                    if(firstAddress == null)
+                        continue;
+
+                    var street = AddOrCreate(firstAddress.Address, district.Id);
 
                     var accountsToUpdate = new List<AccountEntity>();
                     var accountsToAdd = new List<AccountEntity>();

@@ -16,7 +16,7 @@ namespace BookKeeper.Data.Services.Load
         private readonly Dictionary<string, int> _monthDictionary = new Dictionary<string, int>
         {
             {"январь", 01},
-            {"Февраль", 02},
+            {"февраль", 02},
             {"март", 03},
             {"апрель", 04},
             {"май", 05},

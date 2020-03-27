@@ -12,11 +12,13 @@ using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using BookKeeper.Data.Data.Entities.Discounts;
+using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.UI.Models.Account;
 using BookKeeper.UI.Models.Discount;
@@ -178,7 +180,7 @@ namespace BookKeeper.UI
                 return;
             }
 
-            foreach (var date in dates)
+            foreach (var date in dates.OrderBy(x=>x.PaymentDate))
             {
                 lvlMonthReport.Columns.Add(date.PaymentDate.ToShortDateString());
             }
@@ -489,6 +491,10 @@ namespace BookKeeper.UI
 
         private void btnShowDebtor_Click(object sender, EventArgs e)
         {
+            lvlMonthReport.Clear();
+            lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            lvlMonthReport.Columns.Add("Счет");
+
             if (cmbStreet.SelectedValue is int streetId)
             {
                 var searchModel = new SearchModel
@@ -503,42 +509,44 @@ namespace BookKeeper.UI
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var service = scope.Resolve<ISearchService>();
-                    var result = service.FindAccounts(searchModel);
-
-                    if (result != null)
+                    var result = service.FindAccounts(searchModel).ToList();
+                    foreach (var entity in result)
                     {
-                        lvlMonthReport.Clear();
-                        lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-                        lvlMonthReport.Columns.Add("Счет");
-
-                        var accounts = result.ToList();
-
-                        var dates = accounts.Select(x => x.PaymentDocuments).FirstOrDefault();
-
-                        if (dates == null || dates.Count == 0)
+                        var listView = new ListViewItem(new []
                         {
-                            MessageBox.Show("По данным критериям не найдено записей");
-                            return;
-                        }
-
-                        foreach (var date in dates)
+                            entity.Account.ToString()
+                        });
+                        var rateExist = entity.Location.Id != 0;
+                        if (rateExist)
                         {
-                            lvlMonthReport.Columns.Add(date.PaymentDate.ToShortDateString());
-                        }
+                            var rateService = scope.Resolve<IRateDocumentService>();
+                            var rate = rateService.GetActiveRate(entity.Location.Id);
 
-                        foreach (var accountEntity in accounts)
-                        {
-                            var item = new ListViewItem(new[] { accountEntity.Account.ToString() });
-
-                            foreach (var documentEntity in accountEntity.PaymentDocuments)
+                            if (rate != null && rate.LocationId == entity.LocationId)
                             {
-                                if((documentEntity.Accrued - documentEntity.Received) < 0)
-                                 item.SubItems.Add(documentEntity.Received.ToString(CultureInfo.CurrentCulture));
+                                foreach (var document in entity.PaymentDocuments.Where(x=>x.IsDeleted == false && 
+                                                                                          x.PaymentDate >= metroDateTime1.Value && 
+                                                                                          x.PaymentDate <=metroDateTime2.Value))
+
+                                {
+                                    var accrued = rate.Price < document.Accrued ? rate.Price : document.Accrued;
+                                    if ((document.Received - accrued) < 0)
+                                    {
+                                        var paymentService = scope.Resolve<IPaymentDocumentService>();
+                                        var pastPayment = paymentService.GetItem(x =>
+                                            x.PaymentDate == document.PaymentDate.AddMonths(-1) && 
+                                            x.AccountId == entity.Id);
+
+                                        if ((document.Received - pastPayment.Received) < 0)
+                                        {
+                                            listView.SubItems.Add(document.Received.ToString(CultureInfo.CurrentCulture));
+                                            listView.BackColor = Color.Red;
+                                        }
+
+                                        lvlMonthReport.Items.Add(listView);
+                                    }
+                                }
                             }
-
-                            item.Tag = accountEntity;
-
-                            lvlMonthReport.Items.Add(item);
                         }
                     }
                 }

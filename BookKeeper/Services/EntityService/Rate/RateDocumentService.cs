@@ -9,6 +9,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
     public interface IRateDocumentService : IService<RateDocumentEntity>
     {
         RateDocumentEntity AddRateDocument(int streetId,int locationId, string description, decimal price);
+        RateDocumentEntity GetActiveRate(int rateId);
     }
 
     public class RateDocumentService : Service<RateDocumentEntity>, IRateDocumentService
@@ -38,6 +39,12 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             });
 
             return Add(result);
+        }
+
+        public RateDocumentEntity GetActiveRate(int locationId)
+        {
+            return base.GetItem(x => x.Id == x.LocationId);
+            //x.EndDate )
         }
     }
 }
