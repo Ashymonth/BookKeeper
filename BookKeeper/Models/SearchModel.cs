@@ -7,6 +7,8 @@ namespace BookKeeper.Data.Models
     {
         public int StreetId { get; set; }
 
+        public string Account { get; set; }
+
         public AccountType AccountType { get; set; }
 
         public string HouseNumber { get; set; }

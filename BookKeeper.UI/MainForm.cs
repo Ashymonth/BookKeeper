@@ -1,13 +1,21 @@
 ﻿using Autofac;
 using BookKeeper.Data.Data.Entities;
+using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Models;
 using BookKeeper.Data.Services;
 using BookKeeper.Data.Services.EntityService.Address;
+using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
 using BookKeeper.Data.Services.Load;
+using BookKeeper.UI.Models.Account;
+using BookKeeper.UI.Models.Discount;
+using BookKeeper.UI.Models.Rate;
 using BookKeeper.UI.UI.Forms;
+using BookKeeper.UI.UI.Forms.Account;
+using BookKeeper.UI.UI.Forms.Discount;
+using BookKeeper.UI.UI.Forms.Rate;
 using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
@@ -17,15 +25,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using BookKeeper.Data.Data.Entities.Discounts;
-using BookKeeper.Data.Services.EntityService;
-using BookKeeper.Data.Services.EntityService.Discount;
-using BookKeeper.UI.Models.Account;
-using BookKeeper.UI.Models.Discount;
-using BookKeeper.UI.Models.Rate;
-using BookKeeper.UI.UI.Forms.Account;
-using BookKeeper.UI.UI.Forms.Discount;
-using BookKeeper.UI.UI.Forms.Rate;
 
 namespace BookKeeper.UI
 {
@@ -47,7 +46,7 @@ namespace BookKeeper.UI
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadAddresses();
-            LoadRates();
+            LoadRates(1);
         }
 
         #endregion
@@ -80,6 +79,22 @@ namespace BookKeeper.UI
             _form.ShowDialog(this);
             LoadAddresses();
 
+        }
+        private void btnShowDebtor_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem listViewItem in lvlRates.Items)
+            {
+                if (listViewItem.Tag is AccountEntity account)
+                {
+                    foreach (var payment in account.PaymentDocuments)
+                    {
+                        if ((payment.Received - payment.Accrued) < 0)
+                        {
+                            listViewItem.BackColor = Color.Red;
+                        }
+                    }
+                }
+            }
         }
 
         private void btnLoadPayments_Click(object sender, EventArgs e)
@@ -116,6 +131,7 @@ namespace BookKeeper.UI
                 var searchModel = new SearchModel
                 {
                     StreetId = streetId,
+                    Account = txtAccount.Text,
                     AccountType = Convert(cmbPersonalAccountType.SelectedIndex),
                     HouseNumber = txtHouse.Text,
                     BuildingNumber = txtBuilding.Text,
@@ -172,15 +188,17 @@ namespace BookKeeper.UI
 
             var accounts = accountEntities.ToList();
 
-            var dates = accounts.Select(x => x.PaymentDocuments).FirstOrDefault();
+            var dates = (accounts.Select(x => x.PaymentDocuments.Where(z => z.IsDeleted == false &&
+                                                                            z.PaymentDate >= dateFrom.Value &&
+                                                                            z.PaymentDate <= dateTo.Value)).FirstOrDefault() ?? throw new InvalidOperationException()).ToList();
 
-            if (dates == null || dates.Count == 0)
+            if (!dates.Any())
             {
                 MessageBox.Show("По данным критериям не найдено записей");
                 return;
             }
 
-            foreach (var date in dates.OrderBy(x=>x.PaymentDate))
+            foreach (var date in dates.OrderBy(x => x.PaymentDate))
             {
                 lvlMonthReport.Columns.Add(date.PaymentDate.ToShortDateString());
             }
@@ -251,7 +269,6 @@ namespace BookKeeper.UI
                     model.Building,
                     model.Price,
                     model.Description,
-
                 })
             { Tag = model.RateDocument };
 
@@ -270,10 +287,31 @@ namespace BookKeeper.UI
                 var document = service.GetItemById(rate.Id);
                 if (document == null)
                     return;
-
-                service.Delete(document);
+                document.EndDate = DateTime.Now;
+                service.Update(document);
 
                 lvlRates.Items.Remove(item);
+            }
+        }
+
+        private void btnShowDeleteRates_Click(object sender, EventArgs e)
+        {
+            if (metroCheckBox3.Checked)
+                LoadRates(0);
+        }
+
+        private void bthHideDeletedRates_Click(object sender, EventArgs e)
+        {
+            if (metroCheckBox3.Checked == false)
+            {
+                foreach (ListViewItem lvlRatesItem in lvlRates.Items)
+                {
+                    if (lvlRatesItem.Tag is RateDocumentEntity rate)
+                    {
+                        if (rate.EndDate < DateTime.Now)
+                            lvlRatesItem.Remove();
+                    }
+                }
             }
         }
         #endregion
@@ -444,25 +482,31 @@ namespace BookKeeper.UI
             }
         }
 
-        private void LoadRates()
+        private void LoadRates(int flag)
         {
             using (var scope = _container.BeginLifetimeScope())
             {
                 var documentService = scope.Resolve<IRateDocumentService>();
-                var addressService = scope.Resolve<IStreetService>();
                 var locationService = scope.Resolve<ILocationService>();
 
                 var rates = documentService.GetWithInclude(x => x.RatesDescription);
+                if (rates == null)
+                    return;
+
                 foreach (var rate in rates)
                 {
+                    if (rate.EndDate < DateTime.Now && flag == 1)
+                        continue;
+
                     foreach (var descriptionEntity in rate.RatesDescription)
                     {
-                        var street = addressService.GetItem(x => x.Id == rate.StreetId);
                         var location = locationService.GetItem(x => x.Id == rate.LocationId);
+                        if (location == null)
+                            continue;
 
                         var listView = new ListViewItem(new[]
                             {
-                                street.StreetName,
+                                location.Street.StreetName,
                                 location.HouseNumber,
                                 location.BuildingCorpus,
                                 rate.Price.ToString(CultureInfo.CurrentCulture),
@@ -489,68 +533,6 @@ namespace BookKeeper.UI
 
         #endregion
 
-        private void btnShowDebtor_Click(object sender, EventArgs e)
-        {
-            lvlMonthReport.Clear();
-            lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            lvlMonthReport.Columns.Add("Счет");
-
-            if (cmbStreet.SelectedValue is int streetId)
-            {
-                var searchModel = new SearchModel
-                {
-                    StreetId = streetId,
-                    AccountType = Convert(cmbPersonalAccountType.SelectedIndex),
-                    HouseNumber = txtHouse.Text,
-                    BuildingNumber = txtBuilding.Text,
-                    ApartmentNumber = txtApartment.Text,
-                    IsArchive = metroCheckBox1.Checked
-                };
-                using (var scope = _container.BeginLifetimeScope())
-                {
-                    var service = scope.Resolve<ISearchService>();
-                    var result = service.FindAccounts(searchModel).ToList();
-                    foreach (var entity in result)
-                    {
-                        var listView = new ListViewItem(new []
-                        {
-                            entity.Account.ToString()
-                        });
-                        var rateExist = entity.Location.Id != 0;
-                        if (rateExist)
-                        {
-                            var rateService = scope.Resolve<IRateDocumentService>();
-                            var rate = rateService.GetActiveRate(entity.Location.Id);
-
-                            if (rate != null && rate.LocationId == entity.LocationId)
-                            {
-                                foreach (var document in entity.PaymentDocuments.Where(x=>x.IsDeleted == false && 
-                                                                                          x.PaymentDate >= metroDateTime1.Value && 
-                                                                                          x.PaymentDate <=metroDateTime2.Value))
-
-                                {
-                                    var accrued = rate.Price < document.Accrued ? rate.Price : document.Accrued;
-                                    if ((document.Received - accrued) < 0)
-                                    {
-                                        var paymentService = scope.Resolve<IPaymentDocumentService>();
-                                        var pastPayment = paymentService.GetItem(x =>
-                                            x.PaymentDate == document.PaymentDate.AddMonths(-1) && 
-                                            x.AccountId == entity.Id);
-
-                                        if ((document.Received - pastPayment.Received) < 0)
-                                        {
-                                            listView.SubItems.Add(document.Received.ToString(CultureInfo.CurrentCulture));
-                                            listView.BackColor = Color.Red;
-                                        }
-
-                                        lvlMonthReport.Items.Add(listView);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        
     }
 }

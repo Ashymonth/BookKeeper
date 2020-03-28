@@ -35,6 +35,8 @@
             this.btnSave = new MetroFramework.Controls.MetroButton();
             this.btnCancel = new MetroFramework.Controls.MetroButton();
             this.txtPrice = new System.Windows.Forms.MaskedTextBox();
+            this.dateStart = new MetroFramework.Controls.MetroDateTime();
+            this.dateEnd = new MetroFramework.Controls.MetroDateTime();
             this.SuspendLayout();
             // 
             // cmbStreet
@@ -44,7 +46,7 @@
             this.cmbStreet.ItemHeight = 23;
             this.cmbStreet.Location = new System.Drawing.Point(23, 63);
             this.cmbStreet.Name = "cmbStreet";
-            this.cmbStreet.Size = new System.Drawing.Size(429, 29);
+            this.cmbStreet.Size = new System.Drawing.Size(382, 29);
             this.cmbStreet.TabIndex = 0;
             this.cmbStreet.UseSelectable = true;
             this.cmbStreet.ValueMember = "Id";
@@ -96,7 +98,7 @@
             this.txtBuilding.CustomButton.UseSelectable = true;
             this.txtBuilding.CustomButton.Visible = false;
             this.txtBuilding.Lines = new string[0];
-            this.txtBuilding.Location = new System.Drawing.Point(178, 116);
+            this.txtBuilding.Location = new System.Drawing.Point(23, 162);
             this.txtBuilding.MaxLength = 32767;
             this.txtBuilding.Name = "txtBuilding";
             this.txtBuilding.PasswordChar = '\0';
@@ -119,7 +121,7 @@
             // 
             // 
             this.txtDescription.CustomButton.Image = null;
-            this.txtDescription.CustomButton.Location = new System.Drawing.Point(369, 1);
+            this.txtDescription.CustomButton.Location = new System.Drawing.Point(322, 1);
             this.txtDescription.CustomButton.Name = "";
             this.txtDescription.CustomButton.Size = new System.Drawing.Size(59, 59);
             this.txtDescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -128,7 +130,7 @@
             this.txtDescription.CustomButton.UseSelectable = true;
             this.txtDescription.CustomButton.Visible = false;
             this.txtDescription.Lines = new string[0];
-            this.txtDescription.Location = new System.Drawing.Point(23, 167);
+            this.txtDescription.Location = new System.Drawing.Point(23, 248);
             this.txtDescription.MaxLength = 32767;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.PasswordChar = '\0';
@@ -138,7 +140,7 @@
             this.txtDescription.SelectionLength = 0;
             this.txtDescription.SelectionStart = 0;
             this.txtDescription.ShortcutsEnabled = true;
-            this.txtDescription.Size = new System.Drawing.Size(429, 61);
+            this.txtDescription.Size = new System.Drawing.Size(382, 61);
             this.txtDescription.TabIndex = 5;
             this.txtDescription.UseSelectable = true;
             this.txtDescription.WaterMark = "Описание";
@@ -147,7 +149,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(331, 266);
+            this.btnSave.Location = new System.Drawing.Point(284, 331);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 23);
             this.btnSave.TabIndex = 6;
@@ -158,7 +160,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(23, 266);
+            this.btnCancel.Location = new System.Drawing.Point(23, 331);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(121, 23);
             this.btnCancel.TabIndex = 7;
@@ -168,7 +170,7 @@
             // 
             // txtPrice
             // 
-            this.txtPrice.Location = new System.Drawing.Point(331, 116);
+            this.txtPrice.Location = new System.Drawing.Point(23, 201);
             this.txtPrice.Mask = "000.00";
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.Size = new System.Drawing.Size(121, 20);
@@ -176,11 +178,31 @@
             this.txtPrice.Text = "16600";
             this.txtPrice.ValidatingType = typeof(int);
             // 
+            // dateStart
+            // 
+            this.dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateStart.Location = new System.Drawing.Point(205, 116);
+            this.dateStart.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateStart.Name = "dateStart";
+            this.dateStart.Size = new System.Drawing.Size(200, 29);
+            this.dateStart.TabIndex = 9;
+            // 
+            // dateEnd
+            // 
+            this.dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateEnd.Location = new System.Drawing.Point(205, 162);
+            this.dateEnd.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateEnd.Name = "dateEnd";
+            this.dateEnd.Size = new System.Drawing.Size(200, 29);
+            this.dateEnd.TabIndex = 10;
+            // 
             // RateItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(463, 306);
+            this.ClientSize = new System.Drawing.Size(429, 375);
+            this.Controls.Add(this.dateEnd);
+            this.Controls.Add(this.dateStart);
             this.Controls.Add(this.txtPrice);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -209,5 +231,7 @@
         private MetroFramework.Controls.MetroButton btnSave;
         private MetroFramework.Controls.MetroButton btnCancel;
         private System.Windows.Forms.MaskedTextBox txtPrice;
+        private MetroFramework.Controls.MetroDateTime dateStart;
+        private MetroFramework.Controls.MetroDateTime dateEnd;
     }
 }

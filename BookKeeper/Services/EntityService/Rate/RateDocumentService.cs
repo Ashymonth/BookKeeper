@@ -8,7 +8,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 {
     public interface IRateDocumentService : IService<RateDocumentEntity>
     {
-        RateDocumentEntity AddRateDocument(int streetId,int locationId, string description, decimal price);
+        RateDocumentEntity AddRateDocument(int locationId, string description, decimal price,DateTime startDate, DateTime EndDate);
         RateDocumentEntity GetActiveRate(int rateId);
     }
 
@@ -21,15 +21,15 @@ namespace BookKeeper.Data.Services.EntityService.Rate
         {
         }
 
-        public RateDocumentEntity AddRateDocument(int streetId, int locationId, string description, decimal price)
+        public RateDocumentEntity AddRateDocument(int locationId, string description, decimal price,DateTime startDate, DateTime endDate)
         {
             var result = new RateDocumentEntity
             {
-                StreetId = streetId,
                 LocationId = locationId,
-                StartDate = DateTime.Now,
+                StartDate = startDate,
                 Price = price,
-                IsDefaultPrice = price == DefaultPrice
+                IsDefaultPrice = price == DefaultPrice,
+                EndDate = endDate
             };
 
             result.RatesDescription.Add(new RateDescriptionEntity

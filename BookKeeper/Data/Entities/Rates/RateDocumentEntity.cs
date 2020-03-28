@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using BookKeeper.Data.Data.Entities.Address;
 
 namespace BookKeeper.Data.Data.Entities.Rates
 {
@@ -12,15 +13,11 @@ namespace BookKeeper.Data.Data.Entities.Rates
             RatesDescription = new List<RateDescriptionEntity>();
             StartDate = CreatedDate = DateTime.Now;
         }
-        public int StreetId { get; set; }
-
-        //[ForeignKey(nameof(StreetId))]
-        //public StreetEntity Street { get; set; }
 
         public int LocationId { get; set; }
 
-        //[ForeignKey(nameof(LocationId))]
-        //public virtual LocationEntity Location { get; set; }
+        [ForeignKey(nameof(LocationId))]
+        public virtual LocationEntity Location { get; set; }
 
         public decimal Price { get; set; }
 

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Repositories;
@@ -9,7 +10,8 @@ namespace BookKeeper.Data.Services.EntityService.Address
     public interface ILocationService : IService<LocationEntity>
     {
         LocationEntity Add(string houseNumber, string houseBuilding, string apartmentNumber, int addressId);
-     
+        LocationEntity GetLocation(int streetId, string houseNumber, string buildingNumber);
+
     }
 
     public class LocationService : Service<LocationEntity>, ILocationService
@@ -32,6 +34,12 @@ namespace BookKeeper.Data.Services.EntityService.Address
             return entity;
         }
 
-        
+        public LocationEntity GetLocation(int streetId, string houseNumber, string buildingNumber)
+        {
+            return base.GetItem(x =>
+                string.Equals(x.HouseNumber, houseNumber, StringComparison.CurrentCultureIgnoreCase) &&
+                string.Equals(x.BuildingCorpus, buildingNumber, StringComparison.CurrentCultureIgnoreCase) &&
+                x.StreetId == streetId);
+        }
     }
 }

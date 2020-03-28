@@ -45,13 +45,12 @@ namespace BookKeeper.UI.UI.Forms.Rate
         public RateModel RateModel { get; set; }
         private void btnSave_Click(object sender, EventArgs e)
         {
+            
             using (var scope = _container.BeginLifetimeScope())
             {
                 var locationService = scope.Resolve<ILocationService>();
 
-                var location = locationService.GetItem(x => string.Equals(x.HouseNumber, txtHouse.Text, StringComparison.CurrentCultureIgnoreCase) &&
-                                                            string.Equals(x.BuildingCorpus, txtBuilding.Text, StringComparison.CurrentCultureIgnoreCase) &&
-                                                            x.StreetId == (int)cmbStreet.SelectedValue);
+                var location = locationService.GetLocation((int)cmbStreet.SelectedValue,txtHouse.Text,txtBuilding.Text);
                 if (location == null)
                 {
                     MessageBox.Show("Такого адреса нет в базе");
@@ -60,19 +59,14 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
                 var service = scope.Resolve<IRateDocumentService>();
 
-                int streetId;
-                if (cmbStreet.SelectedValue is int id)
+                if (dateStart.Value.Month == dateEnd.Value.Month)
                 {
-                    streetId = id;
-                }
-                else
-                {
-                    MessageBox.Show("Укажите улицу");
+                    MessageBox.Show("Месяца должны быть разными");
                     return;
                 }
 
-                var document = service.AddRateDocument(streetId, location.Id, txtDescription.Text,
-                    Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")));
+                var document = service.AddRateDocument(location.Id, txtDescription.Text,
+                    Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")),dateStart.Value,dateEnd.Value);
 
 
                 if (cmbStreet.SelectedItem is StreetEntity result)
