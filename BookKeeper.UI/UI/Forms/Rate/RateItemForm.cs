@@ -53,7 +53,7 @@ namespace BookKeeper.UI.UI.Forms.Rate
                 var location = locationService.GetLocation((int)cmbStreet.SelectedValue,txtHouse.Text,txtBuilding.Text);
                 if (location == null)
                 {
-                    MessageBox.Show("Такого адреса нет в базе");
+                    MessageBox.Show("Такого адреса нет в базе", this.Text, MessageBoxButtons.OK,  MessageBoxIcon.Warning);
                     return;
                 }
 

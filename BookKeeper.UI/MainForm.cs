@@ -39,9 +39,11 @@ namespace BookKeeper.UI
 
         public MainForm()
         {
-
             InitializeComponent();
             _container = AutofacConfiguration.ConfigureContainer();
+
+            this.dateTo.ShowUpDown = true;
+            this.dateFrom.ShowUpDown = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -114,9 +116,10 @@ namespace BookKeeper.UI
             if (backgroundWorker1.IsBusy == false)
             {
                 backgroundWorker1.RunWorkerAsync("Html");
+
+                _form = new ProgressForm();
+                _form.ShowDialog(this);
             }
-            _form = new ProgressForm();
-            _form.ShowDialog(this);
         }
 
         #endregion
@@ -145,11 +148,11 @@ namespace BookKeeper.UI
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var service = scope.Resolve<ISearchService>();
-                    var result = service.FindAccounts(searchModel);
+                    var searchResult = service.FindAccounts(searchModel);
 
-                    if (result != null)
+                    if (searchResult != null && searchResult.Any())
                     {
-                        LoadAccountsInfo(result);
+                        LoadAccountsInfo(searchResult);
                     }
                 }
             }
@@ -186,51 +189,32 @@ namespace BookKeeper.UI
 
         private void LoadAccountsInfo(IEnumerable<AccountEntity> accountEntities)
         {
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var searchService = scope.Resolve<ISearchService>();
-                foreach (var entity in accountEntities)
-                {
-                    var paymentDocuments = searchService.FindPaymentDocuments(new SearchPaymentModel
-                    {
-                        AccountId = entity.Id,
-                        From = dateFrom.Value.Date,
-                        To = dateTo.Value.Date
-                    });
-                    if (!paymentDocuments.Any())
-                    {
-                        continue;
-                    }
-                    foreach (var documentEntity in paymentDocuments)
-                    {
-                        var listViewItem = new ListViewItem(new[]
-                        {
-                            entity.Account.ToString(),
-                            documentEntity.Received.ToString(CultureInfo.CurrentCulture)
-                        })
-                        { Tag = entity };
-                        lvlMonthReport.Items.Add(listViewItem);
-                    }
-                }
-            }
+            var tempList = new List<ListViewItem>();
 
-            foreach (var accountEntity in accountEntities)
+            foreach (var account in accountEntities)
             {
-                var item = new ListViewItem(new[] { accountEntity.Account.ToString() });
+                var paymentDocuments = account.PaymentDocuments
+                    .Where(x => x.PaymentDate >= dateFrom.Value.Date && x.PaymentDate <= dateTo.Value.Date);
 
-                if(accountEntity.PaymentDocuments.Count == 0)
+                if (!paymentDocuments.Any())
                     continue;
 
-                foreach (var documentEntity in accountEntity.PaymentDocuments)
+                foreach (var documentEntity in paymentDocuments)
                 {
-                    
-                    item.SubItems.Add(documentEntity.Received.ToString(CultureInfo.CurrentCulture));
+                    var listViewItem = new ListViewItem(new[]
+                    {
+                            account.Account.ToString(),
+                            documentEntity.Received.ToString(CultureInfo.CurrentCulture)
+                        })
+                    {
+                        Tag = account
+                    };
+
+                    tempList.Add(listViewItem);
                 }
-
-                item.Tag = accountEntity;
-
-                lvlMonthReport.Items.Add(item);
             }
+
+            lvlMonthReport.Items.AddRange(tempList.ToArray());
         }
 
         private static AccountType Convert(int index)
@@ -243,17 +227,16 @@ namespace BookKeeper.UI
             lvlMonthReport.Clear();
             lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvlMonthReport.Columns.Add("Счет");
-
+        
             do
             {
-                Thread.CurrentThread.CurrentCulture = new CultureInfo("ru-RU");
-                lvlMonthReport.Columns.Add(from.ToShortDateString());
+                lvlMonthReport.Columns.Add(from.ToString("Y"));
                 if (from.Month == to.Month)
                     break;
 
                 from = from.AddMonths(1);
-            } while (from.Month != to.Month);
-            Thread.CurrentThread.CurrentCulture = CultureInfo.CurrentCulture;
+            } while (true);
+           
         }
 
         #endregion
@@ -460,7 +443,6 @@ namespace BookKeeper.UI
 
         private void backgroundWorker1_DoWork_1(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-
             if (e.Argument is string options)
             {
                 foreach (var file in _files)
@@ -563,8 +545,8 @@ namespace BookKeeper.UI
             txtApartment.Text = string.Empty;
         }
 
-        #endregion
 
+        #endregion
 
     }
 }

@@ -51,7 +51,7 @@ namespace BookKeeper.Data.Services
 
             Expression<Func<AccountEntity, bool>> emptyBuildingPredicate =
                 emptyBuilding => string.Equals(emptyBuilding.Location.BuildingCorpus, string.Empty) ||
-                                 emptyBuilding.Location.BuildingCorpus == "" && emptyBuilding.IsDeleted == false;
+                                 emptyBuilding.Location.BuildingCorpus == string.Empty && emptyBuilding.IsDeleted == false;
 
             Expression<Func<AccountEntity, bool>> apartmentPredicate =
                 apartment => string.Equals(apartment.Location.HouseNumber, model.HouseNumber,
