@@ -24,6 +24,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace BookKeeper.UI
@@ -138,6 +139,9 @@ namespace BookKeeper.UI
                     ApartmentNumber = txtApartment.Text,
                     IsArchive = metroCheckBox1.Checked
                 };
+
+                CreateColumns(dateFrom.Value.Date, dateTo.Value.Date);
+
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var service = scope.Resolve<ISearchService>();
@@ -151,7 +155,7 @@ namespace BookKeeper.UI
             }
             else
             {
-                MessageBox.Show("Улица не выбрана");
+                MessageBox.Show("Ничего не найдено");
                 return;
             }
         }
@@ -182,33 +186,44 @@ namespace BookKeeper.UI
 
         private void LoadAccountsInfo(IEnumerable<AccountEntity> accountEntities)
         {
-            lvlMonthReport.Clear();
-            lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            lvlMonthReport.Columns.Add("Счет");
-
-            var accounts = accountEntities.ToList();
-
-            var dates = (accounts.Select(x => x.PaymentDocuments.Where(z => z.IsDeleted == false &&
-                                                                            z.PaymentDate >= dateFrom.Value &&
-                                                                            z.PaymentDate <= dateTo.Value)).FirstOrDefault() ?? throw new InvalidOperationException()).ToList();
-
-            if (!dates.Any())
+            using (var scope = _container.BeginLifetimeScope())
             {
-                MessageBox.Show("По данным критериям не найдено записей");
-                return;
+                var searchService = scope.Resolve<ISearchService>();
+                foreach (var entity in accountEntities)
+                {
+                    var paymentDocuments = searchService.FindPaymentDocuments(new SearchPaymentModel
+                    {
+                        AccountId = entity.Id,
+                        From = dateFrom.Value.Date,
+                        To = dateTo.Value.Date
+                    });
+                    if (!paymentDocuments.Any())
+                    {
+                        continue;
+                    }
+                    foreach (var documentEntity in paymentDocuments)
+                    {
+                        var listViewItem = new ListViewItem(new[]
+                        {
+                            entity.Account.ToString(),
+                            documentEntity.Received.ToString(CultureInfo.CurrentCulture)
+                        })
+                        { Tag = entity };
+                        lvlMonthReport.Items.Add(listViewItem);
+                    }
+                }
             }
 
-            foreach (var date in dates.OrderBy(x => x.PaymentDate))
-            {
-                lvlMonthReport.Columns.Add(date.PaymentDate.ToShortDateString());
-            }
-
-            foreach (var accountEntity in accounts)
+            foreach (var accountEntity in accountEntities)
             {
                 var item = new ListViewItem(new[] { accountEntity.Account.ToString() });
 
+                if(accountEntity.PaymentDocuments.Count == 0)
+                    continue;
+
                 foreach (var documentEntity in accountEntity.PaymentDocuments)
                 {
+                    
                     item.SubItems.Add(documentEntity.Received.ToString(CultureInfo.CurrentCulture));
                 }
 
@@ -223,6 +238,23 @@ namespace BookKeeper.UI
             return index == 0 ? AccountType.Municipal : AccountType.Private;
         }
 
+        private void CreateColumns(DateTime from, DateTime to)
+        {
+            lvlMonthReport.Clear();
+            lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            lvlMonthReport.Columns.Add("Счет");
+
+            do
+            {
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("ru-RU");
+                lvlMonthReport.Columns.Add(from.ToShortDateString());
+                if (from.Month == to.Month)
+                    break;
+
+                from = from.AddMonths(1);
+            } while (from.Month != to.Month);
+            Thread.CurrentThread.CurrentCulture = CultureInfo.CurrentCulture;
+        }
 
         #endregion
 
@@ -533,6 +565,6 @@ namespace BookKeeper.UI
 
         #endregion
 
-        
+
     }
 }

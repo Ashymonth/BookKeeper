@@ -16,8 +16,7 @@ namespace BookKeeper.Data.Services
     public interface ISearchService
     {
         IEnumerable<AccountEntity> FindAccounts(SearchModel model);
-        IEnumerable<AccountEntity> FindNotPayedAccounts(SearchModel model);
-        IEnumerable<PaymentDocumentEntity> FindPaymentDocuments(SearchModel model);
+        IEnumerable<PaymentDocumentEntity> FindPaymentDocuments(SearchPaymentModel model);
     }
 
     public class SearchService : ISearchService
@@ -35,10 +34,8 @@ namespace BookKeeper.Data.Services
         {
             var account = PredicateBuilder.New<AccountEntity>();
 
-            var document = PredicateBuilder.New<PaymentDocumentEntity>();
-
             Expression<Func<AccountEntity, bool>> accountPredicate =
-                entity => entity.Account == Convert.ToInt64(model.Account);
+                entity => entity.Account == Convert.ToInt64(model.Account) && entity.IsDeleted == false;
 
             Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
                 entity.StreetId == model.StreetId && entity.IsDeleted == false &&
@@ -57,21 +54,16 @@ namespace BookKeeper.Data.Services
                                  emptyBuilding.Location.BuildingCorpus == "" && emptyBuilding.IsDeleted == false;
 
             Expression<Func<AccountEntity, bool>> apartmentPredicate =
-                apartment =>
-                    string.Equals(apartment.Location.HouseNumber, model.HouseNumber,
-                        StringComparison.CurrentCultureIgnoreCase) && apartment.IsDeleted == false;
-
-            Expression<Func<PaymentDocumentEntity, bool>> nonPaymentPredicate =
-                nonPayment => nonPayment.PaymentDate >= model.From && nonPayment.PaymentDate <= model.To;
-
-            if (!string.IsNullOrWhiteSpace(model.Account))
-            {
-                account.And(accountPredicate);
-                return _accountService.GetItems(account);
-            }
-
+                apartment => string.Equals(apartment.Location.HouseNumber, model.HouseNumber,
+                                 StringComparison.CurrentCultureIgnoreCase) && apartment.IsDeleted == false;
 
             account.And(defaultPredicate);
+
+
+            if (!IsNullOrWhiteSpace(model.Account))
+            {
+                account.And(accountPredicate);
+            }
 
             if (IsNullOrWhiteSpace(model.HouseNumber) == false)
                 account.And(housePredicate);
@@ -85,25 +77,21 @@ namespace BookKeeper.Data.Services
             if (IsNullOrWhiteSpace(model.ApartmentNumber) == false)
                 account.And(apartmentPredicate);
 
-            document.And(nonPaymentPredicate);
-
-
-            return  _accountService.GetWithInclude(account,
+            return _accountService.GetWithInclude(account,
                 x => x.Location,
                 x => x.PaymentDocuments,
                 x => x.Location.Street,
                 x => x.Location.Street.Rates);
         }
 
-        public IEnumerable<AccountEntity> FindNotPayedAccounts(SearchModel model)
-        {
-            return _accountService.GetWithInclude(x => x.PaymentDocuments.Where(z => (z.Accrued - z.Received) < 0));
-        }
-
-        public IEnumerable<PaymentDocumentEntity> FindPaymentDocuments(SearchModel model)
+        public IEnumerable<PaymentDocumentEntity> FindPaymentDocuments(SearchPaymentModel model)
         {
             return _paymentDocumentService.GetItems(x => x.IsDeleted == false &&
-                                                         x.PaymentDate >= model.From && x.PaymentDate <= model.To);
+                                                         x.AccountId == model.AccountId &&
+                                                         x.PaymentDate.Month >= model.From.Month &&
+                                                         x.PaymentDate.Year == model.From.Year &&
+                                                         x.PaymentDate.Month <= model.To.Month &&
+                                                         x.PaymentDate.Year == model.To.Year);
         }
     }
 }

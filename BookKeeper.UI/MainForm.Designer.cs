@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("");
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnFiles = new MetroFramework.Controls.MetroButton();
             this.btnShowDebtor = new MetroFramework.Controls.MetroButton();
@@ -506,7 +506,8 @@
             // 
             // dateFrom
             // 
-            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateFrom.CustomFormat = "MM yyyy";
+            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFrom.Location = new System.Drawing.Point(684, 3);
             this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateFrom.Name = "dateFrom";
@@ -515,7 +516,8 @@
             // 
             // dateTo
             // 
-            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
+            this.dateTo.CustomFormat = "MM yyyy";
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTo.Location = new System.Drawing.Point(890, 3);
             this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTo.Name = "dateTo";
@@ -587,7 +589,7 @@
             this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.metroTabControl1.Location = new System.Drawing.Point(20, 116);
             this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 1;
+            this.metroTabControl1.SelectedIndex = 0;
             this.metroTabControl1.Size = new System.Drawing.Size(1930, 782);
             this.metroTabControl1.TabIndex = 4;
             this.metroTabControl1.UseSelectable = true;
@@ -642,9 +644,9 @@
             this.lvlRates.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lvlRates.FullRowSelect = true;
             this.lvlRates.GridLines = true;
-            listViewItem6.StateImageIndex = 0;
+            listViewItem16.StateImageIndex = 0;
             this.lvlRates.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem6});
+            listViewItem16});
             this.lvlRates.Location = new System.Drawing.Point(5, 44);
             this.lvlRates.Name = "lvlRates";
             this.lvlRates.OwnerDraw = true;
@@ -732,8 +734,7 @@
             // 
             // bthHideDeletedRates
             // 
-            this.bthHideDeletedRates.Location = new System.Drawing.Point(1609, 8);
-            this.bthHideDeletedRates.Margin = new System.Windows.Forms.Padding(1200, 3, 3, 3);
+            this.bthHideDeletedRates.Location = new System.Drawing.Point(412, 8);
             this.bthHideDeletedRates.Name = "bthHideDeletedRates";
             this.bthHideDeletedRates.Size = new System.Drawing.Size(140, 23);
             this.bthHideDeletedRates.TabIndex = 14;
@@ -743,7 +744,7 @@
             // 
             // btnShowDeleteRates
             // 
-            this.btnShowDeleteRates.Location = new System.Drawing.Point(1755, 8);
+            this.btnShowDeleteRates.Location = new System.Drawing.Point(558, 8);
             this.btnShowDeleteRates.Name = "btnShowDeleteRates";
             this.btnShowDeleteRates.Size = new System.Drawing.Size(140, 23);
             this.btnShowDeleteRates.TabIndex = 13;
