@@ -6,7 +6,6 @@ using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Models;
 using BookKeeper.Data.Services;
 using BookKeeper.Data.Services.EntityService.Address;
-using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
 using BookKeeper.Data.Services.Load;
 using BookKeeper.UI.Helpers;
@@ -21,7 +20,6 @@ using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -182,7 +180,7 @@ namespace BookKeeper.UI
 
                         var backupFileName = backupService.CreateBackup(dialog.SelectedPath);
 
-                        MessageBoxHelper.ShowCompeteMessage($"Бэкап создан {Path.Combine(dialog.SelectedPath,backupFileName)}", this);
+                        MessageBoxHelper.ShowCompeteMessage($"Бэкап создан {Path.Combine(dialog.SelectedPath, backupFileName)}", this);
                     }
                 }
                 catch (SqlException)
@@ -216,7 +214,7 @@ namespace BookKeeper.UI
 
                         MessageBoxHelper.ShowCompeteMessage("Успешно", this);
                     }
-                 
+
                 }
                 catch (FileNotFoundException)
                 {
@@ -241,7 +239,7 @@ namespace BookKeeper.UI
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    MessageBoxHelper.ShowCompeteMessage("Добавлено",this);
+                    MessageBoxHelper.ShowCompeteMessage("Добавлено", this);
                 }
             }
         }
@@ -348,7 +346,7 @@ namespace BookKeeper.UI
                     .Select(documentEntity =>
                         new ListViewItem(new[] {account.Account.ToString(),
                             documentEntity.Received.ToString(CultureInfo.CurrentCulture)})
-                        { Tag = account}));
+                        { Tag = account }));
             }
 
             if (tempList.Count == 0)
@@ -357,6 +355,7 @@ namespace BookKeeper.UI
                 return;
             }
 
+            lblCounter.Text = tempList.Count.ToString();
             lvlMonthReport.Items.AddRange(tempList.ToArray());
         }
 
@@ -594,7 +593,9 @@ namespace BookKeeper.UI
                         var service = scope.ResolveNamed<IDataLoader>(options);
                         try
                         {
-                            service.LoadData(file);
+                            var report = service.LoadData(file);
+
+                            MessageBoxHelper.ShowCompeteMessage($"Успешно загружено.Добавленно{report.Add} обновленно {report.Updates} поврежденых записей{report.CorruptedRecords}", this);
                         }
                         catch (FileLoadException)
                         {
@@ -638,7 +639,7 @@ namespace BookKeeper.UI
             }
             catch (SqlException exception)
             {
-                MessageBoxHelper.ShowWarningMessage("Не удалось загрузить адреса",this);
+                MessageBoxHelper.ShowWarningMessage("Не удалось загрузить адреса", this);
             }
         }
 

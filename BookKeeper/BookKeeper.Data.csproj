@@ -67,6 +67,7 @@
     <Compile Include="Models\ExcelImport\LocationImport.cs" />
     <Compile Include="Models\HtmlImport\PaymentDetailsImport.cs" />
     <Compile Include="Models\HtmlImport\PaymentDocumentImport.cs" />
+    <Compile Include="Models\ImportReportModel.cs" />
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SearchPaymentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -126,7 +127,9 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

@@ -8,5 +8,9 @@ namespace BookKeeper.Data.Services
 {
     public class ImportReportService
     {
+        public void ImportReport()
+        {
+
+        }
     }
 }

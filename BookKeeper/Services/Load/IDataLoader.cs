@@ -1,4 +1,5 @@
 ﻿using System;
+using BookKeeper.Data.Models;
 
 namespace BookKeeper.Data.Services.Load
 {
@@ -9,6 +10,6 @@ namespace BookKeeper.Data.Services.Load
     }
     public interface IDataLoader
     {
-        void LoadData(string file);
+        ImportReportModel LoadData(string file);
     }
 }

@@ -5,11 +5,19 @@ using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Payments;
 using BookKeeper.Data.Data.Entities.Rates;
+using BookKeeper.Data.Migrations;
 
 namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        static ApplicationDbContext()
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+        }
+
+        public ApplicationDbContext() { }
+
         public ApplicationDbContext(string connectionString) : base(connectionString)
         {
         }

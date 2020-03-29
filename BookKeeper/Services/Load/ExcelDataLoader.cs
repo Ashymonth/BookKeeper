@@ -8,6 +8,7 @@ using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BookKeeper.Data.Models;
 
 namespace BookKeeper.Data.Services.Load
 {
@@ -29,11 +30,13 @@ namespace BookKeeper.Data.Services.Load
             _configuration = configuration;
         }
 
-        public void LoadData(string file)
+        public ImportReportModel LoadData(string file)
         {
             var configuration = _configuration.Load();
 
             var import = _import.ImportDataRow(file);
+            
+            var importReport = new ImportReportModel();
 
             foreach (var districtsGroup in import.GroupBy(x => x.District.Name))
             {
@@ -57,7 +60,7 @@ namespace BookKeeper.Data.Services.Load
 
                     foreach (var dataRow in addressGroup)
                     {
-                        var account = _accountService.GetItem(x => x.Account == dataRow?.Account.PersonalAccount && !x.IsDeleted);
+                        var account = _accountService.GetItem(x => x.Account == dataRow.Account.PersonalAccount && !x.IsDeleted);
 
                         if (account != null)
                         {
@@ -95,17 +98,22 @@ namespace BookKeeper.Data.Services.Load
                         account.Location = location;
 
                         accountsToAdd.Add(account);
+                       
                     }
                     if (accountsToAdd.Count != 0)
                     {
                         _accountService.Add(accountsToAdd);
+                        importReport.Add += accountsToAdd.Count;
                     }
                     else
                     {
                         _accountService.Update(accountsToUpdate);
+                        importReport.Updates += accountsToUpdate.Count;
                     }
                 }
             }
+
+            return importReport;
         }
 
         private DistrictEntity AddOrCreate(DistrictImport import)
