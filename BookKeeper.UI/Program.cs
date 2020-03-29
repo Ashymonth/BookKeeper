@@ -14,7 +14,6 @@ namespace BookKeeper.UI
         static void Main()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.CurrentCulture;
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("ru-RU");
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

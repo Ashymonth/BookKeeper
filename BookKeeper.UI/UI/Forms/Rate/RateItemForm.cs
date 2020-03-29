@@ -8,6 +8,7 @@ using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Rate;
+using BookKeeper.UI.Helpers;
 using BookKeeper.UI.Models.Rate;
 using MetroFramework.Forms;
 
@@ -34,26 +35,35 @@ namespace BookKeeper.UI.UI.Forms.Rate
                 cmbStreet.DisplayMember = "Street";
                 cmbStreet.ValueMember = "Id";
             }
-
         }
 
         private void RateItemForm_Load(object sender, EventArgs e)
         {
             Initialize();
+            if(RateModel == null)
+                return;
+            
+            txtHouse.Text = RateModel.House;
+            txtBuilding.Text = RateModel.Building;
+            txtPrice.Text = RateModel.Price;
+            dateStart.Value = RateModel.Start;
+            dateEnd.Value = RateModel.End;
         }
 
         public RateModel RateModel { get; set; }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
-            
+            DialogResult = DialogResult.None;
+
             using (var scope = _container.BeginLifetimeScope())
             {
                 var locationService = scope.Resolve<ILocationService>();
 
-                var location = locationService.GetLocation((int)cmbStreet.SelectedValue,txtHouse.Text,txtBuilding.Text);
+                var location = locationService.GetLocation((int)cmbStreet.SelectedValue, txtHouse.Text, txtBuilding.Text);
                 if (location == null)
                 {
-                    MessageBox.Show("Такого адреса нет в базе", this.Text, MessageBoxButtons.OK,  MessageBoxIcon.Warning);
+                    MessageBoxHelper.ShowWarningMessage("Такого адреса нет в базе", this);
                     return;
                 }
 
@@ -61,12 +71,12 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
                 if (dateStart.Value.Month == dateEnd.Value.Month)
                 {
-                    MessageBox.Show("Месяца должны быть разными");
+                    MessageBoxHelper.ShowWarningMessage("Месяца должны быть разными", this);
                     return;
                 }
 
                 var document = service.AddRateDocument(location.Id, txtDescription.Text,
-                    Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")),dateStart.Value,dateEnd.Value);
+                    Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")), dateStart.Value, dateEnd.Value);
 
 
                 if (cmbStreet.SelectedItem is StreetEntity result)

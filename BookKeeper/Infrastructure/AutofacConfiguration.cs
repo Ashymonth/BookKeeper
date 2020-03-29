@@ -93,11 +93,11 @@ namespace BookKeeper.Data.Infrastructure
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelDataLoader))
-                .Named<IDataLoader>("Excel")
+                .Named<IDataLoader>(LoaderType.Excel.ToString())
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(HtmlLoadService))
-                .Named<IDataLoader>("Html")
+                .Named<IDataLoader>(LoaderType.Html.ToString())
                 .InstancePerLifetimeScope();
 
             return container.Build();

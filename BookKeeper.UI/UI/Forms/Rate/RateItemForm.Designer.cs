@@ -37,6 +37,8 @@
             this.txtPrice = new System.Windows.Forms.MaskedTextBox();
             this.dateStart = new MetroFramework.Controls.MetroDateTime();
             this.dateEnd = new MetroFramework.Controls.MetroDateTime();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // cmbStreet
@@ -46,7 +48,7 @@
             this.cmbStreet.ItemHeight = 23;
             this.cmbStreet.Location = new System.Drawing.Point(23, 63);
             this.cmbStreet.Name = "cmbStreet";
-            this.cmbStreet.Size = new System.Drawing.Size(382, 29);
+            this.cmbStreet.Size = new System.Drawing.Size(442, 29);
             this.cmbStreet.TabIndex = 0;
             this.cmbStreet.UseSelectable = true;
             this.cmbStreet.ValueMember = "Id";
@@ -121,7 +123,7 @@
             // 
             // 
             this.txtDescription.CustomButton.Image = null;
-            this.txtDescription.CustomButton.Location = new System.Drawing.Point(322, 1);
+            this.txtDescription.CustomButton.Location = new System.Drawing.Point(382, 1);
             this.txtDescription.CustomButton.Name = "";
             this.txtDescription.CustomButton.Size = new System.Drawing.Size(59, 59);
             this.txtDescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -140,7 +142,7 @@
             this.txtDescription.SelectionLength = 0;
             this.txtDescription.SelectionStart = 0;
             this.txtDescription.ShortcutsEnabled = true;
-            this.txtDescription.Size = new System.Drawing.Size(382, 61);
+            this.txtDescription.Size = new System.Drawing.Size(442, 61);
             this.txtDescription.TabIndex = 5;
             this.txtDescription.UseSelectable = true;
             this.txtDescription.WaterMark = "Описание";
@@ -149,7 +151,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(284, 331);
+            this.btnSave.Location = new System.Drawing.Point(344, 329);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 23);
             this.btnSave.TabIndex = 6;
@@ -181,7 +183,7 @@
             // dateStart
             // 
             this.dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateStart.Location = new System.Drawing.Point(205, 116);
+            this.dateStart.Location = new System.Drawing.Point(265, 116);
             this.dateStart.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateStart.Name = "dateStart";
             this.dateStart.Size = new System.Drawing.Size(200, 29);
@@ -190,17 +192,37 @@
             // dateEnd
             // 
             this.dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateEnd.Location = new System.Drawing.Point(205, 162);
+            this.dateEnd.Location = new System.Drawing.Point(265, 194);
             this.dateEnd.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateEnd.Name = "dateEnd";
             this.dateEnd.Size = new System.Drawing.Size(200, 29);
             this.dateEnd.TabIndex = 10;
             // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(205, 116);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(54, 19);
+            this.metroLabel1.TabIndex = 11;
+            this.metroLabel1.Text = "Начало";
+            // 
+            // metroLabel2
+            // 
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(205, 204);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(47, 19);
+            this.metroLabel2.TabIndex = 12;
+            this.metroLabel2.Text = "Конец";
+            // 
             // RateItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(429, 375);
+            this.ClientSize = new System.Drawing.Size(513, 375);
+            this.Controls.Add(this.metroLabel2);
+            this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.dateEnd);
             this.Controls.Add(this.dateStart);
             this.Controls.Add(this.txtPrice);
@@ -233,5 +255,7 @@
         private System.Windows.Forms.MaskedTextBox txtPrice;
         private MetroFramework.Controls.MetroDateTime dateStart;
         private MetroFramework.Controls.MetroDateTime dateEnd;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroLabel metroLabel2;
     }
 }

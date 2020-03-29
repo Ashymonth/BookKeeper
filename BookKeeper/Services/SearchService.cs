@@ -16,7 +16,6 @@ namespace BookKeeper.Data.Services
     public interface ISearchService
     {
         IEnumerable<AccountEntity> FindAccounts(SearchModel model);
-        IEnumerable<PaymentDocumentEntity> FindPaymentDocuments(SearchPaymentModel model);
     }
 
     public class SearchService : ISearchService
@@ -82,16 +81,6 @@ namespace BookKeeper.Data.Services
                 x => x.PaymentDocuments,
                 x => x.Location.Street,
                 x => x.Location.Street.Rates);
-        }
-
-        public IEnumerable<PaymentDocumentEntity> FindPaymentDocuments(SearchPaymentModel model)
-        {
-            return _paymentDocumentService.GetItems(x => x.IsDeleted == false &&
-                                                         x.AccountId == model.AccountId &&
-                                                         x.PaymentDate.Month >= model.From.Month &&
-                                                         x.PaymentDate.Year == model.From.Year &&
-                                                         x.PaymentDate.Month <= model.To.Month &&
-                                                         x.PaymentDate.Year == model.To.Year);
         }
     }
 }

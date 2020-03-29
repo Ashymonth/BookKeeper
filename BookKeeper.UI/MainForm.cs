@@ -9,6 +9,7 @@ using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
 using BookKeeper.Data.Services.Load;
+using BookKeeper.UI.Helpers;
 using BookKeeper.UI.Models.Account;
 using BookKeeper.UI.Models.Discount;
 using BookKeeper.UI.Models.Rate;
@@ -20,11 +21,9 @@ using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace BookKeeper.UI
@@ -36,6 +35,7 @@ namespace BookKeeper.UI
         private readonly Autofac.IContainer _container;
         private ProgressForm _form;
         private string[] _files;
+        private const int PersonalAccountLength = 8;
 
         public MainForm()
         {
@@ -49,23 +49,33 @@ namespace BookKeeper.UI
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadAddresses();
-            LoadRates(1);
+            LoadRates();
         }
 
         #endregion
 
         #region Tool Menu
 
+        #region toolstrip buttons
+
         private void btnFiles_Click(object sender, EventArgs e)
         {
             cntFilesMenu.Show(btnFiles, 0, btnFiles.Height);
         }
+        private void btnDataBase_Click(object sender, EventArgs e)
+        {
+            cntDatabase.Show(btnDataBase, 0, btnDataBase.Height); ;
+        }
+
+        #endregion
+
+        #region Base and payments
 
         private void btnLoadBase_Click(object sender, EventArgs e)
         {
             using (var dialog = new OpenFileDialog())
             {
-                dialog.Filter = @"Html files(*.xls;*.xls)|*.xlsx;*xlsx|All files(*.*)|*.*";
+                dialog.Filter = @"Excel files(*.xls;*.xls)|*.xlsx;*xlsx|All files(*.*)|*.*";
                 dialog.Multiselect = true;
 
                 if (dialog.ShowDialog() == DialogResult.Cancel)
@@ -74,30 +84,14 @@ namespace BookKeeper.UI
                 _files = dialog.FileNames;
             }
 
+
             if (backgroundWorker1.IsBusy == false)
             {
-                backgroundWorker1.RunWorkerAsync("Excel");
+                backgroundWorker1.RunWorkerAsync(LoaderType.Excel);
             }
             _form = new ProgressForm();
             _form.ShowDialog(this);
             LoadAddresses();
-
-        }
-        private void btnShowDebtor_Click(object sender, EventArgs e)
-        {
-            foreach (ListViewItem listViewItem in lvlRates.Items)
-            {
-                if (listViewItem.Tag is AccountEntity account)
-                {
-                    foreach (var payment in account.PaymentDocuments)
-                    {
-                        if ((payment.Received - payment.Accrued) < 0)
-                        {
-                            listViewItem.BackColor = Color.Red;
-                        }
-                    }
-                }
-            }
         }
 
         private void btnLoadPayments_Click(object sender, EventArgs e)
@@ -115,7 +109,7 @@ namespace BookKeeper.UI
 
             if (backgroundWorker1.IsBusy == false)
             {
-                backgroundWorker1.RunWorkerAsync("Html");
+                backgroundWorker1.RunWorkerAsync(LoaderType.Html);
 
                 _form = new ProgressForm();
                 _form.ShowDialog(this);
@@ -123,6 +117,82 @@ namespace BookKeeper.UI
         }
 
         #endregion
+
+        private void btnShowDebtor_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem listViewItem in lvlRates.Items)
+            {
+                if (listViewItem.Tag is AccountEntity account)
+                {
+                    foreach (var payment in account.PaymentDocuments)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        #region BackUp
+
+        private void btnCreateBackup_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                if (dialog.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    BackupService.CreateBackup(dialog.SelectedPath);
+                    MessageBoxHelper.ShowCompeteMessage("Успешно", this);
+                }
+                catch (SqlException)
+                {
+                    MessageBoxHelper.ShowWarningMessage("У программы нет доступа для запси файлов на данный диск",
+                        this);
+                }
+                catch (FileLoadException)
+                {
+                    MessageBoxHelper.ShowWarningMessage("У программы нет доступа для запси файлов на данный диск", this);
+                }
+            }
+        }
+
+        private void btnLoadFromBackup_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new OpenFileDialog())
+            {
+                dialog.Filter = @"SQL SERVER database backup files|*.bak";
+
+                if (dialog.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                try
+                {
+                    BackupService.RestoreFromBackup(dialog.FileName);
+                    MessageBoxHelper.ShowCompeteMessage("Успешно", this);
+                }
+                catch (FileNotFoundException)
+                {
+                    MessageBoxHelper.ShowWarningMessage("Файл не найден", this);
+                }
+                catch (NullReferenceException)
+                {
+                    MessageBoxHelper.ShowWarningMessage("Файл пуст", this);
+                }
+                catch (SqlException)
+                {
+                    MessageBoxHelper.ShowWarningMessage("Не удалось восстановить", this);
+                }
+            }
+        }
+
+        #endregion
+
+
+        #endregion
+
+
 
         #region MonthReportListView
 
@@ -135,7 +205,7 @@ namespace BookKeeper.UI
                 var searchModel = new SearchModel
                 {
                     StreetId = streetId,
-                    Account = txtAccount.Text,
+                    Account = ValidPersonalAccount(txtAccount.Text),
                     AccountType = Convert(cmbPersonalAccountType.SelectedIndex),
                     HouseNumber = txtHouse.Text,
                     BuildingNumber = txtBuilding.Text,
@@ -158,7 +228,7 @@ namespace BookKeeper.UI
             }
             else
             {
-                MessageBox.Show("Ничего не найдено");
+                MessageBoxHelper.ShowWarningMessage("Ничего не найдено", this);
                 return;
             }
         }
@@ -199,19 +269,17 @@ namespace BookKeeper.UI
                 if (!paymentDocuments.Any())
                     continue;
 
-                foreach (var documentEntity in paymentDocuments)
-                {
-                    var listViewItem = new ListViewItem(new[]
-                    {
-                            account.Account.ToString(),
-                            documentEntity.Received.ToString(CultureInfo.CurrentCulture)
-                        })
-                    {
-                        Tag = account
-                    };
+                tempList.AddRange(paymentDocuments
+                    .Select(documentEntity =>
+                        new ListViewItem(new[] {account.Account.ToString(),
+                            documentEntity.Received.ToString(CultureInfo.CurrentCulture)})
+                        { Tag = account }));
+            }
 
-                    tempList.Add(listViewItem);
-                }
+            if (tempList.Count == 0)
+            {
+                MessageBoxHelper.ShowWarningMessage("По данным критериям ничего не найдено", this);
+                return;
             }
 
             lvlMonthReport.Items.AddRange(tempList.ToArray());
@@ -225,18 +293,32 @@ namespace BookKeeper.UI
         private void CreateColumns(DateTime from, DateTime to)
         {
             lvlMonthReport.Clear();
-            lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            lvlMonthReport.Columns.Add("Счет");
-        
+
+            var columns = new List<ColumnHeader>();
+
             do
             {
-                lvlMonthReport.Columns.Add(from.ToString("Y"));
+                columns.Add(new ColumnHeader { Text = from.ToString("Y") });
                 if (from.Month == to.Month)
                     break;
 
                 from = from.AddMonths(1);
             } while (true);
-           
+
+            lvlMonthReport.Columns.Add("Счет");
+            lvlMonthReport.Columns.AddRange(columns.ToArray());
+            lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            lvlMonthReport.Columns[0].Width = 150;
+        }
+
+        private static string ValidPersonalAccount(string personalAccount)
+        {
+            if (personalAccount.Length > PersonalAccountLength)
+            {
+                personalAccount = personalAccount.Substring(personalAccount.Length - PersonalAccountLength);
+            }
+
+            return personalAccount;
         }
 
         #endregion
@@ -303,6 +385,7 @@ namespace BookKeeper.UI
                 if (document == null)
                     return;
                 document.EndDate = DateTime.Now;
+                document.IsDeleted = true;
                 service.Update(document);
 
                 lvlRates.Items.Remove(item);
@@ -311,13 +394,13 @@ namespace BookKeeper.UI
 
         private void btnShowDeleteRates_Click(object sender, EventArgs e)
         {
-            if (metroCheckBox3.Checked)
-                LoadRates(0);
+            if (chkDeletedRates.Checked)
+                LoadRates();
         }
 
         private void bthHideDeletedRates_Click(object sender, EventArgs e)
         {
-            if (metroCheckBox3.Checked == false)
+            if (chkDeletedRates.Checked == false)
             {
                 foreach (ListViewItem lvlRatesItem in lvlRates.Items)
                 {
@@ -329,8 +412,31 @@ namespace BookKeeper.UI
                 }
             }
         }
+        private void lvlRates_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            if (lvlRates.FocusedItem.Tag is RateDocumentEntity rate)
+            {
+                using (var form = new RateItemForm())
+                {
+                    using (var scope = _container.BeginLifetimeScope())
+                    {
+                        var service = scope.Resolve<ILocationService>();
+                        var locations = service.GetItem(x => x.Id == rate.Id);
+                        form.RateModel = new RateModel
+                        {
+                            House = locations.HouseNumber,
+                            Building = locations.BuildingCorpus,
+                            Price = rate.Price.ToString(CultureInfo.CurrentCulture),
+                            Description = rate.RatesDescription.FirstOrDefault()?.Description,
+                            Start = rate.StartDate,
+                            End = rate.EndDate
+                        };
+                        form.ShowDialog();
+                    }
+                }
+            }
+        }
         #endregion
-
 
 
         #endregion
@@ -443,7 +549,7 @@ namespace BookKeeper.UI
 
         private void backgroundWorker1_DoWork_1(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            if (e.Argument is string options)
+            if (e.Argument.ToString() is string options)
             {
                 foreach (var file in _files)
                 {
@@ -456,8 +562,12 @@ namespace BookKeeper.UI
                         }
                         catch (FileLoadException)
                         {
-                            MessageBox.Show("Не удалось загрузить данные из файла");
+                            MessageBoxHelper.ShowWarningMessage("Не удалось загрузить данные из файла",this);
                             return;
+                        }
+                        catch (SqlException)
+                        {
+                            MessageBoxHelper.ShowWarningMessage("Программа не может сохранить файл по этому пути", this);
                         }
                     }
                 }
@@ -496,7 +606,7 @@ namespace BookKeeper.UI
             }
         }
 
-        private void LoadRates(int flag)
+        private void LoadRates()
         {
             using (var scope = _container.BeginLifetimeScope())
             {
@@ -509,7 +619,7 @@ namespace BookKeeper.UI
 
                 foreach (var rate in rates)
                 {
-                    if (rate.EndDate < DateTime.Now && flag == 1)
+                    if (rate.IsDeleted && chkDeletedRates.Checked == false)
                         continue;
 
                     foreach (var descriptionEntity in rate.RatesDescription)
@@ -548,5 +658,6 @@ namespace BookKeeper.UI
 
         #endregion
 
+        
     }
 }

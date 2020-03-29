@@ -5,6 +5,7 @@ using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using BookKeeper.Data.Services.EntityService.Rate;
@@ -43,6 +44,11 @@ namespace BookKeeper.Data.Services.Load
         }
         public void LoadData(string file)
         {
+            var backup = BackupService.CreateBackup("D:\\Backup");
+
+            if (backup == false)
+                throw new FileLoadException();
+
             var result = _importService.ImportDataRow(file);
 
             foreach (var item in result)

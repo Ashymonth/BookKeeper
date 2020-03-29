@@ -5,6 +5,8 @@ using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.IO;
 using System.Linq;
 using BookKeeper.Data.Services.EntityService.Address;
 
@@ -30,13 +32,18 @@ namespace BookKeeper.Data.Services.Load
 
         public void LoadData(string file)
         {
+            var backup = BackupService.CreateBackup("D:\\Backup");
+
+            if (backup == false)
+                throw new FileLoadException();
+
             var import = _import.ImportDataRow(file);
 
             foreach (var districtsGroup in import.GroupBy(x => x.District.Name))
             {
                 var firstDistrict = districtsGroup.FirstOrDefault();
 
-                if(firstDistrict==null)
+                if (firstDistrict == null)
                     continue;
 
                 var district = AddOrCreate(firstDistrict.District);
@@ -44,7 +51,7 @@ namespace BookKeeper.Data.Services.Load
                 foreach (var addressGroup in districtsGroup.GroupBy(x => x.Address.Name))
                 {
                     var firstAddress = addressGroup.FirstOrDefault();
-                    if(firstAddress == null)
+                    if (firstAddress == null)
                         continue;
 
                     var street = AddOrCreate(firstAddress.Address, district.Id);
@@ -58,12 +65,12 @@ namespace BookKeeper.Data.Services.Load
 
                         if (account != null)
                         {
-                            account.IsArchive = account.IsEmpty && account.IsEmptyAgain &&  string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
+                            account.IsArchive = account.IsEmpty && account.IsEmptyAgain && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
                             account.IsEmptyAgain = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode) &&
                                                    account.IsEmpty;
 
                             account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
-                            
+
                             accountsToUpdate.Add(account);
                             continue;
                         }
@@ -90,7 +97,7 @@ namespace BookKeeper.Data.Services.Load
 
                         account.StreetId = street.Id;
                         account.Location = location;
-                        
+
                         accountsToAdd.Add(account);
                     }
                     if (accountsToAdd.Count != 0)

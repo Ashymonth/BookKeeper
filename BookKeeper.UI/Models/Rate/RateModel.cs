@@ -1,4 +1,5 @@
-﻿using BookKeeper.Data.Data.Entities.Rates;
+﻿using System;
+using BookKeeper.Data.Data.Entities.Rates;
 
 namespace BookKeeper.UI.Models.Rate
 {
@@ -13,6 +14,10 @@ namespace BookKeeper.UI.Models.Rate
         public string Description { get; set; }
 
         public string Price { get; set; }
+
+        public DateTime Start { get; set; }
+
+        public DateTime End { get; set; }
 
         public RateDocumentEntity RateDocument { get; set; }
     }

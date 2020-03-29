@@ -70,6 +70,7 @@
     <Compile Include="Models\SearchModel.cs" />
     <Compile Include="Models\SearchPaymentModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\BackupService.cs" />
     <Compile Include="Services\EntityService\AccountService.cs" />
     <Compile Include="Services\EntityService\Address\StreetService.cs" />
     <Compile Include="Services\EntityService\Address\DistrictService.cs" />
@@ -80,6 +81,7 @@
     <Compile Include="Services\EntityService\PaymentDocumentService.cs" />
     <Compile Include="Services\EntityService\Rate\RateDescriptionService.cs" />
     <Compile Include="Services\EntityService\Rate\RateDocumentService.cs" />
+    <Compile Include="Services\ImportReportService.cs" />
     <Compile Include="Services\Import\ExcelImportService.cs" />
     <Compile Include="Services\Import\HtmlImportService.cs" />
     <Compile Include="Services\Import\IImportService.cs" />
