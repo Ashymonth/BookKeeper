@@ -55,24 +55,24 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
                     var accountService = scope.Resolve<IAccountService>();
                     var accounts = accountService.GetWithInclude(x => x.LocationId == location.Id &&
-                                                                x.IsDeleted == false,x=>x.Location).ToList();
+                                                                x.IsDeleted == false,x=>x.Location);
 
-                    foreach (var account in accounts)
-                    {
-                        account.DiscountDocuments.Add(new DiscountDocumentEntity
-                        {
-                            AccountId = account.Id,
-                            Type = DiscountType.Address,
-                            Percent = percent,
-                            Description = description,
-                            StartDate = DateTime.Now
-                        });
-
-                        accountsToUpdate.Add(account);
-                    }
+                    //foreach (var account in accounts)
+                    //{
+                    //    account.DiscountDocuments.Add(new DiscountDocumentEntity
+                    //    {
+                    //        AccountId = account.Id,
+                    //        Type = DiscountType.Address,
+                    //        Percent = percent,
+                    //        Description = description,
+                    //        StartDate = DateTime.Now
+                    //    });
+                     
+                    //    accountsToUpdate.Add(account);
+                    //}
                     accountService.Update(accountsToUpdate);
 
-                    var fullAddress = accounts.Select(x => x.Location).FirstOrDefault();
+                    //var fullAddress = accounts.Select(x => x.Location).Single();
                     if (fullAddress != null)
                     {
                         DiscountModel = new DiscountModel

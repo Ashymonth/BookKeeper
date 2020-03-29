@@ -32,7 +32,6 @@ namespace BookKeeper.Data.Services.Load
 
         public void LoadData(string file)
         {
-            BackupService.CreateBackup("D:\\Backup");
 
             var import = _import.ImportDataRow(file);
 

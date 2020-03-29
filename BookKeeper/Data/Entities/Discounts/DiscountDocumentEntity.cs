@@ -28,7 +28,5 @@ namespace BookKeeper.Data.Data.Entities.Discounts
         public decimal Percent { get; set; }
 
         public string Description { get; set; }
-
-        
     }
 }

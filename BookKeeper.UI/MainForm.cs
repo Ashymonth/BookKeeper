@@ -176,7 +176,10 @@ namespace BookKeeper.UI
 
                 try
                 {
-                    BackupService.CreateBackup(dialog.SelectedPath);
+                    var backupService = _container.Resolve<IBackupService>();
+
+                    var bakupFileName = backupService.CreateBackup(dialog.SelectedPath);
+
                     MessageBoxHelper.ShowCompeteMessage("Успешно", this);
                 }
                 catch (SqlException)

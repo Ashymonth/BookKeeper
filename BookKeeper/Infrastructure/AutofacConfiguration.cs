@@ -9,6 +9,7 @@ using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
 using BookKeeper.Data.Services.Load;
 using System.Collections.Generic;
+using System.Configuration;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
@@ -21,7 +22,11 @@ namespace BookKeeper.Data.Infrastructure
         {
             var container = new ContainerBuilder();
 
-            container.RegisterType(typeof(ApplicationDbContext))
+            var connectionString = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["ConnectionName"]].ConnectionString;
+
+            container
+                .RegisterType(typeof(ApplicationDbContext))
+                .WithParameter("connectionString", connectionString)
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelConfiguration))
@@ -69,7 +74,7 @@ namespace BookKeeper.Data.Infrastructure
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelImportService))
-               .As<IImportService<List<ImportDataRow>>>()
+                .As<IImportService<List<ImportDataRow>>>()
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(DiscountDocumentService))
@@ -99,6 +104,15 @@ namespace BookKeeper.Data.Infrastructure
             container.RegisterType(typeof(HtmlLoadService))
                 .Named<IDataLoader>(LoaderType.Html.ToString())
                 .InstancePerLifetimeScope();
+
+            var backupSettings = new BackupSettings()
+            {
+                BackupFolder = ConfigurationManager.AppSettings["BackupFolder"],
+                ConnectionString = connectionString
+            };
+
+            container.RegisterInstance(backupSettings).SingleInstance();
+            container.RegisterType<BackupService>().As<IBackupService>().SingleInstance();
 
             return container.Build();
         }

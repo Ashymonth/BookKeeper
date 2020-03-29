@@ -44,8 +44,6 @@ namespace BookKeeper.Data.Services.Load
         }
         public void LoadData(string file)
         {
-            BackupService.CreateBackup("D:\\Backup");
-
             var result = _importService.ImportDataRow(file);
 
             foreach (var item in result)
@@ -63,8 +61,6 @@ namespace BookKeeper.Data.Services.Load
 
                 var personalAccount = ValidPersonalAccount(item.PersonalAccount);
                 var documentDate = ValidDateTime(import.DocumentData);
-
-
 
                 var account = _accountService.GetItem(x => x.Account == personalAccount);
                 if (account == null)

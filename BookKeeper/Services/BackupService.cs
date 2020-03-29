@@ -1,29 +1,49 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.IO;
-using ClosedXML.Excel.CalcEngine.Exceptions;
 
 namespace BookKeeper.Data.Services
 {
-    public class BackupService
+    public interface IBackupService
     {
-        private const string Database = "BookKeeper";
+        void CreateBackup(string folder);
+        void RestoreFromBackup(string file);
+    }
 
-        private const string ConnectionString =
-            "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=master;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+    public class BackupSettings
+    {
+        public string BackupFolder { get; set; }
 
-        public static void CreateBackup(string folder)
+        public string DatabaseName { get; set; }
+
+        public string BackupFileNameTemplate { get; set; }
+
+        public string ConnectionString { get; set; }
+    }
+
+    public class BackupService : IBackupService
+    {
+        private readonly BackupSettings _settings;
+        private const string RestoreToSameDbQuery = "ALTER DATABASE [{0}] SET Single_User WITH Rollback Immediate RESTORE DATABASE [{0}] FROM DISK='{1}' WITH REPLACE;";
+        private const string RestoreToNewDbQuery = "RESTORE DATABASE [{0}] FROM DISK='{1}' WITH REPLACE;";
+        private const string BackupDbToFileQuery = @"BACKUP DATABASE [{0}] TO DISK = '{1}' WITH INIT , NOUNLOAD ,  NOSKIP , STATS = 10, NOFORMAT";
+
+        public BackupService(BackupSettings settings)
+        {
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        }
+
+        public void CreateBackup(string folder)
         {
             if (!Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
 
-            using (var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(_settings.ConnectionString))
             {
                 connection.Open();
+                var backupFileName = DateTime.Now.ToString("yyyy-MM-dd_hhmmsss");
 
-                var sqlCommand =
-                    $@"BACKUP DATABASE [{Database}] TO DISK = '{folder}\{DateTime.Now.ToFileTime()}.bak' WITH INIT , NOUNLOAD ,  NOSKIP , STATS = 10, NOFORMAT";
+                var sqlCommand = string.Format(BackupDbToFileQuery, connection.Database, Path.Combine(folder, $"{backupFileName}.bak"));
                 using (var com = new SqlCommand(sqlCommand, connection))
                 {
                     com.ExecuteReader();
@@ -32,19 +52,21 @@ namespace BookKeeper.Data.Services
             }
         }
 
-        public static void RestoreFromBackup(string file)
+        public void RestoreFromBackup(string file)
         {
+            if (string.IsNullOrWhiteSpace(file))
+                throw new ArgumentNullException(nameof(file));
+
             if (!File.Exists(file))
                 throw new FileNotFoundException();
 
-            if (file == null)
-                throw new NullReferenceException();
-
-            using (var connection = new SqlConnection(ConnectionString))
+            using (var connection = new SqlConnection(_settings.ConnectionString))
             {
                 connection.Open();
 
-                var sqlCommand = $"ALTER DATABASE [{Database}] SET Single_User WITH Rollback Immediate RESTORE DATABASE [{Database}] FROM DISK='{file}' WITH REPLACE;";
+                var sqlCommand = connection.Database.Equals(_settings.DatabaseName, StringComparison.OrdinalIgnoreCase)
+                    ? string.Format(RestoreToSameDbQuery, _settings.DatabaseName, file)
+                    : string.Format(RestoreToNewDbQuery, _settings.DatabaseName, file);
 
                 using (var command = new SqlCommand(sqlCommand, connection))
                 {

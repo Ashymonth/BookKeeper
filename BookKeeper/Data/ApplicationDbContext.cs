@@ -10,7 +10,7 @@ namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(): base("BookKeeper")
+        public ApplicationDbContext(string connectionString) : base(connectionString)
         {
         }
         public virtual DbSet<DistrictEntity> Districts { get; set; }
@@ -35,7 +35,7 @@ namespace BookKeeper.Data.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Properties<DateTime>().Configure(x=>x.HasColumnType("datetime2"));
+            modelBuilder.Properties<DateTime>().Configure(x => x.HasColumnType("datetime2"));
             base.OnModelCreating(modelBuilder);
         }
     }
