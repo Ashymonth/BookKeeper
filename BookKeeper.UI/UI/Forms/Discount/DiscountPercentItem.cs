@@ -6,6 +6,7 @@ using Autofac;
 using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Services.EntityService.Discount;
+using BookKeeper.UI.Helpers;
 using MetroFramework.Forms;
 using IContainer = Autofac.IContainer;
 
@@ -35,7 +36,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
             }
             catch (FormatException)
             {
-                MessageBox.Show("Допустимы только цифры");
+                MessageBoxHelper.ShowWarningMessage("Допустимы только цифры",this);
                 return;
             }
 
@@ -43,20 +44,20 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
             if (number == 0 || number <= -1)
             {
-                MessageBox.Show("Значение должно быть больше нуля");
+                MessageBoxHelper.ShowWarningMessage("Значение должно быть больше нуля",this);
                 return;
             }
 
             if (txtDiscountPercent.Text.Length > 3 || number > 100)
             {
-                MessageBox.Show("Значение не может быть больше 100");
+                MessageBoxHelper.ShowWarningMessage("Значение не может быть больше 100",this);
                 return;
             }
 
 
             if (string.IsNullOrWhiteSpace(txtDiscountPercent.Text))
             {
-                MessageBox.Show("Заполните поле");
+                MessageBoxHelper.ShowWarningMessage("Заполните поле",this);
                 return;
             }
 

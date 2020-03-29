@@ -1,14 +1,13 @@
 ﻿using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
+using BookKeeper.Data.Infrastructure.Configuration;
 using BookKeeper.Data.Models.ExcelImport;
 using BookKeeper.Data.Services.EntityService;
+using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.IO;
 using System.Linq;
-using BookKeeper.Data.Services.EntityService.Address;
 
 namespace BookKeeper.Data.Services.Load
 {
@@ -18,20 +17,21 @@ namespace BookKeeper.Data.Services.Load
         private readonly IDistrictService _districtService;
         private readonly IStreetService _streetService;
         private readonly IAccountService _accountService;
-        private readonly ILocationService _locationService;
+        private readonly IConfiguration<ExcelConfiguration> _configuration;
 
 
-        public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IStreetService streetService, IAccountService accountService, ILocationService locationService)
+        public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IStreetService streetService, IAccountService accountService, IConfiguration<ExcelConfiguration> configuration)
         {
             _import = import;
             _districtService = districtService;
             _streetService = streetService;
             _accountService = accountService;
-            _locationService = locationService;
+            _configuration = configuration;
         }
 
         public void LoadData(string file)
         {
+            var configuration = _configuration.Load();
 
             var import = _import.ImportDataRow(file);
 
@@ -75,7 +75,7 @@ namespace BookKeeper.Data.Services.Load
                         {
                             AccountCreationDate = ConvertAccrualMonth(dataRow.Account.AccrualMonth),
                             Account = dataRow.Account.PersonalAccount,
-                            AccountType = ConvertAccountType(dataRow.Account.AccountType),
+                            AccountType = ConvertAccountType(dataRow.Account.AccountType, configuration.MunicipalMark),
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
                         };
 
@@ -132,9 +132,9 @@ namespace BookKeeper.Data.Services.Load
             return DateTime.Parse($"01.{date}");
         }
 
-        private AccountType ConvertAccountType(int code)
+        private AccountType ConvertAccountType(int code, string municipalMark)
         {
-            return code.ToString().StartsWith("5") ? AccountType.Municipal : AccountType.Private;
+            return code.ToString().StartsWith(municipalMark) ? AccountType.Municipal : AccountType.Private;
         }
     }
 }

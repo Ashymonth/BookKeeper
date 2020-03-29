@@ -15,8 +15,6 @@ namespace BookKeeper.Data.Infrastructure.Configuration
 
         public int DocumentDateCell { get; set; }
 
-        public int AddressCell { get; set; }
-
         public int ApartmentNumberCell { get; set; }
 
         public int PersonalAccountCell { get; set; }
@@ -24,6 +22,14 @@ namespace BookKeeper.Data.Infrastructure.Configuration
         public int AccruedCell { get; set; }
 
         public int ReceivedCell { get; set; }
+
+        public string Address { get; set; }
+
+        public string LastRow { get; set; }
+
+        public string LastTableRow { get; set; }
+
+        public int AccountLength { get; set; }
 
         public void Save()
         {

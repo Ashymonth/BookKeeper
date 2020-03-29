@@ -1,4 +1,5 @@
-﻿using Spire.Xls;
+﻿using System;
+using Spire.Xls;
 using System.IO;
 
 namespace BookKeeper.Data.Infrastructure.Formats
@@ -7,8 +8,13 @@ namespace BookKeeper.Data.Infrastructure.Formats
     {
         public static string ValidateFormat(string file)
         {
-            var fileInfo = new DirectoryInfo(file);
-            if (!fileInfo.Extension.Equals(".xls")) 
+            if (string.IsNullOrWhiteSpace(file))
+                throw new ArgumentNullException(nameof(file));
+
+            if (!File.Exists(file))
+                throw new FileNotFoundException(nameof(file));
+
+            if (!Path.GetExtension(file).Equals(".xls", StringComparison.OrdinalIgnoreCase))
                 return file;
 
             var workBook = new Spire.Xls.Workbook();

@@ -1,4 +1,5 @@
-﻿using BookKeeper.Data.Infrastructure.Configuration;
+﻿using System;
+using BookKeeper.Data.Infrastructure.Configuration;
 using BookKeeper.Data.Models.ExcelImport;
 using ClosedXML.Excel;
 using System.Collections.Generic;
@@ -14,7 +15,16 @@ namespace BookKeeper.Data.Services.Import
 
         public List<ImportDataRow> ImportDataRow(string file)
         {
+            if (string.IsNullOrWhiteSpace(file))
+                throw new ArgumentNullException(nameof(file));
+
+            if (!File.Exists(file))
+                throw new FileNotFoundException(nameof(file));
+
             file = ExcelFormatValidator.ValidateFormat(file);
+
+            if (file == null)
+                throw new FileNotFoundException(nameof(file));
 
             var configuration = _configuration.Load();
 

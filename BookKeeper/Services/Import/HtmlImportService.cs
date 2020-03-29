@@ -63,7 +63,7 @@ namespace BookKeeper.Data.Services.Import
                     paymentInfo.District = infoCells[configuration.DistrictCell].InnerText.Trim();
                     paymentInfo.DocumentData = infoCells[configuration.DocumentDateCell].InnerText.Trim();
                     paymentInfo.Address = infoCells
-                        .FirstOrDefault(x => x.InnerText.Trim().Contains("Адрес:"))?.InnerText.Trim();
+                        .FirstOrDefault(x => x.InnerText.Trim().Contains(configuration.Address))?.InnerText.Trim();
 
                     _header = false;
                     continue;
@@ -78,10 +78,10 @@ namespace BookKeeper.Data.Services.Import
                 if (cells.Count < 4)
                     break;
 
-                if (cells[configuration.ReceivedCell].InnerText.ToLower().Trim().Contains("поступило"))
+                if (cells[configuration.ReceivedCell].InnerText.ToLower().Trim().Contains(configuration.LastRow))
                     continue;
 
-                if (cells[configuration.ApartmentNumberCell].InnerText.ToLower().Trim().Contains("итого"))
+                if (cells[configuration.ApartmentNumberCell].InnerText.ToLower().Trim().Contains(configuration.LastTableRow))
                     continue;
 
                 var paymentDetails = new PaymentDetailsImport

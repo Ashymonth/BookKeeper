@@ -5,9 +5,11 @@ using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using BookKeeper.Data.Infrastructure.Configuration;
 using BookKeeper.Data.Services.EntityService.Rate;
 
 namespace BookKeeper.Data.Services.Load
@@ -30,17 +32,17 @@ namespace BookKeeper.Data.Services.Load
             {"декабрь", 12}
         };
 
-        private const int PersonalAccountLength = 8;
-
         private readonly IImportService<List<PaymentDocumentImport>> _importService;
         private readonly IAccountService _accountService;
         private readonly IPaymentDocumentService _documentService;
+        private readonly IConfiguration<HtmlConfiguration> _configuration;
 
-        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService, IPaymentDocumentService documentService)
+        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService, IPaymentDocumentService documentService, IConfiguration<HtmlConfiguration> configuration)
         {
             _importService = importService;
             _accountService = accountService;
             _documentService = documentService;
+            _configuration = configuration;
         }
         public void LoadData(string file)
         {
@@ -54,12 +56,14 @@ namespace BookKeeper.Data.Services.Load
 
         private void AddPaymentDocument(PaymentDocumentImport import)
         {
+            var configuration = _configuration.Load();
+
             var accountsToUpdate = new List<AccountEntity>();
             var documentsToUpdate = new List<PaymentDocumentEntity>();
             foreach (var item in import.PaymentDetailsImports)
             {
 
-                var personalAccount = ValidPersonalAccount(item.PersonalAccount);
+                var personalAccount = ValidPersonalAccount(item.PersonalAccount,configuration.AccountLength);
                 var documentDate = ValidDateTime(import.DocumentData);
 
                 var account = _accountService.GetItem(x => x.Account == personalAccount);
@@ -102,11 +106,11 @@ namespace BookKeeper.Data.Services.Load
             }
         }
 
-        private static long ValidPersonalAccount(long personalAccount)
+        private static long ValidPersonalAccount(long personalAccount,int accountLength)
         {
-            if (personalAccount.ToString().Length > PersonalAccountLength)//TODO Add municipal account mark to config
+            if (personalAccount.ToString().Length > accountLength)
             {
-                personalAccount = Convert.ToUInt32(personalAccount.ToString().Substring(personalAccount.ToString().Length - PersonalAccountLength));
+                personalAccount = Convert.ToUInt32(personalAccount.ToString().Substring(personalAccount.ToString().Length - accountLength));
             }
 
             return personalAccount;

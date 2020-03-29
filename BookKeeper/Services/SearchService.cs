@@ -62,6 +62,7 @@ namespace BookKeeper.Data.Services
             if (!IsNullOrWhiteSpace(model.Account))
             {
                 account.And(accountPredicate);
+                return _accountService.GetItems(account);
             }
 
             if (IsNullOrWhiteSpace(model.HouseNumber) == false)

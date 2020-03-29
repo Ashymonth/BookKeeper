@@ -132,6 +132,8 @@
     <EmbeddedResource Include="UI\Forms\Rate\RateItemForm.resx">
       <DependentUpon>RateItemForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="bin\Debug\src\Configuration\ExcelConfiguration.json" />
+    <None Include="bin\Debug\src\Configuration\HtmlConfig.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

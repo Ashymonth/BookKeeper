@@ -159,7 +159,7 @@ namespace BookKeeper.UI
                             continue;
 
                         listViewItem.UseItemStyleForSubItems = true;
-                        listViewItem.SubItems.Add("Не оплаченно");
+                        lvlMonthReport.Columns.Insert(0, "Не оплаченно");
                     }
                 }
             }
@@ -176,11 +176,14 @@ namespace BookKeeper.UI
 
                 try
                 {
-                    var backupService = _container.Resolve<IBackupService>();
+                    using (var scope = _container.BeginLifetimeScope())
+                    {
+                        var backupService = scope.Resolve<IBackupService>();
 
-                    var bakupFileName = backupService.CreateBackup(dialog.SelectedPath);
+                        var backupFileName = backupService.CreateBackup(dialog.SelectedPath);
 
-                    MessageBoxHelper.ShowCompeteMessage("Успешно", this);
+                        MessageBoxHelper.ShowCompeteMessage($"Бэкап создан {Path.Combine(dialog.SelectedPath,backupFileName)}", this);
+                    }
                 }
                 catch (SqlException)
                 {
@@ -205,8 +208,15 @@ namespace BookKeeper.UI
 
                 try
                 {
-                    BackupService.RestoreFromBackup(dialog.FileName);
-                    MessageBoxHelper.ShowCompeteMessage("Успешно", this);
+                    using (var scope = _container.BeginLifetimeScope())
+                    {
+                        var backupService = scope.Resolve<IBackupService>();
+
+                        backupService.RestoreFromBackup(dialog.FileName);
+
+                        MessageBoxHelper.ShowCompeteMessage("Успешно", this);
+                    }
+                 
                 }
                 catch (FileNotFoundException)
                 {
@@ -231,7 +241,7 @@ namespace BookKeeper.UI
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-
+                    MessageBoxHelper.ShowCompeteMessage("Добавлено",this);
                 }
             }
         }
@@ -338,7 +348,7 @@ namespace BookKeeper.UI
                     .Select(documentEntity =>
                         new ListViewItem(new[] {account.Account.ToString(),
                             documentEntity.Received.ToString(CultureInfo.CurrentCulture)})
-                        { Tag = account, UseItemStyleForSubItems = false, BackColor = Color.Blue }));
+                        { Tag = account}));
             }
 
             if (tempList.Count == 0)
@@ -417,7 +427,7 @@ namespace BookKeeper.UI
 
         #endregion
 
-        #region Helps Method
+        #region  Method
 
         private void LoadItem(RateModel model)
         {
@@ -593,7 +603,7 @@ namespace BookKeeper.UI
                         }
                         catch (SqlException)
                         {
-                            MessageBoxHelper.ShowWarningMessage("Программа не может сохранить файл по этому пути", this);
+                            MessageBoxHelper.ShowWarningMessage("Программа не может сохранить файл по выбранному пути", this);
                         }
                     }
                 }
@@ -628,7 +638,7 @@ namespace BookKeeper.UI
             }
             catch (SqlException exception)
             {
-                MessageBox.Show(exception.Message);
+                MessageBoxHelper.ShowWarningMessage("Не удалось загрузить адреса",this);
             }
         }
 
@@ -682,7 +692,5 @@ namespace BookKeeper.UI
         }
 
         #endregion
-
-
     }
 }

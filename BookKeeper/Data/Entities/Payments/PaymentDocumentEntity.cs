@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using BookKeeper.Data.Data.Entities.Discounts;
 
 namespace BookKeeper.Data.Data.Entities.Payments
 {
@@ -16,6 +18,8 @@ namespace BookKeeper.Data.Data.Entities.Payments
         public decimal Received { get; set; }
 
         public DateTime PaymentDate { get; set; }
+
+        public virtual ICollection<DiscountDocumentEntity> DiscountDocuments { get; set; }
 
     }
 }

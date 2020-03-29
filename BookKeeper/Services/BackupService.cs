@@ -6,7 +6,7 @@ namespace BookKeeper.Data.Services
 {
     public interface IBackupService
     {
-        void CreateBackup(string folder);
+        string CreateBackup(string folder);
         void RestoreFromBackup(string file);
     }
 
@@ -33,7 +33,7 @@ namespace BookKeeper.Data.Services
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
-        public void CreateBackup(string folder)
+        public string CreateBackup(string folder)
         {
             if (!Directory.Exists(folder))
                 Directory.CreateDirectory(folder);
@@ -49,6 +49,7 @@ namespace BookKeeper.Data.Services
                     com.ExecuteReader();
                 }
                 connection.Close();
+                return backupFileName;
             }
         }
 

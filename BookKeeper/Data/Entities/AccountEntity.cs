@@ -37,6 +37,5 @@ namespace BookKeeper.Data.Data.Entities
 
         public virtual ICollection<PaymentDocumentEntity> PaymentDocuments { get; set; }
 
-        //public virtual ICollection<DiscountDocumentEntity> DiscountDocuments { get; set; }
     }
 }

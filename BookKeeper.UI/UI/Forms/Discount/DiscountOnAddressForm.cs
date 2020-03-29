@@ -40,12 +40,11 @@ namespace BookKeeper.UI.UI.Forms.Discount
             DialogResult = DialogResult.None;
             if (cmbStreets.SelectedValue is int streetId && cmbPercent.SelectedValue is decimal percent && cmbDescription.SelectedValue is string description)
             {
-                var accountsToUpdate = new List<AccountEntity>();
+                var discountToAdd = new List<DiscountDocumentEntity>();
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var locationService = scope.Resolve<ILocationService>();
-                    var location =
-                        locationService.GetLocation(streetId, txtHouse.Text, txtBuilding.Text, txtApartment.Text);
+                    var location = locationService.GetLocation(streetId, txtHouse.Text, txtBuilding.Text, txtApartment.Text);
 
                     if (location == null)
                     {
@@ -57,34 +56,37 @@ namespace BookKeeper.UI.UI.Forms.Discount
                     var accounts = accountService.GetWithInclude(x => x.LocationId == location.Id &&
                                                                 x.IsDeleted == false,x=>x.Location);
 
-                    //foreach (var account in accounts)
-                    //{
-                    //    account.DiscountDocuments.Add(new DiscountDocumentEntity
-                    //    {
-                    //        AccountId = account.Id,
-                    //        Type = DiscountType.Address,
-                    //        Percent = percent,
-                    //        Description = description,
-                    //        StartDate = DateTime.Now
-                    //    });
-                     
-                    //    accountsToUpdate.Add(account);
-                    //}
-                    accountService.Update(accountsToUpdate);
+                    foreach (var account in accounts)
+                    {
+                        var discount = new DiscountDocumentEntity
+                        {
+                            AccountId = account.Id,
+                            StartDate = DateTime.Now,
+                            Type = DiscountType.Address,
+                            Description = description,
+                            Percent = percent
+                        };
+                        discountToAdd.Add(discount);
+
+                    }
+
+                    var discountService = scope.Resolve<IDiscountDocumentService>();
+                    discountService.Add(discountToAdd);
+                    
 
                     //var fullAddress = accounts.Select(x => x.Location).Single();
-                    if (fullAddress != null)
-                    {
-                        DiscountModel = new DiscountModel
-                        {
-                            Type = DiscountType.Address,
-                            Address =
-                                $"{fullAddress.Street.StreetName} Дом.{fullAddress.HouseNumber} Кр.{fullAddress.BuildingCorpus} Кв.{fullAddress.ApartmentNumber}",
-                            Price = percent.ToString(CultureInfo.CurrentCulture),
-                            Description = description,
-                        };
-                        DialogResult = DialogResult.OK;
-                    }
+                    //if (fullAddress != null)
+                    //{
+                    //    DiscountModel = new DiscountModel
+                    //    {
+                    //        Type = DiscountType.Address,
+                    //        Address =
+                    //            $"{location.Street.StreetName} Дом.{location.HouseNumber} Корп.{location.BuildingCorpus} Кв.{location.ApartmentNumber}",
+                    //        Price = percent.ToString(CultureInfo.CurrentCulture),
+                    //        Description = description,
+                    //    };
+                    //    DialogResult = DialogResult.OK;
+                    //}
                 }
             }
         }

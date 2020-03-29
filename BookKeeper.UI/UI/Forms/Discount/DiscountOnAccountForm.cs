@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Autofac;
+using BookKeeper.Data.Data.Entities.Discounts;
+using BookKeeper.Data.Infrastructure;
+using BookKeeper.Data.Services.EntityService;
+using BookKeeper.Data.Services.EntityService.Discount;
+using BookKeeper.UI.Helpers;
+using BookKeeper.UI.Models.Discount;
+using MetroFramework.Forms;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using Autofac;
-using BookKeeper.Data.Data.Entities.Discounts;
-using BookKeeper.Data.Infrastructure;
-using BookKeeper.Data.Models;
-using BookKeeper.Data.Services.EntityService;
-using BookKeeper.Data.Services.EntityService.Discount;
-using BookKeeper.UI.Models.Discount;
-using MetroFramework.Forms;
 using IContainer = Autofac.IContainer;
 
 namespace BookKeeper.UI.UI.Forms.Discount
@@ -28,10 +28,10 @@ namespace BookKeeper.UI.UI.Forms.Discount
         {
             using (var scope = _container.BeginLifetimeScope())
             {
-                var percentService = _container.Resolve<IDiscountPercentService>();
+                var percentService = scope.Resolve<IDiscountPercentService>();
                 var percents = percentService.GetItems(x => x.IsDeleted == false).ToList();
 
-                var descriptionService = _container.Resolve<IDiscountDescriptionService>();
+                var descriptionService = scope.Resolve<IDiscountDescriptionService>();
                 var descriptions = descriptionService.GetItems(x => x.IsDeleted == false).ToList();
 
                 cboPercent.DataSource = percents;
@@ -65,11 +65,11 @@ namespace BookKeeper.UI.UI.Forms.Discount
             }
             catch (FormatException)
             {
-                MessageBox.Show("Допустимы только цифры");
+                MessageBoxHelper.ShowWarningMessage("Допустимы только цифры", this);
             }
             catch (InvalidCastException)
             {
-                MessageBox.Show("Допустимы только цифры");
+                MessageBoxHelper.ShowWarningMessage("Значение слишком большое", this);
             }
 
             using (var scope = _container.BeginLifetimeScope())
@@ -78,7 +78,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 var accountItem = accountService.GetItem(x => x.Account == account);
                 if (accountItem == null)
                 {
-                    MessageBox.Show("Такого счета не существует");
+                    MessageBoxHelper.ShowWarningMessage("Такого счета не существует", this);
                     return;
                 }
 
@@ -86,7 +86,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description);
                 if (discountOnAccount == null)
                 {
-                    MessageBox.Show("Не удалось добавить");
+                    MessageBoxHelper.ShowWarningMessage("Не удалось добавить", this);
                     return;
                 }
 
