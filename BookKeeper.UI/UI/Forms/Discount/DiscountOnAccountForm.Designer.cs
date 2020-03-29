@@ -33,6 +33,8 @@
             this.btnSave = new MetroFramework.Controls.MetroButton();
             this.metroButton2 = new MetroFramework.Controls.MetroButton();
             this.cboDescription = new MetroFramework.Controls.MetroComboBox();
+            this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // txtAccount
@@ -73,6 +75,7 @@
             this.cboPercent.ItemHeight = 23;
             this.cboPercent.Location = new System.Drawing.Point(23, 137);
             this.cboPercent.Name = "cboPercent";
+            this.cboPercent.PromptText = "Процент скидки";
             this.cboPercent.Size = new System.Drawing.Size(285, 29);
             this.cboPercent.TabIndex = 1;
             this.cboPercent.UseSelectable = true;
@@ -103,15 +106,36 @@
             this.cboDescription.ItemHeight = 23;
             this.cboDescription.Location = new System.Drawing.Point(23, 193);
             this.cboDescription.Name = "cboDescription";
+            this.cboDescription.PromptText = "Описание";
             this.cboDescription.Size = new System.Drawing.Size(285, 29);
             this.cboDescription.TabIndex = 4;
             this.cboDescription.UseSelectable = true;
+            // 
+            // metroLabel3
+            // 
+            this.metroLabel3.AutoSize = true;
+            this.metroLabel3.Location = new System.Drawing.Point(23, 171);
+            this.metroLabel3.Name = "metroLabel3";
+            this.metroLabel3.Size = new System.Drawing.Size(72, 19);
+            this.metroLabel3.TabIndex = 14;
+            this.metroLabel3.Text = "Описание";
+            // 
+            // metroLabel2
+            // 
+            this.metroLabel2.AutoSize = true;
+            this.metroLabel2.Location = new System.Drawing.Point(23, 115);
+            this.metroLabel2.Name = "metroLabel2";
+            this.metroLabel2.Size = new System.Drawing.Size(52, 19);
+            this.metroLabel2.TabIndex = 13;
+            this.metroLabel2.Text = "Скидка";
             // 
             // DiscountAccountItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 295);
+            this.Controls.Add(this.metroLabel3);
+            this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.cboDescription);
             this.Controls.Add(this.metroButton2);
             this.Controls.Add(this.btnSave);
@@ -122,6 +146,7 @@
             this.Text = "Льгота на счет";
             this.Load += new System.EventHandler(this.DiscountAccountItem_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -132,5 +157,7 @@
         private MetroFramework.Controls.MetroButton btnSave;
         private MetroFramework.Controls.MetroButton metroButton2;
         private MetroFramework.Controls.MetroComboBox cboDescription;
+        private MetroFramework.Controls.MetroLabel metroLabel3;
+        private MetroFramework.Controls.MetroLabel metroLabel2;
     }
 }

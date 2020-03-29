@@ -56,43 +56,46 @@ namespace BookKeeper.UI.UI.Forms.Rate
         {
             DialogResult = DialogResult.None;
 
-            using (var scope = _container.BeginLifetimeScope())
+            if (cmbStreet.SelectedValue is int streetId)
             {
-                var locationService = scope.Resolve<ILocationService>();
-
-                var location = locationService.GetLocation((int)cmbStreet.SelectedValue, txtHouse.Text, txtBuilding.Text);
-                if (location == null)
+                using (var scope = _container.BeginLifetimeScope())
                 {
-                    MessageBoxHelper.ShowWarningMessage("Такого адреса нет в базе", this);
-                    return;
-                }
+                    var locationService = scope.Resolve<ILocationService>();
 
-                var service = scope.Resolve<IRateDocumentService>();
-
-                if (dateStart.Value.Month == dateEnd.Value.Month)
-                {
-                    MessageBoxHelper.ShowWarningMessage("Месяца должны быть разными", this);
-                    return;
-                }
-
-                var document = service.AddRateDocument(location.Id, txtDescription.Text,
-                    Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")), dateStart.Value, dateEnd.Value);
-
-
-                if (cmbStreet.SelectedItem is StreetEntity result)
-                {
-                    RateModel = new RateModel
+                    var location = locationService.GetHouse(streetId, txtHouse.Text, txtBuilding.Text);
+                    if (location == null)
                     {
-                        Street = result.StreetName,
-                        House = txtHouse.Text,
-                        Building = txtBuilding.Text,
-                        Price = txtPrice.Text,
-                        Description = txtDescription.Text,
-                        RateDocument = document
-                    };
+                        MessageBoxHelper.ShowWarningMessage("Такого адреса нет в базе", this);
+                        return;
+                    }
+
+                    var service = scope.Resolve<IRateDocumentService>();
+
+                    if (dateStart.Value.Month == dateEnd.Value.Month)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Месяца должны быть разными", this);
+                        return;
+                    }
+
+                    var document = service.AddRateDocument(location.Id, txtDescription.Text,
+                        Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")), dateStart.Value, dateEnd.Value);
+
+
+                    if (cmbStreet.SelectedItem is StreetEntity result)
+                    {
+                        RateModel = new RateModel
+                        {
+                            Street = result.StreetName,
+                            House = txtHouse.Text,
+                            Building = txtBuilding.Text,
+                            Price = txtPrice.Text,
+                            Description = txtDescription.Text,
+                            RateDocument = document
+                        };
+                    }
                 }
+                DialogResult = DialogResult.OK;
             }
-            DialogResult = DialogResult.OK;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

@@ -10,7 +10,9 @@ namespace BookKeeper.Data.Services.EntityService.Address
     public interface ILocationService : IService<LocationEntity>
     {
         LocationEntity Add(string houseNumber, string houseBuilding, string apartmentNumber, int addressId);
-        LocationEntity GetLocation(int streetId, string houseNumber, string buildingNumber);
+        LocationEntity GetHouse(int streetId, string houseNumber, string buildingNumber);
+
+        LocationEntity GetLocation(int streetId, string houseNumber, string buildingNumber, string apartment);
 
     }
 
@@ -34,11 +36,20 @@ namespace BookKeeper.Data.Services.EntityService.Address
             return entity;
         }
 
-        public LocationEntity GetLocation(int streetId, string houseNumber, string buildingNumber)
+        public LocationEntity GetHouse(int streetId, string houseNumber, string buildingNumber)
         {
             return base.GetItem(x =>
                 string.Equals(x.HouseNumber, houseNumber, StringComparison.CurrentCultureIgnoreCase) &&
                 string.Equals(x.BuildingCorpus, buildingNumber, StringComparison.CurrentCultureIgnoreCase) &&
+                x.StreetId == streetId);
+        }
+
+        public LocationEntity GetLocation(int streetId, string houseNumber, string buildingNumber, string apartment)
+        {
+            return base.GetItem(x =>
+                string.Equals(x.HouseNumber, houseNumber, StringComparison.CurrentCultureIgnoreCase) &&
+                string.Equals(x.BuildingCorpus, buildingNumber, StringComparison.CurrentCultureIgnoreCase) &&
+                string.Equals(x.ApartmentNumber,apartment,StringComparison.OrdinalIgnoreCase) && 
                 x.StreetId == streetId);
         }
     }

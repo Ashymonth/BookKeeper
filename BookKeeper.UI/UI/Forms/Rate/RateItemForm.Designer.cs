@@ -48,6 +48,7 @@
             this.cmbStreet.ItemHeight = 23;
             this.cmbStreet.Location = new System.Drawing.Point(23, 63);
             this.cmbStreet.Name = "cmbStreet";
+            this.cmbStreet.PromptText = "Адрес";
             this.cmbStreet.Size = new System.Drawing.Size(442, 29);
             this.cmbStreet.TabIndex = 0;
             this.cmbStreet.UseSelectable = true;

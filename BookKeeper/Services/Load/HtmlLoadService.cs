@@ -44,10 +44,7 @@ namespace BookKeeper.Data.Services.Load
         }
         public void LoadData(string file)
         {
-            var backup = BackupService.CreateBackup("D:\\Backup");
-
-            if (backup == false)
-                throw new FileLoadException();
+            BackupService.CreateBackup("D:\\Backup");
 
             var result = _importService.ImportDataRow(file);
 

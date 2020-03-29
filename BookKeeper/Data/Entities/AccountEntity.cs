@@ -1,8 +1,9 @@
-﻿using BookKeeper.Data.Data.Entities.Payments;
+﻿using BookKeeper.Data.Data.Entities.Address;
+using BookKeeper.Data.Data.Entities.Discounts;
+using BookKeeper.Data.Data.Entities.Payments;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using BookKeeper.Data.Data.Entities.Address;
 
 namespace BookKeeper.Data.Data.Entities
 {
@@ -16,10 +17,6 @@ namespace BookKeeper.Data.Data.Entities
     public class AccountEntity : BaseEntity
     {
         public int StreetId { get; set; }
-
-        public int DiscountDocumentId { get; set; }
-
-        public int RateDocumentId { get; set; }
 
         public int LocationId { get; set; }
 
@@ -39,6 +36,9 @@ namespace BookKeeper.Data.Data.Entities
         public bool IsEmptyAgain { get; set; }
 
         public virtual ICollection<PaymentDocumentEntity> PaymentDocuments { get; set; }
+
+        public virtual ICollection<DiscountDocumentEntity> DiscountDocuments { get; set; }
+
 
     }
 }

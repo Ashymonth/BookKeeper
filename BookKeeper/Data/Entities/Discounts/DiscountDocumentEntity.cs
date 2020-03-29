@@ -14,12 +14,7 @@ namespace BookKeeper.Data.Data.Entities.Discounts
     [Table("DiscountDocuments")]
     public class DiscountDocumentEntity : BaseEntity
     {
-        public int? StreetId { get; set; }
-
-        public int? AccountId { get; set; }
-
-        [ForeignKey(nameof(StreetId))]
-        public StreetEntity Street { get; set; }
+        public int AccountId { get; set; }
 
         [ForeignKey(nameof(AccountId))] 
         public AccountEntity Account { get; set; }

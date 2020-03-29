@@ -78,6 +78,12 @@
     <Compile Include="UI\Forms\Discount\DiscountPercentItem.Designer.cs">
       <DependentUpon>DiscountPercentItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\Discount\HousesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Discount\HousesForm.Designer.cs">
+      <DependentUpon>HousesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\Forms\ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +122,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Discount\DiscountPercentItem.resx">
       <DependentUpon>DiscountPercentItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Discount\HousesForm.resx">
+      <DependentUpon>HousesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
