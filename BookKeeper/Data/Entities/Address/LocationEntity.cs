@@ -4,7 +4,7 @@ using BookKeeper.Data.Data.Entities.Rates;
 
 namespace BookKeeper.Data.Data.Entities.Address
 {
-    [Table("Location")]
+    [Table("Locations")]
     public class LocationEntity : BaseEntity
     {
         public int StreetId { get; set; }

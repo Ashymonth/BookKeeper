@@ -5,7 +5,7 @@ using BookKeeper.Data.Data.Entities.Address;
 
 namespace BookKeeper.Data.Data.Entities.Rates
 {
-    [Table("RateDocument")]
+    [Table("RateDocuments")]
     public class RateDocumentEntity : BaseEntity
     {
         public RateDocumentEntity()

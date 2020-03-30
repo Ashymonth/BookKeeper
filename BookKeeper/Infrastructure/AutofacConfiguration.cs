@@ -108,7 +108,8 @@ namespace BookKeeper.Data.Infrastructure
             var backupSettings = new BackupSettings()
             {
                 BackupFolder = ConfigurationManager.AppSettings["BackupFolder"],
-                ConnectionString = connectionString
+                ConnectionString = connectionString,
+                DatabaseName = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["ConnectionName"]].Name,
             };
 
             container.RegisterInstance(backupSettings).SingleInstance();

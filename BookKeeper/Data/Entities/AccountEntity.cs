@@ -13,7 +13,7 @@ namespace BookKeeper.Data.Data.Entities
         Private
     }
 
-    [Table("Account")]
+    [Table("Accounts")]
     public class AccountEntity : BaseEntity
     {
         public int StreetId { get; set; }

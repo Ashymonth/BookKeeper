@@ -5,7 +5,7 @@ using BookKeeper.Data.Data.Entities.Discounts;
 
 namespace BookKeeper.Data.Data.Entities.Payments
 {
-    [Table("PaymentDocument")]
+    [Table("PaymentDocuments")]
     public class PaymentDocumentEntity : BaseEntity
     {
         public int AccountId { get; set; }

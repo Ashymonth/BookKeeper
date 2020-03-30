@@ -2,7 +2,7 @@
 
 namespace BookKeeper.Data.Data.Entities.Discounts
 {
-    [Table("DiscountDescription")]
+    [Table("DiscountDescriptions")]
     public class DiscountDescriptionEntity : BaseEntity
     {
         public string Description { get; set; }

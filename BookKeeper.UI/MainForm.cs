@@ -224,10 +224,10 @@ namespace BookKeeper.UI
                 {
                     MessageBoxHelper.ShowWarningMessage("Файл пуст", this);
                 }
-                catch (SqlException)
-                {
-                    MessageBoxHelper.ShowWarningMessage("Не удалось восстановить", this);
-                }
+                //catch (SqlException)
+                //{
+                //    MessageBoxHelper.ShowWarningMessage("Не удалось восстановить", this);
+                //}
             }
         }
 
@@ -297,6 +297,11 @@ namespace BookKeeper.UI
                     if (searchResult != null && searchResult.Any())
                     {
                         LoadAccountsInfo(searchResult);
+                    }
+                    else
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Ничего не найдено",this);
+                        lblCounter.Text = "0";
                     }
                 }
             }
@@ -374,7 +379,9 @@ namespace BookKeeper.UI
             {
                 columns.Add(new ColumnHeader { Text = from.ToString("Y") });
                 if (from.Month == to.Month)
+                {
                     break;
+                }
 
                 from = from.AddMonths(1);
             } while (true);
@@ -595,7 +602,7 @@ namespace BookKeeper.UI
                         {
                             var report = service.LoadData(file);
 
-                            MessageBoxHelper.ShowCompeteMessage($"Успешно загружено.Добавленно{report.Add} обновленно {report.Updates} поврежденых записей{report.CorruptedRecords}", this);
+                            MessageBoxHelper.ShowCompeteMessage($"Успешно загружено. Добавленно {report.Add} \n Обновленно {report.Updates} \n Поврежденых записей {report.CorruptedRecords}", this);
                         }
                         catch (FileLoadException)
                         {

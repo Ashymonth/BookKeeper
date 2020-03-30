@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System.IO;
+using System.Text;
 
 namespace BookKeeper.Data.Infrastructure.Configuration
 {
@@ -64,7 +65,7 @@ namespace BookKeeper.Data.Infrastructure.Configuration
                 return null;
             }
 
-            var jsonString = File.ReadAllText(path);
+            var jsonString = File.ReadAllText(path,Encoding.UTF8);
             var configuration = JsonConvert.DeserializeObject<HtmlConfiguration>(jsonString);
             return configuration;
         }

@@ -36,7 +36,7 @@ namespace BookKeeper.Data.Services.Import
 
             file = HtmlFormatValidator.ValidateFormat(file);
 
-            if(file == null)
+            if (file == null)
                 throw new FileNotFoundException(nameof(file));
 
             var html = new HtmlDocument();
@@ -44,7 +44,7 @@ namespace BookKeeper.Data.Services.Import
             html.LoadHtml(File.ReadAllText(file, Encoding.UTF8));
 
             var configuration = _configuration.Load();
-            if(configuration == null)
+            if (configuration == null)
                 throw new FileNotFoundException(nameof(configuration));
 
             var paymentDocument = new List<PaymentDocumentImport>();
@@ -63,7 +63,7 @@ namespace BookKeeper.Data.Services.Import
                     paymentInfo.District = infoCells[configuration.DistrictCell].InnerText.Trim();
                     paymentInfo.DocumentData = infoCells[configuration.DocumentDateCell].InnerText.Trim();
                     paymentInfo.Address = infoCells
-                        .FirstOrDefault(x => x.InnerText.Trim().Contains(configuration.Address))?.InnerText.Trim();
+                        .FirstOrDefault(x => x.InnerText.Trim().Contains("адрес:"))?.InnerText.Trim();
 
                     _header = false;
                     continue;
@@ -78,10 +78,10 @@ namespace BookKeeper.Data.Services.Import
                 if (cells.Count < 4)
                     break;
 
-                if (cells[configuration.ReceivedCell].InnerText.ToLower().Trim().Contains(configuration.LastRow))
+                if (cells[configuration.ReceivedCell].InnerText.ToLower().Trim().Contains("поступило"))
                     continue;
 
-                if (cells[configuration.ApartmentNumberCell].InnerText.ToLower().Trim().Contains(configuration.LastTableRow))
+                if (cells[configuration.ApartmentNumberCell].InnerText.ToLower().Trim().Contains("итого"))
                     continue;
 
                 var paymentDetails = new PaymentDetailsImport

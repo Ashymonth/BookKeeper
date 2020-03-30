@@ -8,7 +8,7 @@ namespace BookKeeper.Data.Data.Entities.Address
         Private
     }
 
-    [Table("District")]
+    [Table("Districts")]
     public class DistrictEntity : BaseEntity
     {
         public int Code { get; set; }

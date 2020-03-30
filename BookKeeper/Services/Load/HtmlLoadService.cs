@@ -90,14 +90,6 @@ namespace BookKeeper.Data.Services.Load
                     if (account.PaymentDocuments == null)
                         account.PaymentDocuments = new List<PaymentDocumentEntity>();
 
-                    account.PaymentDocuments.Add(new PaymentDocumentEntity
-                    {
-                        AccountId = account.Id,
-                        Accrued = item1.Accrued,
-                        Received = item1.Received,
-                        PaymentDate = documentDate,
-                    });
-
                     var paymentDocument = new PaymentDocumentEntity
                     {
                         AccountId = account.Id,
@@ -120,83 +112,10 @@ namespace BookKeeper.Data.Services.Load
                     _documentService.Update(documentsToUpdate);
                     importReport.Updates += documentsToUpdate.Count;
                 }
-
-              
             }
             return importReport;
         }
 
-        private ImportReportModel AddPaymentDocument(PaymentDocumentImport import)
-        {
-            var importReport = new ImportReportModel();
-
-            var configuration = _configuration.Load();
-            if(configuration == null)
-                throw new NullReferenceException(nameof(configuration));
-
-            var documentsToAdd = new List<PaymentDocumentEntity>();
-            var documentsToUpdate = new List<PaymentDocumentEntity>();
-
-            foreach (var item in import.PaymentDetailsImports)
-            {
-
-                var personalAccount = ValidPersonalAccount(item.PersonalAccount,configuration.AccountLength);
-                var documentDate = ValidDateTime(import.DocumentData);
-
-                var account = _accountService.GetItem(x => x.Account == personalAccount);
-                if (account == null)
-                {
-                    importReport.CorruptedRecords++;
-                    continue;
-                }
-
-                var paymentDocuments = account.PaymentDocuments.Where(x => x.PaymentDate == documentDate).ToList();
-                if (paymentDocuments.Count() != 0)
-                {
-                    documentsToUpdate
-                        .AddRange(paymentDocuments
-                            .Where(entity => entity.Accrued != item.Accrued || 
-                                             entity.Received != item.Received &&
-                                             entity.IsDeleted == false));
-                    continue;
-                }
-
-                if (account.PaymentDocuments == null)
-                    account.PaymentDocuments = new List<PaymentDocumentEntity>();
-
-                account.PaymentDocuments.Add(new PaymentDocumentEntity
-                {
-                    AccountId = account.Id,
-                    Accrued = item.Accrued,
-                    Received = item.Received,
-                    PaymentDate = documentDate,
-                });
-
-                var paymentDocument = new PaymentDocumentEntity
-                {
-                    AccountId = account.Id,
-                    Accrued = item.Accrued,
-                    Received = item.Received,
-                    PaymentDate = documentDate,
-                };
-
-                documentsToAdd.Add(paymentDocument);
-            }
-
-            if (documentsToAdd.Count != 0)
-            {
-                _documentService.Add(documentsToAdd);
-                importReport.Add += documentsToAdd.Count;
-            }
-
-            if (documentsToUpdate.Count != 0)
-            {
-                _documentService.Update(documentsToUpdate);
-                importReport.Updates += documentsToUpdate.Count;
-            }
-
-            return importReport;
-        }
 
         private static long ValidPersonalAccount(long personalAccount,int accountLength)
         {

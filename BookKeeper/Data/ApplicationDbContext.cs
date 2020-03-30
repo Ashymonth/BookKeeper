@@ -11,15 +11,11 @@ namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        static ApplicationDbContext()
-        {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
-        }
-
         public ApplicationDbContext() { }
 
         public ApplicationDbContext(string connectionString) : base(connectionString)
         {
+            
         }
         public virtual DbSet<DistrictEntity> Districts { get; set; }
 

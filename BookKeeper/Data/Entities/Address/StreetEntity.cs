@@ -5,7 +5,7 @@ using BookKeeper.Data.Data.Entities.Discounts;
 
 namespace BookKeeper.Data.Data.Entities.Address
 {
-    [Table("Street")]
+    [Table("Streets")]
     public class StreetEntity : BaseEntity
     {
         public int DistrictId { get; set; }
