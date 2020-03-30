@@ -97,6 +97,10 @@ namespace BookKeeper.Data.Infrastructure
                 .As<ISearchService>()
                 .InstancePerLifetimeScope();
 
+            container.RegisterType(typeof(CalculationService))
+                .As<ICalculationService>()
+                .InstancePerLifetimeScope();
+
             container.RegisterType(typeof(ExcelDataLoader))
                 .Named<IDataLoader>(LoaderType.Excel.ToString())
                 .InstancePerLifetimeScope();

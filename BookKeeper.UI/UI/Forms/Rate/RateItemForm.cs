@@ -46,8 +46,8 @@ namespace BookKeeper.UI.UI.Forms.Rate
             txtHouse.Text = RateModel.House;
             txtBuilding.Text = RateModel.Building;
             txtPrice.Text = RateModel.Price;
-            dateStart.Value = RateModel.Start;
-            dateEnd.Value = RateModel.End;
+            dateFrom.Value = RateModel.Start;
+            dateTo.Value = RateModel.End;
         }
 
         public RateModel RateModel { get; set; }
@@ -55,6 +55,12 @@ namespace BookKeeper.UI.UI.Forms.Rate
         private void btnSave_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.None;
+
+            if (dateFrom.Value == dateTo.Value)
+            {
+                MessageBoxHelper.ShowWarningMessage("Даты не могу совпадать", this);
+                return;
+            }
 
             if (cmbStreet.SelectedValue is int streetId)
             {
@@ -71,14 +77,14 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
                     var service = scope.Resolve<IRateDocumentService>();
 
-                    if (dateStart.Value.Month == dateEnd.Value.Month)
+                    if (dateFrom.Value.Month == dateTo.Value.Month)
                     {
                         MessageBoxHelper.ShowWarningMessage("Месяца должны быть разными", this);
                         return;
                     }
 
                     var document = service.AddRateDocument(location.Id, txtDescription.Text,
-                        Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")), dateStart.Value, dateEnd.Value);
+                        Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")), dateFrom.Value, dateTo.Value);
 
 
                     if (cmbStreet.SelectedItem is StreetEntity result)

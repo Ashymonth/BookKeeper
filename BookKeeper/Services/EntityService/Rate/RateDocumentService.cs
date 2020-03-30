@@ -8,20 +8,20 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 {
     public interface IRateDocumentService : IService<RateDocumentEntity>
     {
-        RateDocumentEntity AddRateDocument(int locationId, string description, decimal price,DateTime startDate, DateTime EndDate);
-        RateDocumentEntity GetActiveRate(int rateId);
+        RateDocumentEntity AddRateDocument(int locationId, string description, decimal price, DateTime startDate, DateTime EndDate);
+        RateDocumentEntity GetCurrentRate(int rateId, DateTime currentRate);
     }
 
     public class RateDocumentService : Service<RateDocumentEntity>, IRateDocumentService
     {
-        private const decimal DefaultPrice = 166;
+        private const decimal DefaultPrice = 166;//TODO Add to config file
 
 
         public RateDocumentService(IRepository<RateDocumentEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
 
-        public RateDocumentEntity AddRateDocument(int locationId, string description, decimal price,DateTime startDate, DateTime endDate)
+        public RateDocumentEntity AddRateDocument(int locationId, string description, decimal price, DateTime startDate, DateTime endDate)
         {
             var result = new RateDocumentEntity
             {
@@ -41,10 +41,11 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             return Add(result);
         }
 
-        public RateDocumentEntity GetActiveRate(int locationId)
+        public RateDocumentEntity GetCurrentRate(int locationId, DateTime currentRate)
         {
-            return base.GetItem(x => x.Id == x.LocationId);
-            //x.EndDate )
+            return base.GetItem(x => x.Id == x.LocationId &&
+                                     x.EndDate < currentRate &&
+                                     x.EndDate < currentRate);
         }
     }
 }

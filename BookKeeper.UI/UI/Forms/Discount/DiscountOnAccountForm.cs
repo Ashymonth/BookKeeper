@@ -50,7 +50,13 @@ namespace BookKeeper.UI.UI.Forms.Discount
         {
             if (string.IsNullOrWhiteSpace(txtAccount.Text))
             {
-                MessageBox.Show("Аккаунт не может быть пустым");
+                MessageBoxHelper.ShowWarningMessage("Аккаунт не может быть пустым",this);
+                return;
+            }
+
+            if (dateFrom.Value.Month == dateTo.Value.Month)
+            {
+                MessageBoxHelper.ShowWarningMessage("Даты не могу совпадать",this);
                 return;
             }
 
@@ -83,7 +89,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 }
 
                 var discountService = scope.Resolve<IDiscountDocumentService>();
-                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description);
+                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description,dateFrom.Value,dateTo.Value);
                 if (discountOnAccount == null)
                 {
                     MessageBoxHelper.ShowWarningMessage("Не удалось добавить", this);

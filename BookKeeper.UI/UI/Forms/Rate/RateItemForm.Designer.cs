@@ -35,8 +35,8 @@
             this.btnSave = new MetroFramework.Controls.MetroButton();
             this.btnCancel = new MetroFramework.Controls.MetroButton();
             this.txtPrice = new System.Windows.Forms.MaskedTextBox();
-            this.dateStart = new MetroFramework.Controls.MetroDateTime();
-            this.dateEnd = new MetroFramework.Controls.MetroDateTime();
+            this.dateFrom = new MetroFramework.Controls.MetroDateTime();
+            this.dateTo = new MetroFramework.Controls.MetroDateTime();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
@@ -181,23 +181,25 @@
             this.txtPrice.Text = "16600";
             this.txtPrice.ValidatingType = typeof(int);
             // 
-            // dateStart
+            // dateFrom
             // 
-            this.dateStart.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateStart.Location = new System.Drawing.Point(265, 116);
-            this.dateStart.MinimumSize = new System.Drawing.Size(0, 29);
-            this.dateStart.Name = "dateStart";
-            this.dateStart.Size = new System.Drawing.Size(200, 29);
-            this.dateStart.TabIndex = 9;
+            this.dateFrom.CustomFormat = "MMMM yyyy";
+            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateFrom.Location = new System.Drawing.Point(265, 116);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(200, 29);
+            this.dateFrom.TabIndex = 9;
             // 
-            // dateEnd
+            // dateTo
             // 
-            this.dateEnd.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateEnd.Location = new System.Drawing.Point(265, 194);
-            this.dateEnd.MinimumSize = new System.Drawing.Size(0, 29);
-            this.dateEnd.Name = "dateEnd";
-            this.dateEnd.Size = new System.Drawing.Size(200, 29);
-            this.dateEnd.TabIndex = 10;
+            this.dateTo.CustomFormat = "MMMM yyyy";
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTo.Location = new System.Drawing.Point(265, 194);
+            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(200, 29);
+            this.dateTo.TabIndex = 10;
             // 
             // metroLabel1
             // 
@@ -224,8 +226,8 @@
             this.ClientSize = new System.Drawing.Size(513, 375);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.metroLabel1);
-            this.Controls.Add(this.dateEnd);
-            this.Controls.Add(this.dateStart);
+            this.Controls.Add(this.dateTo);
+            this.Controls.Add(this.dateFrom);
             this.Controls.Add(this.txtPrice);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
@@ -254,8 +256,8 @@
         private MetroFramework.Controls.MetroButton btnSave;
         private MetroFramework.Controls.MetroButton btnCancel;
         private System.Windows.Forms.MaskedTextBox txtPrice;
-        private MetroFramework.Controls.MetroDateTime dateStart;
-        private MetroFramework.Controls.MetroDateTime dateEnd;
+        private MetroFramework.Controls.MetroDateTime dateFrom;
+        private MetroFramework.Controls.MetroDateTime dateTo;
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroLabel metroLabel2;
     }

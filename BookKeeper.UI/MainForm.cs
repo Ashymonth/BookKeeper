@@ -26,6 +26,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using BookKeeper.Data.Services.EntityService.Discount;
 
 namespace BookKeeper.UI
 {
@@ -133,35 +134,21 @@ namespace BookKeeper.UI
         {
             foreach (ListViewItem listViewItem in lvlMonthReport.Items)
             {
+                if (!(listViewItem.Tag is AccountEntity account))
+                    continue;
 
-                if (listViewItem.Tag is AccountEntity account)
+                foreach (var payment in account.PaymentDocuments)
                 {
-                    foreach (var payment in account.PaymentDocuments)
+                    using (var scope = _container.BeginLifetimeScope())
                     {
-                        RateDocumentEntity rate;
-                        using (var scope = _container.BeginLifetimeScope())
-                        {
-                            var service = scope.Resolve<IRateDocumentService>();
-                            rate = service.GetItem(x => x.LocationId == account.LocationId && x.EndDate.Month < dateTo.Value.Month);
+                        var calculateService = scope.Resolve<ICalculationService>();
+                        var result = calculateService.CalculatePrice(account.Id, account.LocationId, payment.Accrued,
+                            payment.Received, payment.PaymentDate);
 
-                        }
-
-                        decimal payments;
-
-                        if (rate == null)
-                            payments = payment.Received;
-
-                        else
-                        {
-                            payments = payment.Received > rate.Price ? rate.Price : payment.Received;
-                        }
-
-                        if ((payments - payment.Accrued) >= 0)
+                        if (result >= 0)
                             continue;
-
-                        listViewItem.UseItemStyleForSubItems = true;
-                        listViewItem.SubItems[0].BackColor = Color.Red;
                     }
+                    listViewItem.SubItems[0].Text = "Не оплачено";
                 }
             }
         }
@@ -307,14 +294,14 @@ namespace BookKeeper.UI
                         }
                         else
                         {
-                            MessageBoxHelper.ShowWarningMessage("Ничего не найдено",this);
+                            MessageBoxHelper.ShowWarningMessage("Ничего не найдено", this);
                             lblCounter.Text = "0";
                         }
                     }
                 }
                 catch (EntityException)
                 {
-                    MessageBoxHelper.ShowWarningMessage("База была повреждена или удалена",this);
+                    MessageBoxHelper.ShowWarningMessage("База была повреждена или удалена", this);
                     return;
                 }
             }
@@ -355,8 +342,8 @@ namespace BookKeeper.UI
             foreach (var account in accountEntities)
             {
                 var paymentDocuments = account.PaymentDocuments
-                    .Where(x => x.PaymentDate.Month >= dateFrom.Value.Date.Month && x.PaymentDate.Month <= dateTo.Value.Date.Month && 
-                                x.PaymentDate.Year >= dateFrom.Value.Date.Year && x.PaymentDate.Year <=dateTo.Value.Date.Year);
+                    .Where(x => x.PaymentDate.Month >= dateFrom.Value.Date.Month && x.PaymentDate.Month <= dateTo.Value.Date.Month &&
+                                x.PaymentDate.Year >= dateFrom.Value.Date.Year && x.PaymentDate.Year <= dateTo.Value.Date.Year);
 
                 if (!paymentDocuments.Any())
                     continue;
@@ -500,7 +487,7 @@ namespace BookKeeper.UI
             {
                 if (lvlRatesItem.Tag is RateDocumentEntity rate)
                 {
-                    if (rate.EndDate < DateTime.Now)
+                    if (rate.IsDeleted)
                         lvlRatesItem.Remove();
                 }
             }

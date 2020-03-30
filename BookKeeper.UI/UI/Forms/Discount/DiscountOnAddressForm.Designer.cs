@@ -39,6 +39,10 @@
             this.Адрес = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
+            this.dateFrom = new MetroFramework.Controls.MetroDateTime();
+            this.dateTo = new MetroFramework.Controls.MetroDateTime();
+            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // txtHouse
@@ -160,7 +164,7 @@
             // btnSaveDiscount
             // 
             this.btnSaveDiscount.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSaveDiscount.Location = new System.Drawing.Point(348, 304);
+            this.btnSaveDiscount.Location = new System.Drawing.Point(594, 304);
             this.btnSaveDiscount.Name = "btnSaveDiscount";
             this.btnSaveDiscount.Size = new System.Drawing.Size(120, 23);
             this.btnSaveDiscount.TabIndex = 7;
@@ -215,11 +219,53 @@
             this.metroLabel3.TabIndex = 12;
             this.metroLabel3.Text = "Описание";
             // 
+            // dateFrom
+            // 
+            this.dateFrom.CustomFormat = "MMMM yyyy";
+            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateFrom.Location = new System.Drawing.Point(514, 75);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(200, 29);
+            this.dateFrom.TabIndex = 13;
+            // 
+            // dateTo
+            // 
+            this.dateTo.CustomFormat = "MMMM yyyy";
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTo.Location = new System.Drawing.Point(514, 142);
+            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(200, 29);
+            this.dateTo.TabIndex = 14;
+            // 
+            // metroLabel1
+            // 
+            this.metroLabel1.AutoSize = true;
+            this.metroLabel1.Location = new System.Drawing.Point(514, 53);
+            this.metroLabel1.Name = "metroLabel1";
+            this.metroLabel1.Size = new System.Drawing.Size(54, 19);
+            this.metroLabel1.TabIndex = 15;
+            this.metroLabel1.Text = "Начало";
+            // 
+            // metroLabel4
+            // 
+            this.metroLabel4.AutoSize = true;
+            this.metroLabel4.Location = new System.Drawing.Point(512, 120);
+            this.metroLabel4.Name = "metroLabel4";
+            this.metroLabel4.Size = new System.Drawing.Size(47, 19);
+            this.metroLabel4.TabIndex = 16;
+            this.metroLabel4.Text = "Конец";
+            // 
             // DiscountOnAddressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(513, 350);
+            this.ClientSize = new System.Drawing.Size(737, 350);
+            this.Controls.Add(this.metroLabel4);
+            this.Controls.Add(this.metroLabel1);
+            this.Controls.Add(this.dateTo);
+            this.Controls.Add(this.dateFrom);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.Адрес);
@@ -231,7 +277,10 @@
             this.Controls.Add(this.txtApartment);
             this.Controls.Add(this.txtBuilding);
             this.Controls.Add(this.txtHouse);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DiscountOnAddressForm";
+            this.Resizable = false;
             this.Text = "Льгота на адрес";
             this.Load += new System.EventHandler(this.DiscountOnAddressForm_Load);
             this.ResumeLayout(false);
@@ -252,5 +301,9 @@
         private MetroFramework.Controls.MetroLabel Адрес;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroLabel metroLabel3;
+        private MetroFramework.Controls.MetroDateTime dateFrom;
+        private MetroFramework.Controls.MetroDateTime dateTo;
+        private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroLabel metroLabel4;
     }
 }

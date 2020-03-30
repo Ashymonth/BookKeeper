@@ -38,6 +38,14 @@ namespace BookKeeper.UI.UI.Forms.Discount
         private void btnSaveDiscount_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.None;
+
+            if (dateFrom.Value.Month == dateTo.Value.Month)
+            {
+                MessageBoxHelper.ShowWarningMessage("Даты не могу совпадать", this);
+                return;
+            }
+
+            
             if (cmbStreets.SelectedValue is int streetId && cmbPercent.SelectedValue is decimal percent && cmbDescription.SelectedValue is string description)
             {
                 var discountToAdd = new List<DiscountDocumentEntity>();
@@ -56,37 +64,17 @@ namespace BookKeeper.UI.UI.Forms.Discount
                     var accounts = accountService.GetWithInclude(x => x.LocationId == location.Id &&
                                                                 x.IsDeleted == false,x=>x.Location);
 
-                    foreach (var account in accounts)
-                    {
-                        var discount = new DiscountDocumentEntity
-                        {
-                            AccountId = account.Id,
-                            StartDate = DateTime.Now,
-                            Type = DiscountType.Address,
-                            Description = description,
-                            Percent = percent
-                        };
-                        discountToAdd.Add(discount);
-
-                    }
-
                     var discountService = scope.Resolve<IDiscountDocumentService>();
-                    discountService.Add(discountToAdd);
-                    
-
-                    //var fullAddress = accounts.Select(x => x.Location).Single();
-                    //if (fullAddress != null)
-                    //{
-                    //    DiscountModel = new DiscountModel
-                    //    {
-                    //        Type = DiscountType.Address,
-                    //        Address =
-                    //            $"{location.Street.StreetName} Дом.{location.HouseNumber} Корп.{location.BuildingCorpus} Кв.{location.ApartmentNumber}",
-                    //        Price = percent.ToString(CultureInfo.CurrentCulture),
-                    //        Description = description,
-                    //    };
-                    //    DialogResult = DialogResult.OK;
-                    //}
+                    var discounts = discountService.AddDiscountOnAddress(accounts.Select(x=>x.Id),percent,description,dateFrom.Value,dateTo.Value);
+                    if (discounts != null)
+                    {
+                        DialogResult = DialogResult.OK;
+                    }
+                    else
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Не удалось добавить",this);
+                        return;
+                    }
                 }
             }
         }
