@@ -27,6 +27,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using BookKeeper.Data.Services.EntityService.Discount;
+using System.Configuration;
 
 namespace BookKeeper.UI
 {
@@ -44,7 +45,22 @@ namespace BookKeeper.UI
             InitializeComponent();
             _container = AutofacConfiguration.ConfigureContainer();
 
-            lvlMonthReport.UseCustomBackColor = true;
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var rateService = scope.Resolve<IRateService>();
+                var rates = rateService.GetItems();
+                if (rates == null)
+                {
+                    rateService.Add(new RateEntity()
+                    {
+                        Price = System.Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]),
+                        StartDate = DateTime.MinValue,
+                        EndDate = DateTime.MaxValue,
+                        IsDefault = true,
+                    });
+                }
+            }
+
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -216,10 +232,10 @@ namespace BookKeeper.UI
                 {
                     MessageBoxHelper.ShowWarningMessage("Файл пуст", this);
                 }
-                //catch (SqlException)
-                //{
-                //    MessageBoxHelper.ShowWarningMessage("Не удалось восстановить", this);
-                //}
+                catch (SqlException)
+                {
+                    MessageBoxHelper.ShowWarningMessage("Не удалось восстановить", this);
+                }
             }
         }
 
@@ -458,9 +474,9 @@ namespace BookKeeper.UI
         {
             using (var scope = _container.BeginLifetimeScope())
             {
-                var service = scope.Resolve<IRateDocumentService>();
+                var service = scope.Resolve<IRateService>();
 
-                if (!(item.Tag is RateDocumentEntity rate))
+                if (!(item.Tag is RateEntity rate))
                     return;
 
                 var document = service.GetItemById(rate.Id);
@@ -477,24 +493,16 @@ namespace BookKeeper.UI
 
         private void btnShowDeleteRates_Click(object sender, EventArgs e)
         {
-            if (chkDeletedRates.Checked)
-                LoadRates();
+            LoadRates(false);
         }
 
         private void bthHideDeletedRates_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvlRatesItem in lvlRates.Items)
-            {
-                if (lvlRatesItem.Tag is RateDocumentEntity rate)
-                {
-                    if (rate.IsDeleted)
-                        lvlRatesItem.Remove();
-                }
-            }
+            LoadRates();
         }
         private void lvlRates_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (lvlRates.FocusedItem.Tag is RateDocumentEntity rate)
+            if (lvlRates.FocusedItem.Tag is RateEntity rate)
             {
                 using (var form = new RateItemForm())
                 {
@@ -507,7 +515,6 @@ namespace BookKeeper.UI
                             House = locations.HouseNumber,
                             Building = locations.BuildingCorpus,
                             Price = rate.Price.ToString(CultureInfo.CurrentCulture),
-                            Description = rate.RatesDescription.FirstOrDefault()?.Description,
                             Start = rate.StartDate,
                             End = rate.EndDate
                         };
@@ -651,25 +658,26 @@ namespace BookKeeper.UI
             }
         }
 
-        private void LoadRates()
+        private void LoadRates(bool deleted = true)
         {
+            lvlRates.Items.Clear();
             using (var scope = _container.BeginLifetimeScope())
             {
-                var documentService = scope.Resolve<IRateDocumentService>();
+                var documentService = scope.Resolve<IRateService>();
                 var locationService = scope.Resolve<ILocationService>();
 
-                var rates = documentService.GetWithInclude(x => x.RatesDescription);
+                var rates = documentService.GetWithInclude(x => x.AssignedLocations);
                 if (rates == null)
                     return;
 
                 foreach (var rate in rates)
                 {
-                    if (rate.IsDeleted && chkDeletedRates.Checked == false)
+                    if (rate.IsDeleted && deleted)
                         continue;
 
-                    foreach (var descriptionEntity in rate.RatesDescription)
+                    foreach (var descriptionEntity in rate.AssignedLocations)
                     {
-                        var location = locationService.GetItem(x => x.Id == rate.LocationId);
+                        var location = locationService.GetItem(x => x.Id == descriptionEntity.LocationRefId);
                         if (location == null)
                             continue;
 
@@ -679,7 +687,7 @@ namespace BookKeeper.UI
                                 location.HouseNumber,
                                 location.BuildingCorpus,
                                 rate.Price.ToString(CultureInfo.CurrentCulture),
-                                descriptionEntity.Description
+                                rate.Description
                             })
                         { Tag = rate };
 

@@ -1,14 +1,10 @@
-﻿using System;
-using BookKeeper.Data.Data.Entities;
+﻿using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService;
-using BookKeeper.Data.Services.EntityService.Address;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using BookKeeper.Data.Data.Entities.Payments;
-using DocumentFormat.OpenXml.Drawing;
 using LinqKit;
+using System;
+using System.Collections.Generic;
+using System.Linq.Expressions;
 using static System.String;
 
 namespace BookKeeper.Data.Services

@@ -1,17 +1,24 @@
-﻿using System;
-using System.Data.Entity;
-using BookKeeper.Data.Data.Entities;
+﻿using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Payments;
 using BookKeeper.Data.Data.Entities.Rates;
-using BookKeeper.Data.Migrations;
+using System;
+using System.Configuration;
+using System.Data.Entity;
 
 namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext() { }
+        static ApplicationDbContext()
+        {
+            //Database.SetInitializer(new RateEntityInitializer());
+        }
+        public ApplicationDbContext()
+        {
+            
+        }
 
         public ApplicationDbContext(string connectionString) : base(connectionString)
         {
@@ -33,14 +40,13 @@ namespace BookKeeper.Data.Data
 
         public virtual DbSet<DiscountDescriptionEntity> DiscountDescriptions { get; set; }
 
-        public virtual DbSet<RateDocumentEntity> RateDocuments { get; set; }
+        public virtual DbSet<RateEntity> Rates { get; set; }
 
-        public virtual DbSet<DefaultRateDocumentEntity> DefaultRateDocument { get; set; }
-
-        public virtual DbSet<RateDescriptionEntity> RateDescriptions { get; set; }
+        public virtual DbSet<RateDetailsEntity> RateDetails { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+
             modelBuilder.Properties<DateTime>().Configure(x => x.HasColumnType("datetime2"));
             base.OnModelCreating(modelBuilder);
         }

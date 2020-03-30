@@ -9,8 +9,6 @@ namespace BookKeeper.Data.Data.Entities.Address
     {
         public int StreetId { get; set; }
 
-        public int DefaultRateDocumentId { get; set; }
-
         [ForeignKey(nameof(StreetId))]
         public virtual StreetEntity Street { get; set; }
 
@@ -19,8 +17,5 @@ namespace BookKeeper.Data.Data.Entities.Address
         public string BuildingCorpus { get; set; }
 
         public string ApartmentNumber { get; set; }
-
-        public ICollection<RateDocumentEntity> RateDocuments { get; set; }
-
     }
 }

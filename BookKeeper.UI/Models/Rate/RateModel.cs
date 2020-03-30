@@ -19,6 +19,6 @@ namespace BookKeeper.UI.Models.Rate
 
         public DateTime End { get; set; }
 
-        public RateDocumentEntity RateDocument { get; set; }
+        public RateEntity RateDocument { get; set; }
     }
 }

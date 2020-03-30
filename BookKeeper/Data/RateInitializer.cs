@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BookKeeper.Data.Data.Entities.Rates;
+using System;
 using System.Configuration;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookKeeper.Data.Data.Entities.Discounts;
-using BookKeeper.Data.Data.Entities.Rates;
 
 namespace BookKeeper.Data.Data
 {
@@ -14,15 +9,15 @@ namespace BookKeeper.Data.Data
     {
         protected override void Seed(ApplicationDbContext context)
         {
-            var rateDocument = new DefaultRateDocumentEntity()
+            var rateDocument = new RateEntity()
             {
                 Price = Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]),
                 StartDate = DateTime.MinValue,
                 EndDate = DateTime.MaxValue,
+                IsDefault = true,
             };
-
-            context.DefaultRateDocument.Add(rateDocument);
-
+            context.Rates.Add(rateDocument);
+            context.SaveChanges();
             base.Seed(context);
         }
     }

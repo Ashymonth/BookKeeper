@@ -17,7 +17,7 @@ namespace BookKeeper.Data.Data.Entities.Address
 
         public virtual ICollection<LocationEntity> Locations { get; set; }
 
-        public virtual ICollection<RateDocumentEntity> Rates { get; set; }
+        public virtual ICollection<RateEntity> Rates { get; set; }
 
         public virtual ICollection<DiscountDocumentEntity> Discounts { get; set; }
 

@@ -1,48 +1,56 @@
-﻿using System;
-using BookKeeper.Data.Data;
+﻿using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Data.Repositories;
-using BookKeeper.Data.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookKeeper.Data.Services.EntityService.Rate
 {
-    public interface IRateDocumentService : IService<RateDocumentEntity>
+    public interface IRateService : IService<RateEntity>
     {
-        RateDocumentEntity AddRateDocument(int locationId, string description, decimal price, DateTime startDate, DateTime EndDate);
-        RateDocumentEntity GetCurrentRate(int rateId, DateTime currentRate);
+        RateEntity AddRate(int locationId, string description, decimal price, DateTime startDate, DateTime endDate);
+        decimal GetCurrentRate(int locationId, DateTime currentRate);
     }
 
-    public class RateDocumentService : Service<RateDocumentEntity>, IRateDocumentService
+    public class RateService : Service<RateEntity>, IRateService
     {
 
-        public RateDocumentService(IRepository<RateDocumentEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public RateService(IRepository<RateEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
 
-        public RateDocumentEntity AddRateDocument(int locationId, string description, decimal price, DateTime startDate, DateTime endDate)
+        public RateEntity AddRate(int locationId, string description, decimal price, DateTime startDate, DateTime endDate)
         {
-            var result = new RateDocumentEntity
+            var result = new RateEntity
             {
-                LocationId = locationId,
                 StartDate = startDate,
                 Price = price,
-                EndDate = endDate
+                EndDate = endDate,
+                Description = description,
+                AssignedLocations = new List<RateDetailsEntity>()
+                {
+                    new RateDetailsEntity()
+                    {
+                        LocationRefId = locationId
+                    }
+                }
             };
 
-            result.RatesDescription.Add(new RateDescriptionEntity
-            {
-                Description = description,
-                RateDocumentId = result.Id
-            });
-
-            return Add(result);
+            return base.Add(result);
         }
 
-        public RateDocumentEntity GetCurrentRate(int locationId, DateTime currentRate)
+        public decimal GetCurrentRate(int locationId, DateTime currentRate)
         {
-            return base.GetItem(x => x.Id == x.LocationId &&
-                                     x.EndDate < currentRate &&
-                                     x.EndDate < currentRate);
+            var rate = base.GetItem(x => x.EndDate.Month <= currentRate.Month &&
+                                     x.EndDate.Year <= currentRate.Year && x.AssignedLocations.FirstOrDefault(z => z.LocationRefId == locationId) != null);
+
+            return rate?.Price ?? GetDefaultRate();
+        }
+
+        private decimal GetDefaultRate()
+        {
+            return GetItem(x => x.IsDefault).Price;
         }
     }
 }

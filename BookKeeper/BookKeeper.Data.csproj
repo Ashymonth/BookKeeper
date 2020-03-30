@@ -44,8 +44,7 @@
     <Compile Include="Data\Entities\Discounts\DiscountDocumentEntity.cs" />
     <Compile Include="Data\Entities\Discounts\DiscountPercentEntity.cs" />
     <Compile Include="Data\Entities\Payments\PaymentDocumentEntity.cs" />
-    <Compile Include="Data\Entities\Rates\DefaultRateDocumentEntity.cs" />
-    <Compile Include="Data\Entities\Rates\RateDescriptionEntity.cs" />
+    <Compile Include="Data\Entities\Rates\RateDetailsEntity.cs" />
     <Compile Include="Data\Entities\Rates\RateDocumentEntity.cs" />
     <Compile Include="Data\RateInitializer.cs" />
     <Compile Include="Data\Repositories\AccountRepository.cs" />
@@ -83,8 +82,6 @@
     <Compile Include="Services\EntityService\Discount\DiscountDocumentService.cs" />
     <Compile Include="Services\EntityService\Discount\DiscountPercentService.cs" />
     <Compile Include="Services\EntityService\PaymentDocumentService.cs" />
-    <Compile Include="Services\EntityService\Rate\DefaultRateDocumentService.cs" />
-    <Compile Include="Services\EntityService\Rate\RateDescriptionService.cs" />
     <Compile Include="Services\EntityService\Rate\RateDocumentService.cs" />
     <Compile Include="Services\ImportReportService.cs" />
     <Compile Include="Services\Import\ExcelImportService.cs" />

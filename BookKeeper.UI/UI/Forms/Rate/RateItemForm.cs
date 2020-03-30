@@ -62,6 +62,19 @@ namespace BookKeeper.UI.UI.Forms.Rate
                 return;
             }
 
+
+            if (dateFrom.Value.Month == dateTo.Value.Month && dateFrom.Value.Year == dateTo.Value.Year)
+            {
+                MessageBoxHelper.ShowWarningMessage("Месяца должны быть разными", this);
+                return;
+            }
+
+            if (dateFrom.Value > dateTo.Value)
+            {
+                MessageBoxHelper.ShowWarningMessage("Дата начала не может быть больше",this);
+                return;
+            }
+
             if (cmbStreet.SelectedValue is int streetId)
             {
                 using (var scope = _container.BeginLifetimeScope())
@@ -75,17 +88,8 @@ namespace BookKeeper.UI.UI.Forms.Rate
                         return;
                     }
 
-                    var service = scope.Resolve<IRateDocumentService>();
-
-                    if (dateFrom.Value.Month == dateTo.Value.Month)
-                    {
-                        MessageBoxHelper.ShowWarningMessage("Месяца должны быть разными", this);
-                        return;
-                    }
-
-                    var document = service.AddRateDocument(location.Id, txtDescription.Text,
-                        Convert.ToDecimal(txtPrice.Text, new CultureInfo("en-US")), dateFrom.Value, dateTo.Value);
-
+                    var service = scope.Resolve<IRateService>();
+                    var document = service.AddRate(location.Id, txtDescription.Text, Convert.ToDecimal(txtPrice.Text) , dateFrom.Value, dateTo.Value);
 
                     if (cmbStreet.SelectedItem is StreetEntity result)
                     {

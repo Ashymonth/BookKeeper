@@ -45,6 +45,7 @@
     <Compile Include="FormatTest.cs" />
     <Compile Include="ImportTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RatePriceTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">

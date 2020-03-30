@@ -17,34 +17,35 @@ namespace BookKeeper.Data.Services
     public class CalculationService : ICalculationService
     {
         private readonly IAccountService _accountService;
-        
-        private readonly IRateDocumentService _rateDocumentService;
+
+        private readonly IRateService _rateService;
 
         private readonly IDiscountDocumentService _discountDocumentService;
 
 
-        public CalculationService(IRateDocumentService rateDocumentService, IDiscountDocumentService discountDocumentService, IAccountService accountService)
+        public CalculationService(IRateService rateService, IDiscountDocumentService discountDocumentService,
+            IAccountService accountService)
         {
-            _rateDocumentService = rateDocumentService;
+            _rateService = rateService;
             _discountDocumentService = discountDocumentService;
             _accountService = accountService;
         }
 
         public decimal CalculatePrice(int accountId, int accountLocationId, decimal accrued, decimal received, DateTime currentDate)
         {
-            var rate = _rateDocumentService.GetCurrentRate(accountLocationId, currentDate);
+            var rate = _rateService.GetCurrentRate(accountLocationId, currentDate);
 
             var discount = _discountDocumentService.GetCurrentDiscount(accountId, currentDate);
 
             if (discount == null)
-                return received - rate.Price;
+                return received - rate;
 
-            if (rate == null)
-                return received - accrued;
-
-
-            return received - ((100 - discount.Percent) / 100) * rate.Price;
-
+            return received - (100 - discount.Percent) / 100;
         }
+
+        //public decimal CalculateAllPrice(DateTime from, DateTime To)
+        //{
+
+        //}
     }
 }

@@ -19,24 +19,21 @@ namespace BookKeeper.Data.Services.Load
         private readonly IDistrictService _districtService;
         private readonly IStreetService _streetService;
         private readonly IAccountService _accountService;
-        private readonly IDefaultRateDocumentService _defaultRateDocumentService;
         private readonly IConfiguration<ExcelConfiguration> _configuration;
 
 
         public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IStreetService streetService, IAccountService accountService, 
-            IConfiguration<ExcelConfiguration> configuration, IDefaultRateDocumentService defaultRateDocumentService)
+            IConfiguration<ExcelConfiguration> configuration)
         {
             _import = import;
             _districtService = districtService;
             _streetService = streetService;
             _accountService = accountService;
             _configuration = configuration;
-            _defaultRateDocumentService = defaultRateDocumentService;
         }
 
         public ImportReportModel LoadData(string file)
         {
-            var defaultRateDocument = _defaultRateDocumentService.GetItem(x=>x.IsDeleted == false);
 
             var configuration = _configuration.Load();
 
@@ -97,7 +94,6 @@ namespace BookKeeper.Data.Services.Load
                             BuildingCorpus = dataRow.LocationImport.BuildingNumber,
                             ApartmentNumber = dataRow.LocationImport.ApartmentNumber,
                             StreetId = street.Id,
-                            DefaultRateDocumentId = defaultRateDocument.Id
                         };
                         street.Locations.Add(location);
 

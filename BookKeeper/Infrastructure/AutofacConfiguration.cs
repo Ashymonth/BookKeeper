@@ -69,12 +69,8 @@ namespace BookKeeper.Data.Infrastructure
                 .As(typeof(IPaymentDocumentService))
                 .InstancePerLifetimeScope();
 
-            container.RegisterType(typeof(RateDocumentService))
-                .As<IRateDocumentService>()
-                .InstancePerLifetimeScope();
-
-            container.RegisterType(typeof(DefaultRateDocumentService))
-                .As<IDefaultRateDocumentService>()
+            container.RegisterType(typeof(RateService))
+                .As<IRateService>()
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelImportService))
