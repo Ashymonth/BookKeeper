@@ -14,8 +14,6 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 
     public class RateDocumentService : Service<RateDocumentEntity>, IRateDocumentService
     {
-        private const decimal DefaultPrice = 166;//TODO Add to config file
-
 
         public RateDocumentService(IRepository<RateDocumentEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
@@ -28,7 +26,6 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                 LocationId = locationId,
                 StartDate = startDate,
                 Price = price,
-                IsDefaultPrice = price == DefaultPrice,
                 EndDate = endDate
             };
 

@@ -61,6 +61,9 @@
             this.btnShowDeleteRates = new MetroFramework.Controls.MetroButton();
             this.bthHideDeletedRates = new MetroFramework.Controls.MetroButton();
             this.tbpMonthReport = new MetroFramework.Controls.MetroTabPage();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblCounter = new System.Windows.Forms.ToolStripStatusLabel();
             this.lvlMonthReport = new MetroFramework.Controls.MetroListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flpFilter = new System.Windows.Forms.FlowLayoutPanel();
@@ -76,8 +79,7 @@
             this.metroCheckBox2 = new MetroFramework.Controls.MetroCheckBox();
             this.btnClear = new MetroFramework.Controls.MetroButton();
             this.btnFind = new MetroFramework.Controls.MetroButton();
-            this.metroTabControl1 = new MetroFramework.Controls.MetroTabControl();
-            this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.tabpage = new MetroFramework.Controls.MetroTabControl();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.cntDatabase = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnCreateBackup = new System.Windows.Forms.ToolStripMenuItem();
@@ -88,9 +90,17 @@
             this.cntRates = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnAddRate = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteRate = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-            this.lblCounter = new System.Windows.Forms.ToolStripStatusLabel();
+            this.metroTabPage1 = new MetroFramework.Controls.MetroTabPage();
+            this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.metroListView1 = new MetroFramework.Controls.MetroListView();
+            this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader15 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader16 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanel1.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
             this.metroTabPage4.SuspendLayout();
@@ -98,12 +108,13 @@
             this.metroTabPage3.SuspendLayout();
             this.flowLayoutPanel3.SuspendLayout();
             this.tbpMonthReport.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.flpFilter.SuspendLayout();
-            this.metroTabControl1.SuspendLayout();
+            this.tabpage.SuspendLayout();
             this.cntDatabase.SuspendLayout();
             this.cntDiscounts.SuspendLayout();
             this.cntRates.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.metroTabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -444,6 +455,29 @@
             this.tbpMonthReport.VerticalScrollbarHighlightOnWheel = false;
             this.tbpMonthReport.VerticalScrollbarSize = 10;
             // 
+            // statusStrip1
+            // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.lblCounter});
+            this.statusStrip1.Location = new System.Drawing.Point(5, 713);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1714, 22);
+            this.statusStrip1.TabIndex = 6;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(56, 17);
+            this.toolStripStatusLabel1.Text = "Колл-во:";
+            // 
+            // lblCounter
+            // 
+            this.lblCounter.Name = "lblCounter";
+            this.lblCounter.Size = new System.Drawing.Size(13, 17);
+            this.lblCounter.Text = "0";
+            // 
             // lvlMonthReport
             // 
             this.lvlMonthReport.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
@@ -723,33 +757,19 @@
             this.btnFind.UseSelectable = true;
             this.btnFind.Click += new System.EventHandler(this.btnFind_Click);
             // 
-            // metroTabControl1
+            // tabpage
             // 
-            this.metroTabControl1.Controls.Add(this.tbpMonthReport);
-            this.metroTabControl1.Controls.Add(this.metroTabPage3);
-            this.metroTabControl1.Controls.Add(this.metroTabPage4);
-            this.metroTabControl1.Controls.Add(this.metroTabPage1);
-            this.metroTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroTabControl1.Location = new System.Drawing.Point(20, 116);
-            this.metroTabControl1.Name = "metroTabControl1";
-            this.metroTabControl1.SelectedIndex = 0;
-            this.metroTabControl1.Size = new System.Drawing.Size(1732, 782);
-            this.metroTabControl1.TabIndex = 4;
-            this.metroTabControl1.UseSelectable = true;
-            // 
-            // metroTabPage1
-            // 
-            this.metroTabPage1.HorizontalScrollbarBarColor = true;
-            this.metroTabPage1.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroTabPage1.HorizontalScrollbarSize = 10;
-            this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
-            this.metroTabPage1.Name = "metroTabPage1";
-            this.metroTabPage1.Size = new System.Drawing.Size(1724, 740);
-            this.metroTabPage1.TabIndex = 4;
-            this.metroTabPage1.Text = "metroTabPage1";
-            this.metroTabPage1.VerticalScrollbarBarColor = true;
-            this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
-            this.metroTabPage1.VerticalScrollbarSize = 10;
+            this.tabpage.Controls.Add(this.tbpMonthReport);
+            this.tabpage.Controls.Add(this.metroTabPage3);
+            this.tabpage.Controls.Add(this.metroTabPage4);
+            this.tabpage.Controls.Add(this.metroTabPage1);
+            this.tabpage.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabpage.Location = new System.Drawing.Point(20, 116);
+            this.tabpage.Name = "tabpage";
+            this.tabpage.SelectedIndex = 1;
+            this.tabpage.Size = new System.Drawing.Size(1732, 782);
+            this.tabpage.TabIndex = 4;
+            this.tabpage.UseSelectable = true;
             // 
             // backgroundWorker1
             // 
@@ -825,35 +845,100 @@
             this.btnDeleteRate.Text = "Удалить";
             this.btnDeleteRate.Click += new System.EventHandler(this.btnDeleteRate_Click_1);
             // 
-            // statusStrip1
+            // metroTabPage1
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
-            this.lblCounter});
-            this.statusStrip1.Location = new System.Drawing.Point(5, 713);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1714, 22);
-            this.statusStrip1.TabIndex = 6;
-            this.statusStrip1.Text = "statusStrip1";
+            this.metroTabPage1.Controls.Add(this.metroListView1);
+            this.metroTabPage1.Controls.Add(this.flowLayoutPanel4);
+            this.metroTabPage1.HorizontalScrollbarBarColor = true;
+            this.metroTabPage1.HorizontalScrollbarHighlightOnWheel = false;
+            this.metroTabPage1.HorizontalScrollbarSize = 10;
+            this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
+            this.metroTabPage1.Name = "metroTabPage1";
+            this.metroTabPage1.Size = new System.Drawing.Size(1724, 740);
+            this.metroTabPage1.TabIndex = 4;
+            this.metroTabPage1.Text = "Общий отчет";
+            this.metroTabPage1.VerticalScrollbarBarColor = true;
+            this.metroTabPage1.VerticalScrollbarHighlightOnWheel = false;
+            this.metroTabPage1.VerticalScrollbarSize = 10;
             // 
-            // toolStripStatusLabel1
+            // flowLayoutPanel4
             // 
-            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(56, 17);
-            this.toolStripStatusLabel1.Text = "Колл-во:";
+            this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.flowLayoutPanel4.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel4.Name = "flowLayoutPanel4";
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(1724, 32);
+            this.flowLayoutPanel4.TabIndex = 2;
             // 
-            // lblCounter
+            // metroListView1
             // 
-            this.lblCounter.Name = "lblCounter";
-            this.lblCounter.Size = new System.Drawing.Size(13, 17);
-            this.lblCounter.Text = "0";
+            this.metroListView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader11,
+            this.columnHeader12,
+            this.columnHeader13,
+            this.columnHeader14,
+            this.columnHeader15,
+            this.columnHeader16,
+            this.columnHeader17,
+            this.columnHeader18});
+            this.metroListView1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.metroListView1.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.metroListView1.FullRowSelect = true;
+            this.metroListView1.GridLines = true;
+            this.metroListView1.Location = new System.Drawing.Point(0, 32);
+            this.metroListView1.Name = "metroListView1";
+            this.metroListView1.OwnerDraw = true;
+            this.metroListView1.Size = new System.Drawing.Size(1724, 708);
+            this.metroListView1.TabIndex = 3;
+            this.metroListView1.UseCompatibleStateImageBehavior = false;
+            this.metroListView1.UseSelectable = true;
+            this.metroListView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader11
+            // 
+            this.columnHeader11.Text = "Адрес";
+            this.columnHeader11.Width = 174;
+            // 
+            // columnHeader12
+            // 
+            this.columnHeader12.Text = "Начислено муниц";
+            this.columnHeader12.Width = 241;
+            // 
+            // columnHeader13
+            // 
+            this.columnHeader13.Text = "Начислено част";
+            this.columnHeader13.Width = 220;
+            // 
+            // columnHeader14
+            // 
+            this.columnHeader14.Text = "Всего начислено";
+            this.columnHeader14.Width = 234;
+            // 
+            // columnHeader15
+            // 
+            this.columnHeader15.Text = "поступ муниц";
+            this.columnHeader15.Width = 215;
+            // 
+            // columnHeader16
+            // 
+            this.columnHeader16.Text = "Поступ част";
+            this.columnHeader16.Width = 157;
+            // 
+            // columnHeader17
+            // 
+            this.columnHeader17.Text = "Всего поступи";
+            this.columnHeader17.Width = 145;
+            // 
+            // columnHeader18
+            // 
+            this.columnHeader18.Text = "%";
+            this.columnHeader18.Width = 134;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1772, 918);
-            this.Controls.Add(this.metroTabControl1);
+            this.Controls.Add(this.tabpage);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "MainForm";
@@ -868,14 +953,15 @@
             this.flowLayoutPanel3.PerformLayout();
             this.tbpMonthReport.ResumeLayout(false);
             this.tbpMonthReport.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.flpFilter.ResumeLayout(false);
             this.flpFilter.PerformLayout();
-            this.metroTabControl1.ResumeLayout(false);
+            this.tabpage.ResumeLayout(false);
             this.cntDatabase.ResumeLayout(false);
             this.cntDiscounts.ResumeLayout(false);
             this.cntRates.ResumeLayout(false);
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.metroTabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -907,7 +993,7 @@
         private MetroFramework.Controls.MetroDateTime dateFrom;
         private MetroFramework.Controls.MetroDateTime dateTo;
         private MetroFramework.Controls.MetroCheckBox metroCheckBox1;
-        private MetroFramework.Controls.MetroTabControl metroTabControl1;
+        private MetroFramework.Controls.MetroTabControl tabpage;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private MetroFramework.Controls.MetroButton btnAddDiscountPercent;
         private MetroFramework.Controls.MetroCheckBox metroCheckBox2;
@@ -939,10 +1025,20 @@
         private MetroFramework.Controls.MetroContextMenu cntRates;
         private System.Windows.Forms.ToolStripMenuItem btnAddRate;
         private System.Windows.Forms.ToolStripMenuItem btnDeleteRate;
-        private MetroFramework.Controls.MetroTabPage metroTabPage1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lblCounter;
+        private MetroFramework.Controls.MetroTabPage metroTabPage1;
+        private MetroFramework.Controls.MetroListView metroListView1;
+        private System.Windows.Forms.ColumnHeader columnHeader11;
+        private System.Windows.Forms.ColumnHeader columnHeader12;
+        private System.Windows.Forms.ColumnHeader columnHeader13;
+        private System.Windows.Forms.ColumnHeader columnHeader14;
+        private System.Windows.Forms.ColumnHeader columnHeader15;
+        private System.Windows.Forms.ColumnHeader columnHeader16;
+        private System.Windows.Forms.ColumnHeader columnHeader17;
+        private System.Windows.Forms.ColumnHeader columnHeader18;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel4;
     }
 }
 

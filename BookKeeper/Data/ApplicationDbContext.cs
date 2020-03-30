@@ -35,6 +35,8 @@ namespace BookKeeper.Data.Data
 
         public virtual DbSet<RateDocumentEntity> RateDocuments { get; set; }
 
+        public virtual DbSet<DefaultRateDocumentEntity> DefaultRateDocument { get; set; }
+
         public virtual DbSet<RateDescriptionEntity> RateDescriptions { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
