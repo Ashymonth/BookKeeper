@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using BookKeeper.Data.Data.Entities.Address;
 
 namespace BookKeeper.Data.Data.Entities.Rates
 {
@@ -9,8 +8,10 @@ namespace BookKeeper.Data.Data.Entities.Rates
     public class RateEntity : BaseEntity
     {
         public decimal Price { get; set; }
-        
+
         public bool IsDefault { get; set; }
+
+        public bool IsArchive { get; set; }
 
         public DateTime StartDate { get; set; }
 

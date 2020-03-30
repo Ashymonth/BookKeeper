@@ -53,7 +53,8 @@ namespace BookKeeper.Data.Services.EntityService.Rate
         {
             var rate = base.GetItem(x => x.StartDate >= paymentDate &&
                                                x.EndDate < paymentDate &&
-                                               x.AssignedLocations.FirstOrDefault(z => z.LocationRefId == locationId && z.IsDeleted != false) != null);
+                                               x.IsDeleted == false &&
+                                               x.AssignedLocations.FirstOrDefault(z => z.LocationRefId == locationId && z.IsDeleted == false) != null);
 
             return rate?.Price ?? GetDefaultRate();
         }

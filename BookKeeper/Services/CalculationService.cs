@@ -40,7 +40,7 @@ namespace BookKeeper.Data.Services
             if (discount == null)
                 return received - rate;
 
-            return received - (100 - discount.Percent) / 100;
+            return received - (100 - discount.Percent) / 100 * rate;
         }
 
         //public decimal CalculateAllPrice(DateTime from, DateTime To)

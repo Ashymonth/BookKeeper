@@ -484,7 +484,7 @@ namespace BookKeeper.UI
                     return;
 
                 document.EndDate = DateTime.Now;
-                document.IsDeleted = true;
+                document.IsArchive = true;
                 service.Update(document);
 
                 lvlRates.Items.Remove(item);
@@ -672,7 +672,7 @@ namespace BookKeeper.UI
 
                 foreach (var rate in rates)
                 {
-                    if (rate.IsDeleted && deleted)
+                    if (rate.IsArchive && deleted)
                         continue;
 
                     foreach (var descriptionEntity in rate.AssignedLocations)
