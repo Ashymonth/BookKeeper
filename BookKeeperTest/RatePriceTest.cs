@@ -24,16 +24,20 @@ namespace BookKeeperTest
         {
             var dateFrom = DateTime.Parse("01.01.2020");
             var dateTo = DateTime.Parse("01.03.2020");
+            var accured = 300;
+            var recived = 400;
+
+            var expected = 33;
 
             using (var scope = _container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<ICalculationService>();
 
-                var result = service.CalculatePrice(1, 2, 300, 200, dateTo);
+                var actual = service.CalculatePrice(1, 2, 300, 200, dateTo);
 
-                Assert.AreEqual(result,-100);
+                Assert.AreEqual(expected, actual);
             }
-            
+
         }
     }
 }

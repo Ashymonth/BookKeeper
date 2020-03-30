@@ -4,6 +4,7 @@ using BookKeeper.Data.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace BookKeeper.Data.Services.EntityService.Rate
 {
@@ -39,11 +40,20 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 
             return base.Add(result);
         }
+        // payment date 23.02.2020
+        // rate
+        //     start date: 01.02.2020
+        //     end   date: 01.03.2020
 
-        public decimal GetCurrentRate(int locationId, DateTime currentRate)
+        // startDate >= paymentDate && endDate < paymentDate
+
+
+
+        public decimal GetCurrentRate(int locationId, DateTime paymentDate)
         {
-            var rate = base.GetItem(x => x.EndDate.Month <= currentRate.Month &&
-                                     x.EndDate.Year <= currentRate.Year && x.AssignedLocations.FirstOrDefault(z => z.LocationRefId == locationId) != null);
+            var rate = base.GetItem(x => x.StartDate >= paymentDate &&
+                                               x.EndDate < paymentDate &&
+                                               x.AssignedLocations.FirstOrDefault(z => z.LocationRefId == locationId && z.IsDeleted != false) != null);
 
             return rate?.Price ?? GetDefaultRate();
         }
