@@ -19,6 +19,7 @@ using BookKeeper.UI.UI.Forms.Rate;
 using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Globalization;
 using System.IO;
@@ -214,6 +215,8 @@ namespace BookKeeper.UI
 
                         MessageBoxHelper.ShowCompeteMessage("Успешно", this);
                     }
+                    LoadAddresses();
+                    LoadRates();
 
                 }
                 catch (FileNotFoundException)
@@ -289,20 +292,28 @@ namespace BookKeeper.UI
 
                 CreateColumns(dateFrom.Value.Date, dateTo.Value.Date);
 
-                using (var scope = _container.BeginLifetimeScope())
+                try
                 {
-                    var service = scope.Resolve<ISearchService>();
-                    var searchResult = service.FindAccounts(searchModel);
+                    using (var scope = _container.BeginLifetimeScope())
+                    {
+                        var service = scope.Resolve<ISearchService>();
+                        var searchResult = service.FindAccounts(searchModel);
 
-                    if (searchResult != null && searchResult.Any())
-                    {
-                        LoadAccountsInfo(searchResult);
+                        if (searchResult != null && searchResult.Any())
+                        {
+                            LoadAccountsInfo(searchResult);
+                        }
+                        else
+                        {
+                            MessageBoxHelper.ShowWarningMessage("Ничего не найдено",this);
+                            lblCounter.Text = "0";
+                        }
                     }
-                    else
-                    {
-                        MessageBoxHelper.ShowWarningMessage("Ничего не найдено",this);
-                        lblCounter.Text = "0";
-                    }
+                }
+                catch (EntityException)
+                {
+                    MessageBoxHelper.ShowWarningMessage("База была повреждена или удалена",this);
+                    return;
                 }
             }
             else

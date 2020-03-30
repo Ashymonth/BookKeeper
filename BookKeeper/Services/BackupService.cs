@@ -24,7 +24,7 @@ namespace BookKeeper.Data.Services
     public class BackupService : IBackupService
     {
         private readonly BackupSettings _settings;
-        private const string RestoreToSameDbQuery = "ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE RESTORE DATABASE [master] FROM DISK='{1}' WITH REPLACE;";
+        private const string RestoreToSameDbQuery = "USE MASTER ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE RESTORE DATABASE [{0}] FROM DISK='{1}' WITH REPLACE alter database [{0}] set multi_user;";
         private const string RestoreToNewDbQuery = "RESTORE DATABASE [{0}] FROM DISK='{1}' WITH REPLACE;";
         private const string BackupDbToFileQuery = @"BACKUP DATABASE [{0}] TO DISK = '{1}' WITH INIT , NOUNLOAD ,  NOSKIP , STATS = 10, NOFORMAT";
 
