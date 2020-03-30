@@ -23,8 +23,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F3857F9B-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backup", "Backup", "{64DBDF6D-F3A0-4EC2-8A91-A36007EADBF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookKeeper.Backup", "BookKeeper.Backup\BookKeeper.Backup.csproj", "{03284D99-403C-4FA2-A4DB-DA2E032DC639}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,10 +41,6 @@ Global
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{03284D99-403C-4FA2-A4DB-DA2E032DC639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{03284D99-403C-4FA2-A4DB-DA2E032DC639}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{03284D99-403C-4FA2-A4DB-DA2E032DC639}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{03284D99-403C-4FA2-A4DB-DA2E032DC639}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -56,7 +50,6 @@ Global
 		{08BF7D35-F60A-4924-B2A4-A0079D30A090} = {3CA151BF-919B-48B9-90A5-ACF4E7336FDB}
 		{D7A24E78-E4DB-4028-B40A-41EA6E084BBD} = {5F94F646-D92D-4259-87EA-F47012847E46}
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D} = {F3857F9B-0631-4352-85C7-8077CE1D930D}
-		{03284D99-403C-4FA2-A4DB-DA2E032DC639} = {3CA151BF-919B-48B9-90A5-ACF4E7336FDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E9197F7-DED3-4499-8B83-F6550C131BEA}

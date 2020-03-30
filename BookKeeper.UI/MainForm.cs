@@ -21,6 +21,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
+using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -132,6 +133,7 @@ namespace BookKeeper.UI
         {
             foreach (ListViewItem listViewItem in lvlMonthReport.Items)
             {
+
                 if (listViewItem.Tag is AccountEntity account)
                 {
                     foreach (var payment in account.PaymentDocuments)
@@ -158,7 +160,7 @@ namespace BookKeeper.UI
                             continue;
 
                         listViewItem.UseItemStyleForSubItems = true;
-                        lvlMonthReport.Columns.Insert(0, "Не оплаченно");
+                        listViewItem.SubItems[0].BackColor = Color.Red;
                     }
                 }
             }
@@ -353,7 +355,8 @@ namespace BookKeeper.UI
             foreach (var account in accountEntities)
             {
                 var paymentDocuments = account.PaymentDocuments
-                    .Where(x => x.PaymentDate >= dateFrom.Value.Date && x.PaymentDate <= dateTo.Value.Date);
+                    .Where(x => x.PaymentDate.Month >= dateFrom.Value.Date.Month && x.PaymentDate.Month <= dateTo.Value.Date.Month && 
+                                x.PaymentDate.Year >= dateFrom.Value.Date.Year && x.PaymentDate.Year <=dateTo.Value.Date.Year);
 
                 if (!paymentDocuments.Any())
                     continue;
