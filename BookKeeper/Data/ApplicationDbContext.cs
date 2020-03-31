@@ -6,14 +6,19 @@ using BookKeeper.Data.Data.Entities.Rates;
 using System;
 using System.Configuration;
 using System.Data.Entity;
+using Configuration = BookKeeper.Data.Migrations.Configuration;
 
 namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
+        static ApplicationDbContext()
+        {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+        }
         public ApplicationDbContext(string connectionString) : base(connectionString)
         {
-            
+           
         }
         public virtual DbSet<DistrictEntity> Districts { get; set; }
 

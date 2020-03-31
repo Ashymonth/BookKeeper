@@ -25,44 +25,6 @@ namespace BookKeeperTest
         [TestMethod]
         public void CalculatePriceWithDefaultRateTest()
         {
-            Func<RateEntity, bool> predicatExpression = entity => entity.IsDeleted == false;
-            Func<AccountEntity, bool> accountPredicate = entity => entity.IsDeleted == false;
-
-            var mockRate = new Mock<IRateService>();
-            mockRate.Setup(x => x.GetItem(predicatExpression)).Returns((() => new RateEntity()
-            {
-                Id = 1,
-                StartDate = DateTime.Parse("01.01.2020"),
-                EndDate = DateTime.Parse("01.03.2020"),
-                Description = "Test",
-                IsArchive = false,
-                IsDefault = false,
-                AssignedLocations = new List<RateDetailsEntity>()
-                {
-                    new RateDetailsEntity()
-                    {
-                        Location = new LocationEntity()
-                        {
-                            Id = 1,
-                            HouseNumber = "105",
-                            BuildingCorpus = "2в",
-                            ApartmentNumber = "100",
-                            StreetId = 1,
-                            IsDeleted = false
-                        }
-                    }
-                }
-            }));
-
-            var mockAccount = new Mock<IAccountService>();
-            mockAccount.Setup(x => x.GetItem(accountPredicate)).Returns(() => new AccountEntity
-            {
-                Account = 9999,
-                Id = 1,
-                AccountType = AccountType.Private,
-                LocationId = 1
-            });
-
             var dateFrom = DateTime.Parse("01.01.2020");
             var dateTo = DateTime.Parse("01.03.2020");
             const int received = 300;

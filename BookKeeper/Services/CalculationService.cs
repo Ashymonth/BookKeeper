@@ -60,12 +60,10 @@ namespace BookKeeper.Data.Services
 
         public List<TotalPayments> CalculateAllPrice(DateTime from, DateTime To)
         {
-            var streets = _streetService.GetWithInclude(x => x.IsDeleted == false);
+            var streets = _streetService.GetItems(x => x.IsDeleted == false);
 
             var accounts = _accountService.GetWithInclude(x => x.IsDeleted == false,
                 x => x.PaymentDocuments);
-
-
 
             var total = new List<TotalPayments>();
             foreach (var streetEntity in streets)
@@ -75,7 +73,7 @@ namespace BookKeeper.Data.Services
                 {
                     foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
                         x.IsDeleted == false &&
-                        x.PaymentDate >= from && x.PaymentDate <= To))
+                        x.PaymentDate.Date >= from.Date && x.PaymentDate <= To))
                     {
                         switch (accountEntity.AccountType)
                         {
@@ -91,6 +89,8 @@ namespace BookKeeper.Data.Services
                     }
                 }
 
+                totalPayment.TotalAccrued += totalPayment.AccruedMunicipal + totalPayment.AccruedPrivate;
+                totalPayment.TotalReceived +=totalPayment.ReceivedMunicipal + totalPayment.ReceivedPrivate;
                 total.Add(totalPayment);
             }
 

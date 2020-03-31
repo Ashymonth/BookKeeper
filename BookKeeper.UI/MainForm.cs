@@ -716,20 +716,20 @@ namespace BookKeeper.UI
             using (var scope = _container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<ICalculationService>();
-                var result = service.CalculateAllPrice(dateTotalReportFrom.Value, dateTotalReportTo.Value);
+                var result = service.CalculateAllPrice(DateTime.Parse(dateTotalReportFrom.Value.ToShortDateString(),CultureInfo.CurrentCulture), DateTime.Parse(dateTotalReportTo.Value.ToShortDateString(), CultureInfo.CurrentCulture));
                 if (result != null)
                 {
                     lvlTotalReport.Items
                         .AddRange(result
-                            .Select(paymentse =>
+                            .Select(payments =>
                                 new ListViewItem(new[]
-                                    {paymentse.StreetName, 
-                                        paymentse.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
-                                        paymentse.AccruedPrivate.ToString(CultureInfo.CurrentCulture), 
-                                        paymentse.TotalAccrued.ToString(CultureInfo.CurrentCulture),
-                                        paymentse.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
-                                        paymentse.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
-                                        paymentse.TotalReceived.ToString(CultureInfo.CurrentCulture)}))
+                                    {payments.StreetName, 
+                                        payments.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
+                                        payments.AccruedPrivate.ToString(CultureInfo.CurrentCulture), 
+                                        payments.TotalAccrued.ToString(CultureInfo.CurrentCulture),
+                                        payments.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
+                                        payments.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
+                                        payments.TotalReceived.ToString(CultureInfo.CurrentCulture)}))
                             .ToArray());
                 }
             }

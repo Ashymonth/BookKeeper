@@ -29,7 +29,6 @@ namespace BookKeeperTest
 
                 var result = service.CalculateAllPrice(DateTime.Parse("01.01.2020"), DateTime.Parse("01.03.2020"));
 
-                
             }
         }
     }

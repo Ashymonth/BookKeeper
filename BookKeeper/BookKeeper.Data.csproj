@@ -43,6 +43,7 @@
     <Compile Include="Data\Entities\Discounts\DiscountDescriptionEntity.cs" />
     <Compile Include="Data\Entities\Discounts\DiscountDocumentEntity.cs" />
     <Compile Include="Data\Entities\Discounts\DiscountPercentEntity.cs" />
+    <Compile Include="Data\Entities\MigrationsContextFactory.cs" />
     <Compile Include="Data\Entities\Payments\PaymentDocumentEntity.cs" />
     <Compile Include="Data\Entities\Rates\RateDetailsEntity.cs" />
     <Compile Include="Data\Entities\Rates\RateDocumentEntity.cs" />
