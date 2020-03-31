@@ -11,15 +11,6 @@ namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        static ApplicationDbContext()
-        {
-            //Database.SetInitializer(new RateEntityInitializer());
-        }
-        public ApplicationDbContext()
-        {
-            
-        }
-
         public ApplicationDbContext(string connectionString) : base(connectionString)
         {
             

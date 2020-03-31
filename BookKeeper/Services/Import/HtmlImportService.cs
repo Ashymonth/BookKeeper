@@ -88,8 +88,8 @@ namespace BookKeeper.Data.Services.Import
                 {
                     ApartmentNumber = cells[configuration.ApartmentNumberCell].InnerText.Trim(),
                     PersonalAccount = Convert.ToInt64(cells[configuration.PersonalAccountCell].InnerText.Trim()),
-                    Accrued = Convert.ToDecimal(cells[configuration.AccruedCell].InnerText.Trim().ToString(CultureInfo.CurrentCulture)),
-                    Received = Convert.ToDecimal(cells[configuration.ReceivedCell].InnerText.Trim().ToString(CultureInfo.CurrentCulture))
+                    Accrued = Convert.ToDecimal(cells[configuration.AccruedCell].InnerText.Trim(),CultureInfo.InvariantCulture),
+                    Received = Convert.ToDecimal(cells[configuration.ReceivedCell].InnerText.Trim(),CultureInfo.InvariantCulture)
                 };
 
                 paymentDocument[_count].PaymentDetailsImports.Add(paymentDetails);

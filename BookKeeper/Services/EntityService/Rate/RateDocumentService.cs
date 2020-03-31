@@ -51,17 +51,21 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 
         public decimal GetCurrentRate(int locationId, DateTime paymentDate)
         {
-            var rate = base.GetItem(x => x.StartDate >= paymentDate &&
-                                               x.EndDate < paymentDate &&
-                                               x.IsDeleted == false &&
-                                               x.AssignedLocations.FirstOrDefault(z => z.LocationRefId == locationId && z.IsDeleted == false) != null);
+            var rate = base.GetWithInclude(x =>
+                x.StartDate <= paymentDate &&
+                x.EndDate > paymentDate &&
+                x.IsDeleted == false &&
+                x.IsDefault == false &&
+                x.AssignedLocations.FirstOrDefault(z => z.LocationRefId == locationId && z.IsDeleted == false) != null, x =>
+                    x.AssignedLocations).FirstOrDefault();
 
             return rate?.Price ?? GetDefaultRate();
         }
 
         private decimal GetDefaultRate()
         {
-            return GetItem(x => x.IsDefault).Price;
+            var z = GetItem(x => x.IsDefault);
+            return z.Price;
         }
     }
 }

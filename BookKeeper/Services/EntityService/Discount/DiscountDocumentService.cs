@@ -61,7 +61,7 @@ namespace BookKeeper.Data.Services.EntityService.Discount
 
         public DiscountDocumentEntity GetCurrentDiscount(int accountId, DateTime paymentDate)
         {
-            return base.GetItem(x => x.AccountId == accountId && x.EndDate <= paymentDate);
+            return base.GetItem(x => x.AccountId == accountId && x.StartDate <= paymentDate && x.EndDate > paymentDate);
         }
     }
 }

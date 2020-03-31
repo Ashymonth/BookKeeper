@@ -46,6 +46,7 @@
     <Compile Include="ImportTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RatePriceTest.cs" />
+    <Compile Include="TotalPaymentsCalculateTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Autofac">
@@ -53,6 +54,9 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
       <Version>3.1.3</Version>
+    </PackageReference>
+    <PackageReference Include="Moq">
+      <Version>4.13.1</Version>
     </PackageReference>
     <PackageReference Include="MSTest.TestAdapter">
       <Version>2.1.0</Version>

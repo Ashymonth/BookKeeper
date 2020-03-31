@@ -48,7 +48,7 @@ namespace BookKeeper.UI
             using (var scope = _container.BeginLifetimeScope())
             {
                 var rateService = scope.Resolve<IRateService>();
-                var rates = rateService.GetItems();
+                var rates = rateService.GetItem(x => x.IsDefault);
                 if (rates == null)
                 {
                     rateService.Add(new RateEntity()
@@ -158,7 +158,7 @@ namespace BookKeeper.UI
                     using (var scope = _container.BeginLifetimeScope())
                     {
                         var calculateService = scope.Resolve<ICalculationService>();
-                        var result = calculateService.CalculatePrice(account.Id, account.LocationId, payment.Accrued,
+                        var result = calculateService.CalculatePrice(account.Id, account.LocationId,
                             payment.Received, payment.PaymentDate);
 
                         if (result >= 0)
@@ -709,5 +709,30 @@ namespace BookKeeper.UI
         }
 
         #endregion
+
+        private void btnCreateTotalReport_Click(object sender, EventArgs e)
+        {
+            lvlTotalReport.Items.Clear();
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var service = scope.Resolve<ICalculationService>();
+                var result = service.CalculateAllPrice(dateTotalReportFrom.Value, dateTotalReportTo.Value);
+                if (result != null)
+                {
+                    lvlTotalReport.Items
+                        .AddRange(result
+                            .Select(paymentse =>
+                                new ListViewItem(new[]
+                                    {paymentse.StreetName, 
+                                        paymentse.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
+                                        paymentse.AccruedPrivate.ToString(CultureInfo.CurrentCulture), 
+                                        paymentse.TotalAccrued.ToString(CultureInfo.CurrentCulture),
+                                        paymentse.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
+                                        paymentse.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
+                                        paymentse.TotalReceived.ToString(CultureInfo.CurrentCulture)}))
+                            .ToArray());
+                }
+            }
+        }
     }
 }
