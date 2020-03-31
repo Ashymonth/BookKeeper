@@ -132,7 +132,7 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 60);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1415, 32);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1392, 32);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // btnFiles
@@ -186,7 +186,7 @@
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(20, 92);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(1415, 24);
+            this.metroPanel1.Size = new System.Drawing.Size(1392, 24);
             this.metroPanel1.TabIndex = 3;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
@@ -225,7 +225,7 @@
             this.metroTabPage4.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage4.Name = "metroTabPage4";
             this.metroTabPage4.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.metroTabPage4.Size = new System.Drawing.Size(1407, 716);
+            this.metroTabPage4.Size = new System.Drawing.Size(1384, 732);
             this.metroTabPage4.TabIndex = 3;
             this.metroTabPage4.Text = "Льготы";
             this.metroTabPage4.VerticalScrollbarBarColor = true;
@@ -247,7 +247,7 @@
             this.lvlDiscounts.Location = new System.Drawing.Point(5, 45);
             this.lvlDiscounts.Name = "lvlDiscounts";
             this.lvlDiscounts.OwnerDraw = true;
-            this.lvlDiscounts.Size = new System.Drawing.Size(1397, 666);
+            this.lvlDiscounts.Size = new System.Drawing.Size(1374, 682);
             this.lvlDiscounts.TabIndex = 3;
             this.lvlDiscounts.UseCompatibleStateImageBehavior = false;
             this.lvlDiscounts.UseSelectable = true;
@@ -282,7 +282,7 @@
             this.flowLayoutPanel2.Location = new System.Drawing.Point(5, 5);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
             this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1397, 40);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1374, 40);
             this.flowLayoutPanel2.TabIndex = 2;
             // 
             // btnAddDiscounts
@@ -325,7 +325,7 @@
             this.metroTabPage3.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage3.Name = "metroTabPage3";
             this.metroTabPage3.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.metroTabPage3.Size = new System.Drawing.Size(1407, 716);
+            this.metroTabPage3.Size = new System.Drawing.Size(1384, 732);
             this.metroTabPage3.TabIndex = 2;
             this.metroTabPage3.Text = "Тарифы";
             this.metroTabPage3.VerticalScrollbarBarColor = true;
@@ -348,7 +348,7 @@
             this.lvlRates.Location = new System.Drawing.Point(5, 44);
             this.lvlRates.Name = "lvlRates";
             this.lvlRates.OwnerDraw = true;
-            this.lvlRates.Size = new System.Drawing.Size(1397, 667);
+            this.lvlRates.Size = new System.Drawing.Size(1374, 683);
             this.lvlRates.TabIndex = 6;
             this.lvlRates.UseCompatibleStateImageBehavior = false;
             this.lvlRates.UseCustomBackColor = true;
@@ -392,7 +392,7 @@
             this.flowLayoutPanel3.Location = new System.Drawing.Point(5, 5);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
             this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(1397, 39);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1374, 39);
             this.flowLayoutPanel3.TabIndex = 5;
             // 
             // btnRates
@@ -409,7 +409,7 @@
             // 
             this.btnShowDeleteRates.Location = new System.Drawing.Point(130, 8);
             this.btnShowDeleteRates.Name = "btnShowDeleteRates";
-            this.btnShowDeleteRates.Size = new System.Drawing.Size(181, 23);
+            this.btnShowDeleteRates.Size = new System.Drawing.Size(179, 23);
             this.btnShowDeleteRates.TabIndex = 13;
             this.btnShowDeleteRates.Text = "Показать удаленные тарифы";
             this.btnShowDeleteRates.UseSelectable = true;
@@ -417,7 +417,7 @@
             // 
             // bthHideDeletedRates
             // 
-            this.bthHideDeletedRates.Location = new System.Drawing.Point(317, 8);
+            this.bthHideDeletedRates.Location = new System.Drawing.Point(315, 8);
             this.bthHideDeletedRates.Name = "bthHideDeletedRates";
             this.bthHideDeletedRates.Size = new System.Drawing.Size(140, 23);
             this.bthHideDeletedRates.TabIndex = 14;
@@ -436,7 +436,7 @@
             this.tbpMonthReport.Location = new System.Drawing.Point(4, 38);
             this.tbpMonthReport.Name = "tbpMonthReport";
             this.tbpMonthReport.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.tbpMonthReport.Size = new System.Drawing.Size(1407, 716);
+            this.tbpMonthReport.Size = new System.Drawing.Size(1384, 732);
             this.tbpMonthReport.TabIndex = 0;
             this.tbpMonthReport.Text = "Месячный отчет";
             this.tbpMonthReport.VerticalScrollbarBarColor = true;
@@ -448,9 +448,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.lblCounter});
-            this.statusStrip1.Location = new System.Drawing.Point(5, 689);
+            this.statusStrip1.Location = new System.Drawing.Point(5, 705);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1397, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1374, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -474,10 +474,10 @@
             this.lvlMonthReport.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lvlMonthReport.FullRowSelect = true;
             this.lvlMonthReport.GridLines = true;
-            this.lvlMonthReport.Location = new System.Drawing.Point(5, 41);
+            this.lvlMonthReport.Location = new System.Drawing.Point(5, 40);
             this.lvlMonthReport.Name = "lvlMonthReport";
             this.lvlMonthReport.OwnerDraw = true;
-            this.lvlMonthReport.Size = new System.Drawing.Size(1397, 670);
+            this.lvlMonthReport.Size = new System.Drawing.Size(1374, 687);
             this.lvlMonthReport.TabIndex = 5;
             this.lvlMonthReport.UseCompatibleStateImageBehavior = false;
             this.lvlMonthReport.UseCustomBackColor = true;
@@ -510,7 +510,7 @@
             this.flpFilter.Location = new System.Drawing.Point(5, 5);
             this.flpFilter.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.flpFilter.Name = "flpFilter";
-            this.flpFilter.Size = new System.Drawing.Size(1397, 36);
+            this.flpFilter.Size = new System.Drawing.Size(1374, 35);
             this.flpFilter.TabIndex = 4;
             this.flpFilter.WrapContents = false;
             // 
@@ -536,7 +536,7 @@
             this.cmbPersonalAccountType.Location = new System.Drawing.Point(279, 3);
             this.cmbPersonalAccountType.Name = "cmbPersonalAccountType";
             this.cmbPersonalAccountType.PromptText = "Тип";
-            this.cmbPersonalAccountType.Size = new System.Drawing.Size(130, 29);
+            this.cmbPersonalAccountType.Size = new System.Drawing.Size(143, 29);
             this.cmbPersonalAccountType.TabIndex = 9;
             this.cmbPersonalAccountType.UseSelectable = true;
             // 
@@ -546,16 +546,16 @@
             // 
             // 
             this.txtHouse.CustomButton.Image = null;
-            this.txtHouse.CustomButton.Location = new System.Drawing.Point(35, 1);
+            this.txtHouse.CustomButton.Location = new System.Drawing.Point(36, 1);
             this.txtHouse.CustomButton.Name = "";
-            this.txtHouse.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtHouse.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtHouse.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtHouse.CustomButton.TabIndex = 1;
             this.txtHouse.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtHouse.CustomButton.UseSelectable = true;
             this.txtHouse.CustomButton.Visible = false;
             this.txtHouse.Lines = new string[0];
-            this.txtHouse.Location = new System.Drawing.Point(415, 3);
+            this.txtHouse.Location = new System.Drawing.Point(428, 3);
             this.txtHouse.MaxLength = 32767;
             this.txtHouse.Name = "txtHouse";
             this.txtHouse.PasswordChar = '\0';
@@ -570,7 +570,7 @@
             this.txtHouse.UseSelectable = true;
             this.txtHouse.WaterMark = "Дом";
             this.txtHouse.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtHouse.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtHouse.WaterMarkFont = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // txtBuilding
             // 
@@ -578,16 +578,16 @@
             // 
             // 
             this.txtBuilding.CustomButton.Image = null;
-            this.txtBuilding.CustomButton.Location = new System.Drawing.Point(35, 1);
+            this.txtBuilding.CustomButton.Location = new System.Drawing.Point(34, 1);
             this.txtBuilding.CustomButton.Name = "";
-            this.txtBuilding.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtBuilding.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtBuilding.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtBuilding.CustomButton.TabIndex = 1;
             this.txtBuilding.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtBuilding.CustomButton.UseSelectable = true;
             this.txtBuilding.CustomButton.Visible = false;
             this.txtBuilding.Lines = new string[0];
-            this.txtBuilding.Location = new System.Drawing.Point(485, 3);
+            this.txtBuilding.Location = new System.Drawing.Point(498, 3);
             this.txtBuilding.MaxLength = 32767;
             this.txtBuilding.Name = "txtBuilding";
             this.txtBuilding.PasswordChar = '\0';
@@ -602,7 +602,7 @@
             this.txtBuilding.UseSelectable = true;
             this.txtBuilding.WaterMark = "Корпус";
             this.txtBuilding.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtBuilding.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtBuilding.WaterMarkFont = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // txtApartment
             // 
@@ -610,16 +610,16 @@
             // 
             // 
             this.txtApartment.CustomButton.Image = null;
-            this.txtApartment.CustomButton.Location = new System.Drawing.Point(35, 1);
+            this.txtApartment.CustomButton.Location = new System.Drawing.Point(60, 1);
             this.txtApartment.CustomButton.Name = "";
-            this.txtApartment.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtApartment.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtApartment.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtApartment.CustomButton.TabIndex = 1;
             this.txtApartment.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtApartment.CustomButton.UseSelectable = true;
             this.txtApartment.CustomButton.Visible = false;
             this.txtApartment.Lines = new string[0];
-            this.txtApartment.Location = new System.Drawing.Point(553, 3);
+            this.txtApartment.Location = new System.Drawing.Point(566, 3);
             this.txtApartment.MaxLength = 32767;
             this.txtApartment.Name = "txtApartment";
             this.txtApartment.PasswordChar = '\0';
@@ -629,21 +629,21 @@
             this.txtApartment.SelectionLength = 0;
             this.txtApartment.SelectionStart = 0;
             this.txtApartment.ShortcutsEnabled = true;
-            this.txtApartment.Size = new System.Drawing.Size(75, 29);
+            this.txtApartment.Size = new System.Drawing.Size(88, 29);
             this.txtApartment.TabIndex = 3;
             this.txtApartment.UseSelectable = true;
             this.txtApartment.WaterMark = "Квартира";
             this.txtApartment.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtApartment.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtApartment.WaterMarkFont = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // dateFrom
             // 
             this.dateFrom.CustomFormat = "MMMM yyyy";
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateFrom.Location = new System.Drawing.Point(634, 3);
+            this.dateFrom.Location = new System.Drawing.Point(660, 3);
             this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateFrom.Name = "dateFrom";
-            this.dateFrom.Size = new System.Drawing.Size(109, 29);
+            this.dateFrom.Size = new System.Drawing.Size(120, 29);
             this.dateFrom.TabIndex = 4;
             this.dateFrom.Value = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
             // 
@@ -651,10 +651,10 @@
             // 
             this.dateTo.CustomFormat = "MMMM yyyy";
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTo.Location = new System.Drawing.Point(749, 3);
+            this.dateTo.Location = new System.Drawing.Point(786, 3);
             this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(107, 29);
+            this.dateTo.Size = new System.Drawing.Size(118, 29);
             this.dateTo.TabIndex = 5;
             // 
             // txtAccount
@@ -663,16 +663,16 @@
             // 
             // 
             this.txtAccount.CustomButton.Image = null;
-            this.txtAccount.CustomButton.Location = new System.Drawing.Point(95, 1);
+            this.txtAccount.CustomButton.Location = new System.Drawing.Point(104, 1);
             this.txtAccount.CustomButton.Name = "";
-            this.txtAccount.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtAccount.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtAccount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtAccount.CustomButton.TabIndex = 1;
             this.txtAccount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtAccount.CustomButton.UseSelectable = true;
             this.txtAccount.CustomButton.Visible = false;
             this.txtAccount.Lines = new string[0];
-            this.txtAccount.Location = new System.Drawing.Point(862, 3);
+            this.txtAccount.Location = new System.Drawing.Point(910, 3);
             this.txtAccount.MaxLength = 32767;
             this.txtAccount.Name = "txtAccount";
             this.txtAccount.PasswordChar = '\0';
@@ -687,7 +687,7 @@
             this.txtAccount.UseSelectable = true;
             this.txtAccount.WaterMark = "Номер счета";
             this.txtAccount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtAccount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            this.txtAccount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
             // metroCheckBox1
             // 
@@ -696,9 +696,9 @@
             this.metroCheckBox1.BackColor = System.Drawing.Color.Transparent;
             this.metroCheckBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.metroCheckBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroCheckBox1.Location = new System.Drawing.Point(1000, 3);
+            this.metroCheckBox1.Location = new System.Drawing.Point(1048, 3);
             this.metroCheckBox1.Name = "metroCheckBox1";
-            this.metroCheckBox1.Size = new System.Drawing.Size(57, 30);
+            this.metroCheckBox1.Size = new System.Drawing.Size(57, 29);
             this.metroCheckBox1.TabIndex = 8;
             this.metroCheckBox1.Text = "Архив";
             this.metroCheckBox1.UseCustomBackColor = true;
@@ -712,9 +712,9 @@
             this.metroCheckBox2.BackColor = System.Drawing.Color.Transparent;
             this.metroCheckBox2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.metroCheckBox2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.metroCheckBox2.Location = new System.Drawing.Point(1063, 3);
+            this.metroCheckBox2.Location = new System.Drawing.Point(1111, 3);
             this.metroCheckBox2.Name = "metroCheckBox2";
-            this.metroCheckBox2.Size = new System.Drawing.Size(91, 30);
+            this.metroCheckBox2.Size = new System.Drawing.Size(91, 29);
             this.metroCheckBox2.TabIndex = 11;
             this.metroCheckBox2.Text = "Нет корпуса";
             this.metroCheckBox2.UseCustomBackColor = true;
@@ -723,9 +723,9 @@
             // 
             // btnClear
             // 
-            this.btnClear.Location = new System.Drawing.Point(1160, 3);
+            this.btnClear.Location = new System.Drawing.Point(1208, 3);
             this.btnClear.Name = "btnClear";
-            this.btnClear.Size = new System.Drawing.Size(68, 30);
+            this.btnClear.Size = new System.Drawing.Size(79, 29);
             this.btnClear.TabIndex = 13;
             this.btnClear.Text = "Сбросить";
             this.btnClear.UseSelectable = true;
@@ -734,9 +734,9 @@
             // btnFind
             // 
             this.btnFind.AutoSize = true;
-            this.btnFind.Location = new System.Drawing.Point(1234, 3);
+            this.btnFind.Location = new System.Drawing.Point(1293, 3);
             this.btnFind.Name = "btnFind";
-            this.btnFind.Size = new System.Drawing.Size(66, 29);
+            this.btnFind.Size = new System.Drawing.Size(79, 29);
             this.btnFind.Style = MetroFramework.MetroColorStyle.Silver;
             this.btnFind.TabIndex = 12;
             this.btnFind.Text = "Найти";
@@ -755,8 +755,8 @@
             this.tabpage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabpage.Location = new System.Drawing.Point(20, 116);
             this.tabpage.Name = "tabpage";
-            this.tabpage.SelectedIndex = 0;
-            this.tabpage.Size = new System.Drawing.Size(1415, 758);
+            this.tabpage.SelectedIndex = 1;
+            this.tabpage.Size = new System.Drawing.Size(1392, 774);
             this.tabpage.TabIndex = 4;
             this.tabpage.UseSelectable = true;
             // 
@@ -770,7 +770,7 @@
             this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage1.Name = "metroTabPage1";
             this.metroTabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.metroTabPage1.Size = new System.Drawing.Size(1407, 716);
+            this.metroTabPage1.Size = new System.Drawing.Size(1384, 732);
             this.metroTabPage1.TabIndex = 4;
             this.metroTabPage1.Text = "Общий отчет";
             this.metroTabPage1.VerticalScrollbarBarColor = true;
@@ -795,7 +795,7 @@
             this.lvlTotalReport.Location = new System.Drawing.Point(4, 51);
             this.lvlTotalReport.Name = "lvlTotalReport";
             this.lvlTotalReport.OwnerDraw = true;
-            this.lvlTotalReport.Size = new System.Drawing.Size(1399, 661);
+            this.lvlTotalReport.Size = new System.Drawing.Size(1376, 677);
             this.lvlTotalReport.TabIndex = 3;
             this.lvlTotalReport.UseCompatibleStateImageBehavior = false;
             this.lvlTotalReport.UseSelectable = true;
@@ -852,7 +852,7 @@
             this.flowLayoutPanel4.Location = new System.Drawing.Point(4, 4);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
             this.flowLayoutPanel4.Padding = new System.Windows.Forms.Padding(5);
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(1399, 47);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(1376, 47);
             this.flowLayoutPanel4.TabIndex = 2;
             // 
             // btnCreateTotalReport
@@ -946,19 +946,19 @@
             this.btnDeleteRate});
             this.cntRates.Name = "metroContextMenu1";
             this.cntRates.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.cntRates.Size = new System.Drawing.Size(127, 48);
+            this.cntRates.Size = new System.Drawing.Size(181, 70);
             // 
             // btnAddRate
             // 
             this.btnAddRate.Name = "btnAddRate";
-            this.btnAddRate.Size = new System.Drawing.Size(126, 22);
+            this.btnAddRate.Size = new System.Drawing.Size(180, 22);
             this.btnAddRate.Text = "Добавить";
             this.btnAddRate.Click += new System.EventHandler(this.btnAddRate_Click_1);
             // 
             // btnDeleteRate
             // 
             this.btnDeleteRate.Name = "btnDeleteRate";
-            this.btnDeleteRate.Size = new System.Drawing.Size(126, 22);
+            this.btnDeleteRate.Size = new System.Drawing.Size(180, 22);
             this.btnDeleteRate.Text = "Удалить";
             this.btnDeleteRate.Click += new System.EventHandler(this.btnDeleteRate_Click_1);
             // 
@@ -997,11 +997,12 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1455, 894);
+            this.ClientSize = new System.Drawing.Size(1432, 910);
             this.Controls.Add(this.tabpage);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.flowLayoutPanel1);
             this.Name = "MainForm";
+            this.ShadowType = MetroFramework.Forms.MetroFormShadowType.None;
             this.Text = "Учет";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.flowLayoutPanel1.ResumeLayout(false);

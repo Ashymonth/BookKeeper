@@ -610,7 +610,9 @@ namespace BookKeeper.UI
                         {
                             var report = service.LoadData(file);
 
-                            MessageBoxHelper.ShowCompeteMessage($"Успешно загружено. Добавленно {report.Add} \n Обновленно {report.Updates} \n Поврежденых записей {report.CorruptedRecords}", this);
+                            MessageBoxHelper.ShowCompeteMessage(
+                                $"Успешно загружено. Добавленно {report.Add} \n Обновленно {report.Updates} \n Поврежденых записей {report.CorruptedRecords}",
+                                this);
                         }
                         catch (FileLoadException)
                         {
@@ -619,7 +621,19 @@ namespace BookKeeper.UI
                         }
                         catch (SqlException)
                         {
-                            MessageBoxHelper.ShowWarningMessage("Программа не может сохранить файл по выбранному пути", this);
+                            MessageBoxHelper.ShowWarningMessage("Программа не может сохранить файл по выбранному пути",
+                                this);
+                            return;
+                        }
+                        catch (IOException)
+                        {
+                            MessageBoxHelper.ShowWarningMessage("Закройте саначала файл", this);
+                            return;
+                        }
+                        catch (NullReferenceException)
+                        {
+                            MessageBoxHelper.ShowWarningMessage("Файл пуст или поврежден",this);
+                            return;
                         }
                     }
                 }
