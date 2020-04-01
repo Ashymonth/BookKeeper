@@ -28,6 +28,7 @@ using System.Linq;
 using System.Windows.Forms;
 using BookKeeper.Data.Services.EntityService.Discount;
 using System.Configuration;
+using BookKeeper.Data.Services.Export;
 
 namespace BookKeeper.UI
 {
@@ -44,21 +45,29 @@ namespace BookKeeper.UI
         {
             InitializeComponent();
             _container = AutofacConfiguration.ConfigureContainer();
-
-            using (var scope = _container.BeginLifetimeScope())
+            try
             {
-                var rateService = scope.Resolve<IRateService>();
-                var rates = rateService.GetItem(x => x.IsDefault);
-                if (rates == null)
+
+                using (var scope = _container.BeginLifetimeScope())
                 {
-                    rateService.Add(new RateEntity()
+                    var rateService = scope.Resolve<IRateService>();
+                    var rates = rateService.GetItem(x => x.IsDefault);
+                    if (rates == null || rates.Price != System.Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]))
                     {
-                        Price = System.Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]),
-                        StartDate = DateTime.MinValue,
-                        EndDate = DateTime.MaxValue,
-                        IsDefault = true,
-                    });
+                        rateService.Add(new RateEntity()
+                        {
+                            Price = System.Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]),
+                            StartDate = DateTime.MinValue,
+                            EndDate = DateTime.MaxValue,
+                            IsDefault = true,
+                        });
+                    }
                 }
+            }
+            catch (FormatException)
+            {
+                MessageBoxHelper.ShowWarningMessage("Конфигурационный файл был поврежден, исправте его", this);
+                return;
             }
 
         }
@@ -292,7 +301,9 @@ namespace BookKeeper.UI
                     HouseNumber = txtHouse.Text,
                     BuildingNumber = txtBuilding.Text,
                     ApartmentNumber = txtApartment.Text,
-                    IsArchive = metroCheckBox1.Checked
+                    IsArchive = metroCheckBox1.Checked,
+                    From = dateFrom.Value,
+                    To = dateTo.Value
                 };
 
                 CreateColumns(dateFrom.Value.Date, dateTo.Value.Date);
@@ -315,7 +326,7 @@ namespace BookKeeper.UI
                         }
                     }
                 }
-                catch (EntityException)
+                catch (IOException)
                 {
                     MessageBoxHelper.ShowWarningMessage("База была повреждена или удалена", this);
                     return;
@@ -328,22 +339,29 @@ namespace BookKeeper.UI
         }
         private void lvlMonthReport_DoubleClick(object sender, EventArgs e)
         {
-            if (lvlMonthReport.FocusedItem.Tag is AccountEntity account)
+            try
             {
-                using (var form = new AccountDetailsForm())
+                if (lvlMonthReport.FocusedItem.Tag is AccountEntity account)
                 {
-                    form.AccountDetailsModel = new AccountDetailsModel
+                    using (var form = new AccountDetailsForm())
                     {
-                        Account = account.Account.ToString(),
-                        Street = cmbStreet.Text,
-                        House = account.Location.HouseNumber,
-                        Building = account.Location.BuildingCorpus,
-                        Apartment = account.Location.ApartmentNumber,
-                        Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued.ToString(CultureInfo.CurrentCulture),
-                        Received = account.PaymentDocuments.FirstOrDefault()?.Received.ToString(CultureInfo.CurrentCulture),
-                    };
-                    form.ShowDialog();
+                        form.AccountDetailsModel = new AccountDetailsModel
+                        {
+                            Account = account.Account.ToString(),
+                            Street = cmbStreet.Text,
+                            House = account.Location.HouseNumber,
+                            Building = account.Location.BuildingCorpus,
+                            Apartment = account.Location.ApartmentNumber,
+                            Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued.ToString(CultureInfo.CurrentCulture),
+                            Received = account.PaymentDocuments.FirstOrDefault()?.Received.ToString(CultureInfo.CurrentCulture),
+                        };
+                        form.ShowDialog();
+                    }
                 }
+            }
+            catch (ObjectDisposedException)
+            {
+                
             }
         }
 
@@ -355,16 +373,17 @@ namespace BookKeeper.UI
         {
             var tempList = new List<ListViewItem>();
 
-            foreach (var account in accountEntities)
+            foreach (var account in accountEntities.ToList())
             {
                 var paymentDocuments = account.PaymentDocuments
                     .Where(x => x.PaymentDate.Month >= dateFrom.Value.Date.Month && x.PaymentDate.Month <= dateTo.Value.Date.Month &&
                                 x.PaymentDate.Year >= dateFrom.Value.Date.Year && x.PaymentDate.Year <= dateTo.Value.Date.Year);
 
-                if (!paymentDocuments.Any())
+                var paymentDocumentEntities = paymentDocuments.ToList();
+                if (!paymentDocumentEntities.Any())
                     continue;
 
-                tempList.AddRange(paymentDocuments
+                tempList.AddRange(paymentDocumentEntities
                     .Select(documentEntity =>
                         new ListViewItem(new[] {account.Account.ToString(),
                             documentEntity.Received.ToString(CultureInfo.CurrentCulture)})
@@ -435,7 +454,7 @@ namespace BookKeeper.UI
 
                 if (dialogResult == DialogResult.OK)
                 {
-                    LoadItem(rate.RateModel);
+                    LoadRates();
                 }
             }
         }
@@ -632,7 +651,7 @@ namespace BookKeeper.UI
                         }
                         catch (NullReferenceException)
                         {
-                            MessageBoxHelper.ShowWarningMessage("Файл пуст или поврежден",this);
+                            MessageBoxHelper.ShowWarningMessage("Файл пуст или поврежден", this);
                             return;
                         }
                     }
@@ -689,6 +708,9 @@ namespace BookKeeper.UI
                     if (rate.IsArchive && deleted)
                         continue;
 
+                    if (rate.IsDeleted)
+                        continue;
+
                     foreach (var descriptionEntity in rate.AssignedLocations)
                     {
                         var location = locationService.GetItem(x => x.Id == descriptionEntity.LocationRefId);
@@ -720,6 +742,7 @@ namespace BookKeeper.UI
             txtHouse.Text = string.Empty;
             txtBuilding.Text = string.Empty;
             txtApartment.Text = string.Empty;
+            txtAccount.Text = string.Empty;
         }
 
         #endregion
@@ -730,22 +753,117 @@ namespace BookKeeper.UI
             using (var scope = _container.BeginLifetimeScope())
             {
                 var service = scope.Resolve<ICalculationService>();
-                var result = service.CalculateAllPrice(DateTime.Parse(dateTotalReportFrom.Value.ToShortDateString(),CultureInfo.CurrentCulture), DateTime.Parse(dateTotalReportTo.Value.ToShortDateString(), CultureInfo.CurrentCulture));
+                var result = service.CalculateAllPrice(dateFrom.Value, dateTo.Value);
                 if (result != null)
                 {
                     lvlTotalReport.Items
                         .AddRange(result
                             .Select(payments =>
                                 new ListViewItem(new[]
-                                    {payments.StreetName, 
+                                    {payments.StreetName,
                                         payments.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
-                                        payments.AccruedPrivate.ToString(CultureInfo.CurrentCulture), 
-                                        payments.TotalAccrued.ToString(CultureInfo.CurrentCulture),
+                                        payments.AccruedPrivate.ToString(CultureInfo.CurrentCulture),
                                         payments.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
                                         payments.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
-                                        payments.TotalReceived.ToString(CultureInfo.CurrentCulture)}))
+                                        payments.TotalReceived.ToString(CultureInfo.CurrentCulture),
+                                        payments.TotalAccrued.ToString(CultureInfo.CurrentCulture),
+                                        payments.Percent.ToString(CultureInfo.CurrentCulture)
+                                    }))
                             .ToArray());
                 }
+            }
+        }
+
+        private void dtnRateForceDelete_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem lvlRatesItem in lvlRates.CheckedItems)
+            {
+                if (lvlRatesItem.Tag is RateEntity rate)
+                {
+                    try
+                    {
+                        using (var scope = _container.BeginLifetimeScope())
+                        {
+                            var service = scope.Resolve<IRateService>();
+                            var result = service.GetItemById(rate.Id);
+                            if (result != null)
+                            {
+                                result.IsDeleted = true;
+                                service.Update(result);
+                            }
+                        }
+                        LoadRates();
+                    }
+                    catch (IOException)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Не удалось удалить", this);
+                        return;
+                    }
+                }
+            }
+        }
+
+        private void btnExportToExcel_Click(object sender, EventArgs e)
+        {
+            if (lvlTotalReport.Items.Count == 0)
+            {
+                MessageBoxHelper.ShowWarningMessage("Сначала сформируйте отчте", this);
+                return;
+            }
+
+            using (var saveFileDialog = new SaveFileDialog())
+            {
+                saveFileDialog.Filter = @"Excel files(*.xls;*.xls)|*.xlsx;*xlsx|All files(*.*)|*.*";
+                saveFileDialog.AddExtension = true;
+
+                if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    try
+                    {
+                        ExportService.ExportTotalReportToExcel(lvlTotalReport, saveFileDialog.FileName);
+                    }
+
+                    catch (FileNotFoundException)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Файл не найден", this);
+                    }
+
+                    catch (IOException)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Файл уже открыт, или нет доступа для записи", this);
+                    }
+
+                    catch (ArgumentNullException)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Файл поврежден", this);
+                    }
+                }
+            }
+        }
+
+        private void btnChangeRatesPrice_Click(object sender, EventArgs e)
+        {
+            using (var form = new RatePriceForm())
+            {
+                if (form.ShowDialog(this) != DialogResult.OK)
+                    return;
+
+                foreach (ListViewItem lvlRatesItem in lvlRates.CheckedItems)
+                {
+                    if (!(lvlRatesItem.Tag is RateEntity rate))
+                        continue;
+
+                    using (var scope = _container.BeginLifetimeScope())
+                    {
+                        var service = scope.Resolve<IRateService>();
+                        var result = service.ChangeRatePrice(rate, form.Price);
+                        if (result != null)
+                        {
+                            lvlRatesItem.Tag = result;
+                        }
+                    }
+                }
+                LoadRates();
             }
         }
     }

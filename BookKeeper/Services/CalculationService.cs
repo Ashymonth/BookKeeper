@@ -85,12 +85,15 @@ namespace BookKeeper.Data.Services
                                 totalPayment.AccruedPrivate += paymentDocumentEntity.Accrued;
                                 totalPayment.ReceivedPrivate += paymentDocumentEntity.Received;
                                 break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
                         }
                     }
                 }
 
                 totalPayment.TotalAccrued += totalPayment.AccruedMunicipal + totalPayment.AccruedPrivate;
                 totalPayment.TotalReceived +=totalPayment.ReceivedMunicipal + totalPayment.ReceivedPrivate;
+                totalPayment.Percent = Math.Round(((totalPayment.TotalReceived / totalPayment.TotalAccrued) * 100), 4);
                 total.Add(totalPayment);
             }
 
@@ -113,5 +116,7 @@ namespace BookKeeper.Data.Services
         public decimal TotalAccrued { get; set; }
 
         public decimal TotalReceived { get; set; }
+
+        public decimal Percent { get; set; }
     }
 }

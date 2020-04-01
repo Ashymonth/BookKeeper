@@ -4,19 +4,20 @@ using BookKeeper.Data.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using DocumentFormat.OpenXml.Bibliography;
 
 namespace BookKeeper.Data.Services.EntityService.Rate
 {
     public interface IRateService : IService<RateEntity>
     {
         RateEntity AddRate(int locationId, string description, decimal price, DateTime startDate, DateTime endDate);
+
         decimal GetCurrentRate(int locationId, DateTime currentRate);
+
+        RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price);
     }
 
     public class RateService : Service<RateEntity>, IRateService
     {
-
         public RateService(IRepository<RateEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
@@ -40,20 +41,32 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 
             return base.Add(result);
         }
-        // payment date 23.02.2020
-        // rate
-        //     start date: 01.02.2020
-        //     end   date: 01.03.2020
 
-        // startDate >= paymentDate && endDate < paymentDate
+        public RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price)
+        {
+            var rate = base.GetItemById(rateEntity.Id);
+            if (rate == null)
+                return null;
 
+            rate.EndDate = DateTime.Now;
+            rate.IsArchive = true;
+            base.Update(rate);
 
+            var changedRate = base.Add(new RateEntity
+            {
+                AssignedLocations = rateEntity.AssignedLocations,
+                Price = price,
+                StartDate = DateTime.Now,
+                Description = rateEntity.Description,
+            });
+
+            return changedRate;
+        }
 
         public decimal GetCurrentRate(int locationId, DateTime paymentDate)
         {
             var rate = base.GetWithInclude(x =>
-                x.StartDate <= paymentDate &&
-                x.EndDate > paymentDate &&
+                x.StartDate <= paymentDate && paymentDate < x.EndDate &&
                 x.IsDeleted == false &&
                 x.IsDefault == false &&
                 x.AssignedLocations.FirstOrDefault(z => z.LocationRefId == locationId && z.IsDeleted == false) != null, x =>

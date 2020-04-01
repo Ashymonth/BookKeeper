@@ -96,6 +96,12 @@
     <Compile Include="UI\Forms\Rate\RateItemForm.Designer.cs">
       <DependentUpon>RateItemForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\Forms\Rate\RatePriceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Rate\RatePriceForm.Designer.cs">
+      <DependentUpon>RatePriceForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\Rate\RateItemForm.resx">
       <DependentUpon>RateItemForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Rate\RatePriceForm.resx">
+      <DependentUpon>RatePriceForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="bin\Debug\src\Configuration\ExcelConfiguration.json" />
     <None Include="bin\Debug\src\Configuration\HtmlConfig.json" />

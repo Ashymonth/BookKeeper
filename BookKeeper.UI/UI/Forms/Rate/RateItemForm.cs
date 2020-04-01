@@ -40,9 +40,9 @@ namespace BookKeeper.UI.UI.Forms.Rate
         private void RateItemForm_Load(object sender, EventArgs e)
         {
             Initialize();
-            if(RateModel == null)
+            if (RateModel == null)
                 return;
-            
+
             txtHouse.Text = RateModel.House;
             txtBuilding.Text = RateModel.Building;
             txtPrice.Text = RateModel.Price;
@@ -71,7 +71,7 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
             if (dateFrom.Value > dateTo.Value)
             {
-                MessageBoxHelper.ShowWarningMessage("Дата начала не может быть больше",this);
+                MessageBoxHelper.ShowWarningMessage("Дата начала не может быть больше", this);
                 return;
             }
 
@@ -89,7 +89,26 @@ namespace BookKeeper.UI.UI.Forms.Rate
                     }
 
                     var service = scope.Resolve<IRateService>();
-                    var document = service.AddRate(location.Id, txtDescription.Text, Convert.ToDecimal(txtPrice.Text) , dateFrom.Value, dateTo.Value);
+                    var currentRate = service.GetItems(x => x.IsArchive == false && x.IsDeleted == false)
+                        .ToList()
+                        .Where(x => x.AssignedLocations.LastOrDefault(z => z.LocationRefId == location.Id && z.IsDeleted == false) != null)
+                        .ToList();
+                    foreach (var rateEntity in currentRate)
+                    {
+                        if(rateEntity.IsDefault || rateEntity.IsArchive)
+                            continue;
+
+                        var rate = service.GetItemById(rateEntity.Id);
+                        if (rate == null) 
+                            continue;
+
+                        rate.EndDate = DateTime.Now;
+                        rate.IsArchive = true;
+                        service.Update(rate);
+                        break;
+                    }
+
+                    var document = service.AddRate(location.Id, txtDescription.Text, Convert.ToDecimal(txtPrice.Text), dateFrom.Value, dateTo.Value);
 
                     if (cmbStreet.SelectedItem is StreetEntity result)
                     {
@@ -105,6 +124,11 @@ namespace BookKeeper.UI.UI.Forms.Rate
                     }
                 }
                 DialogResult = DialogResult.OK;
+            }
+            else
+            {
+                MessageBoxHelper.ShowWarningMessage("Ошибка", this);
+                return;
             }
         }
 
