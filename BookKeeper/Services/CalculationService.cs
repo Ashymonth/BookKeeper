@@ -55,6 +55,9 @@ namespace BookKeeper.Data.Services
             if (rate == 0)
                 return 0;
 
+            if (discount.Percent == 100)
+                return 0;
+
             return received - (((100 - discount.Percent) / 100) * rate);
         }
 

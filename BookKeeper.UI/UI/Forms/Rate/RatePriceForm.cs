@@ -7,8 +7,6 @@ namespace BookKeeper.UI.UI.Forms.Rate
 {
     public partial class RatePriceForm : MetroForm
     {
-
-
         public RatePriceForm()
         {
             InitializeComponent();

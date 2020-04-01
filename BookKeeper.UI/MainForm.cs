@@ -6,7 +6,9 @@ using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Models;
 using BookKeeper.Data.Services;
 using BookKeeper.Data.Services.EntityService.Address;
+using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
+using BookKeeper.Data.Services.Export;
 using BookKeeper.Data.Services.Load;
 using BookKeeper.UI.Helpers;
 using BookKeeper.UI.Models.Account;
@@ -19,16 +21,13 @@ using BookKeeper.UI.UI.Forms.Rate;
 using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core;
+using System.Configuration;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using BookKeeper.Data.Services.EntityService.Discount;
-using System.Configuration;
-using BookKeeper.Data.Services.Export;
 
 namespace BookKeeper.UI
 {
@@ -40,6 +39,7 @@ namespace BookKeeper.UI
         private ProgressForm _form;
         private string[] _files;
         private const int PersonalAccountLength = 8;
+        private string _addressTemplate = "{0} Дом {1} {2} {3}";
 
         public MainForm()
         {
@@ -76,6 +76,7 @@ namespace BookKeeper.UI
         {
             LoadAddresses();
             LoadRates();
+            LoadDiscounts();
         }
 
         #endregion
@@ -157,7 +158,7 @@ namespace BookKeeper.UI
 
         private void btnShowDebtor_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem listViewItem in lvlMonthReport.Items)
+            foreach (ListViewItem listViewItem in lvlMonthReportTest.Items)
             {
                 if (!(listViewItem.Tag is AccountEntity account))
                     continue;
@@ -173,7 +174,9 @@ namespace BookKeeper.UI
                         if (result >= 0)
                             continue;
                     }
-                    listViewItem.SubItems[0].Text = "Не оплачено";
+
+                    listViewItem.UseItemStyleForSubItems = false;
+                    listViewItem.SubItems[0].BackColor = Color.LightCoral;
                 }
             }
         }
@@ -267,7 +270,7 @@ namespace BookKeeper.UI
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    LoadDiscount(form.DiscountModel);
+                    LoadDiscounts();
                     MessageBoxHelper.ShowCompeteMessage("Добавлено", this);
                 }
             }
@@ -279,7 +282,7 @@ namespace BookKeeper.UI
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    LoadDiscount(form.DiscountModel);
+                   LoadDiscounts();
                 }
             }
         }
@@ -341,7 +344,7 @@ namespace BookKeeper.UI
         {
             try
             {
-                if (lvlMonthReport.FocusedItem.Tag is AccountEntity account)
+                if (lvlMonthReportTest.FocusedItem.Tag is AccountEntity account)
                 {
                     using (var form = new AccountDetailsForm())
                     {
@@ -355,13 +358,13 @@ namespace BookKeeper.UI
                             Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued.ToString(CultureInfo.CurrentCulture),
                             Received = account.PaymentDocuments.FirstOrDefault()?.Received.ToString(CultureInfo.CurrentCulture),
                         };
-                        form.ShowDialog();
+                        form.ShowDialog(this);
                     }
                 }
             }
             catch (ObjectDisposedException)
             {
-                
+
             }
         }
 
@@ -397,7 +400,7 @@ namespace BookKeeper.UI
             }
 
             lblCounter.Text = tempList.Count.ToString();
-            lvlMonthReport.Items.AddRange(tempList.ToArray());
+            lvlMonthReportTest.Items.AddRange(tempList.ToArray());
         }
 
         private static AccountType Convert(int index)
@@ -407,7 +410,7 @@ namespace BookKeeper.UI
 
         private void CreateColumns(DateTime from, DateTime to)
         {
-            lvlMonthReport.Clear();
+            lvlMonthReportTest.Clear();
 
             var columns = new List<ColumnHeader>();
 
@@ -422,10 +425,10 @@ namespace BookKeeper.UI
                 from = from.AddMonths(1);
             } while (true);
 
-            lvlMonthReport.Columns.Add("Счет");
-            lvlMonthReport.Columns.AddRange(columns.ToArray());
-            lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            lvlMonthReport.Columns[0].Width = 150;
+            lvlMonthReportTest.Columns.Add("Счет");
+            lvlMonthReportTest.Columns.AddRange(columns.ToArray());
+            lvlMonthReportTest.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            lvlMonthReportTest.Columns[0].Width = 150;
         }
 
         private static string ValidPersonalAccount(string personalAccount)
@@ -580,6 +583,9 @@ namespace BookKeeper.UI
 
         private void LoadDiscount(DiscountModel model)
         {
+            if (model == null)
+                return;
+
             switch (model.Type)
             {
                 case DiscountType.PersonalAccount:
@@ -733,6 +739,50 @@ namespace BookKeeper.UI
             }
         }
 
+        private void LoadDiscounts(bool showArchive = false)
+        {
+            lvlDiscountsTest.Items.Clear();
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var discountService = scope.Resolve<IDiscountDocumentService>();
+                var discounts = discountService.GetWithInclude(x => x.IsDeleted == false,
+                    x => x.Account,
+                    x => x.Account.Location,
+                    x => x.Account.Location.Street);
+                if (discounts != null)
+                {
+                    var list = new List<ListViewItem>();
+                    foreach (var discount in discounts)
+                    {
+                        if (discount.IsArchive && !showArchive)
+                            continue;
+                        if (discount.IsDeleted)
+                            continue;
+
+                        var firstColumnContentType =
+                            discount.Type == DiscountType.PersonalAccount ? "Счет" : "Адрес";
+                        var secondColumnContentType =
+                            discount.Type == DiscountType.PersonalAccount
+                                ? discount.Account.Account.ToString(CultureInfo.CurrentCulture)
+
+                                : string.Format(_addressTemplate, discount.Account.Location.Street.StreetName,
+                                    discount.Account.Location.HouseNumber, discount.Account.Location.BuildingCorpus,
+                                    discount.Account.Location.ApartmentNumber);
+                        var listView = new ListViewItem(new[]
+                        {
+                            firstColumnContentType, secondColumnContentType,
+                            discount.Percent.ToString(CultureInfo.CurrentCulture)+"%", discount.Description
+                        })
+                        {
+                            Tag = discount
+                        };
+                        list.Add(listView);
+                    }
+                    lvlDiscountsTest.Items.AddRange(list.ToArray());
+                }
+            }
+        }
+
         #endregion
 
         #region Filter buttons
@@ -774,6 +824,12 @@ namespace BookKeeper.UI
             }
         }
 
+        /// <summary>
+        /// Только для удобства в разработке, в релизе этого не должно быть
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+#if DEBUG
         private void dtnRateForceDelete_Click(object sender, EventArgs e)
         {
             foreach (ListViewItem lvlRatesItem in lvlRates.CheckedItems)
@@ -802,6 +858,7 @@ namespace BookKeeper.UI
                 }
             }
         }
+#endif
 
         private void btnExportToExcel_Click(object sender, EventArgs e)
         {
@@ -865,6 +922,40 @@ namespace BookKeeper.UI
                 }
                 LoadRates();
             }
+        }
+
+        private void btnSendDiscountToArchive_Click(object sender, EventArgs e)
+        {
+            foreach (ListViewItem lvlDiscountsItem in lvlDiscounts.CheckedItems)
+            {
+                if (lvlDiscountsItem.Tag is DiscountDocumentEntity discount)
+                {
+                    try
+                    {
+                        using (var scope = _container.BeginLifetimeScope())
+                        {
+                            var discountService = scope.Resolve<IDiscountDocumentService>();
+                            discountService.SendToArchive(discount);
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Ошибка операции", this);
+                        return;
+                    }
+                    LoadDiscounts();
+                }
+            }
+        }
+
+        private void btnHideArchiveDiscounts_Click(object sender, EventArgs e)
+        {
+            LoadDiscounts();
+        }
+
+        private void btnShowArchiveDiscounts_Click(object sender, EventArgs e)
+        {
+            LoadDiscounts(true);
         }
     }
 }

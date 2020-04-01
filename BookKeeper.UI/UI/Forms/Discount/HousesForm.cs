@@ -1,11 +1,11 @@
-﻿using BookKeeper.Data.Infrastructure;
+﻿using Autofac;
+using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Services.EntityService.Address;
+using BookKeeper.UI.Helpers;
 using MetroFramework.Forms;
 using System;
 using System.Linq;
 using System.Windows.Forms;
-using Autofac;
-using BookKeeper.UI.Helpers;
 
 namespace BookKeeper.UI.UI.Forms.Discount
 {
@@ -65,7 +65,6 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
                     if (result != null)
                     {
-                        MessageBoxHelper.ShowCompeteMessage("Успешно", this);
                         DialogResult = DialogResult.OK;
                     }
                 }
@@ -91,15 +90,16 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
                 if (location == null)
                 {
-                    MessageBoxHelper.ShowWarningMessage("Дом не найден",this);
+                    MessageBoxHelper.ShowWarningMessage("Дом не найден", this);
                     return;
                 }
 
                 var result = locationService.GetItemById(location.Id);
                 if (result != null)
                 {
-                    locationService.Delete(result);
-                    MessageBoxHelper.ShowCompeteMessage("Успешно",this);
+                    result.IsDeleted = true;
+                    locationService.Update(result);
+
                     DialogResult = DialogResult.OK;
                 }
             }

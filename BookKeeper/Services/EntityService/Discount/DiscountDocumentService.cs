@@ -15,9 +15,12 @@ namespace BookKeeper.Data.Services.EntityService.Discount
     public interface IDiscountDocumentService : IService<DiscountDocumentEntity>
     {
         DiscountDocumentEntity AddDiscountOnAccount(int accountId, decimal percent, string description, DateTime startDate, DateTime endDate);
+
         IEnumerable<DiscountDocumentEntity> AddDiscountOnAddress(IEnumerable<int> accountId, decimal percent, string description, DateTime startDate, DateTime endDate);
 
         DiscountDocumentEntity GetCurrentDiscount(int accountId, DateTime paymentDate);
+
+        void SendToArchive(DiscountDocumentEntity entity);
     }
     public class DiscountDocumentService : Service<DiscountDocumentEntity>, IDiscountDocumentService
     {
@@ -59,9 +62,21 @@ namespace BookKeeper.Data.Services.EntityService.Discount
             return discounts;
         }
 
+        public void SendToArchive(DiscountDocumentEntity entity)
+        {
+            var discount = base.GetItemById(entity.Id);
+            if (discount == null)
+                return;
+
+            discount.EndDate = DateTime.Now;
+            discount.IsArchive = true;
+            base.Update(discount);
+        }
+        
+
         public DiscountDocumentEntity GetCurrentDiscount(int accountId, DateTime paymentDate)
         {
-            return base.GetItem(x => x.AccountId == accountId && x.StartDate <= paymentDate && x.EndDate > paymentDate);
+            return base.GetItem(x => x.AccountId == accountId &&/* x.StartDate <= paymentDate &&*/ paymentDate <= x.EndDate && x.IsDeleted == false);
         }
     }
 }

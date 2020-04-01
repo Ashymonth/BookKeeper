@@ -44,12 +44,18 @@ namespace BookKeeper.Data.Services.Export
                     list.Add(listViewSubItem.Text);
                 }
 
-                dt.Rows.Add(list.ToArray());
+                try
+                {
+                    dt.Rows.Add(list.ToArray());
+                }
+                catch (Exception)
+                {
+                    // ignored
+                }
             }
 
             using (var workBook = new XLWorkbook())
             {
-
                 workBook.Worksheets.Add(dt, "Отчет");
                 workBook.SaveAs(file);
             }
