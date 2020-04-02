@@ -395,13 +395,20 @@ namespace BookKeeper.UI
                 if (!paymentDocuments.Any())
                     continue;
 
-                var listViewItem = new ListViewItem(new[]
+
+                var listViewItem = new ListViewItem(new string[]
                 {
-                    account.Account.ToString()
+                    account.Account.ToString(),
                 });
+
+                listViewItem.SubItems.AddRange(Enumerable.Repeat("-", lvlMonthReportTest.Columns.Count - 1).ToArray());
+
                 foreach (var paymentDocumentEntity in paymentDocuments)
                 {
-                    listViewItem.SubItems.Add(paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture));
+                    var columnIndex = lvlMonthReportTest.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate));
+                    if (columnIndex != -1)
+                        listViewItem.SubItems[columnIndex].Text = paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture);
+
                 }
 
                 listViewItem.Tag = account;
@@ -431,7 +438,7 @@ namespace BookKeeper.UI
 
             do
             {
-                columns.Add(new ColumnHeader { Text = from.ToString("Y") });
+                columns.Add(new ColumnHeader {Text = from.ToString("Y"), Tag = from.Month, Name = GetColumnKey(from)});
                 if (from.Month == to.Month && from.Year == to.Year)
                 {
                     break;
@@ -444,6 +451,11 @@ namespace BookKeeper.UI
             lvlMonthReportTest.Columns.AddRange(columns.ToArray());
             lvlMonthReportTest.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvlMonthReportTest.Columns[0].Width = 150;
+        }
+
+        private string GetColumnKey(DateTime @from)
+        {
+            return $"{from.Year}{from.Month}";
         }
 
         private static string ValidPersonalAccount(string personalAccount)

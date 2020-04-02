@@ -26,13 +26,16 @@ namespace BookKeeperTest
         [TestMethod]
         public void GetCurrentDiscountWithoutPercent()
         {
+            const int TestAccount = 1;
+
             var documentEntity = new DiscountDocumentEntity()
             {
-                AccountId = TestAccountWithoutDiscount,
-                StartDate = DateTime.Now
+                AccountId = TestAccount,
+                StartDate = DateTime.Now,
+                
             };
             Func<DiscountDocumentEntity, bool> predicate = x =>
-                x.AccountId == TestAccountIdWithoutDiscount && x.StartDate.Date <= paymentDate.Date && paymentDate.Date < x.EndDate.Date &&
+                x.AccountId == TestAccount && x.StartDate.Date <= paymentDate.Date && paymentDate.Date < x.EndDate.Date &&
                 x.IsDeleted == false;
 
             var repositoryMock = new Mock<IRepository<DiscountDocumentEntity>>();
@@ -41,7 +44,7 @@ namespace BookKeeperTest
 
             repositoryMock.Setup(x => x.GetItem(predicate)).Returns(documentEntity);
 
-            var actual = discountDocumentService.GetCurrentDiscount(TestAccountWithoutDiscount, paymentDate);
+            var actual = discountDocumentService.GetCurrentDiscount(TestAccount, paymentDate);
 
             Assert.AreEqual(null, actual);
         }
@@ -62,8 +65,8 @@ namespace BookKeeperTest
         [TestMethod]
         public void GetCurrentDiscountWithNotActualPaymentDate()
         {
-            var date = DateTime.Parse("01.01.2019");
-            DiscountDocumentEntity expected = null;
+            var date = DateTime.Parse("01.01.2020");
+            decimal expected = 100;
             using (var scope = _container.BeginLifetimeScope())
             {
                 var discountService = scope.Resolve<IDiscountDocumentService>();
