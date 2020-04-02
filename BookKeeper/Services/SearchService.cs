@@ -45,11 +45,11 @@ namespace BookKeeper.Data.Services
                     StringComparison.CurrentCultureIgnoreCase) && building.IsDeleted == false;
 
             Expression<Func<AccountEntity, bool>> emptyBuildingPredicate =
-                emptyBuilding => string.Equals(emptyBuilding.Location.BuildingCorpus, string.Empty) ||
-                                 emptyBuilding.Location.BuildingCorpus == string.Empty && emptyBuilding.IsDeleted == false;
+                emptyBuilding => string.Equals(emptyBuilding.Location.BuildingCorpus, string.Empty) 
+                                 && emptyBuilding.IsDeleted == false;
 
             Expression<Func<AccountEntity, bool>> apartmentPredicate =
-                apartment => string.Equals(apartment.Location.HouseNumber, model.HouseNumber,
+                apartment => string.Equals(apartment.Location.ApartmentNumber, model.ApartmentNumber,
                                  StringComparison.CurrentCultureIgnoreCase) && apartment.IsDeleted == false;
 
             account.And(defaultPredicate);

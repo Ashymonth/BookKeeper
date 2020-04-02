@@ -39,7 +39,7 @@ namespace BookKeeper.UI
         private ProgressForm _form;
         private string[] _files;
         private const int PersonalAccountLength = 8;
-        private string _addressTemplate = "{0} Дом {1} {2} {3}";
+        private string _addressTemplate = "{0} Дом: {1} Корпус: {2} Квартира: {3}";
 
         public MainForm()
         {
@@ -158,8 +158,10 @@ namespace BookKeeper.UI
 
         private void btnShowDebtor_Click(object sender, EventArgs e)
         {
+            ResetColors(lvlMonthReportTest);
             foreach (ListViewItem listViewItem in lvlMonthReportTest.Items)
             {
+                decimal totalPayments = 0;
                 if (!(listViewItem.Tag is AccountEntity account))
                     continue;
 
@@ -168,16 +170,20 @@ namespace BookKeeper.UI
                     using (var scope = _container.BeginLifetimeScope())
                     {
                         var calculateService = scope.Resolve<ICalculationService>();
-                        var result = calculateService.CalculatePrice(account.Id, account.LocationId,
+                        var result = calculateService.CalculatePrice(account.Id, account.Location,
                             payment.Received, payment.PaymentDate);
 
-                        if (result >= 0)
-                            continue;
+                        totalPayments += result;
                     }
+                }
 
+                if (totalPayments < 0)
+                {
                     listViewItem.UseItemStyleForSubItems = false;
                     listViewItem.SubItems[0].BackColor = Color.LightCoral;
                 }
+
+                totalPayments = 0;
             }
         }
 
@@ -282,7 +288,7 @@ namespace BookKeeper.UI
             {
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                   LoadDiscounts();
+                    LoadDiscounts();
                 }
             }
         }
@@ -320,7 +326,11 @@ namespace BookKeeper.UI
 
                         if (searchResult != null && searchResult.Any())
                         {
-                            LoadAccountsInfo(searchResult);
+                            if (backgroundWorker2.IsBusy == false)
+                            {
+                                backgroundWorker2.RunWorkerAsync(searchResult);
+                                LoadAccountsInfo(searchResult);
+                            }
                         }
                         else
                         {
@@ -379,18 +389,23 @@ namespace BookKeeper.UI
             foreach (var account in accountEntities.ToList())
             {
                 var paymentDocuments = account.PaymentDocuments
-                    .Where(x => x.PaymentDate.Month >= dateFrom.Value.Date.Month && x.PaymentDate.Month <= dateTo.Value.Date.Month &&
-                                x.PaymentDate.Year >= dateFrom.Value.Date.Year && x.PaymentDate.Year <= dateTo.Value.Date.Year);
+                    .Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date);
 
-                var paymentDocumentEntities = paymentDocuments.ToList();
-                if (!paymentDocumentEntities.Any())
+
+                if (!paymentDocuments.Any())
                     continue;
 
-                tempList.AddRange(paymentDocumentEntities
-                    .Select(documentEntity =>
-                        new ListViewItem(new[] {account.Account.ToString(),
-                            documentEntity.Received.ToString(CultureInfo.CurrentCulture)})
-                        { Tag = account }));
+                var listViewItem = new ListViewItem(new[]
+                {
+                    account.Account.ToString()
+                });
+                foreach (var paymentDocumentEntity in paymentDocuments)
+                {
+                    listViewItem.SubItems.Add(paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture));
+                }
+
+                listViewItem.Tag = account;
+                tempList.Add(listViewItem);
             }
 
             if (tempList.Count == 0)
@@ -417,7 +432,7 @@ namespace BookKeeper.UI
             do
             {
                 columns.Add(new ColumnHeader { Text = from.ToString("Y") });
-                if (from.Month == to.Month)
+                if (from.Month == to.Month && from.Year == to.Year)
                 {
                     break;
                 }
@@ -739,7 +754,7 @@ namespace BookKeeper.UI
             }
         }
 
-        private void LoadDiscounts(bool showArchive = false)
+        private void LoadDiscounts(bool dontShowArchive = true)
         {
             lvlDiscountsTest.Items.Clear();
             using (var scope = _container.BeginLifetimeScope())
@@ -754,8 +769,9 @@ namespace BookKeeper.UI
                     var list = new List<ListViewItem>();
                     foreach (var discount in discounts)
                     {
-                        if (discount.IsArchive && !showArchive)
+                        if (discount.IsArchive && dontShowArchive)
                             continue;
+
                         if (discount.IsDeleted)
                             continue;
 
@@ -764,7 +780,6 @@ namespace BookKeeper.UI
                         var secondColumnContentType =
                             discount.Type == DiscountType.PersonalAccount
                                 ? discount.Account.Account.ToString(CultureInfo.CurrentCulture)
-
                                 : string.Format(_addressTemplate, discount.Account.Location.Street.StreetName,
                                     discount.Account.Location.HouseNumber, discount.Account.Location.BuildingCorpus,
                                     discount.Account.Location.ApartmentNumber);
@@ -926,7 +941,7 @@ namespace BookKeeper.UI
 
         private void btnSendDiscountToArchive_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvlDiscountsItem in lvlDiscounts.CheckedItems)
+            foreach (ListViewItem lvlDiscountsItem in lvlDiscountsTest.CheckedItems)
             {
                 if (lvlDiscountsItem.Tag is DiscountDocumentEntity discount)
                 {
@@ -955,7 +970,20 @@ namespace BookKeeper.UI
 
         private void btnShowArchiveDiscounts_Click(object sender, EventArgs e)
         {
-            LoadDiscounts(true);
+            LoadDiscounts(false);
+        }
+
+        private void btnHideDebtor_Click(object sender, EventArgs e)
+        {
+            ResetColors(lvlMonthReportTest);
+        }
+
+        private static void ResetColors(ListView listView)
+        {
+            foreach (ListViewItem listViewItem in listView.Items)
+            {
+                listViewItem.BackColor = Color.Empty;
+            }
         }
     }
 }

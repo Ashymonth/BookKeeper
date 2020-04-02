@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MetroFramework.Forms;
 using System.Windows.Forms;
-using MetroFramework.Forms;
 
 namespace BookKeeper.UI.Helpers
 {

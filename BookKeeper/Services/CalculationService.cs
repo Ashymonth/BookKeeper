@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BookKeeper.Data.Data.Entities;
+using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Repositories;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Address;
@@ -14,7 +15,7 @@ namespace BookKeeper.Data.Services
 {
     public interface ICalculationService
     {
-        decimal CalculatePrice(int accountId, int locationId, decimal received, DateTime currentDate);
+        decimal CalculatePrice(int accountId,LocationEntity entity, decimal received, DateTime currentDate);
 
         List<TotalPayments> CalculateAllPrice(DateTime from, DateTime to);
     }
@@ -43,9 +44,9 @@ namespace BookKeeper.Data.Services
             _streetService = streetService;
         }
 
-        public decimal CalculatePrice(int accountId, int accountLocationId, decimal received, DateTime paymentDate)
+        public decimal CalculatePrice(int accountId,LocationEntity entity, decimal received, DateTime paymentDate)
         {
-            var rate = _rateService.GetCurrentRate(accountLocationId, paymentDate);
+            var rate = _rateService.GetCurrentRate(entity, paymentDate);
 
             var discount = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate);
 
@@ -76,7 +77,7 @@ namespace BookKeeper.Data.Services
                 {
                     foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
                         x.IsDeleted == false &&
-                        x.PaymentDate.Date >= from.Date && x.PaymentDate <= To))
+                        x.PaymentDate.Date >= from.Date && x.PaymentDate.Date <= To.Date))
                     {
                         switch (accountEntity.AccountType)
                         {

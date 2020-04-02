@@ -73,6 +73,9 @@ namespace BookKeeper.Data.Services.Load
 
                             account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
 
+                            if (account.IsEmpty == false)
+                                account.IsEmptyAgain = false;
+
                             accountsToUpdate.Add(account);
                             continue;
                         }

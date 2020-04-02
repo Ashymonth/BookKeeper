@@ -89,26 +89,8 @@ namespace BookKeeper.UI.UI.Forms.Rate
                     }
 
                     var service = scope.Resolve<IRateService>();
-                    var currentRate = service.GetItems(x => x.IsArchive == false && x.IsDeleted == false)
-                        .ToList()
-                        .Where(x => x.AssignedLocations.LastOrDefault(z => z.LocationRefId == location.Id && z.IsDeleted == false) != null)
-                        .ToList();
-                    foreach (var rateEntity in currentRate)
-                    {
-                        if(rateEntity.IsDefault || rateEntity.IsArchive)
-                            continue;
 
-                        var rate = service.GetItemById(rateEntity.Id);
-                        if (rate == null) 
-                            continue;
-
-                        rate.EndDate = DateTime.Now;
-                        rate.IsArchive = true;
-                        service.Update(rate);
-                        break;
-                    }
-
-                    var document = service.AddRate(location.Id, txtDescription.Text, Convert.ToDecimal(txtPrice.Text), dateFrom.Value, dateTo.Value);
+                    var document = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text), dateFrom.Value, dateTo.Value);
 
                     if (cmbStreet.SelectedItem is StreetEntity result)
                     {

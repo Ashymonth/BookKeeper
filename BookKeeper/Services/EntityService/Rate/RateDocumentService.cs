@@ -4,14 +4,15 @@ using BookKeeper.Data.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BookKeeper.Data.Data.Entities.Address;
 
 namespace BookKeeper.Data.Services.EntityService.Rate
 {
     public interface IRateService : IService<RateEntity>
     {
-        RateEntity AddRate(int locationId, string description, decimal price, DateTime startDate, DateTime endDate);
+        RateEntity AddRate(LocationEntity entity, string description, decimal price, DateTime startDate, DateTime endDate);
 
-        decimal GetCurrentRate(int locationId, DateTime currentRate);
+        decimal GetCurrentRate(LocationEntity entity, DateTime paymentDate);
 
         RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price);
     }
@@ -22,7 +23,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
         {
         }
 
-        public RateEntity AddRate(int locationId, string description, decimal price, DateTime startDate, DateTime endDate)
+        public RateEntity AddRate(LocationEntity entity, string description, decimal price, DateTime startDate, DateTime endDate)
         {
             var result = new RateEntity
             {
@@ -34,7 +35,10 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                 {
                     new RateDetailsEntity()
                     {
-                        LocationRefId = locationId
+                        StreetId = entity.StreetId,
+                        LocationRefId = entity.Id,
+                        HouseNumber = entity.HouseNumber,
+                        BuildingNumber = entity.BuildingCorpus
                     }
                 }
             };
@@ -63,15 +67,24 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             return changedRate;
         }
 
-        public decimal GetCurrentRate(int locationId, DateTime paymentDate)
+        public decimal GetCurrentRate(LocationEntity entity, DateTime paymentDate)
         {
-            var rate = base.GetWithInclude(x =>
-                //x.StartDate <= paymentDate && paymentDate <= x.EndDate &&
-                x.IsDeleted == false &&
-                x.IsDefault == false, x => x.AssignedLocations).ToList()
-                .SingleOrDefault(x => x.AssignedLocations.FirstOrDefault(z => z.IsDeleted == false && z.LocationRefId == locationId) != null);
+            var rate = base.GetWithInclude(x => x.IsDefault == false &&
+                                                x.IsDeleted == false &&
+                                                paymentDate >= x.StartDate.Date &&
+                                                paymentDate < x.EndDate.Date,
+                x => x.AssignedLocations);
 
-            return rate?.Price ?? GetDefaultRate();
+            var result = rate.FirstOrDefault(x => x.AssignedLocations.FirstOrDefault(z => z.IsDeleted == false &&
+                                                                                          z.StreetId == entity.StreetId &&
+                                                                                              z.HouseNumber
+                                                                                                  .Equals(entity.HouseNumber,
+                                                                                                      StringComparison.OrdinalIgnoreCase) &&
+                                                                                              z.BuildingNumber
+                                                                                                  .Equals(entity.BuildingCorpus,
+                                                                                                      StringComparison.OrdinalIgnoreCase)) != null);
+
+            return result?.Price ?? GetDefaultRate();
         }
 
         private decimal GetDefaultRate()
