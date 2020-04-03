@@ -35,6 +35,8 @@ namespace BookKeeper.Data.Data.Entities
 
         public bool IsEmptyAgain { get; set; }
 
+        public bool IsNew { get; set; }
+
         public virtual ICollection<PaymentDocumentEntity> PaymentDocuments { get; set; }
 
     }

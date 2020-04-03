@@ -72,9 +72,7 @@ namespace BookKeeper.Data.Services.Load
                                                    account.IsEmpty;
 
                             account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
-
-                            if (account.IsEmpty == false)
-                                account.IsEmptyAgain = false;
+                            account.IsNew = false;
 
                             accountsToUpdate.Add(account);
                             continue;
@@ -86,6 +84,7 @@ namespace BookKeeper.Data.Services.Load
                             Account = dataRow.Account.PersonalAccount,
                             AccountType = ConvertAccountType(dataRow.Account.AccountType, configuration.MunicipalMark),
                             IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
+                            IsNew = true
                         };
 
                         if (street.Locations == null)

@@ -10,6 +10,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using BookKeeper.Data.Infrastructure.Configuration;
+using BookKeeper.Data.Infrastructure.Reports;
 using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService.Rate;
 
@@ -37,13 +38,16 @@ namespace BookKeeper.Data.Services.Load
         private readonly IAccountService _accountService;
         private readonly IPaymentDocumentService _documentService;
         private readonly IConfiguration<HtmlConfiguration> _configuration;
+        private readonly IBrokenRecordsReport _report;
 
-        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService, IPaymentDocumentService documentService, IConfiguration<HtmlConfiguration> configuration)
+        public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService, IPaymentDocumentService documentService,
+            IConfiguration<HtmlConfiguration> configuration,IBrokenRecordsReport report)
         {
             _importService = importService;
             _accountService = accountService;
             _documentService = documentService;
             _configuration = configuration;
+            _report = report;
         }
         public ImportReportModel LoadData(string file)
         {
@@ -65,13 +69,13 @@ namespace BookKeeper.Data.Services.Load
 
                 foreach (var item1 in item.PaymentDetailsImports)
                 {
-
                     var personalAccount = ValidPersonalAccount(item1.PersonalAccount, configuration.AccountLength);
                     var documentDate = ValidDateTime(item.DocumentData);
 
                     var account = _accountService.GetItem(x => x.Account == personalAccount);
                     if (account == null)
                     {
+                        _report.Write(personalAccount.ToString());
                         importReport.CorruptedRecords++;
                         continue;
                     }

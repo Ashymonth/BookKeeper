@@ -28,6 +28,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using BookKeeper.Data.Infrastructure.Configuration;
+using BookKeeper.Data.Infrastructure.Formats;
 
 namespace BookKeeper.UI
 {
@@ -123,6 +125,11 @@ namespace BookKeeper.UI
                 _files = dialog.FileNames;
             }
 
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var backupService = scope.Resolve<IBackupService>();
+                backupService.CreateBackUpInDefaultFolder();
+            }
 
             if (backgroundWorker1.IsBusy == false)
             {
@@ -145,6 +152,20 @@ namespace BookKeeper.UI
 
                 _files = dialog.FileNames;
             }
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                try
+                {
+                    var backupService = scope.Resolve<IBackupService>();
+                    backupService.CreateBackUpInDefaultFolder();
+                }
+                catch (Exception)
+                {
+                    var result = MessageBoxHelper.ShowConfirmMessage("Не удалось сделать бэкап в папку по умолчанию: Приложение\\Backup\\nВсе равно продолжить?", this);
+                    if (result != DialogResult.OK)
+                        return;
+                }
+            }
 
             if (backgroundWorker1.IsBusy == false)
             {
@@ -159,38 +180,40 @@ namespace BookKeeper.UI
 
         private void btnShowDebtor_Click(object sender, EventArgs e)
         {
+
             ResetColors(lvlMonthReportTest);
+
             foreach (ListViewItem listViewItem in lvlMonthReportTest.Items)
             {
                 try
                 {
-                    decimal totalPayments = 0;
-                    if (!(listViewItem.Tag is AccountEntity account))
-                        continue;
-
-                    foreach (var payment in account.PaymentDocuments)
+                    using (var scope = _container.BeginLifetimeScope())
                     {
-                        using (var scope = _container.BeginLifetimeScope())
+                        var calculateService = scope.Resolve<ICalculationService>();
+
+                        decimal totalPayments = 0;
+                        if (!(listViewItem.Tag is AccountEntity account))
+                            continue;
+
+                        foreach (var payment in account.PaymentDocuments.Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date < dateTo.Value.Date))
                         {
-                            var calculateService = scope.Resolve<ICalculationService>();
+
                             var result = calculateService.CalculatePrice(account.Id, account.Location,
                                 payment.Received, payment.PaymentDate);
 
                             totalPayments += result;
                         }
-                    }
 
-                    if (totalPayments < 0)
-                    {
+                        if (totalPayments >= 0)
+                            continue;
+
                         listViewItem.UseItemStyleForSubItems = false;
                         listViewItem.SubItems[0].BackColor = Color.LightCoral;
                     }
-
-                    totalPayments = 0;
                 }
-                catch (NullReferenceException )
+                catch (NullReferenceException)
                 {
-                    MessageBoxHelper.ShowWarningMessage("Тариф по умолчанию был удален, дальнейшие рачеты невозможны. Перезапустите программу",this);
+                    MessageBoxHelper.ShowWarningMessage("Тариф по умолчанию был удален, дальнейшие рачеты невозможны. Перезапустите программу", this);
                     return;
                 }
             }
@@ -398,7 +421,7 @@ namespace BookKeeper.UI
             foreach (var account in accountEntities.ToList())
             {
                 var paymentDocuments = account.PaymentDocuments
-                    .Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date);
+                    .Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date < dateTo.Value.Date);
 
 
                 if (!paymentDocuments.Any())
@@ -660,6 +683,8 @@ namespace BookKeeper.UI
 
         private void backgroundWorker1_DoWork_1(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
+            var importReport = new ImportReportModel();
+
             if (e.Argument.ToString() is string options)
             {
                 foreach (var file in _files)
@@ -670,10 +695,9 @@ namespace BookKeeper.UI
                         try
                         {
                             var report = service.LoadData(file);
+                            importReport.Add += report.Add;
+                            importReport.Updates += report.Updates;
 
-                            MessageBoxHelper.ShowCompeteMessage(
-                                $"Успешно загружено. Добавленно {report.Add} \n Обновленно {report.Updates} \n Поврежденых записей {report.CorruptedRecords}",
-                                this);
                         }
                         catch (FileLoadException)
                         {
@@ -698,6 +722,23 @@ namespace BookKeeper.UI
                         }
                     }
                 }
+
+                ExcelFormatValidator.DeleteTempFolder();
+
+                if (importReport.Add == 0 && importReport.Updates == 0)
+                {
+                    MessageBoxHelper.ShowCompeteMessage("Новых записей не найдено", this);
+                    return;
+                }
+
+                if (importReport.CorruptedRecords > 0)
+                {
+                    MessageBoxHelper.ShowWarningMessage("Были найдены записи, которые не удалось сопоставить. Записи сохранены в папке: Не сопоставленные записи",this);
+                }
+
+                MessageBoxHelper.ShowCompeteMessage(
+                    $"Успешно загружено. Добавленно {importReport.Add}\n Обновленно {importReport.Updates}",
+                    this);
             }
         }
 
@@ -866,14 +907,14 @@ namespace BookKeeper.UI
             }
         }
 
-        /// <summary>
-        /// Только для удобства в разработке, в релизе этого не должно быть
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-#if DEBUG
         private void dtnRateForceDelete_Click(object sender, EventArgs e)
         {
+            var confirm = MessageBoxHelper.ShowConfirmMessage
+                    ("Вы уверены, что хотите безвозвратно удалить данные", this);
+
+            if (confirm != DialogResult.OK)
+                return;
+
             foreach (ListViewItem lvlRatesItem in lvlRates.CheckedItems)
             {
                 if (lvlRatesItem.Tag is RateEntity rate)
@@ -900,7 +941,6 @@ namespace BookKeeper.UI
                 }
             }
         }
-#endif
 
         private void btnExportToExcel_Click(object sender, EventArgs e)
         {
@@ -1015,8 +1055,8 @@ namespace BookKeeper.UI
 
         private void btnDeleteRates_Click(object sender, EventArgs e)
         {
-            var confirm = MessageBox.Show("Вы действительно хотите безвозвратно удалить выбранные льготы?", "",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            var confirm =
+                MessageBoxHelper.ShowConfirmMessage("Вы уверены, что хотите безвозвратно удалить данные?", this);
             if (confirm != DialogResult.OK)
                 return;
 

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Data.SqlClient;
 using System.IO;
+using System.Security.AccessControl;
 
 namespace BookKeeper.Data.Services
 {
     public interface IBackupService
     {
-        string CreateBackup(string folder);
+        string CreateBackup(string folders);
+
+        void CreateBackUpInDefaultFolder();
+
         void RestoreFromBackup(string file);
     }
 
@@ -19,6 +23,8 @@ namespace BookKeeper.Data.Services
         public string BackupFileNameTemplate { get; set; }
 
         public string ConnectionString { get; set; }
+
+        public const string DefaultBackUpFolder = "BackUp";
     }
 
     public class BackupService : IBackupService
@@ -50,6 +56,25 @@ namespace BookKeeper.Data.Services
                 }
                 connection.Close();
                 return backupFileName;
+            }
+        }
+
+        public void CreateBackUpInDefaultFolder()
+        {
+            if (!Directory.Exists(BackupSettings.DefaultBackUpFolder))
+                Directory.CreateDirectory(BackupSettings.DefaultBackUpFolder);
+
+            using (var connection = new SqlConnection(_settings.ConnectionString))
+            {
+                connection.Open();
+                var backupFileName = DateTime.Now.ToString("yyyy-MM-dd_hhmmsss");
+
+                var sqlCommand = string.Format(BackupDbToFileQuery, connection.Database, Path.Combine(Path.Combine(Directory.GetCurrentDirectory(),BackupSettings.DefaultBackUpFolder), $"{backupFileName}.bak"));
+                using (var com = new SqlCommand(sqlCommand, connection))
+                {
+                    com.ExecuteReader();
+                }
+                connection.Close();
             }
         }
 

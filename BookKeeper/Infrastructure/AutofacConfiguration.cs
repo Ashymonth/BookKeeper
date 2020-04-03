@@ -10,6 +10,7 @@ using BookKeeper.Data.Services.Import;
 using BookKeeper.Data.Services.Load;
 using System.Collections.Generic;
 using System.Configuration;
+using BookKeeper.Data.Infrastructure.Reports;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
@@ -35,6 +36,10 @@ namespace BookKeeper.Data.Infrastructure
 
             container.RegisterType(typeof(HtmlConfiguration))
                 .As<IConfiguration<HtmlConfiguration>>()
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(BrokenRecordsReport))
+                .As<IBrokenRecordsReport>()
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(UnitOfWork))

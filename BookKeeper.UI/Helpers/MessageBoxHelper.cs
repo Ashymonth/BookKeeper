@@ -14,5 +14,10 @@ namespace BookKeeper.UI.Helpers
         {
             MessageBox.Show(message, form.Text, MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        public static DialogResult ShowConfirmMessage(string message, MetroForm form)
+        {
+            return MessageBox.Show(message, form.Text, MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+        }
     }
 }

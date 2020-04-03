@@ -6,6 +6,8 @@ namespace BookKeeper.Data.Infrastructure.Formats
 {
     public static class ExcelFormatValidator
     {
+        private const string TempFolder = "TempFolder";
+
         public static string ValidateFormat(string file)
         {
             if (string.IsNullOrWhiteSpace(file))
@@ -17,10 +19,25 @@ namespace BookKeeper.Data.Infrastructure.Formats
             if (!Path.GetExtension(file).Equals(".xls", StringComparison.OrdinalIgnoreCase))
                 return file;
 
-            var workBook = new Spire.Xls.Workbook();
-            workBook.SaveToFile(file, ExcelVersion.Version2013);
-            return Path.GetFullPath($"{Path.GetFileNameWithoutExtension(file)}.xlsx");
+            if (!Directory.Exists(TempFolder))
+                Directory.CreateDirectory(TempFolder);
 
+            var workBook = new Workbook();
+            workBook.SaveToFile(Path.Combine(TempFolder,file), ExcelVersion.Version2013);
+            return Path.GetFullPath($"{Path.GetFileNameWithoutExtension(file)}.xlsx");
+        }
+
+        public static void DeleteTempFolder()
+        {
+            try
+            {
+                if (Directory.Exists(TempFolder))
+                    Directory.Delete(TempFolder,true);
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
         }
     }
 }
