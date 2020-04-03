@@ -8,7 +8,7 @@ using BookKeeper.Data.Services.EntityService.Discount;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace BookKeeperTest
+namespace BookKeeperTest.Discounts
 {
     [TestClass]
     public class DiscountPriceTest

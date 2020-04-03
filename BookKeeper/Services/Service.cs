@@ -30,6 +30,7 @@ namespace BookKeeper.Data.Services
         IEnumerable<TModel> GetWithInclude(params Expression<Func<TModel, object>>[] expressions);
         
         IEnumerable<TModel> GetWithInclude(Func<TModel, bool> predicate, params Expression<Func<TModel, object>>[] includeProperty);
+
     }
 
     public class Service<TModel> : IService<TModel> where TModel : BaseEntity

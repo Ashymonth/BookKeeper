@@ -51,20 +51,26 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             var rate = base.GetItemById(rateEntity.Id);
             if (rate == null)
                 return null;
+            var changedRate =new RateEntity
+            {
+                Price = price,
+                StartDate = DateTime.Now,
+                Description = rateEntity.Description,
+            };
+
+            if(changedRate.AssignedLocations == null)
+                changedRate.AssignedLocations = new List<RateDetailsEntity>();
+
+            foreach (var rateEntityAssignedLocation in rateEntity.AssignedLocations)
+            {
+                changedRate.AssignedLocations.Add(rateEntityAssignedLocation);
+            }
 
             rate.EndDate = DateTime.Now;
             rate.IsArchive = true;
             base.Update(rate);
 
-            var changedRate = base.Add(new RateEntity
-            {
-                AssignedLocations = rateEntity.AssignedLocations,
-                Price = price,
-                StartDate = DateTime.Now,
-                Description = rateEntity.Description,
-            });
-
-            return changedRate;
+            return base.Add(changedRate);
         }
 
         public decimal GetCurrentRate(LocationEntity entity, DateTime paymentDate)
@@ -73,24 +79,29 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                                                 x.IsDeleted == false &&
                                                 paymentDate >= x.StartDate.Date &&
                                                 paymentDate < x.EndDate.Date,
-                x => x.AssignedLocations);
+                x => x.AssignedLocations).ToList();
+
+            if (rate == null)
+                throw new ArgumentNullException(nameof(rate));
+
+            if (!rate.Any())
+                return GetDefaultRate();
 
             var result = rate.FirstOrDefault(x => x.AssignedLocations.FirstOrDefault(z => z.IsDeleted == false &&
                                                                                           z.StreetId == entity.StreetId &&
-                                                                                              z.HouseNumber
-                                                                                                  .Equals(entity.HouseNumber,
-                                                                                                      StringComparison.OrdinalIgnoreCase) &&
-                                                                                              z.BuildingNumber
-                                                                                                  .Equals(entity.BuildingCorpus,
-                                                                                                      StringComparison.OrdinalIgnoreCase)) != null);
+                                                                                          z.HouseNumber
+                                                                                              .Equals(entity.HouseNumber,
+                                                                                                  StringComparison.OrdinalIgnoreCase) &&
+                                                                                          z.BuildingNumber
+                                                                                              .Equals(entity.BuildingCorpus,
+                                                                                                  StringComparison.OrdinalIgnoreCase)) != null);
 
             return result?.Price ?? GetDefaultRate();
         }
 
         private decimal GetDefaultRate()
         {
-            var z = GetItem(x => x.IsDefault);
-            return z.Price;
+            return GetItem(x => x.IsDefault).Price;
         }
     }
 }

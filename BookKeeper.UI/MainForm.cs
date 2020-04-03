@@ -44,6 +44,7 @@ namespace BookKeeper.UI
         public MainForm()
         {
             InitializeComponent();
+            dateFrom.ShowUpDown = true;
             _container = AutofacConfiguration.ConfigureContainer();
             try
             {
@@ -161,29 +162,37 @@ namespace BookKeeper.UI
             ResetColors(lvlMonthReportTest);
             foreach (ListViewItem listViewItem in lvlMonthReportTest.Items)
             {
-                decimal totalPayments = 0;
-                if (!(listViewItem.Tag is AccountEntity account))
-                    continue;
-
-                foreach (var payment in account.PaymentDocuments)
+                try
                 {
-                    using (var scope = _container.BeginLifetimeScope())
+                    decimal totalPayments = 0;
+                    if (!(listViewItem.Tag is AccountEntity account))
+                        continue;
+
+                    foreach (var payment in account.PaymentDocuments)
                     {
-                        var calculateService = scope.Resolve<ICalculationService>();
-                        var result = calculateService.CalculatePrice(account.Id, account.Location,
-                            payment.Received, payment.PaymentDate);
+                        using (var scope = _container.BeginLifetimeScope())
+                        {
+                            var calculateService = scope.Resolve<ICalculationService>();
+                            var result = calculateService.CalculatePrice(account.Id, account.Location,
+                                payment.Received, payment.PaymentDate);
 
-                        totalPayments += result;
+                            totalPayments += result;
+                        }
                     }
-                }
 
-                if (totalPayments < 0)
+                    if (totalPayments < 0)
+                    {
+                        listViewItem.UseItemStyleForSubItems = false;
+                        listViewItem.SubItems[0].BackColor = Color.LightCoral;
+                    }
+
+                    totalPayments = 0;
+                }
+                catch (NullReferenceException )
                 {
-                    listViewItem.UseItemStyleForSubItems = false;
-                    listViewItem.SubItems[0].BackColor = Color.LightCoral;
+                    MessageBoxHelper.ShowWarningMessage("Тариф по умолчанию был удален, дальнейшие рачеты невозможны. Перезапустите программу",this);
+                    return;
                 }
-
-                totalPayments = 0;
             }
         }
 
@@ -438,7 +447,7 @@ namespace BookKeeper.UI
 
             do
             {
-                columns.Add(new ColumnHeader {Text = from.ToString("Y"), Tag = from.Month, Name = GetColumnKey(from)});
+                columns.Add(new ColumnHeader { Text = from.ToString("Y"), Tag = from.Month, Name = GetColumnKey(from) });
                 if (from.Month == to.Month && from.Year == to.Year)
                 {
                     break;
@@ -795,6 +804,7 @@ namespace BookKeeper.UI
                                 : string.Format(_addressTemplate, discount.Account.Location.Street.StreetName,
                                     discount.Account.Location.HouseNumber, discount.Account.Location.BuildingCorpus,
                                     discount.Account.Location.ApartmentNumber);
+
                         var listView = new ListViewItem(new[]
                         {
                             firstColumnContentType, secondColumnContentType,
@@ -803,6 +813,11 @@ namespace BookKeeper.UI
                         {
                             Tag = discount
                         };
+                        if (discount.IsArchive)
+                        {
+                            listView.SubItems[0].BackColor = Color.LightSlateGray;
+                        }
+
                         list.Add(listView);
                     }
                     lvlDiscountsTest.Items.AddRange(list.ToArray());
@@ -996,6 +1011,29 @@ namespace BookKeeper.UI
             {
                 listViewItem.BackColor = Color.Empty;
             }
+        }
+
+        private void btnDeleteRates_Click(object sender, EventArgs e)
+        {
+            var confirm = MessageBox.Show("Вы действительно хотите безвозвратно удалить выбранные льготы?", "",
+                MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (confirm != DialogResult.OK)
+                return;
+
+            foreach (ListViewItem listViewItem in lvlDiscountsTest.CheckedItems)
+            {
+                if (!(listViewItem.Tag is DiscountDocumentEntity discount))
+                    continue;
+
+                using (var scope = _container.BeginLifetimeScope())
+                {
+                    var discountService = scope.Resolve<IDiscountDocumentService>();
+                    var result = discountService.GetItemById(discount.Id);
+                    if (result != null)
+                        discountService.Delete(result);
+                }
+            }
+            LoadDiscounts();
         }
     }
 }

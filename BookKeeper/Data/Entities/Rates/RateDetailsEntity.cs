@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using BookKeeper.Data.Data.Entities.Address;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookKeeper.Data.Data.Entities.Address;
 
 namespace BookKeeper.Data.Data.Entities.Rates
 {
@@ -14,12 +9,12 @@ namespace BookKeeper.Data.Data.Entities.Rates
         public int LocationRefId { get; set; }
 
         public int StreetId { get; set; }
-        
+
         [ForeignKey(nameof(LocationRefId))]
         public virtual LocationEntity Location { get; set; }
 
         public string HouseNumber { get; set; }
 
-        public string BuildingNumber { get; set; }  
+        public string BuildingNumber { get; set; }
     }
 }

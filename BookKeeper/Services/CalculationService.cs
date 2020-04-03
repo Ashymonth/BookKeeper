@@ -1,21 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookKeeper.Data.Data.Entities;
+﻿using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
-using BookKeeper.Data.Data.Repositories;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BookKeeper.Data.Services
 {
     public interface ICalculationService
     {
-        decimal CalculatePrice(int accountId,LocationEntity entity, decimal received, DateTime currentDate);
+        decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime currentDate);
 
         List<TotalPayments> CalculateAllPrice(DateTime from, DateTime to);
     }
@@ -23,8 +20,6 @@ namespace BookKeeper.Data.Services
     public class CalculationService : ICalculationService
     {
         private readonly IAccountService _accountService;
-
-        private readonly IPaymentDocumentService _paymentDocumentService;
 
         private readonly IStreetService _streetService;
 
@@ -34,21 +29,22 @@ namespace BookKeeper.Data.Services
 
 
         public CalculationService(IRateService rateService, IDiscountDocumentService discountDocumentService,
-            IAccountService accountService, IPaymentDocumentService paymentDocumentService,
-            IStreetService streetService)
+            IAccountService accountService, IStreetService streetService)
         {
             _rateService = rateService;
             _discountDocumentService = discountDocumentService;
             _accountService = accountService;
-            _paymentDocumentService = paymentDocumentService;
             _streetService = streetService;
         }
 
-        public decimal CalculatePrice(int accountId,LocationEntity entity, decimal received, DateTime paymentDate)
+        public decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime paymentDate)
         {
             var rate = _rateService.GetCurrentRate(entity, paymentDate);
 
             var discount = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate);
+
+            if (discount == null && received == 0)
+                return -rate;
 
             if (discount == null)
                 return received - rate;
@@ -72,7 +68,7 @@ namespace BookKeeper.Data.Services
             var total = new List<TotalPayments>();
             foreach (var streetEntity in streets)
             {
-                var totalPayment = new TotalPayments {StreetName = streetEntity.StreetName};
+                var totalPayment = new TotalPayments { StreetName = streetEntity.StreetName };
                 foreach (var accountEntity in accounts.Where(x => x.StreetId == streetEntity.Id))
                 {
                     foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
@@ -96,7 +92,7 @@ namespace BookKeeper.Data.Services
                 }
 
                 totalPayment.TotalAccrued += totalPayment.AccruedMunicipal + totalPayment.AccruedPrivate;
-                totalPayment.TotalReceived +=totalPayment.ReceivedMunicipal + totalPayment.ReceivedPrivate;
+                totalPayment.TotalReceived += totalPayment.ReceivedMunicipal + totalPayment.ReceivedPrivate;
                 totalPayment.Percent = Math.Round(((totalPayment.TotalReceived / totalPayment.TotalAccrued) * 100), 4);
                 total.Add(totalPayment);
             }

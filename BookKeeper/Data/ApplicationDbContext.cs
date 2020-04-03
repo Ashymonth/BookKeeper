@@ -42,7 +42,6 @@ namespace BookKeeper.Data.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-
             modelBuilder.Properties<DateTime>().Configure(x => x.HasColumnType("datetime2"));
             base.OnModelCreating(modelBuilder);
         }

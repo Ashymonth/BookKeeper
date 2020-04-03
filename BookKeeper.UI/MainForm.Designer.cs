@@ -34,6 +34,7 @@
             this.btnDataBase = new MetroFramework.Controls.MetroButton();
             this.btnHouses = new MetroFramework.Controls.MetroButton();
             this.btnShowDebtor = new MetroFramework.Controls.MetroButton();
+            this.btnHideDebtor = new MetroFramework.Controls.MetroButton();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.cntFilesMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnLoadBase = new System.Windows.Forms.ToolStripMenuItem();
@@ -116,8 +117,8 @@
             this.btnChangeRatesPrice = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteRate = new System.Windows.Forms.ToolStripMenuItem();
             this.dtnRateForceDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnHideDebtor = new MetroFramework.Controls.MetroButton();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.btnDeleteRates = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
             this.metroTabPage4.SuspendLayout();
@@ -197,6 +198,17 @@
             this.btnShowDebtor.UseSelectable = true;
             this.btnShowDebtor.Click += new System.EventHandler(this.btnShowDebtor_Click);
             // 
+            // btnHideDebtor
+            // 
+            this.btnHideDebtor.Location = new System.Drawing.Point(704, 4);
+            this.btnHideDebtor.Margin = new System.Windows.Forms.Padding(4);
+            this.btnHideDebtor.Name = "btnHideDebtor";
+            this.btnHideDebtor.Size = new System.Drawing.Size(223, 28);
+            this.btnHideDebtor.TabIndex = 6;
+            this.btnHideDebtor.Text = "Скрыть";
+            this.btnHideDebtor.UseSelectable = true;
+            this.btnHideDebtor.Click += new System.EventHandler(this.btnHideDebtor_Click);
+            // 
             // metroPanel1
             // 
             this.metroPanel1.Dock = System.Windows.Forms.DockStyle.Top;
@@ -263,6 +275,7 @@
             this.columnHeader21,
             this.columnHeader22});
             this.lvlDiscountsTest.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lvlDiscountsTest.FullRowSelect = true;
             this.lvlDiscountsTest.GridLines = true;
             this.lvlDiscountsTest.HideSelection = false;
             this.lvlDiscountsTest.Location = new System.Drawing.Point(7, 55);
@@ -741,7 +754,7 @@
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFrom.Location = new System.Drawing.Point(877, 4);
             this.dateFrom.Margin = new System.Windows.Forms.Padding(4);
-            this.dateFrom.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(159, 29);
             this.dateFrom.TabIndex = 4;
@@ -753,7 +766,7 @@
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTo.Location = new System.Drawing.Point(1044, 4);
             this.dateTo.Margin = new System.Windows.Forms.Padding(4);
-            this.dateTo.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(156, 29);
             this.dateTo.TabIndex = 5;
@@ -863,7 +876,7 @@
             this.tabpage.Location = new System.Drawing.Point(27, 143);
             this.tabpage.Margin = new System.Windows.Forms.Padding(4);
             this.tabpage.Name = "tabpage";
-            this.tabpage.SelectedIndex = 2;
+            this.tabpage.SelectedIndex = 0;
             this.tabpage.Size = new System.Drawing.Size(1812, 617);
             this.tabpage.TabIndex = 4;
             this.tabpage.UseSelectable = true;
@@ -989,7 +1002,7 @@
             this.dateTotalReportFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportFrom.Location = new System.Drawing.Point(72, 8);
             this.dateTotalReportFrom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTotalReportFrom.Name = "dateTotalReportFrom";
             this.dateTotalReportFrom.Size = new System.Drawing.Size(200, 29);
             this.dateTotalReportFrom.TabIndex = 2;
@@ -1017,7 +1030,7 @@
             this.dateTotalReportTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportTo.Location = new System.Drawing.Point(342, 8);
             this.dateTotalReportTo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTotalReportTo.Name = "dateTotalReportTo";
             this.dateTotalReportTo.Size = new System.Drawing.Size(200, 29);
             this.dateTotalReportTo.TabIndex = 1;
@@ -1076,29 +1089,30 @@
             this.cntDiscounts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnDiscountOnAccount,
             this.btnDiscountOnAddress,
-            this.btnSendDiscountToArchive});
+            this.btnSendDiscountToArchive,
+            this.btnDeleteRates});
             this.cntDiscounts.Name = "metroContextMenu1";
             this.cntDiscounts.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.cntDiscounts.Size = new System.Drawing.Size(177, 70);
+            this.cntDiscounts.Size = new System.Drawing.Size(180, 92);
             // 
             // btnDiscountOnAccount
             // 
             this.btnDiscountOnAccount.Name = "btnDiscountOnAccount";
-            this.btnDiscountOnAccount.Size = new System.Drawing.Size(176, 22);
-            this.btnDiscountOnAccount.Text = "Счет";
+            this.btnDiscountOnAccount.Size = new System.Drawing.Size(179, 22);
+            this.btnDiscountOnAccount.Text = "Добавить счет";
             this.btnDiscountOnAccount.Click += new System.EventHandler(this.btnDiscountOnAccount_Click_1);
             // 
             // btnDiscountOnAddress
             // 
             this.btnDiscountOnAddress.Name = "btnDiscountOnAddress";
-            this.btnDiscountOnAddress.Size = new System.Drawing.Size(176, 22);
-            this.btnDiscountOnAddress.Text = "Квартиру";
+            this.btnDiscountOnAddress.Size = new System.Drawing.Size(179, 22);
+            this.btnDiscountOnAddress.Text = "Добавить квартиру";
             this.btnDiscountOnAddress.Click += new System.EventHandler(this.btnDiscountOnAddress_Click);
             // 
             // btnSendDiscountToArchive
             // 
             this.btnSendDiscountToArchive.Name = "btnSendDiscountToArchive";
-            this.btnSendDiscountToArchive.Size = new System.Drawing.Size(176, 22);
+            this.btnSendDiscountToArchive.Size = new System.Drawing.Size(179, 22);
             this.btnSendDiscountToArchive.Text = "Отправить в архив";
             this.btnSendDiscountToArchive.Click += new System.EventHandler(this.btnSendDiscountToArchive_Click);
             // 
@@ -1141,18 +1155,12 @@
             this.dtnRateForceDelete.Text = "Удалить";
             this.dtnRateForceDelete.Click += new System.EventHandler(this.dtnRateForceDelete_Click);
             // 
-            // btnHideDebtor
+            // btnDeleteRates
             // 
-            this.btnHideDebtor.Location = new System.Drawing.Point(704, 4);
-            this.btnHideDebtor.Margin = new System.Windows.Forms.Padding(4);
-            this.btnHideDebtor.Name = "btnHideDebtor";
-            this.btnHideDebtor.Size = new System.Drawing.Size(223, 28);
-            this.btnHideDebtor.TabIndex = 6;
-            this.btnHideDebtor.Text = "Скрыть";
-            this.btnHideDebtor.UseSelectable = true;
-            this.btnHideDebtor.Click += new System.EventHandler(this.btnHideDebtor_Click);
-            // 
-            // backgroundWorker2
+            this.btnDeleteRates.Name = "btnDeleteRates";
+            this.btnDeleteRates.Size = new System.Drawing.Size(180, 22);
+            this.btnDeleteRates.Text = "Удалить";
+            this.btnDeleteRates.Click += new System.EventHandler(this.btnDeleteRates_Click);
             // 
             // MainForm
             // 
@@ -1281,6 +1289,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader23;
         private MetroFramework.Controls.MetroButton btnHideDebtor;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.Windows.Forms.ToolStripMenuItem btnDeleteRates;
     }
 }
 
