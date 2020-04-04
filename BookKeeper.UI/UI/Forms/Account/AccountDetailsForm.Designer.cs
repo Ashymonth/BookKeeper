@@ -40,11 +40,15 @@
             this.txtStreet = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.txtAccount = new MetroFramework.Controls.MetroTextBox();
+            this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
+            this.txtAccountType = new MetroFramework.Controls.MetroTextBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.metroLabel6);
+            this.groupBox1.Controls.Add(this.txtAccountType);
             this.groupBox1.Controls.Add(this.metroLabel4);
             this.groupBox1.Controls.Add(this.txtApartment);
             this.groupBox1.Controls.Add(this.metroLabel5);
@@ -257,6 +261,45 @@
             this.txtAccount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtAccount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
+            // metroLabel6
+            // 
+            this.metroLabel6.AutoSize = true;
+            this.metroLabel6.Location = new System.Drawing.Point(141, 45);
+            this.metroLabel6.Name = "metroLabel6";
+            this.metroLabel6.Size = new System.Drawing.Size(68, 19);
+            this.metroLabel6.TabIndex = 11;
+            this.metroLabel6.Text = "Тип счета";
+            // 
+            // txtAccountType
+            // 
+            // 
+            // 
+            // 
+            this.txtAccountType.CustomButton.Image = null;
+            this.txtAccountType.CustomButton.Location = new System.Drawing.Point(95, 1);
+            this.txtAccountType.CustomButton.Name = "";
+            this.txtAccountType.CustomButton.Size = new System.Drawing.Size(21, 21);
+            this.txtAccountType.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtAccountType.CustomButton.TabIndex = 1;
+            this.txtAccountType.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtAccountType.CustomButton.UseSelectable = true;
+            this.txtAccountType.CustomButton.Visible = false;
+            this.txtAccountType.Lines = new string[0];
+            this.txtAccountType.Location = new System.Drawing.Point(141, 77);
+            this.txtAccountType.MaxLength = 32767;
+            this.txtAccountType.Name = "txtAccountType";
+            this.txtAccountType.PasswordChar = '\0';
+            this.txtAccountType.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtAccountType.SelectedText = "";
+            this.txtAccountType.SelectionLength = 0;
+            this.txtAccountType.SelectionStart = 0;
+            this.txtAccountType.ShortcutsEnabled = true;
+            this.txtAccountType.Size = new System.Drawing.Size(117, 23);
+            this.txtAccountType.TabIndex = 10;
+            this.txtAccountType.UseSelectable = true;
+            this.txtAccountType.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtAccountType.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
             // AccountDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -289,5 +332,7 @@
         private MetroFramework.Controls.MetroTextBox txtStreet;
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroTextBox txtAccount;
+        private MetroFramework.Controls.MetroLabel metroLabel6;
+        private MetroFramework.Controls.MetroTextBox txtAccountType;
     }
 }

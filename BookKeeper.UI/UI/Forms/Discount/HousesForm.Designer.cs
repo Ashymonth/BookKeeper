@@ -147,9 +147,9 @@
             // btnAdd
             // 
             this.btnAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnAdd.Location = new System.Drawing.Point(167, 271);
+            this.btnAdd.Location = new System.Drawing.Point(157, 271);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 23);
+            this.btnAdd.Size = new System.Drawing.Size(86, 23);
             this.btnAdd.TabIndex = 6;
             this.btnAdd.Text = "Добавить";
             this.btnAdd.UseSelectable = true;
@@ -160,7 +160,7 @@
             this.btnDelete.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnDelete.Location = new System.Drawing.Point(22, 271);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 23);
+            this.btnDelete.Size = new System.Drawing.Size(86, 23);
             this.btnDelete.TabIndex = 7;
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseSelectable = true;
@@ -170,7 +170,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(274, 318);
+            this.ClientSize = new System.Drawing.Size(274, 320);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtApartment);

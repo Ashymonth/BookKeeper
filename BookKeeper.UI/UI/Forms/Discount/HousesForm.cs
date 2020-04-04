@@ -78,7 +78,11 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            DialogResult = DialogResult.None;
+            DialogResult =
+                MessageBoxHelper.ShowConfirmMessage("Вы уверены, что хотите безвозвратно удалить данные?", this);
+
+            if(DialogResult != DialogResult.Yes)
+                return;
 
             using (var scope = _container.BeginLifetimeScope())
             {

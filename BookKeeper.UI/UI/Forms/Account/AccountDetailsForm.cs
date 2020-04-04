@@ -22,6 +22,7 @@ namespace BookKeeper.UI.UI.Forms.Account
             txtHouse.Text = AccountDetailsModel.House;
             txtBuilding.Text = AccountDetailsModel.Building;
             txtApartment.Text = AccountDetailsModel.Apartment;
+            txtAccountType.Text = AccountDetailsModel.AccountType;
         }
     }
 }

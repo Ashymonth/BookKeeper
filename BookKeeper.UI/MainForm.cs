@@ -270,12 +270,6 @@ namespace BookKeeper.UI
                 _files = dialog.FileNames;
             }
 
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var backupService = scope.Resolve<IBackupService>();
-                backupService.CreateBackUpInDefaultFolder();
-            }
-
             if (backgroundWorker1.IsBusy == false)
             {
                 backgroundWorker1.RunWorkerAsync(LoaderType.Excel);
@@ -296,20 +290,6 @@ namespace BookKeeper.UI
                     return;
 
                 _files = dialog.FileNames;
-            }
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                try
-                {
-                    var backupService = scope.Resolve<IBackupService>();
-                    backupService.CreateBackUpInDefaultFolder();
-                }
-                catch (Exception)
-                {
-                    var result = MessageBoxHelper.ShowConfirmMessage("Не удалось сделать бэкап в папку по умолчанию: Приложение\\Backup\\nВсе равно продолжить?", this);
-                    if (result != DialogResult.OK)
-                        return;
-                }
             }
 
             if (backgroundWorker1.IsBusy == false)
@@ -457,14 +437,14 @@ namespace BookKeeper.UI
 
             if (debtorsCount == 0)
             {
-                MessageBoxHelper.ShowCompeteMessage("Счетов с задолжностями нет",this);
+                MessageBoxHelper.ShowCompeteMessage("Счетов с задолжностями нет", this);
                 return;
             }
         }
 
         private void btnShowNewAccountsInRange_Click(object sender, EventArgs e)
         {
-            var  newAccountsCount = 0;
+            var newAccountsCount = 0;
             foreach (ListViewItem listViewItem in lvlMonthReportTest.Items)
             {
                 if (listViewItem.Tag is AccountEntity account)
@@ -480,7 +460,7 @@ namespace BookKeeper.UI
 
             if (newAccountsCount == 0)
             {
-                MessageBoxHelper.ShowCompeteMessage("Новых счетов нет",this);
+                MessageBoxHelper.ShowCompeteMessage("Новых счетов нет", this);
                 return;
             }
 
@@ -550,10 +530,6 @@ namespace BookKeeper.UI
                     MessageBoxHelper.ShowWarningMessage("База была повреждена или удалена", this);
                     return;
                 }
-                catch (ArgumentOutOfRangeException)
-                {
-
-                }
                 catch (Exception)
                 {
                     //ignore
@@ -615,6 +591,9 @@ namespace BookKeeper.UI
 
         private static AccountType Convert(int index)
         {
+            if (index == 2)
+                return AccountType.All;
+
             return index == 0 ? AccountType.Municipal : AccountType.Private;
         }
 
@@ -1054,7 +1033,7 @@ namespace BookKeeper.UI
                         catch (IOException exsException)
                         {
                             MessageBox.Show(exsException.Message);
-                            MessageBoxHelper.ShowWarningMessage("Закройте саначала файл", this);
+                            MessageBoxHelper.ShowWarningMessage(exsException.Message, this);
                             return;
                         }
                         catch (NullReferenceException)
@@ -1123,6 +1102,7 @@ namespace BookKeeper.UI
                             Apartment = account.Location.ApartmentNumber,
                             Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued.ToString(CultureInfo.CurrentCulture),
                             Received = account.PaymentDocuments.FirstOrDefault()?.Received.ToString(CultureInfo.CurrentCulture),
+                            AccountType = account.AccountType == AccountType.Private ? "Частный" : "Муниципальный"
                         };
                         form.ShowDialog(this);
                     }

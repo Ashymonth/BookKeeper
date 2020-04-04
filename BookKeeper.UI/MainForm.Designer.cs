@@ -600,7 +600,8 @@
             this.cmbPersonalAccountType.ItemHeight = 23;
             this.cmbPersonalAccountType.Items.AddRange(new object[] {
             "Муниципальный",
-            "Частный"});
+            "Частный",
+            "Все"});
             this.cmbPersonalAccountType.Location = new System.Drawing.Point(279, 3);
             this.cmbPersonalAccountType.Name = "cmbPersonalAccountType";
             this.cmbPersonalAccountType.PromptText = "Тип";
@@ -709,7 +710,7 @@
             this.dateFrom.CustomFormat = "MMMM yyyy";
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFrom.Location = new System.Drawing.Point(660, 3);
-            this.dateFrom.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(120, 29);
             this.dateFrom.TabIndex = 4;
@@ -720,7 +721,7 @@
             this.dateTo.CustomFormat = "MMMM yyyy";
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTo.Location = new System.Drawing.Point(786, 3);
-            this.dateTo.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(118, 29);
             this.dateTo.TabIndex = 5;
@@ -824,7 +825,7 @@
             this.tabpage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabpage.Location = new System.Drawing.Point(20, 116);
             this.tabpage.Name = "tabpage";
-            this.tabpage.SelectedIndex = 2;
+            this.tabpage.SelectedIndex = 0;
             this.tabpage.Size = new System.Drawing.Size(1395, 721);
             this.tabpage.TabIndex = 4;
             this.tabpage.UseSelectable = true;
@@ -1135,7 +1136,7 @@
             // 
             this.btnResetMonthReportColor.Name = "btnResetMonthReportColor";
             this.btnResetMonthReportColor.Size = new System.Drawing.Size(215, 22);
-            this.btnResetMonthReportColor.Text = "Сборосить";
+            this.btnResetMonthReportColor.Text = "Сбросить";
             this.btnResetMonthReportColor.Click += new System.EventHandler(this.btnResetMonthReportColor_Click);
             // 
             // cntDiscountArchive

@@ -10,7 +10,8 @@ namespace BookKeeper.Data.Data.Entities
     public enum AccountType
     {
         Municipal,
-        Private
+        Private,
+        All
     }
 
     [Table("Accounts")]

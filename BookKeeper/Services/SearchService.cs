@@ -33,7 +33,9 @@ namespace BookKeeper.Data.Services
                 entity => entity.Account == Convert.ToInt64(model.Account) && entity.IsDeleted == false;
 
             Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
-                entity.StreetId == model.StreetId && entity.IsDeleted == false &&
+                entity.StreetId == model.StreetId && entity.IsDeleted == false;
+
+            Expression<Func<AccountEntity,bool>> accountTypePredicate = entity =>
                 entity.AccountType == model.AccountType && entity.IsArchive == model.IsArchive;
 
             Expression<Func<AccountEntity, bool>> housePredicate =
@@ -60,6 +62,9 @@ namespace BookKeeper.Data.Services
                 account.And(accountPredicate);
                 return _accountService.GetItems(account);
             }
+
+            if (model.AccountType != AccountType.All)
+                account.And(accountTypePredicate);
 
             if (IsNullOrWhiteSpace(model.HouseNumber) == false)
                 account.And(housePredicate);

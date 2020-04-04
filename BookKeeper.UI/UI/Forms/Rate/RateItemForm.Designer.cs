@@ -190,16 +190,18 @@
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(200, 29);
             this.dateFrom.TabIndex = 9;
+            this.dateFrom.Value = new System.DateTime(2020, 1, 1, 22, 41, 0, 0);
             // 
             // dateTo
             // 
             this.dateTo.CustomFormat = "MMMM yyyy";
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTo.Location = new System.Drawing.Point(265, 194);
+            this.dateTo.Location = new System.Drawing.Point(265, 162);
             this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(200, 29);
             this.dateTo.TabIndex = 10;
+            this.dateTo.Value = new System.DateTime(2020, 12, 1, 22, 41, 0, 0);
             // 
             // metroLabel1
             // 
@@ -213,7 +215,7 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(205, 204);
+            this.metroLabel2.Location = new System.Drawing.Point(205, 172);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(47, 19);
             this.metroLabel2.TabIndex = 12;

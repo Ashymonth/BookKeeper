@@ -143,6 +143,7 @@
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(200, 29);
             this.dateFrom.TabIndex = 15;
+            this.dateFrom.Value = new System.DateTime(2020, 1, 1, 22, 42, 0, 0);
             // 
             // dateTo
             // 
@@ -153,6 +154,7 @@
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(200, 29);
             this.dateTo.TabIndex = 16;
+            this.dateTo.Value = new System.DateTime(2020, 1, 1, 22, 42, 0, 0);
             // 
             // Начало
             // 

@@ -23,15 +23,16 @@ namespace BookKeeper.Data.Infrastructure.Formats
             if (!Path.GetExtension(file).Equals(".htm", StringComparison.OrdinalIgnoreCase))
                 return file;
 
+
             var newFile = $"{Path.GetFileNameWithoutExtension(file)}.html";
 
             try
             {
-                File.Copy(file, newFile, true);
+                File.Copy(file, Path.Combine(newFile), true);
 
                 return newFile;
             }
-            catch (IOException)
+            catch (ArgumentException)
             {
                 return null;
             }

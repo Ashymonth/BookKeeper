@@ -4,8 +4,6 @@
     {
         public string Account { get; set; }
 
-        public bool IsArchive { get; set; }
-
         public string Street { get; set; }
 
         public string House { get; set; }
@@ -18,9 +16,7 @@
 
         public string Accrued { get; set; }
 
-        public string Rate { get; set; }
-
-        public string Discount { get; set; }
+        public string AccountType { get; set; }
 
     }
 }

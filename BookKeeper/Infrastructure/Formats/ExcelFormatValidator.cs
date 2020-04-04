@@ -29,23 +29,7 @@ namespace BookKeeper.Data.Infrastructure.Formats
 
         public static void DeleteTempFolder()
         {
-            try
-            {
-                var currentDirectory = Directory.GetCurrentDirectory();
-                foreach (var file in Directory.GetFiles(currentDirectory))
-                {
-                    if (Path.GetFileNameWithoutExtension(file).Equals(".htm") ||
-                        Path.GetFileNameWithoutExtension(file).Equals(".html") || Path.GetFileNameWithoutExtension(file).Equals(".xlsx") ||
-                        Path.GetFileNameWithoutExtension(file).Equals(".xls"))
-                    {
-                        File.Delete(file);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-            
-            }
+          
         }
     }
 }
