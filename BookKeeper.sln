@@ -23,6 +23,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F3857F9B-0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backup", "Backup", "{64DBDF6D-F3A0-4EC2-8A91-A36007EADBF4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resource", "Resource", "{D6A9A1A3-16F9-40AB-A8AD-136FC13EA17F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Documents\homestuck-wallpaper-SBURB-i9-800.jpg = ..\..\..\Documents\homestuck-wallpaper-SBURB-i9-800.jpg
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

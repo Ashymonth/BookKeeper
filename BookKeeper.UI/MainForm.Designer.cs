@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnFiles = new MetroFramework.Controls.MetroButton();
             this.btnDataBase = new MetroFramework.Controls.MetroButton();
@@ -1218,6 +1219,7 @@
             this.Controls.Add(this.tabpage);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.flowLayoutPanel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.ShadowType = MetroFramework.Forms.MetroFormShadowType.AeroShadow;
             this.Text = "Учет";

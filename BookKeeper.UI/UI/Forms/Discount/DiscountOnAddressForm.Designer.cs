@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DiscountOnAddressForm));
             this.txtHouse = new MetroFramework.Controls.MetroTextBox();
             this.txtBuilding = new MetroFramework.Controls.MetroTextBox();
             this.txtApartment = new MetroFramework.Controls.MetroTextBox();
@@ -277,6 +278,7 @@
             this.Controls.Add(this.txtApartment);
             this.Controls.Add(this.txtBuilding);
             this.Controls.Add(this.txtHouse);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DiscountOnAddressForm";

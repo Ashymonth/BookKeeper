@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressForm));
             this.metroProgressBar1 = new MetroFramework.Controls.MetroProgressBar();
             this.SuspendLayout();
             // 
@@ -46,6 +47,7 @@
             this.ClientSize = new System.Drawing.Size(394, 144);
             this.ControlBox = false;
             this.Controls.Add(this.metroProgressBar1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ProgressForm";

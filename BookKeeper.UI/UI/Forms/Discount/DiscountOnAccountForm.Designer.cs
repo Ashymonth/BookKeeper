@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DiscountAccountItemForm));
             this.txtAccount = new MetroFramework.Controls.MetroTextBox();
             this.cboPercent = new MetroFramework.Controls.MetroComboBox();
             this.btnSave = new MetroFramework.Controls.MetroButton();
@@ -187,6 +188,7 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.cboPercent);
             this.Controls.Add(this.txtAccount);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DiscountAccountItemForm";

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DiscountPercentItem));
             this.txtDiscountPercent = new MetroFramework.Controls.MetroTextBox();
             this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.lstPercent = new System.Windows.Forms.ListBox();
@@ -103,6 +104,7 @@
             this.Controls.Add(this.lstPercent);
             this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.txtDiscountPercent);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Movable = false;

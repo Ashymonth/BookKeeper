@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AccountDetailsForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.txtApartment = new MetroFramework.Controls.MetroTextBox();
@@ -262,6 +263,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(333, 420);
             this.Controls.Add(this.groupBox1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AccountDetailsForm";

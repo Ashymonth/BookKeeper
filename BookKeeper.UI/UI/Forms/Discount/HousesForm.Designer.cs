@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HousesForm));
             this.cmbStreets = new MetroFramework.Controls.MetroComboBox();
             this.txtApartment = new MetroFramework.Controls.MetroTextBox();
             this.txtBuilding = new MetroFramework.Controls.MetroTextBox();
@@ -176,6 +177,7 @@
             this.Controls.Add(this.txtBuilding);
             this.Controls.Add(this.txtHouse);
             this.Controls.Add(this.cmbStreets);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "HousesForm";
