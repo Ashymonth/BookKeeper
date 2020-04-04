@@ -33,8 +33,7 @@
             this.btnFiles = new MetroFramework.Controls.MetroButton();
             this.btnDataBase = new MetroFramework.Controls.MetroButton();
             this.btnHouses = new MetroFramework.Controls.MetroButton();
-            this.btnShowDebtor = new MetroFramework.Controls.MetroButton();
-            this.btnHideDebtor = new MetroFramework.Controls.MetroButton();
+            this.btnAccounts = new MetroFramework.Controls.MetroButton();
             this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
             this.cntFilesMenu = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnLoadBase = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,6 +44,7 @@
             this.columnHeader20 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader21 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader22 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader24 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.lvlDiscounts = new MetroFramework.Controls.MetroListView();
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader8 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -52,10 +52,8 @@
             this.columnHeader10 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanel2 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnAddDiscounts = new MetroFramework.Controls.MetroButton();
-            this.btnAddDiscountPercent = new MetroFramework.Controls.MetroButton();
-            this.dtnDiscountDescription = new MetroFramework.Controls.MetroButton();
-            this.btnShowArchiveDiscounts = new MetroFramework.Controls.MetroButton();
-            this.btnHideArchiveDiscounts = new MetroFramework.Controls.MetroButton();
+            this.btnDiscountsArchive = new MetroFramework.Controls.MetroButton();
+            this.btnDiscountPercentAndDescription = new MetroFramework.Controls.MetroButton();
             this.metroTabPage3 = new MetroFramework.Controls.MetroTabPage();
             this.lvlRates = new MetroFramework.Controls.MetroListView();
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -63,10 +61,10 @@
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanel3 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRates = new MetroFramework.Controls.MetroButton();
-            this.btnShowDeleteRates = new MetroFramework.Controls.MetroButton();
-            this.bthHideDeletedRates = new MetroFramework.Controls.MetroButton();
+            this.btnRateArchive = new MetroFramework.Controls.MetroButton();
             this.tbpMonthReport = new MetroFramework.Controls.MetroTabPage();
             this.lvlMonthReportTest = new System.Windows.Forms.ListView();
             this.columnHeader23 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -116,9 +114,23 @@
             this.cntRates = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnAddRate = new System.Windows.Forms.ToolStripMenuItem();
             this.btnChangeRatesPrice = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnDeleteRate = new System.Windows.Forms.ToolStripMenuItem();
-            this.dtnDeleteRates = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnSendRateToArchive = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDeleteRates = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.cntAccounts = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.btnShowDebterInDateRange = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnShowNewAccountsinRange = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnResetMonthReportColor = new System.Windows.Forms.ToolStripMenuItem();
+            this.cntDiscountArchive = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.btnShowArchiveDiscount = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnHideArchiveDiscount = new System.Windows.Forms.ToolStripMenuItem();
+            this.cntPercentAndDescription = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.btnAddDiscountPerce = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnAddDiscountDescriptio = new System.Windows.Forms.ToolStripMenuItem();
+            this.cntRateArchive = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.btnShowArchiveRates = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnHideArchvieRates = new System.Windows.Forms.ToolStripMenuItem();
+            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.flowLayoutPanel1.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
             this.metroTabPage4.SuspendLayout();
@@ -134,6 +146,10 @@
             this.cntDatabase.SuspendLayout();
             this.cntDiscounts.SuspendLayout();
             this.cntRates.SuspendLayout();
+            this.cntAccounts.SuspendLayout();
+            this.cntDiscountArchive.SuspendLayout();
+            this.cntPercentAndDescription.SuspendLayout();
+            this.cntRateArchive.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -141,13 +157,12 @@
             this.flowLayoutPanel1.Controls.Add(this.btnFiles);
             this.flowLayoutPanel1.Controls.Add(this.btnDataBase);
             this.flowLayoutPanel1.Controls.Add(this.btnHouses);
-            this.flowLayoutPanel1.Controls.Add(this.btnShowDebtor);
-            this.flowLayoutPanel1.Controls.Add(this.btnHideDebtor);
+            this.flowLayoutPanel1.Controls.Add(this.btnAccounts);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(20, 60);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1420, 32);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1395, 32);
             this.flowLayoutPanel1.TabIndex = 2;
             // 
             // btnFiles
@@ -183,25 +198,15 @@
             this.btnHouses.UseSelectable = true;
             this.btnHouses.Click += new System.EventHandler(this.btnHouses_Click);
             // 
-            // btnShowDebtor
+            // btnAccounts
             // 
-            this.btnShowDebtor.Location = new System.Drawing.Point(354, 3);
-            this.btnShowDebtor.Name = "btnShowDebtor";
-            this.btnShowDebtor.Size = new System.Drawing.Size(167, 23);
-            this.btnShowDebtor.TabIndex = 1;
-            this.btnShowDebtor.Text = "Показать не оплаченные";
-            this.btnShowDebtor.UseSelectable = true;
-            this.btnShowDebtor.Click += new System.EventHandler(this.btnShowDebtor_Click);
-            // 
-            // btnHideDebtor
-            // 
-            this.btnHideDebtor.Location = new System.Drawing.Point(527, 3);
-            this.btnHideDebtor.Name = "btnHideDebtor";
-            this.btnHideDebtor.Size = new System.Drawing.Size(167, 23);
-            this.btnHideDebtor.TabIndex = 6;
-            this.btnHideDebtor.Text = "Скрыть";
-            this.btnHideDebtor.UseSelectable = true;
-            this.btnHideDebtor.Click += new System.EventHandler(this.btnHideDebtor_Click);
+            this.btnAccounts.Location = new System.Drawing.Point(354, 3);
+            this.btnAccounts.Name = "btnAccounts";
+            this.btnAccounts.Size = new System.Drawing.Size(80, 23);
+            this.btnAccounts.TabIndex = 8;
+            this.btnAccounts.Text = "Счета";
+            this.btnAccounts.UseSelectable = true;
+            this.btnAccounts.Click += new System.EventHandler(this.btnAccounts_Click);
             // 
             // metroPanel1
             // 
@@ -211,7 +216,7 @@
             this.metroPanel1.HorizontalScrollbarSize = 10;
             this.metroPanel1.Location = new System.Drawing.Point(20, 92);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(1420, 24);
+            this.metroPanel1.Size = new System.Drawing.Size(1395, 24);
             this.metroPanel1.TabIndex = 3;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
@@ -250,8 +255,8 @@
             this.metroTabPage4.HorizontalScrollbarSize = 10;
             this.metroTabPage4.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage4.Name = "metroTabPage4";
-            this.metroTabPage4.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.metroTabPage4.Size = new System.Drawing.Size(1412, 460);
+            this.metroTabPage4.Padding = new System.Windows.Forms.Padding(5);
+            this.metroTabPage4.Size = new System.Drawing.Size(1387, 679);
             this.metroTabPage4.TabIndex = 3;
             this.metroTabPage4.Text = "Льготы";
             this.metroTabPage4.VerticalScrollbarBarColor = true;
@@ -265,15 +270,16 @@
             this.columnHeader19,
             this.columnHeader20,
             this.columnHeader21,
-            this.columnHeader22});
+            this.columnHeader22,
+            this.columnHeader24});
             this.lvlDiscountsTest.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvlDiscountsTest.FullRowSelect = true;
             this.lvlDiscountsTest.GridLines = true;
             this.lvlDiscountsTest.HideSelection = false;
             this.lvlDiscountsTest.Location = new System.Drawing.Point(5, 45);
-            this.lvlDiscountsTest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvlDiscountsTest.Margin = new System.Windows.Forms.Padding(2);
             this.lvlDiscountsTest.Name = "lvlDiscountsTest";
-            this.lvlDiscountsTest.Size = new System.Drawing.Size(1402, 410);
+            this.lvlDiscountsTest.Size = new System.Drawing.Size(1377, 629);
             this.lvlDiscountsTest.TabIndex = 4;
             this.lvlDiscountsTest.UseCompatibleStateImageBehavior = false;
             this.lvlDiscountsTest.View = System.Windows.Forms.View.Details;
@@ -297,6 +303,11 @@
             // 
             this.columnHeader22.Text = "Причина";
             this.columnHeader22.Width = 304;
+            // 
+            // columnHeader24
+            // 
+            this.columnHeader24.Text = "Дата";
+            this.columnHeader24.Width = 254;
             // 
             // lvlDiscounts
             // 
@@ -343,15 +354,13 @@
             // flowLayoutPanel2
             // 
             this.flowLayoutPanel2.Controls.Add(this.btnAddDiscounts);
-            this.flowLayoutPanel2.Controls.Add(this.btnAddDiscountPercent);
-            this.flowLayoutPanel2.Controls.Add(this.dtnDiscountDescription);
-            this.flowLayoutPanel2.Controls.Add(this.btnShowArchiveDiscounts);
-            this.flowLayoutPanel2.Controls.Add(this.btnHideArchiveDiscounts);
+            this.flowLayoutPanel2.Controls.Add(this.btnDiscountsArchive);
+            this.flowLayoutPanel2.Controls.Add(this.btnDiscountPercentAndDescription);
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(5, 5);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.flowLayoutPanel2.Size = new System.Drawing.Size(1402, 40);
+            this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(5);
+            this.flowLayoutPanel2.Size = new System.Drawing.Size(1377, 40);
             this.flowLayoutPanel2.TabIndex = 2;
             // 
             // btnAddDiscounts
@@ -364,45 +373,25 @@
             this.btnAddDiscounts.UseSelectable = true;
             this.btnAddDiscounts.Click += new System.EventHandler(this.btnAddDiscounts_Click);
             // 
-            // btnAddDiscountPercent
+            // btnDiscountsArchive
             // 
-            this.btnAddDiscountPercent.Location = new System.Drawing.Point(130, 8);
-            this.btnAddDiscountPercent.Name = "btnAddDiscountPercent";
-            this.btnAddDiscountPercent.Size = new System.Drawing.Size(178, 23);
-            this.btnAddDiscountPercent.TabIndex = 2;
-            this.btnAddDiscountPercent.Text = "Добавить процентную ставку";
-            this.btnAddDiscountPercent.UseSelectable = true;
-            this.btnAddDiscountPercent.Click += new System.EventHandler(this.btnAddDiscountPercent_Click);
+            this.btnDiscountsArchive.Location = new System.Drawing.Point(130, 8);
+            this.btnDiscountsArchive.Name = "btnDiscountsArchive";
+            this.btnDiscountsArchive.Size = new System.Drawing.Size(123, 23);
+            this.btnDiscountsArchive.TabIndex = 8;
+            this.btnDiscountsArchive.Text = "Архив";
+            this.btnDiscountsArchive.UseSelectable = true;
+            this.btnDiscountsArchive.Click += new System.EventHandler(this.btnDiscountsArchive_Click);
             // 
-            // dtnDiscountDescription
+            // btnDiscountPercentAndDescription
             // 
-            this.dtnDiscountDescription.Location = new System.Drawing.Point(314, 8);
-            this.dtnDiscountDescription.Name = "dtnDiscountDescription";
-            this.dtnDiscountDescription.Size = new System.Drawing.Size(200, 23);
-            this.dtnDiscountDescription.TabIndex = 3;
-            this.dtnDiscountDescription.Text = "Добавить описание льготы";
-            this.dtnDiscountDescription.UseSelectable = true;
-            this.dtnDiscountDescription.Click += new System.EventHandler(this.dtnDiscountDescription_Click);
-            // 
-            // btnShowArchiveDiscounts
-            // 
-            this.btnShowArchiveDiscounts.Location = new System.Drawing.Point(520, 8);
-            this.btnShowArchiveDiscounts.Name = "btnShowArchiveDiscounts";
-            this.btnShowArchiveDiscounts.Size = new System.Drawing.Size(132, 23);
-            this.btnShowArchiveDiscounts.TabIndex = 6;
-            this.btnShowArchiveDiscounts.Text = "Показать архивные";
-            this.btnShowArchiveDiscounts.UseSelectable = true;
-            this.btnShowArchiveDiscounts.Click += new System.EventHandler(this.btnShowArchiveDiscounts_Click);
-            // 
-            // btnHideArchiveDiscounts
-            // 
-            this.btnHideArchiveDiscounts.Location = new System.Drawing.Point(658, 8);
-            this.btnHideArchiveDiscounts.Name = "btnHideArchiveDiscounts";
-            this.btnHideArchiveDiscounts.Size = new System.Drawing.Size(58, 23);
-            this.btnHideArchiveDiscounts.TabIndex = 7;
-            this.btnHideArchiveDiscounts.Text = "Скрыть";
-            this.btnHideArchiveDiscounts.UseSelectable = true;
-            this.btnHideArchiveDiscounts.Click += new System.EventHandler(this.btnHideArchiveDiscounts_Click);
+            this.btnDiscountPercentAndDescription.Location = new System.Drawing.Point(259, 8);
+            this.btnDiscountPercentAndDescription.Name = "btnDiscountPercentAndDescription";
+            this.btnDiscountPercentAndDescription.Size = new System.Drawing.Size(166, 23);
+            this.btnDiscountPercentAndDescription.TabIndex = 9;
+            this.btnDiscountPercentAndDescription.Text = "Проценты и описание";
+            this.btnDiscountPercentAndDescription.UseSelectable = true;
+            this.btnDiscountPercentAndDescription.Click += new System.EventHandler(this.btnDiscountPercentAndDescription_Click);
             // 
             // metroTabPage3
             // 
@@ -413,8 +402,8 @@
             this.metroTabPage3.HorizontalScrollbarSize = 10;
             this.metroTabPage3.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage3.Name = "metroTabPage3";
-            this.metroTabPage3.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.metroTabPage3.Size = new System.Drawing.Size(1352, 460);
+            this.metroTabPage3.Padding = new System.Windows.Forms.Padding(5);
+            this.metroTabPage3.Size = new System.Drawing.Size(1387, 679);
             this.metroTabPage3.TabIndex = 2;
             this.metroTabPage3.Text = "Тарифы";
             this.metroTabPage3.VerticalScrollbarBarColor = true;
@@ -429,7 +418,8 @@
             this.columnHeader3,
             this.columnHeader4,
             this.columnHeader6,
-            this.columnHeader7});
+            this.columnHeader7,
+            this.columnHeader1});
             this.lvlRates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvlRates.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.lvlRates.FullRowSelect = true;
@@ -437,20 +427,19 @@
             this.lvlRates.Location = new System.Drawing.Point(5, 44);
             this.lvlRates.Name = "lvlRates";
             this.lvlRates.OwnerDraw = true;
-            this.lvlRates.Size = new System.Drawing.Size(1342, 411);
+            this.lvlRates.Size = new System.Drawing.Size(1377, 630);
             this.lvlRates.TabIndex = 6;
             this.lvlRates.UseCompatibleStateImageBehavior = false;
             this.lvlRates.UseCustomBackColor = true;
             this.lvlRates.UseCustomForeColor = true;
             this.lvlRates.UseSelectable = true;
             this.lvlRates.View = System.Windows.Forms.View.Details;
-            this.lvlRates.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvlRates_MouseDoubleClick);
             // 
             // columnHeader2
             // 
             this.columnHeader2.Tag = "id";
             this.columnHeader2.Text = "Улица";
-            this.columnHeader2.Width = 139;
+            this.columnHeader2.Width = 255;
             // 
             // columnHeader3
             // 
@@ -460,59 +449,53 @@
             // columnHeader4
             // 
             this.columnHeader4.Text = "Корпус";
-            this.columnHeader4.Width = 409;
+            this.columnHeader4.Width = 241;
             // 
             // columnHeader6
             // 
             this.columnHeader6.Text = "Цена";
-            this.columnHeader6.Width = 274;
+            this.columnHeader6.Width = 147;
             // 
             // columnHeader7
             // 
             this.columnHeader7.Text = "Описание";
-            this.columnHeader7.Width = 544;
+            this.columnHeader7.Width = 218;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Дата";
+            this.columnHeader1.Width = 354;
             // 
             // flowLayoutPanel3
             // 
             this.flowLayoutPanel3.Controls.Add(this.btnRates);
-            this.flowLayoutPanel3.Controls.Add(this.btnShowDeleteRates);
-            this.flowLayoutPanel3.Controls.Add(this.bthHideDeletedRates);
+            this.flowLayoutPanel3.Controls.Add(this.btnRateArchive);
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(5, 5);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.flowLayoutPanel3.Size = new System.Drawing.Size(1342, 39);
+            this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(5);
+            this.flowLayoutPanel3.Size = new System.Drawing.Size(1377, 39);
             this.flowLayoutPanel3.TabIndex = 5;
             // 
             // btnRates
             // 
             this.btnRates.Location = new System.Drawing.Point(8, 8);
             this.btnRates.Name = "btnRates";
-            this.btnRates.Size = new System.Drawing.Size(85, 23);
+            this.btnRates.Size = new System.Drawing.Size(116, 23);
             this.btnRates.TabIndex = 15;
             this.btnRates.Text = "Действия";
             this.btnRates.UseSelectable = true;
             this.btnRates.Click += new System.EventHandler(this.btnRates_Click);
             // 
-            // btnShowDeleteRates
+            // btnRateArchive
             // 
-            this.btnShowDeleteRates.Location = new System.Drawing.Point(99, 8);
-            this.btnShowDeleteRates.Name = "btnShowDeleteRates";
-            this.btnShowDeleteRates.Size = new System.Drawing.Size(179, 23);
-            this.btnShowDeleteRates.TabIndex = 13;
-            this.btnShowDeleteRates.Text = "Показать архивные тарифы";
-            this.btnShowDeleteRates.UseSelectable = true;
-            this.btnShowDeleteRates.Click += new System.EventHandler(this.btnShowDeleteRates_Click);
-            // 
-            // bthHideDeletedRates
-            // 
-            this.bthHideDeletedRates.Location = new System.Drawing.Point(284, 8);
-            this.bthHideDeletedRates.Name = "bthHideDeletedRates";
-            this.bthHideDeletedRates.Size = new System.Drawing.Size(67, 23);
-            this.bthHideDeletedRates.TabIndex = 14;
-            this.bthHideDeletedRates.Text = "Скрыть";
-            this.bthHideDeletedRates.UseSelectable = true;
-            this.bthHideDeletedRates.Click += new System.EventHandler(this.bthHideDeletedRates_Click);
+            this.btnRateArchive.Location = new System.Drawing.Point(130, 8);
+            this.btnRateArchive.Name = "btnRateArchive";
+            this.btnRateArchive.Size = new System.Drawing.Size(123, 23);
+            this.btnRateArchive.TabIndex = 13;
+            this.btnRateArchive.Text = "Архив";
+            this.btnRateArchive.UseSelectable = true;
+            this.btnRateArchive.Click += new System.EventHandler(this.btnRateArchive_Click);
             // 
             // tbpMonthReport
             // 
@@ -524,8 +507,8 @@
             this.tbpMonthReport.HorizontalScrollbarSize = 10;
             this.tbpMonthReport.Location = new System.Drawing.Point(4, 38);
             this.tbpMonthReport.Name = "tbpMonthReport";
-            this.tbpMonthReport.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
-            this.tbpMonthReport.Size = new System.Drawing.Size(1412, 460);
+            this.tbpMonthReport.Padding = new System.Windows.Forms.Padding(5);
+            this.tbpMonthReport.Size = new System.Drawing.Size(1387, 679);
             this.tbpMonthReport.TabIndex = 0;
             this.tbpMonthReport.Text = "Месячный отчет";
             this.tbpMonthReport.VerticalScrollbarBarColor = true;
@@ -541,12 +524,13 @@
             this.lvlMonthReportTest.GridLines = true;
             this.lvlMonthReportTest.HideSelection = false;
             this.lvlMonthReportTest.Location = new System.Drawing.Point(5, 40);
-            this.lvlMonthReportTest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvlMonthReportTest.Margin = new System.Windows.Forms.Padding(2);
             this.lvlMonthReportTest.Name = "lvlMonthReportTest";
-            this.lvlMonthReportTest.Size = new System.Drawing.Size(1402, 393);
+            this.lvlMonthReportTest.Size = new System.Drawing.Size(1377, 612);
             this.lvlMonthReportTest.TabIndex = 7;
             this.lvlMonthReportTest.UseCompatibleStateImageBehavior = false;
             this.lvlMonthReportTest.View = System.Windows.Forms.View.Details;
+            this.lvlMonthReportTest.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvlMonthReportTest_MouseDoubleClick);
             // 
             // columnHeader23
             // 
@@ -557,9 +541,9 @@
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.lblCounter});
-            this.statusStrip1.Location = new System.Drawing.Point(5, 433);
+            this.statusStrip1.Location = new System.Drawing.Point(5, 652);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1402, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1377, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -594,7 +578,7 @@
             this.flpFilter.Location = new System.Drawing.Point(5, 5);
             this.flpFilter.Margin = new System.Windows.Forms.Padding(3, 10, 3, 3);
             this.flpFilter.Name = "flpFilter";
-            this.flpFilter.Size = new System.Drawing.Size(1402, 35);
+            this.flpFilter.Size = new System.Drawing.Size(1377, 35);
             this.flpFilter.TabIndex = 4;
             // 
             // cmbStreet
@@ -629,9 +613,9 @@
             // 
             // 
             this.txtHouse.CustomButton.Image = null;
-            this.txtHouse.CustomButton.Location = new System.Drawing.Point(27, 1);
+            this.txtHouse.CustomButton.Location = new System.Drawing.Point(36, 1);
             this.txtHouse.CustomButton.Name = "";
-            this.txtHouse.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtHouse.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtHouse.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtHouse.CustomButton.TabIndex = 1;
             this.txtHouse.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -661,9 +645,9 @@
             // 
             // 
             this.txtBuilding.CustomButton.Image = null;
-            this.txtBuilding.CustomButton.Location = new System.Drawing.Point(26, 1);
+            this.txtBuilding.CustomButton.Location = new System.Drawing.Point(34, 1);
             this.txtBuilding.CustomButton.Name = "";
-            this.txtBuilding.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtBuilding.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtBuilding.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtBuilding.CustomButton.TabIndex = 1;
             this.txtBuilding.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -693,9 +677,9 @@
             // 
             // 
             this.txtApartment.CustomButton.Image = null;
-            this.txtApartment.CustomButton.Location = new System.Drawing.Point(45, 1);
+            this.txtApartment.CustomButton.Location = new System.Drawing.Point(60, 1);
             this.txtApartment.CustomButton.Name = "";
-            this.txtApartment.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtApartment.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtApartment.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtApartment.CustomButton.TabIndex = 1;
             this.txtApartment.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -724,7 +708,7 @@
             this.dateFrom.CustomFormat = "MMMM yyyy";
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFrom.Location = new System.Drawing.Point(660, 3);
-            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(120, 29);
             this.dateFrom.TabIndex = 4;
@@ -735,10 +719,11 @@
             this.dateTo.CustomFormat = "MMMM yyyy";
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTo.Location = new System.Drawing.Point(786, 3);
-            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTo.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(118, 29);
             this.dateTo.TabIndex = 5;
+            this.dateTo.Value = new System.DateTime(2020, 1, 4, 1, 37, 0, 0);
             // 
             // txtAccount
             // 
@@ -746,9 +731,9 @@
             // 
             // 
             this.txtAccount.CustomButton.Image = null;
-            this.txtAccount.CustomButton.Location = new System.Drawing.Point(78, 1);
+            this.txtAccount.CustomButton.Location = new System.Drawing.Point(104, 1);
             this.txtAccount.CustomButton.Name = "";
-            this.txtAccount.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtAccount.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtAccount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtAccount.CustomButton.TabIndex = 1;
             this.txtAccount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -838,8 +823,8 @@
             this.tabpage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabpage.Location = new System.Drawing.Point(20, 116);
             this.tabpage.Name = "tabpage";
-            this.tabpage.SelectedIndex = 0;
-            this.tabpage.Size = new System.Drawing.Size(1420, 502);
+            this.tabpage.SelectedIndex = 2;
+            this.tabpage.Size = new System.Drawing.Size(1395, 721);
             this.tabpage.TabIndex = 4;
             this.tabpage.UseSelectable = true;
             // 
@@ -852,8 +837,8 @@
             this.metroTabPage1.HorizontalScrollbarSize = 10;
             this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage1.Name = "metroTabPage1";
-            this.metroTabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.metroTabPage1.Size = new System.Drawing.Size(1412, 460);
+            this.metroTabPage1.Padding = new System.Windows.Forms.Padding(4);
+            this.metroTabPage1.Size = new System.Drawing.Size(1387, 679);
             this.metroTabPage1.TabIndex = 4;
             this.metroTabPage1.Text = "Общий отчет";
             this.metroTabPage1.VerticalScrollbarBarColor = true;
@@ -878,7 +863,7 @@
             this.lvlTotalReport.Location = new System.Drawing.Point(4, 39);
             this.lvlTotalReport.Name = "lvlTotalReport";
             this.lvlTotalReport.OwnerDraw = true;
-            this.lvlTotalReport.Size = new System.Drawing.Size(1404, 417);
+            this.lvlTotalReport.Size = new System.Drawing.Size(1379, 636);
             this.lvlTotalReport.TabIndex = 3;
             this.lvlTotalReport.UseCompatibleStateImageBehavior = false;
             this.lvlTotalReport.UseSelectable = true;
@@ -935,7 +920,7 @@
             this.flowLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel4.Location = new System.Drawing.Point(4, 4);
             this.flowLayoutPanel4.Name = "flowLayoutPanel4";
-            this.flowLayoutPanel4.Size = new System.Drawing.Size(1404, 35);
+            this.flowLayoutPanel4.Size = new System.Drawing.Size(1379, 35);
             this.flowLayoutPanel4.TabIndex = 2;
             // 
             // metroLabel1
@@ -958,8 +943,8 @@
             this.dateTotalReportFrom.CustomFormat = "MMMM yyyy";
             this.dateTotalReportFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportFrom.Location = new System.Drawing.Point(62, 2);
-            this.dateTotalReportFrom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTotalReportFrom.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTotalReportFrom.Name = "dateTotalReportFrom";
             this.dateTotalReportFrom.Size = new System.Drawing.Size(151, 29);
             this.dateTotalReportFrom.TabIndex = 2;
@@ -986,16 +971,17 @@
             this.dateTotalReportTo.CustomFormat = "MMMM yyyy";
             this.dateTotalReportTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportTo.Location = new System.Drawing.Point(277, 2);
-            this.dateTotalReportTo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTotalReportTo.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTotalReportTo.Name = "dateTotalReportTo";
             this.dateTotalReportTo.Size = new System.Drawing.Size(151, 29);
             this.dateTotalReportTo.TabIndex = 1;
+            this.dateTotalReportTo.Value = new System.DateTime(2020, 1, 4, 1, 37, 0, 0);
             // 
             // btnCreateTotalReport
             // 
             this.btnCreateTotalReport.Location = new System.Drawing.Point(432, 2);
-            this.btnCreateTotalReport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCreateTotalReport.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreateTotalReport.Name = "btnCreateTotalReport";
             this.btnCreateTotalReport.Size = new System.Drawing.Size(156, 29);
             this.btnCreateTotalReport.TabIndex = 0;
@@ -1006,7 +992,7 @@
             // btnExportToExcel
             // 
             this.btnExportToExcel.Location = new System.Drawing.Point(592, 2);
-            this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(2);
             this.btnExportToExcel.Name = "btnExportToExcel";
             this.btnExportToExcel.Size = new System.Drawing.Size(156, 29);
             this.btnExportToExcel.TabIndex = 6;
@@ -1056,38 +1042,38 @@
             // btnDiscountOnAccount
             // 
             this.btnDiscountOnAccount.Name = "btnDiscountOnAccount";
-            this.btnDiscountOnAccount.Size = new System.Drawing.Size(180, 22);
+            this.btnDiscountOnAccount.Size = new System.Drawing.Size(179, 22);
             this.btnDiscountOnAccount.Text = "Добавить счет";
             this.btnDiscountOnAccount.Click += new System.EventHandler(this.btnDiscountOnAccount_Click_1);
             // 
             // btnDiscountOnAddress
             // 
             this.btnDiscountOnAddress.Name = "btnDiscountOnAddress";
-            this.btnDiscountOnAddress.Size = new System.Drawing.Size(180, 22);
+            this.btnDiscountOnAddress.Size = new System.Drawing.Size(179, 22);
             this.btnDiscountOnAddress.Text = "Добавить квартиру";
             this.btnDiscountOnAddress.Click += new System.EventHandler(this.btnDiscountOnAddress_Click);
             // 
             // btnSendDiscountToArchive
             // 
             this.btnSendDiscountToArchive.Name = "btnSendDiscountToArchive";
-            this.btnSendDiscountToArchive.Size = new System.Drawing.Size(180, 22);
+            this.btnSendDiscountToArchive.Size = new System.Drawing.Size(179, 22);
             this.btnSendDiscountToArchive.Text = "Отправить в архив";
             this.btnSendDiscountToArchive.Click += new System.EventHandler(this.btnSendDiscountToArchive_Click);
             // 
             // btnDeleteDiscounts
             // 
             this.btnDeleteDiscounts.Name = "btnDeleteDiscounts";
-            this.btnDeleteDiscounts.Size = new System.Drawing.Size(180, 22);
+            this.btnDeleteDiscounts.Size = new System.Drawing.Size(179, 22);
             this.btnDeleteDiscounts.Text = "Удалить";
-            this.btnDeleteDiscounts.Click += new System.EventHandler(this.btnDeleteRates_Click);
+            this.btnDeleteDiscounts.Click += new System.EventHandler(this.btnDeleteDiscounts_Click);
             // 
             // cntRates
             // 
             this.cntRates.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnAddRate,
             this.btnChangeRatesPrice,
-            this.btnDeleteRate,
-            this.dtnDeleteRates});
+            this.btnSendRateToArchive,
+            this.btnDeleteRates});
             this.cntRates.Name = "metroContextMenu1";
             this.cntRates.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.cntRates.Size = new System.Drawing.Size(177, 92);
@@ -1106,25 +1092,129 @@
             this.btnChangeRatesPrice.Text = "Изменить цену";
             this.btnChangeRatesPrice.Click += new System.EventHandler(this.btnChangeRatesPrice_Click);
             // 
-            // btnDeleteRate
+            // btnSendRateToArchive
             // 
-            this.btnDeleteRate.Name = "btnDeleteRate";
-            this.btnDeleteRate.Size = new System.Drawing.Size(176, 22);
-            this.btnDeleteRate.Text = "Отправить в архив";
-            this.btnDeleteRate.Click += new System.EventHandler(this.btnDeleteRate_Click_1);
+            this.btnSendRateToArchive.Name = "btnSendRateToArchive";
+            this.btnSendRateToArchive.Size = new System.Drawing.Size(176, 22);
+            this.btnSendRateToArchive.Text = "Отправить в архив";
+            this.btnSendRateToArchive.Click += new System.EventHandler(this.btnSendRateToArchive_Click);
             // 
-            // dtnDeleteRates
+            // btnDeleteRates
             // 
-            this.dtnDeleteRates.Name = "dtnDeleteRates";
-            this.dtnDeleteRates.Size = new System.Drawing.Size(176, 22);
-            this.dtnDeleteRates.Text = "Удалить";
-            this.dtnDeleteRates.Click += new System.EventHandler(this.dtnRateForceDelete_Click);
+            this.btnDeleteRates.Name = "btnDeleteRates";
+            this.btnDeleteRates.Size = new System.Drawing.Size(176, 22);
+            this.btnDeleteRates.Text = "Удалить";
+            this.btnDeleteRates.Click += new System.EventHandler(this.dtnRateForceDelete_Click);
+            // 
+            // cntAccounts
+            // 
+            this.cntAccounts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnShowDebterInDateRange,
+            this.btnShowNewAccountsinRange,
+            this.btnResetMonthReportColor});
+            this.cntAccounts.Name = "metroContextMenu1";
+            this.cntAccounts.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.cntAccounts.Size = new System.Drawing.Size(216, 70);
+            // 
+            // btnShowDebterInDateRange
+            // 
+            this.btnShowDebterInDateRange.Name = "btnShowDebterInDateRange";
+            this.btnShowDebterInDateRange.Size = new System.Drawing.Size(215, 22);
+            this.btnShowDebterInDateRange.Text = "Выделить не оплаченные";
+            this.btnShowDebterInDateRange.Click += new System.EventHandler(this.btnShowDebtorInDateRange_Click);
+            // 
+            // btnShowNewAccountsinRange
+            // 
+            this.btnShowNewAccountsinRange.Name = "btnShowNewAccountsinRange";
+            this.btnShowNewAccountsinRange.Size = new System.Drawing.Size(215, 22);
+            this.btnShowNewAccountsinRange.Text = "Выделить новые";
+            this.btnShowNewAccountsinRange.Click += new System.EventHandler(this.btnShowNewAccountsInRange_Click);
+            // 
+            // btnResetMonthReportColor
+            // 
+            this.btnResetMonthReportColor.Name = "btnResetMonthReportColor";
+            this.btnResetMonthReportColor.Size = new System.Drawing.Size(215, 22);
+            this.btnResetMonthReportColor.Text = "Сборосить";
+            this.btnResetMonthReportColor.Click += new System.EventHandler(this.btnResetMonthReportColor_Click);
+            // 
+            // cntDiscountArchive
+            // 
+            this.cntDiscountArchive.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnShowArchiveDiscount,
+            this.btnHideArchiveDiscount});
+            this.cntDiscountArchive.Name = "metroContextMenu1";
+            this.cntDiscountArchive.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.cntDiscountArchive.Size = new System.Drawing.Size(224, 48);
+            // 
+            // btnShowArchiveDiscount
+            // 
+            this.btnShowArchiveDiscount.Name = "btnShowArchiveDiscount";
+            this.btnShowArchiveDiscount.Size = new System.Drawing.Size(223, 22);
+            this.btnShowArchiveDiscount.Text = "Показать архивные льготы";
+            this.btnShowArchiveDiscount.Click += new System.EventHandler(this.btnShowArchiveDiscount_Click);
+            // 
+            // btnHideArchiveDiscount
+            // 
+            this.btnHideArchiveDiscount.Name = "btnHideArchiveDiscount";
+            this.btnHideArchiveDiscount.Size = new System.Drawing.Size(223, 22);
+            this.btnHideArchiveDiscount.Text = "Скрыть";
+            this.btnHideArchiveDiscount.Click += new System.EventHandler(this.btnHideArchiveDiscount_Click);
+            // 
+            // cntPercentAndDescription
+            // 
+            this.cntPercentAndDescription.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAddDiscountPerce,
+            this.btnAddDiscountDescriptio});
+            this.cntPercentAndDescription.Name = "metroContextMenu1";
+            this.cntPercentAndDescription.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.cntPercentAndDescription.Size = new System.Drawing.Size(237, 48);
+            // 
+            // btnAddDiscountPerce
+            // 
+            this.btnAddDiscountPerce.Name = "btnAddDiscountPerce";
+            this.btnAddDiscountPerce.Size = new System.Drawing.Size(236, 22);
+            this.btnAddDiscountPerce.Text = "Добавить процентную ставку";
+            this.btnAddDiscountPerce.Click += new System.EventHandler(this.btnAddDiscountPercent_Click);
+            // 
+            // btnAddDiscountDescriptio
+            // 
+            this.btnAddDiscountDescriptio.Name = "btnAddDiscountDescriptio";
+            this.btnAddDiscountDescriptio.Size = new System.Drawing.Size(236, 22);
+            this.btnAddDiscountDescriptio.Text = "Добавить описание";
+            this.btnAddDiscountDescriptio.Click += new System.EventHandler(this.btnAddDiscountDescription_Click);
+            // 
+            // cntRateArchive
+            // 
+            this.cntRateArchive.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnShowArchiveRates,
+            this.btnHideArchvieRates});
+            this.cntRateArchive.Name = "metroContextMenu1";
+            this.cntRateArchive.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.cntRateArchive.Size = new System.Drawing.Size(224, 48);
+            // 
+            // btnShowArchiveRates
+            // 
+            this.btnShowArchiveRates.Name = "btnShowArchiveRates";
+            this.btnShowArchiveRates.Size = new System.Drawing.Size(223, 22);
+            this.btnShowArchiveRates.Text = "Показать архивные льготы";
+            this.btnShowArchiveRates.Click += new System.EventHandler(this.btnShowArchiveRates_Click);
+            // 
+            // btnHideArchvieRates
+            // 
+            this.btnHideArchvieRates.Name = "btnHideArchvieRates";
+            this.btnHideArchvieRates.Size = new System.Drawing.Size(223, 22);
+            this.btnHideArchvieRates.Text = "Скрыть";
+            this.btnHideArchvieRates.Click += new System.EventHandler(this.btnHideArchiveRates_Click);
+            // 
+            // backgroundWorker3
+            // 
+            this.backgroundWorker3.WorkerSupportsCancellation = true;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1460, 638);
+            this.ClientSize = new System.Drawing.Size(1435, 857);
             this.Controls.Add(this.tabpage);
             this.Controls.Add(this.metroPanel1);
             this.Controls.Add(this.flowLayoutPanel1);
@@ -1151,6 +1241,10 @@
             this.cntDatabase.ResumeLayout(false);
             this.cntDiscounts.ResumeLayout(false);
             this.cntRates.ResumeLayout(false);
+            this.cntAccounts.ResumeLayout(false);
+            this.cntDiscountArchive.ResumeLayout(false);
+            this.cntPercentAndDescription.ResumeLayout(false);
+            this.cntRateArchive.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1158,7 +1252,6 @@
         #endregion
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private MetroFramework.Controls.MetroButton btnFiles;
-        private MetroFramework.Controls.MetroButton btnShowDebtor;
         private MetroFramework.Controls.MetroPanel metroPanel1;
         private MetroFramework.Controls.MetroContextMenu cntFilesMenu;
         private System.Windows.Forms.ToolStripMenuItem btnLoadBase;
@@ -1183,11 +1276,9 @@
         private MetroFramework.Controls.MetroCheckBox metroCheckBox1;
         private MetroFramework.Controls.MetroTabControl tabpage;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private MetroFramework.Controls.MetroButton btnAddDiscountPercent;
         private MetroFramework.Controls.MetroCheckBox metroCheckBox2;
         private MetroFramework.Controls.MetroButton btnClear;
         private MetroFramework.Controls.MetroButton btnFind;
-        private MetroFramework.Controls.MetroButton dtnDiscountDescription;
         private MetroFramework.Controls.MetroTextBox txtAccount;
         private MetroFramework.Controls.MetroListView lvlRates;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -1196,8 +1287,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel3;
-        private MetroFramework.Controls.MetroButton bthHideDeletedRates;
-        private MetroFramework.Controls.MetroButton btnShowDeleteRates;
+        private MetroFramework.Controls.MetroButton btnRateArchive;
         private MetroFramework.Controls.MetroContextMenu cntDatabase;
         private System.Windows.Forms.ToolStripMenuItem btnCreateBackup;
         private System.Windows.Forms.ToolStripMenuItem btnLoadFromBackup;
@@ -1210,7 +1300,7 @@
         private MetroFramework.Controls.MetroButton btnRates;
         private MetroFramework.Controls.MetroContextMenu cntRates;
         private System.Windows.Forms.ToolStripMenuItem btnAddRate;
-        private System.Windows.Forms.ToolStripMenuItem btnDeleteRate;
+        private System.Windows.Forms.ToolStripMenuItem btnSendRateToArchive;
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lblCounter;
@@ -1230,12 +1320,10 @@
         private MetroFramework.Controls.MetroDateTime dateTotalReportFrom;
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroLabel metroLabel3;
-        private System.Windows.Forms.ToolStripMenuItem dtnDeleteRates;
+        private System.Windows.Forms.ToolStripMenuItem btnDeleteRates;
         private MetroFramework.Controls.MetroButton btnExportToExcel;
         private System.Windows.Forms.ToolStripMenuItem btnChangeRatesPrice;
         private System.Windows.Forms.ToolStripMenuItem btnSendDiscountToArchive;
-        private MetroFramework.Controls.MetroButton btnShowArchiveDiscounts;
-        private MetroFramework.Controls.MetroButton btnHideArchiveDiscounts;
         private System.Windows.Forms.ListView lvlDiscountsTest;
         private System.Windows.Forms.ColumnHeader columnHeader19;
         private System.Windows.Forms.ColumnHeader columnHeader20;
@@ -1243,9 +1331,27 @@
         private System.Windows.Forms.ColumnHeader columnHeader22;
         private System.Windows.Forms.ListView lvlMonthReportTest;
         private System.Windows.Forms.ColumnHeader columnHeader23;
-        private MetroFramework.Controls.MetroButton btnHideDebtor;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.ToolStripMenuItem btnDeleteDiscounts;
+        private MetroFramework.Controls.MetroButton btnAccounts;
+        private MetroFramework.Controls.MetroContextMenu cntAccounts;
+        private System.Windows.Forms.ToolStripMenuItem btnShowDebterInDateRange;
+        private System.Windows.Forms.ToolStripMenuItem btnShowNewAccountsinRange;
+        private System.Windows.Forms.ToolStripMenuItem btnResetMonthReportColor;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader24;
+        private MetroFramework.Controls.MetroButton btnDiscountsArchive;
+        private MetroFramework.Controls.MetroContextMenu cntDiscountArchive;
+        private System.Windows.Forms.ToolStripMenuItem btnShowArchiveDiscount;
+        private System.Windows.Forms.ToolStripMenuItem btnHideArchiveDiscount;
+        private MetroFramework.Controls.MetroContextMenu cntPercentAndDescription;
+        private System.Windows.Forms.ToolStripMenuItem btnAddDiscountPerce;
+        private System.Windows.Forms.ToolStripMenuItem btnAddDiscountDescriptio;
+        private MetroFramework.Controls.MetroButton btnDiscountPercentAndDescription;
+        private MetroFramework.Controls.MetroContextMenu cntRateArchive;
+        private System.Windows.Forms.ToolStripMenuItem btnShowArchiveRates;
+        private System.Windows.Forms.ToolStripMenuItem btnHideArchvieRates;
+        private System.ComponentModel.BackgroundWorker backgroundWorker3;
     }
 }
 

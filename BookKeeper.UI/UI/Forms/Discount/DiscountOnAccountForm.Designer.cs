@@ -37,6 +37,8 @@
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.dateFrom = new MetroFramework.Controls.MetroDateTime();
             this.dateTo = new MetroFramework.Controls.MetroDateTime();
+            this.Начало = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.SuspendLayout();
             // 
             // txtAccount
@@ -135,7 +137,7 @@
             // 
             this.dateFrom.CustomFormat = "MMMM yyyy";
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateFrom.Location = new System.Drawing.Point(353, 90);
+            this.dateFrom.Location = new System.Drawing.Point(353, 84);
             this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(200, 29);
@@ -145,17 +147,37 @@
             // 
             this.dateTo.CustomFormat = "MMMM yyyy";
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTo.Location = new System.Drawing.Point(353, 137);
+            this.dateTo.Location = new System.Drawing.Point(353, 142);
             this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(200, 29);
             this.dateTo.TabIndex = 16;
+            // 
+            // Начало
+            // 
+            this.Начало.AutoSize = true;
+            this.Начало.Location = new System.Drawing.Point(353, 54);
+            this.Начало.Name = "Начало";
+            this.Начало.Size = new System.Drawing.Size(54, 19);
+            this.Начало.TabIndex = 17;
+            this.Начало.Text = "Начало";
+            // 
+            // metroLabel4
+            // 
+            this.metroLabel4.AutoSize = true;
+            this.metroLabel4.Location = new System.Drawing.Point(353, 120);
+            this.metroLabel4.Name = "metroLabel4";
+            this.metroLabel4.Size = new System.Drawing.Size(47, 19);
+            this.metroLabel4.TabIndex = 18;
+            this.metroLabel4.Text = "Конец";
             // 
             // DiscountAccountItemForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(576, 295);
+            this.Controls.Add(this.metroLabel4);
+            this.Controls.Add(this.Начало);
             this.Controls.Add(this.dateTo);
             this.Controls.Add(this.dateFrom);
             this.Controls.Add(this.metroLabel3);
@@ -165,6 +187,8 @@
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.cboPercent);
             this.Controls.Add(this.txtAccount);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "DiscountAccountItemForm";
             this.Resizable = false;
             this.Text = "Льгота на счет";
@@ -185,5 +209,7 @@
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroDateTime dateFrom;
         private MetroFramework.Controls.MetroDateTime dateTo;
+        private MetroFramework.Controls.MetroLabel Начало;
+        private MetroFramework.Controls.MetroLabel metroLabel4;
     }
 }

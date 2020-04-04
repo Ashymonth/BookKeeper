@@ -93,6 +93,8 @@ namespace BookKeeper.Data.Services
 
                 totalPayment.TotalAccrued += totalPayment.AccruedMunicipal + totalPayment.AccruedPrivate;
                 totalPayment.TotalReceived += totalPayment.ReceivedMunicipal + totalPayment.ReceivedPrivate;
+                if (totalPayment.TotalAccrued == 0)
+                    return null;
                 totalPayment.Percent = Math.Round(((totalPayment.TotalReceived / totalPayment.TotalAccrued) * 100), 4);
                 total.Add(totalPayment);
             }

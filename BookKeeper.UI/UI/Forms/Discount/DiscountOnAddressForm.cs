@@ -45,7 +45,6 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 return;
             }
 
-            
             if (cmbStreets.SelectedValue is int streetId && cmbPercent.SelectedValue is decimal percent && cmbDescription.SelectedValue is string description)
             {
                 var discountToAdd = new List<DiscountDocumentEntity>();
@@ -62,17 +61,25 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
                     var accountService = scope.Resolve<IAccountService>();
                     var accounts = accountService.GetWithInclude(x => x.LocationId == location.Id &&
-                                                                x.IsDeleted == false,x=>x.Location);
+                                                                      x.StreetId == streetId &&
+                                                                x.IsDeleted == false, x => x.Location);
 
                     var discountService = scope.Resolve<IDiscountDocumentService>();
-                    var discounts = discountService.AddDiscountOnAddress(accounts.Select(x=>x.Id),percent,description,dateFrom.Value,dateTo.Value);
+                    var selectedAccounts = accounts.Select(x => x.Id).ToList();
+                    if (!selectedAccounts.Any())
+                    {
+                        MessageBoxHelper.ShowConfirmMessage("Счета по данному адресу не найдены", this);
+                        return;
+                    }
+
+                    var discounts = discountService.AddDiscountOnAddress(selectedAccounts, percent, description, dateFrom.Value, dateTo.Value);
                     if (discounts != null)
                     {
                         DialogResult = DialogResult.OK;
                     }
                     else
                     {
-                        MessageBoxHelper.ShowWarningMessage("Не удалось добавить",this);
+                        MessageBoxHelper.ShowWarningMessage("Не удалось добавить", this);
                         return;
                     }
                 }

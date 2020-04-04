@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Repositories;
-using Spire.Pdf.HtmlConverter;
 
 namespace BookKeeper.Data.Services.EntityService.Discount
 {

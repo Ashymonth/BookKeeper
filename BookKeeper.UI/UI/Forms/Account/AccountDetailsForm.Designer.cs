@@ -39,19 +39,7 @@
             this.txtStreet = new MetroFramework.Controls.MetroTextBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.txtAccount = new MetroFramework.Controls.MetroTextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtDiscount = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel9 = new MetroFramework.Controls.MetroLabel();
-            this.txtRate = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel8 = new MetroFramework.Controls.MetroLabel();
-            this.txtRecived = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
-            this.txtAccrued = new MetroFramework.Controls.MetroTextBox();
-            this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
-            this.metroButton1 = new MetroFramework.Controls.MetroButton();
-            this.metroButton2 = new MetroFramework.Controls.MetroButton();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -268,215 +256,20 @@
             this.txtAccount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtAccount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.txtDiscount);
-            this.groupBox2.Controls.Add(this.metroLabel9);
-            this.groupBox2.Controls.Add(this.txtRate);
-            this.groupBox2.Controls.Add(this.metroLabel8);
-            this.groupBox2.Controls.Add(this.txtRecived);
-            this.groupBox2.Controls.Add(this.metroLabel7);
-            this.groupBox2.Controls.Add(this.txtAccrued);
-            this.groupBox2.Controls.Add(this.metroLabel6);
-            this.groupBox2.Location = new System.Drawing.Point(347, 79);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(272, 313);
-            this.groupBox2.TabIndex = 1;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Информация о платежах";
-            // 
-            // txtDiscount
-            // 
-            // 
-            // 
-            // 
-            this.txtDiscount.CustomButton.Image = null;
-            this.txtDiscount.CustomButton.Location = new System.Drawing.Point(95, 1);
-            this.txtDiscount.CustomButton.Name = "";
-            this.txtDiscount.CustomButton.Size = new System.Drawing.Size(21, 21);
-            this.txtDiscount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.txtDiscount.CustomButton.TabIndex = 1;
-            this.txtDiscount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.txtDiscount.CustomButton.UseSelectable = true;
-            this.txtDiscount.CustomButton.Visible = false;
-            this.txtDiscount.Lines = new string[0];
-            this.txtDiscount.Location = new System.Drawing.Point(149, 160);
-            this.txtDiscount.MaxLength = 32767;
-            this.txtDiscount.Name = "txtDiscount";
-            this.txtDiscount.PasswordChar = '\0';
-            this.txtDiscount.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtDiscount.SelectedText = "";
-            this.txtDiscount.SelectionLength = 0;
-            this.txtDiscount.SelectionStart = 0;
-            this.txtDiscount.ShortcutsEnabled = true;
-            this.txtDiscount.Size = new System.Drawing.Size(117, 23);
-            this.txtDiscount.TabIndex = 4;
-            this.txtDiscount.UseSelectable = true;
-            this.txtDiscount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtDiscount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            // 
-            // metroLabel9
-            // 
-            this.metroLabel9.AutoSize = true;
-            this.metroLabel9.Location = new System.Drawing.Point(149, 128);
-            this.metroLabel9.Name = "metroLabel9";
-            this.metroLabel9.Size = new System.Drawing.Size(52, 19);
-            this.metroLabel9.TabIndex = 5;
-            this.metroLabel9.Text = "Скидка";
-            // 
-            // txtRate
-            // 
-            // 
-            // 
-            // 
-            this.txtRate.CustomButton.Image = null;
-            this.txtRate.CustomButton.Location = new System.Drawing.Point(95, 1);
-            this.txtRate.CustomButton.Name = "";
-            this.txtRate.CustomButton.Size = new System.Drawing.Size(21, 21);
-            this.txtRate.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.txtRate.CustomButton.TabIndex = 1;
-            this.txtRate.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.txtRate.CustomButton.UseSelectable = true;
-            this.txtRate.CustomButton.Visible = false;
-            this.txtRate.Lines = new string[0];
-            this.txtRate.Location = new System.Drawing.Point(6, 160);
-            this.txtRate.MaxLength = 32767;
-            this.txtRate.Name = "txtRate";
-            this.txtRate.PasswordChar = '\0';
-            this.txtRate.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtRate.SelectedText = "";
-            this.txtRate.SelectionLength = 0;
-            this.txtRate.SelectionStart = 0;
-            this.txtRate.ShortcutsEnabled = true;
-            this.txtRate.Size = new System.Drawing.Size(117, 23);
-            this.txtRate.TabIndex = 2;
-            this.txtRate.UseSelectable = true;
-            this.txtRate.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtRate.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            // 
-            // metroLabel8
-            // 
-            this.metroLabel8.AutoSize = true;
-            this.metroLabel8.Location = new System.Drawing.Point(6, 128);
-            this.metroLabel8.Name = "metroLabel8";
-            this.metroLabel8.Size = new System.Drawing.Size(48, 19);
-            this.metroLabel8.TabIndex = 3;
-            this.metroLabel8.Text = "Тариф";
-            // 
-            // txtRecived
-            // 
-            // 
-            // 
-            // 
-            this.txtRecived.CustomButton.Image = null;
-            this.txtRecived.CustomButton.Location = new System.Drawing.Point(95, 1);
-            this.txtRecived.CustomButton.Name = "";
-            this.txtRecived.CustomButton.Size = new System.Drawing.Size(21, 21);
-            this.txtRecived.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.txtRecived.CustomButton.TabIndex = 1;
-            this.txtRecived.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.txtRecived.CustomButton.UseSelectable = true;
-            this.txtRecived.CustomButton.Visible = false;
-            this.txtRecived.Lines = new string[0];
-            this.txtRecived.Location = new System.Drawing.Point(149, 77);
-            this.txtRecived.MaxLength = 32767;
-            this.txtRecived.Name = "txtRecived";
-            this.txtRecived.PasswordChar = '\0';
-            this.txtRecived.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtRecived.SelectedText = "";
-            this.txtRecived.SelectionLength = 0;
-            this.txtRecived.SelectionStart = 0;
-            this.txtRecived.ShortcutsEnabled = true;
-            this.txtRecived.Size = new System.Drawing.Size(117, 23);
-            this.txtRecived.TabIndex = 0;
-            this.txtRecived.UseSelectable = true;
-            this.txtRecived.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtRecived.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            // 
-            // metroLabel7
-            // 
-            this.metroLabel7.AutoSize = true;
-            this.metroLabel7.Location = new System.Drawing.Point(149, 45);
-            this.metroLabel7.Name = "metroLabel7";
-            this.metroLabel7.Size = new System.Drawing.Size(69, 19);
-            this.metroLabel7.TabIndex = 1;
-            this.metroLabel7.Text = "Получено";
-            // 
-            // txtAccrued
-            // 
-            // 
-            // 
-            // 
-            this.txtAccrued.CustomButton.Image = null;
-            this.txtAccrued.CustomButton.Location = new System.Drawing.Point(95, 1);
-            this.txtAccrued.CustomButton.Name = "";
-            this.txtAccrued.CustomButton.Size = new System.Drawing.Size(21, 21);
-            this.txtAccrued.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
-            this.txtAccrued.CustomButton.TabIndex = 1;
-            this.txtAccrued.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.txtAccrued.CustomButton.UseSelectable = true;
-            this.txtAccrued.CustomButton.Visible = false;
-            this.txtAccrued.Lines = new string[0];
-            this.txtAccrued.Location = new System.Drawing.Point(6, 77);
-            this.txtAccrued.MaxLength = 32767;
-            this.txtAccrued.Name = "txtAccrued";
-            this.txtAccrued.PasswordChar = '\0';
-            this.txtAccrued.ScrollBars = System.Windows.Forms.ScrollBars.None;
-            this.txtAccrued.SelectedText = "";
-            this.txtAccrued.SelectionLength = 0;
-            this.txtAccrued.SelectionStart = 0;
-            this.txtAccrued.ShortcutsEnabled = true;
-            this.txtAccrued.Size = new System.Drawing.Size(117, 23);
-            this.txtAccrued.TabIndex = 0;
-            this.txtAccrued.UseSelectable = true;
-            this.txtAccrued.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
-            this.txtAccrued.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
-            // 
-            // metroLabel6
-            // 
-            this.metroLabel6.AutoSize = true;
-            this.metroLabel6.Location = new System.Drawing.Point(6, 45);
-            this.metroLabel6.Name = "metroLabel6";
-            this.metroLabel6.Size = new System.Drawing.Size(84, 19);
-            this.metroLabel6.TabIndex = 1;
-            this.metroLabel6.Text = "Начисленно";
-            // 
-            // metroButton1
-            // 
-            this.metroButton1.Location = new System.Drawing.Point(532, 404);
-            this.metroButton1.Name = "metroButton1";
-            this.metroButton1.Size = new System.Drawing.Size(87, 23);
-            this.metroButton1.TabIndex = 2;
-            this.metroButton1.Text = "Сохранить";
-            this.metroButton1.UseSelectable = true;
-            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
-            // 
-            // metroButton2
-            // 
-            this.metroButton2.Location = new System.Drawing.Point(428, 404);
-            this.metroButton2.Name = "metroButton2";
-            this.metroButton2.Size = new System.Drawing.Size(87, 23);
-            this.metroButton2.TabIndex = 3;
-            this.metroButton2.Text = "Закрыть";
-            this.metroButton2.UseSelectable = true;
-            this.metroButton2.Click += new System.EventHandler(this.metroButton2_Click);
-            // 
             // AccountDetailsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(625, 450);
-            this.Controls.Add(this.metroButton2);
-            this.Controls.Add(this.metroButton1);
-            this.Controls.Add(this.groupBox2);
+            this.ClientSize = new System.Drawing.Size(333, 420);
             this.Controls.Add(this.groupBox1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AccountDetailsForm";
+            this.Resizable = false;
             this.Text = "Детальная информация";
             this.Load += new System.EventHandler(this.AccountDetailsForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -494,16 +287,5 @@
         private MetroFramework.Controls.MetroTextBox txtStreet;
         private MetroFramework.Controls.MetroLabel metroLabel1;
         private MetroFramework.Controls.MetroTextBox txtAccount;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private MetroFramework.Controls.MetroTextBox txtDiscount;
-        private MetroFramework.Controls.MetroLabel metroLabel9;
-        private MetroFramework.Controls.MetroTextBox txtRate;
-        private MetroFramework.Controls.MetroLabel metroLabel8;
-        private MetroFramework.Controls.MetroTextBox txtRecived;
-        private MetroFramework.Controls.MetroLabel metroLabel7;
-        private MetroFramework.Controls.MetroTextBox txtAccrued;
-        private MetroFramework.Controls.MetroLabel metroLabel6;
-        private MetroFramework.Controls.MetroButton metroButton1;
-        private MetroFramework.Controls.MetroButton metroButton2;
     }
 }

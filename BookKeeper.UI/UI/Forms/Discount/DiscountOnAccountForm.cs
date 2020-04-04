@@ -1,13 +1,10 @@
 ﻿using Autofac;
-using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.UI.Helpers;
-using BookKeeper.UI.Models.Discount;
 using MetroFramework.Forms;
 using System;
-using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using IContainer = Autofac.IContainer;
@@ -44,19 +41,25 @@ namespace BookKeeper.UI.UI.Forms.Discount
             }
         }
 
-        public DiscountModel DiscountModel { get; set; }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
+            DialogResult = DialogResult.None;
+
             if (string.IsNullOrWhiteSpace(txtAccount.Text))
             {
-                MessageBoxHelper.ShowWarningMessage("Аккаунт не может быть пустым",this);
+                MessageBoxHelper.ShowWarningMessage("Аккаунт не может быть пустым", this);
                 return;
             }
 
             if (dateFrom.Value.Month == dateTo.Value.Month)
             {
-                MessageBoxHelper.ShowWarningMessage("Даты не могу совпадать",this);
+                MessageBoxHelper.ShowWarningMessage("Даты не могу совпадать", this);
+                return;
+            }
+
+            if (dateFrom.Value > dateTo.Value)
+            {
+                MessageBoxHelper.ShowWarningMessage("Начальная дата не может быть больше", this);
                 return;
             }
 
@@ -89,21 +92,12 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 }
 
                 var discountService = scope.Resolve<IDiscountDocumentService>();
-                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description,dateFrom.Value,dateTo.Value);
+                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description, dateFrom.Value, dateTo.Value);
                 if (discountOnAccount == null)
                 {
                     MessageBoxHelper.ShowWarningMessage("Не удалось добавить", this);
                     return;
                 }
-
-                DiscountModel = new DiscountModel
-                {
-                    Type = DiscountType.PersonalAccount,
-                    Account = account.ToString(),
-                    Price = percent.ToString(CultureInfo.CurrentCulture),
-                    Description = description,
-                    DiscountId = discountOnAccount.Id
-                };
 
                 DialogResult = DialogResult.OK;
             }
