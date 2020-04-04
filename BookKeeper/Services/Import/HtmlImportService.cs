@@ -34,10 +34,10 @@ namespace BookKeeper.Data.Services.Import
             if (!File.Exists(file))
                 throw new FileNotFoundException(nameof(file));
 
-            file = HtmlFormatValidator.ValidateFormat(file);
-
             if (file == null)
                 throw new FileNotFoundException(nameof(file));
+
+            file = HtmlFormatValidator.ValidateFormat(file);
 
             var html = new HtmlDocument();
 

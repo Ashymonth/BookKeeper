@@ -14,7 +14,7 @@ namespace BookKeeper.Data.Data
     {
         static ApplicationDbContext()
         {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
+            Database.SetInitializer(new CreateDatabaseIfNotExists<ApplicationDbContext>());
         }
         public ApplicationDbContext(string connectionString) : base(connectionString)
         {

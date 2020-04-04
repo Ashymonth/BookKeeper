@@ -23,14 +23,18 @@ namespace BookKeeper.Data.Infrastructure.Formats
             if (!Path.GetExtension(file).Equals(".htm", StringComparison.OrdinalIgnoreCase))
                 return file;
 
-            if (!Directory.Exists(TempFolder))
-                Directory.CreateDirectory(TempFolder);
-
             var newFile = $"{Path.GetFileNameWithoutExtension(file)}.html";
 
-            File.Copy(file, Path.Combine(TempFolder, newFile), true);
+            try
+            {
+                File.Copy(file, newFile, true);
 
-            return newFile;
+                return newFile;
+            }
+            catch (IOException)
+            {
+                return null;
+            }
         }
     }
 }

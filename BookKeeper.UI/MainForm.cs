@@ -550,6 +550,14 @@ namespace BookKeeper.UI
                     MessageBoxHelper.ShowWarningMessage("База была повреждена или удалена", this);
                     return;
                 }
+                catch (ArgumentOutOfRangeException)
+                {
+
+                }
+                catch (Exception)
+                {
+                    //ignore
+                }
             }
             else
             {
@@ -1043,8 +1051,9 @@ namespace BookKeeper.UI
                                 this);
                             return;
                         }
-                        catch (IOException)
+                        catch (IOException exsException)
                         {
+                            MessageBox.Show(exsException.Message);
                             MessageBoxHelper.ShowWarningMessage("Закройте саначала файл", this);
                             return;
                         }

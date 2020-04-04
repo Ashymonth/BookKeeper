@@ -31,12 +31,20 @@ namespace BookKeeper.Data.Infrastructure.Formats
         {
             try
             {
-                if (Directory.Exists(TempFolder))
-                    Directory.Delete(TempFolder,true);
+                var currentDirectory = Directory.GetCurrentDirectory();
+                foreach (var file in Directory.GetFiles(currentDirectory))
+                {
+                    if (Path.GetFileNameWithoutExtension(file).Equals(".htm") ||
+                        Path.GetFileNameWithoutExtension(file).Equals(".html") || Path.GetFileNameWithoutExtension(file).Equals(".xlsx") ||
+                        Path.GetFileNameWithoutExtension(file).Equals(".xls"))
+                    {
+                        File.Delete(file);
+                    }
+                }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                // ignored
+            
             }
         }
     }
