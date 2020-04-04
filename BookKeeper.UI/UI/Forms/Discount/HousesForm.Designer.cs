@@ -35,6 +35,7 @@
             this.txtHouse = new MetroFramework.Controls.MetroTextBox();
             this.btnAdd = new MetroFramework.Controls.MetroButton();
             this.btnDelete = new MetroFramework.Controls.MetroButton();
+            this.txtAccount = new MetroFramework.Controls.MetroTextBox();
             this.SuspendLayout();
             // 
             // cmbStreets
@@ -147,7 +148,7 @@
             // btnAdd
             // 
             this.btnAdd.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnAdd.Location = new System.Drawing.Point(157, 271);
+            this.btnAdd.Location = new System.Drawing.Point(157, 323);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(86, 23);
             this.btnAdd.TabIndex = 6;
@@ -158,7 +159,7 @@
             // btnDelete
             // 
             this.btnDelete.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnDelete.Location = new System.Drawing.Point(22, 271);
+            this.btnDelete.Location = new System.Drawing.Point(22, 323);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(86, 23);
             this.btnDelete.TabIndex = 7;
@@ -166,11 +167,44 @@
             this.btnDelete.UseSelectable = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
+            // txtAccount
+            // 
+            // 
+            // 
+            // 
+            this.txtAccount.CustomButton.Image = null;
+            this.txtAccount.CustomButton.Location = new System.Drawing.Point(192, 1);
+            this.txtAccount.CustomButton.Name = "";
+            this.txtAccount.CustomButton.Size = new System.Drawing.Size(27, 27);
+            this.txtAccount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
+            this.txtAccount.CustomButton.TabIndex = 1;
+            this.txtAccount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.txtAccount.CustomButton.UseSelectable = true;
+            this.txtAccount.CustomButton.Visible = false;
+            this.txtAccount.Lines = new string[0];
+            this.txtAccount.Location = new System.Drawing.Point(22, 271);
+            this.txtAccount.MaxLength = 32767;
+            this.txtAccount.Name = "txtAccount";
+            this.txtAccount.PasswordChar = '\0';
+            this.txtAccount.PromptText = "Счет";
+            this.txtAccount.ScrollBars = System.Windows.Forms.ScrollBars.None;
+            this.txtAccount.SelectedText = "";
+            this.txtAccount.SelectionLength = 0;
+            this.txtAccount.SelectionStart = 0;
+            this.txtAccount.ShortcutsEnabled = true;
+            this.txtAccount.Size = new System.Drawing.Size(220, 29);
+            this.txtAccount.TabIndex = 8;
+            this.txtAccount.UseSelectable = true;
+            this.txtAccount.WaterMark = "Счет";
+            this.txtAccount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
+            this.txtAccount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+            // 
             // HousesForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(274, 320);
+            this.ClientSize = new System.Drawing.Size(274, 381);
+            this.Controls.Add(this.txtAccount);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.txtApartment);
@@ -196,5 +230,6 @@
         private MetroFramework.Controls.MetroTextBox txtHouse;
         private MetroFramework.Controls.MetroButton btnAdd;
         private MetroFramework.Controls.MetroButton btnDelete;
+        private MetroFramework.Controls.MetroTextBox txtAccount;
     }
 }

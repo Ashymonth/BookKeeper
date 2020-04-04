@@ -6,6 +6,8 @@ using MetroFramework.Forms;
 using System;
 using System.Linq;
 using System.Windows.Forms;
+using BookKeeper.Data.Data.Entities;
+using BookKeeper.Data.Services.EntityService;
 
 namespace BookKeeper.UI.UI.Forms.Discount
 {
@@ -36,6 +38,24 @@ namespace BookKeeper.UI.UI.Forms.Discount
         {
             DialogResult = DialogResult.None;
 
+            if (!string.IsNullOrWhiteSpace(txtAccount.Text))
+            {
+                try
+                {
+                    var account = Convert.ToInt64(txtAccount.Text);
+                }
+                catch (FormatException)
+                {
+                    MessageBoxHelper.ShowWarningMessage("Неправильный формат", this);
+                    return;
+                }
+                catch (OverflowException)
+                {
+                    MessageBoxHelper.ShowWarningMessage("Число слишком большое",this);
+                    return;
+                }
+            }
+
             if (string.IsNullOrWhiteSpace(txtHouse.Text) ||
                 string.IsNullOrWhiteSpace(txtBuilding.Text) ||
                 string.IsNullOrWhiteSpace(txtApartment.Text))
@@ -63,6 +83,12 @@ namespace BookKeeper.UI.UI.Forms.Discount
                     var result = locationService.Add(txtHouse.Text, txtBuilding.Text, txtApartment.Text,
                         streetId);
 
+                    if (!string.IsNullOrWhiteSpace(txtAccount.Text))
+                    {
+                        var accountService = scope.Resolve<IAccountService>();
+                        accountService.AddAccount(Convert.ToInt64(txtAccount.Text), result);
+                    }
+
                     if (result != null)
                     {
                         DialogResult = DialogResult.OK;
@@ -81,7 +107,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
             DialogResult =
                 MessageBoxHelper.ShowConfirmMessage("Вы уверены, что хотите безвозвратно удалить данные?", this);
 
-            if(DialogResult != DialogResult.Yes)
+            if (DialogResult != DialogResult.Yes)
                 return;
 
             using (var scope = _container.BeginLifetimeScope())
