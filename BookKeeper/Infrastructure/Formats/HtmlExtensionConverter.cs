@@ -3,7 +3,7 @@ using System.IO;
 
 namespace BookKeeper.Data.Infrastructure.Formats
 {
-    public static class HtmlFormatValidator
+    public static class HtmlExtensionConverter
     {
         private const string TempFolder = "TempFolder";
 
@@ -12,7 +12,7 @@ namespace BookKeeper.Data.Infrastructure.Formats
         /// </summary>
         /// <param name="file"></param>
         /// <returns></returns>
-        public static string ValidateFormat(string file)
+        public static string ConvertToHtml(string file)
         {
             if (string.IsNullOrWhiteSpace(file))
                 throw new ArgumentNullException(nameof(file));
@@ -23,19 +23,21 @@ namespace BookKeeper.Data.Infrastructure.Formats
             if (!Path.GetExtension(file).Equals(".htm", StringComparison.OrdinalIgnoreCase))
                 return file;
 
+            if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), TempFolder)))
+                Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), TempFolder));
+
 
             var newFile = $"{Path.GetFileNameWithoutExtension(file)}.html";
 
-            try
-            {
-                File.Copy(file, Path.Combine(newFile), true);
 
-                return newFile;
-            }
-            catch (ArgumentException)
-            {
-                return null;
-            }
+            File.Copy(Path.GetFullPath(file), Path.Combine(Directory.GetCurrentDirectory(), TempFolder, newFile), true);
+
+            if (!File.Exists(Path.Combine(Directory.GetCurrentDirectory(), TempFolder, newFile)))
+                throw new FileNotFoundException(nameof(newFile));
+
+            return Path.GetFullPath(newFile);
+
+
         }
     }
 }

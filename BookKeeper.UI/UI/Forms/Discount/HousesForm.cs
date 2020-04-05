@@ -108,7 +108,10 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 MessageBoxHelper.ShowConfirmMessage("Вы уверены, что хотите безвозвратно удалить данные?", this);
 
             if (DialogResult != DialogResult.Yes)
+            {
+                DialogResult = DialogResult.None;
                 return;
+            }
 
             using (var scope = _container.BeginLifetimeScope())
             {
@@ -130,6 +133,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                     result.IsDeleted = true;
                     locationService.Update(result);
 
+                    MessageBoxHelper.ShowConfirmMessage("Дом удален", this);
                     DialogResult = DialogResult.OK;
                 }
             }

@@ -59,8 +59,8 @@
     <Compile Include="Infrastructure\Configuration\ExcelConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\HtmlConfiguration.cs" />
     <Compile Include="Infrastructure\Configuration\IConfiguration.cs" />
-    <Compile Include="Infrastructure\Formats\ExcelFormatValidator.cs" />
-    <Compile Include="Infrastructure\Formats\HtmlFormatValidator.cs" />
+    <Compile Include="Infrastructure\Formats\ExcelExtensionConverter.cs" />
+    <Compile Include="Infrastructure\Formats\HtmlExtensionConverter.cs" />
     <Compile Include="Infrastructure\Reports\BrokenRecordsReport.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />

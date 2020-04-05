@@ -21,7 +21,7 @@ namespace BookKeeper.Data.Services.Export
             if (listView == null)
                 throw new ArgumentException(nameof(listView));
 
-            file = ExcelFormatValidator.ValidateFormat(file);
+            file = ExcelExtensionConverter.ConvertToXlsx(file);
 
 
             var dt = new DataTable();
@@ -44,14 +44,8 @@ namespace BookKeeper.Data.Services.Export
                     list.Add(listViewSubItem.Text);
                 }
 
-                try
-                {
-                    dt.Rows.Add(list.ToArray());
-                }
-                catch (Exception)
-                {
-                    // ignored
-                }
+                dt.Rows.Add(list.ToArray());
+                
             }
 
             using (var workBook = new XLWorkbook())

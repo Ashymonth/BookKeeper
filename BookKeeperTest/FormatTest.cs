@@ -13,8 +13,8 @@ namespace BookKeeperTest
             const string wrongFileExtension = "test.xls";
             const string correctFileExtension = "test.xlsx";
 
-            var correctExtension = ExcelFormatValidator.ValidateFormat(wrongFileExtension);
-            var notConvertedFile = ExcelFormatValidator.ValidateFormat(correctFileExtension);
+            var correctExtension = ExcelExtensionConverter.ConvertToXlsx(wrongFileExtension);
+            var notConvertedFile = ExcelExtensionConverter.ConvertToXlsx(correctFileExtension);
 
             Assert.AreEqual(correctExtension, $@"C:\Users\{Environment.UserName}\Source\Repos\BookKeeper\BookKeeper.Test\bin\Debug\test.xlsx");
             Assert.AreEqual(correctFileExtension, notConvertedFile);
@@ -28,8 +28,8 @@ namespace BookKeeperTest
             const string correctFileExtension = "test.html";
 
 
-            var correctExtension = HtmlFormatValidator.ValidateFormat(wrongFileExtension);
-            var notConvertedFile = HtmlFormatValidator.ValidateFormat(correctFileExtension);
+            var correctExtension = HtmlExtensionConverter.ConvertToHtml(wrongFileExtension);
+            var notConvertedFile = HtmlExtensionConverter.ConvertToHtml(correctFileExtension);
 
             Assert.AreEqual(correctExtension, "1.html");
             Assert.AreEqual(notConvertedFile, correctFileExtension);

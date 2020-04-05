@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BookKeeper.Data.Data.Entities;
+using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Infrastructure;
@@ -27,7 +28,9 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
+using BookKeeper.Data.Services.EntityService;
 
 namespace BookKeeper.UI
 {
@@ -44,11 +47,6 @@ namespace BookKeeper.UI
         public MainForm()
         {
             InitializeComponent();
-
-            if (DateTime.Now >= DateTime.Parse("10.04.2020") && ConfigurationManager.AppSettings["DefaultPaymentDate"] == "1")
-            {
-                Environment.Exit(1);
-            }
 
             _container = AutofacConfiguration.ConfigureContainer();
             try
@@ -92,9 +90,27 @@ namespace BookKeeper.UI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var backUpService = scope.Resolve<IBackupService>();
+                backUpService.CreateBackUpInAWeek();
+            }
+
             LoadAddresses();
             LoadRates();
             LoadDiscounts();
+            LoadAccounts();
+        }
+
+        private void LoadAccounts()
+        {
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var accountService = scope.Resolve<IAccountService>();
+                StringBuilder builder = new StringBuilder();
+                var accounts = accountService.GetItems(x => x.IsDeleted == false).Select(x=>x.Account.ToString()).ToArray();
+                txtAccount.AutoCompleteCustomSource.AddRange(accounts);
+            }
         }
 
         #endregion
@@ -111,11 +127,11 @@ namespace BookKeeper.UI
                 {
                     var service = scope.Resolve<IStreetService>();
 
-                    var result = service.GetItems(x => x.IsDeleted == false).ToList();
+                    var result = service.GetWithInclude(x => x.IsDeleted == false, x => x.Locations).ToList();
 
-                    cmbStreet.DataSource = result;
-                    cmbStreet.DisplayMember = "StreetName";
-                    cmbStreet.ValueMember = "Id";
+                    cmbStreets.DataSource = result;
+                    cmbStreets.DisplayMember = "StreetName";
+                    cmbStreets.ValueMember = "Id";
                 }
             }
             catch (SqlException exception)
@@ -307,31 +323,29 @@ namespace BookKeeper.UI
 
         private void btnCreateBackup_Click(object sender, EventArgs e)
         {
-            using (var dialog = new FolderBrowserDialog())
+            try
             {
-                if (dialog.ShowDialog(this) != DialogResult.OK)
-                    return;
-
-                try
+                using (var scope = _container.BeginLifetimeScope())
                 {
-                    using (var scope = _container.BeginLifetimeScope())
-                    {
-                        var backupService = scope.Resolve<IBackupService>();
+                    var backupService = scope.Resolve<IBackupService>();
 
-                        var backupFileName = backupService.CreateBackup(dialog.SelectedPath);
+                    var file = backupService.CreateBackup();
 
-                        MessageBoxHelper.ShowCompeteMessage($"Бэкап создан {Path.Combine(dialog.SelectedPath, backupFileName)}", this);
-                    }
+                    MessageBoxHelper.ShowCompeteMessage($"Бэкап создан {file}", this);
                 }
-                catch (SqlException)
-                {
-                    MessageBoxHelper.ShowWarningMessage("У программы нет доступа для запси файлов на данный диск",
-                        this);
-                }
-                catch (FileLoadException)
-                {
-                    MessageBoxHelper.ShowWarningMessage("У программы нет доступа для запси файлов на данный диск", this);
-                }
+            }
+            catch (SqlException exception)
+            {
+                MessageBoxHelper.ShowWarningMessage("У программы нет доступа для запси файлов на данный диск",
+                    this);
+            }
+            catch (FileLoadException)
+            {
+                MessageBoxHelper.ShowWarningMessage("У программы нет доступа для запси файлов на данный диск", this);
+            }
+            catch (Exception exception)
+            {
+                MessageBoxHelper.ShowWarningMessage(exception.Message, this);
             }
         }
 
@@ -354,6 +368,7 @@ namespace BookKeeper.UI
 
                         MessageBoxHelper.ShowCompeteMessage("Успешно", this);
                     }
+
                     LoadAddresses();
                     LoadRates();
 
@@ -369,6 +384,10 @@ namespace BookKeeper.UI
                 catch (SqlException)
                 {
                     MessageBoxHelper.ShowWarningMessage("Не удалось восстановить", this);
+                }
+                catch (Exception exception)
+                {
+                    MessageBoxHelper.ShowWarningMessage(exception.Message, this);
                 }
             }
         }
@@ -486,17 +505,17 @@ namespace BookKeeper.UI
                 backgroundWorker3.RunWorkerAsync();
             }
 
-            if (cmbStreet.SelectedValue is int streetId)
+            if (cmbStreets.SelectedValue is int streetId)
             {
                 var searchModel = new SearchModel
                 {
                     StreetId = streetId,
                     Account = ValidPersonalAccount(txtAccount.Text),
                     AccountType = Convert(cmbPersonalAccountType.SelectedIndex),
-                    HouseNumber = txtHouse.Text,
-                    BuildingNumber = txtBuilding.Text,
-                    ApartmentNumber = txtApartment.Text,
-                    IsArchive = metroCheckBox1.Checked,
+                    HouseNumber = cmbHouses.Text,
+                    BuildingNumber = cmbBuildings.Text,
+                    ApartmentNumber = cmbApartmens.Text,
+                    IsArchive = chkIsArchive.Checked,
                     From = dateFrom.Value,
                     To = dateTo.Value
                 };
@@ -1044,7 +1063,7 @@ namespace BookKeeper.UI
                     }
                 }
 
-                ExcelFormatValidator.DeleteTempFolder();
+                ExcelExtensionConverter.DeleteTempFolder();
 
                 MessageBoxHelper.ShowCompeteMessage(
                     $"Успешно загружено. Добавленно {importReport.Add}\n Обновленно {importReport.Updates}",
@@ -1069,9 +1088,11 @@ namespace BookKeeper.UI
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            txtHouse.Text = string.Empty;
-            txtBuilding.Text = string.Empty;
-            txtApartment.Text = string.Empty;
+            chkIsArchive.Checked = false;
+            chkIsBuilding.Checked = false;
+            cmbHouses.Text = string.Empty;
+            cmbBuildings.Text = string.Empty;
+            cmbApartmens.Text = string.Empty;
             txtAccount.Text = string.Empty;
         }
 
@@ -1096,7 +1117,7 @@ namespace BookKeeper.UI
                         form.AccountDetailsModel = new AccountDetailsModel
                         {
                             Account = account.Account.ToString(),
-                            Street = cmbStreet.Text,
+                            Street = cmbStreets.Text,
                             House = account.Location.HouseNumber,
                             Building = account.Location.BuildingCorpus,
                             Apartment = account.Location.ApartmentNumber,
@@ -1112,6 +1133,77 @@ namespace BookKeeper.UI
             {
 
             }
+        }
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyData)
+            {
+                case Keys.F3 when btnDataBase.Visible == false:
+                    btnDataBase.Visible = true;
+                    return;
+                case Keys.F3 when btnDataBase.Visible:
+                    btnDataBase.Visible = false;
+                    break;
+            }
+        }
+
+        private void cmbStreet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbHouses.DataSource = null;
+
+            if (!(cmbStreets.SelectedItem is StreetEntity selectedStreet))
+                return;
+
+            cmbHouses.DataSource = selectedStreet.Locations
+                .Where(x => x.IsDeleted == false)
+                .Select(x => x.HouseNumber)
+                .Distinct()
+                .ToList();
+        }
+
+        private void cmbHouses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbBuildings.DataSource = null;
+
+            var selectedStreet = cmbStreets.SelectedItem as StreetEntity;
+            if (selectedStreet == null)
+                return;
+
+            var house = cmbHouses.SelectedItem as string;
+            if (string.IsNullOrWhiteSpace(house))
+                return;
+
+
+            cmbBuildings.DataSource = selectedStreet.Locations
+                .Where(x => x.IsDeleted == false && string.Equals(x.HouseNumber, house, StringComparison.OrdinalIgnoreCase))
+                .Select(x => x.BuildingCorpus)
+                .Distinct()
+                .ToList();
+
+        }
+
+        private void cmbBuildings_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbApartmens.DataSource = null;
+
+            var selectedStreet = cmbStreets.SelectedItem as StreetEntity;
+            if (selectedStreet == null)
+                return;
+
+            var selectedHouse = cmbHouses.SelectedItem as string;
+            if (string.IsNullOrWhiteSpace(selectedHouse))
+                return;
+
+            var selectedBuilding = cmbBuildings.SelectedItem as string;
+
+            cmbApartmens.DataSource = selectedStreet.Locations
+                .Where(x => x.IsDeleted == false &&
+                            string.Equals(x.HouseNumber, selectedHouse, StringComparison.OrdinalIgnoreCase) &&
+                            string.Equals(x.BuildingCorpus, selectedBuilding, StringComparison.OrdinalIgnoreCase))
+                .Select(x => x.ApartmentNumber)
+                .Distinct()
+                .ToList();
         }
     }
 }

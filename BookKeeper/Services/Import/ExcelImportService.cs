@@ -21,7 +21,7 @@ namespace BookKeeper.Data.Services.Import
             if (!File.Exists(file))
                 throw new FileNotFoundException(nameof(file));
 
-            file = ExcelFormatValidator.ValidateFormat(file);
+            file = ExcelExtensionConverter.ConvertToXlsx(file);
 
             if (file == null)
                 throw new FileNotFoundException(nameof(file));
