@@ -69,11 +69,11 @@ namespace BookKeeper.Data.Services
             foreach (var streetEntity in streets)
             {
                 var totalPayment = new TotalPayments { StreetName = streetEntity.StreetName };
-                foreach (var accountEntity in accounts.Where(x => x.StreetId == streetEntity.Id))
+                foreach (var accountEntity in accounts.Where(x => x.StreetId == streetEntity.Id && x.IsDeleted == false))
                 {
                     foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
                         x.IsDeleted == false &&
-                        x.PaymentDate.Date >= from.Date && x.PaymentDate.Date <= To.Date))
+                        x.PaymentDate.Date >= from.Date && x.PaymentDate.Date < To.Date))
                     {
                         switch (accountEntity.AccountType)
                         {

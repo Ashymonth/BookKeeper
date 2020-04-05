@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using BookKeeper.UI.Models.Discount;
+using DocumentFormat.OpenXml.Vml.Spreadsheet;
 using IContainer = Autofac.IContainer;
 
 namespace BookKeeper.UI.UI.Forms.Discount
@@ -20,30 +21,24 @@ namespace BookKeeper.UI.UI.Forms.Discount
     public partial class DiscountOnAddressForm : MetroForm
     {
         private readonly IContainer _container;
+        private readonly DataSourceHelper _dataSourceHelper;
 
         public DiscountOnAddressForm()
         {
             InitializeComponent();
             _container = AutofacConfiguration.ConfigureContainer();
-
+            _dataSourceHelper = new DataSourceHelper();
         }
 
         private void DiscountOnAddressForm_Load(object sender, EventArgs e)
         {
-            LoadValues();
+            _dataSourceHelper.LoadAddresses(cmbStreets);
         }
-
-        public DiscountModel DiscountModel { get; set; }
 
         private void btnSaveDiscount_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.None;
 
-            if (dateFrom.Value.Month == dateTo.Value.Month)
-            {
-                MessageBoxHelper.ShowWarningMessage("Даты не могу совпадать", this);
-                return;
-            }
 
             if (cmbStreets.SelectedValue is int streetId && cmbPercent.SelectedValue is decimal percent && cmbDescription.SelectedValue is string description)
             {
@@ -51,7 +46,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var locationService = scope.Resolve<ILocationService>();
-                    var location = locationService.GetLocation(streetId, txtHouse.Text, txtBuilding.Text, txtApartment.Text);
+                    var location = locationService.GetLocation(streetId, cmbHouses.SelectedText, cmbBuilding.SelectedText, cmbApatmens.SelectedText);
 
                     if (location == null)
                     {
@@ -72,7 +67,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                         return;
                     }
 
-                    var discounts = discountService.AddDiscountOnAddress(selectedAccounts, percent, description, dateFrom.Value, dateTo.Value);
+                    var discounts = discountService.AddDiscountOnAddress(selectedAccounts, percent, description);
                     if (discounts != null)
                     {
                         DialogResult = DialogResult.OK;
@@ -86,30 +81,22 @@ namespace BookKeeper.UI.UI.Forms.Discount
             }
         }
 
-        private void LoadValues()
+
+        private void cmbStreets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var service = scope.Resolve<IStreetService>();
-
-                var streets = service.GetItems().Where(x => x.IsDeleted == false).ToList();
-                cmbStreets.DataSource = streets;
-                cmbStreets.DisplayMember = "StreetName";
-                cmbStreets.ValueMember = "Id";
-
-                var discountPercentService = scope.Resolve<IDiscountPercentService>();
-                var discounts = discountPercentService.GetItems(x => x.IsDeleted == false);
-                cmbPercent.DataSource = discounts.ToList();
-                cmbPercent.DisplayMember = "Percent";
-                cmbPercent.ValueMember = "Percent";
-
-                var descriptionsService = scope.Resolve<IDiscountDescriptionService>();
-                var descriptions = descriptionsService.GetItems(x => x.IsDeleted == false);
-
-                cmbDescription.DataSource = descriptions.ToList();
-                cmbDescription.DisplayMember = "Description";
-                cmbDescription.ValueMember = "Description";
-            }
+            _dataSourceHelper.StreetIndexChanged(cmbStreets, cmbHouses, x => x.HouseNumber);
         }
+
+        private void cmbHouses_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _dataSourceHelper.HouseIndexChanged(cmbStreets, cmbHouses, cmbBuilding, x => x.BuildingCorpus);
+        }
+
+        private void cmbBuilding_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _dataSourceHelper.BuildingIndexChanged(cmbStreets,cmbHouses,cmbBuilding,cmbApatmens,x=>x.ApartmentNumber);
+        }
+
+        
     }
 }

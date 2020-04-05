@@ -43,11 +43,9 @@ namespace BookKeeper.UI.UI.Forms.Rate
             if (RateModel == null)
                 return;
 
-            txtHouse.Text = RateModel.House;
-            txtBuilding.Text = RateModel.Building;
+            cmbHouses.Text = RateModel.House;
+            cmbBuildings.Text = RateModel.Building;
             txtPrice.Text = RateModel.Price;
-            dateFrom.Value = RateModel.Start;
-            dateTo.Value = RateModel.End;
         }
 
         public RateModel RateModel { get; set; }
@@ -56,32 +54,13 @@ namespace BookKeeper.UI.UI.Forms.Rate
         {
             DialogResult = DialogResult.None;
 
-            if (dateFrom.Value == dateTo.Value)
-            {
-                MessageBoxHelper.ShowWarningMessage("Даты не могу совпадать", this);
-                return;
-            }
-
-
-            if (dateFrom.Value.Month == dateTo.Value.Month && dateFrom.Value.Year == dateTo.Value.Year)
-            {
-                MessageBoxHelper.ShowWarningMessage("Месяца должны быть разными", this);
-                return;
-            }
-
-            if (dateFrom.Value > dateTo.Value)
-            {
-                MessageBoxHelper.ShowWarningMessage("Дата начала не может быть больше", this);
-                return;
-            }
-
             if (cmbStreet.SelectedValue is int streetId)
             {
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var locationService = scope.Resolve<ILocationService>();
 
-                    var location = locationService.GetHouse(streetId, txtHouse.Text, txtBuilding.Text);
+                    var location = locationService.GetHouse(streetId, cmbHouses.Text, cmbBuildings.Text);
                     if (location == null)
                     {
                         MessageBoxHelper.ShowWarningMessage("Такого адреса нет в базе", this);
@@ -90,15 +69,15 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
                     var service = scope.Resolve<IRateService>();
 
-                    var document = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text), dateFrom.Value, dateTo.Value);
+                    var document = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text));
 
                     if (cmbStreet.SelectedItem is StreetEntity result)
                     {
                         RateModel = new RateModel
                         {
                             Street = result.StreetName,
-                            House = txtHouse.Text,
-                            Building = txtBuilding.Text,
+                            House = cmbHouses.Text,
+                            Building = cmbBuildings.Text,
                             Price = txtPrice.Text,
                             Description = txtDescription.Text,
                             RateDocument = document

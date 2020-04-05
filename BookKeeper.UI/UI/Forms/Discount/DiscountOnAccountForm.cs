@@ -19,10 +19,14 @@ namespace BookKeeper.UI.UI.Forms.Discount
         {
             InitializeComponent();
             _container = AutofacConfiguration.ConfigureContainer();
+           
         }
 
         private void DiscountAccountItem_Load(object sender, EventArgs e)
         {
+            var autoCompleteSourceHelper = new AutoCompleteSourceHelper();
+            autoCompleteSourceHelper.FillAutoSource(txtAccount);
+
             using (var scope = _container.BeginLifetimeScope())
             {
                 var percentService = scope.Resolve<IDiscountPercentService>();
@@ -31,13 +35,17 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 var descriptionService = scope.Resolve<IDiscountDescriptionService>();
                 var descriptions = descriptionService.GetItems(x => x.IsDeleted == false).ToList();
 
-                cboPercent.DataSource = percents;
-                cboPercent.DisplayMember = "Percent";
-                cboPercent.ValueMember = "Percent";
+                var accountService = scope.Resolve<IAccountService>();
+                var accounts = accountService.GetItems(x => x.IsDeleted == false).ToList();
 
-                cboDescription.DataSource = descriptions;
-                cboDescription.DisplayMember = "Description";
-                cboDescription.ValueMember = "Description";
+
+                cmbPercent.DataSource = percents;
+                cmbPercent.DisplayMember = "Percent";
+                cmbPercent.ValueMember = "Percent";
+
+                cmbDescription.DataSource = descriptions;
+                cmbDescription.DisplayMember = "Description";
+                cmbDescription.ValueMember = "Description";
             }
         }
 
@@ -51,15 +59,15 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 return;
             }
 
-            if (dateFrom.Value.Month == dateTo.Value.Month)
+            if (string.IsNullOrWhiteSpace(cmbPercent.SelectedText))
             {
-                MessageBoxHelper.ShowWarningMessage("Даты не могу совпадать", this);
+                MessageBoxHelper.ShowWarningMessage("Выберите  скидку", this);
                 return;
             }
 
-            if (dateFrom.Value > dateTo.Value)
+            if (string.IsNullOrWhiteSpace(cmbDescription.SelectedText))
             {
-                MessageBoxHelper.ShowWarningMessage("Начальная дата не может быть больше", this);
+                MessageBoxHelper.ShowWarningMessage("Выберите описание",this);
                 return;
             }
 
@@ -68,9 +76,9 @@ namespace BookKeeper.UI.UI.Forms.Discount
             var description = string.Empty;
             try
             {
-                percent = Convert.ToDecimal(cboPercent.SelectedValue);
+                percent = Convert.ToDecimal(cmbPercent.SelectedValue);
                 account = Convert.ToInt64(txtAccount.Text);
-                description = (string)cboDescription.SelectedValue;
+                description = cmbDescription.SelectedValue as string;
             }
             catch (FormatException)
             {
@@ -92,7 +100,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 }
 
                 var discountService = scope.Resolve<IDiscountDocumentService>();
-                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description, dateFrom.Value, dateTo.Value);
+                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description);
                 if (discountOnAccount == null)
                 {
                     MessageBoxHelper.ShowWarningMessage("Не удалось добавить", this);

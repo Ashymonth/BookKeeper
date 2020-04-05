@@ -14,24 +14,18 @@ namespace BookKeeper.UI.UI.Forms.Discount
     public partial class HousesForm : MetroForm
     {
         private readonly IContainer _container;
+        private readonly DataSourceHelper _sourceHelper;
 
         public HousesForm()
         {
             InitializeComponent();
             _container = AutofacConfiguration.ConfigureContainer();
+            _sourceHelper = new DataSourceHelper();
         }
 
         private void HousesForm_Load(object sender, EventArgs e)
         {
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var service = scope.Resolve<IStreetService>();
-
-                var streets = service.GetItems().Where(x => x.IsDeleted == false).ToList();
-                cmbStreets.DataSource = streets;
-                cmbStreets.DisplayMember = "StreetName";
-                cmbStreets.ValueMember = "Id";
-            }
+            _sourceHelper.LoadAddresses(cmbStreets);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -51,7 +45,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 }
                 catch (OverflowException)
                 {
-                    MessageBoxHelper.ShowWarningMessage("Число слишком большое",this);
+                    MessageBoxHelper.ShowWarningMessage("Число слишком большое", this);
                     return;
                 }
             }

@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using BookKeeper.Data.Data.Entities;
-using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Infrastructure;
@@ -14,7 +13,6 @@ using BookKeeper.Data.Services.Export;
 using BookKeeper.Data.Services.Load;
 using BookKeeper.UI.Helpers;
 using BookKeeper.UI.Models.Account;
-using BookKeeper.UI.Models.Discount;
 using BookKeeper.UI.UI.Forms;
 using BookKeeper.UI.UI.Forms.Account;
 using BookKeeper.UI.UI.Forms.Discount;
@@ -28,9 +26,7 @@ using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using BookKeeper.Data.Services.EntityService;
 
 namespace BookKeeper.UI
 {
@@ -38,54 +34,39 @@ namespace BookKeeper.UI
     {
         #region Initialize
 
-        private readonly Autofac.IContainer _container;
+        private readonly IContainer _container;
         private ProgressForm _form;
         private string[] _files;
-        private const int PersonalAccountLength = 8;
-        private string _addressTemplate = "{0} Дом: {1} Корпус: {2} Квартира: {3}";
+        private static readonly int PersonalAccountLength = System.Convert.ToInt32(ConfigurationManager.AppSettings["AccountLenght"]);
+        private const string AddressTemplate = "{0} Дом: {1} Корпус: {2} Квартира: {3}";
+        private readonly DataSourceHelper _dataSourceHelper;
+        private readonly AutoCompleteSourceHelper _sourceHelper;
 
         public MainForm()
         {
             InitializeComponent();
 
             _container = AutofacConfiguration.ConfigureContainer();
+
+            _dataSourceHelper = new DataSourceHelper();
+
+            _sourceHelper = new AutoCompleteSourceHelper();
+
+            var loader = new DefaultRateLoader();
+
             try
             {
-
-                using (var scope = _container.BeginLifetimeScope())
-                {
-                    var rateService = scope.Resolve<IRateService>();
-                    var rates = rateService.GetItem(x => x.IsDefault);
-                    if (rates == null)
-                    {
-                        rateService.Add(new RateEntity()
-                        {
-                            Price = System.Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]),
-                            StartDate = DateTime.MinValue,
-                            EndDate = DateTime.MaxValue,
-                            IsDefault = true,
-                        });
-                    }
-
-                    if (rates != null && rates.Price != System.Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]))
-                    {
-                        var defaultRate = rateService.GetItem(x => x.IsDefault);
-                        if (defaultRate != null)
-                        {
-                            defaultRate.Price =
-                                System.Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]);
-
-                            rateService.Update(defaultRate);
-                        }
-                    }
-                }
+                loader.LoadAndCheckDefaultRate();
             }
             catch (FormatException)
             {
                 MessageBoxHelper.ShowWarningMessage("Конфигурационный файл был поврежден, исправте его", this);
                 return;
             }
-
+            catch (Exception exception)
+            {
+                MessageBoxHelper.ShowWarningMessage(exception.Message, this);
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -96,26 +77,16 @@ namespace BookKeeper.UI
                 backUpService.CreateBackUpInAWeek();
             }
 
-            LoadAddresses();
+            _dataSourceHelper.LoadAddresses(cmbStreets);
             LoadRates();
             LoadDiscounts();
             LoadAccounts();
-        }
-
-        private void LoadAccounts()
-        {
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var accountService = scope.Resolve<IAccountService>();
-                StringBuilder builder = new StringBuilder();
-                var accounts = accountService.GetItems(x => x.IsDeleted == false).Select(x=>x.Account.ToString()).ToArray();
-                txtAccount.AutoCompleteCustomSource.AddRange(accounts);
-            }
+            SetDoubleBufferForListView();
         }
 
         #endregion
 
-        #region Load Items on Start
+        #region Loads start value
 
         private void LoadAddresses()
         {
@@ -134,7 +105,7 @@ namespace BookKeeper.UI
                     cmbStreets.ValueMember = "Id";
                 }
             }
-            catch (SqlException exception)
+            catch (SqlException)
             {
                 MessageBoxHelper.ShowWarningMessage("Не удалось загрузить адреса", this);
             }
@@ -213,7 +184,7 @@ namespace BookKeeper.UI
                         var secondColumnContentType =
                             discount.Type == DiscountType.PersonalAccount
                                 ? discount.Account.Account.ToString(CultureInfo.CurrentCulture)
-                                : string.Format(_addressTemplate, discount.Account.Location.Street.StreetName,
+                                : string.Format(AddressTemplate, discount.Account.Location.Street.StreetName,
                                     discount.Account.Location.HouseNumber, discount.Account.Location.BuildingCorpus,
                                     discount.Account.Location.ApartmentNumber);
 
@@ -236,6 +207,17 @@ namespace BookKeeper.UI
                     lvlDiscountsTest.Items.AddRange(list.ToArray());
                 }
             }
+        }
+
+        private void LoadAccounts()
+        {
+            _sourceHelper.FillAutoSource(txtAccount);
+        }
+
+        private void SetDoubleBufferForListView()
+        {
+            lvlMonthReportTest.DoubleBuffered(true);
+            lvlTotalReport.DoubleBuffered(true);
         }
 
         #endregion
@@ -293,6 +275,7 @@ namespace BookKeeper.UI
             _form = new ProgressForm();
             _form.ShowDialog(this);
             LoadAddresses();
+            LoadAccounts();
         }
 
         private void btnLoadPayments_Click(object sender, EventArgs e)
@@ -334,7 +317,7 @@ namespace BookKeeper.UI
                     MessageBoxHelper.ShowCompeteMessage($"Бэкап создан {file}", this);
                 }
             }
-            catch (SqlException exception)
+            catch (SqlException)
             {
                 MessageBoxHelper.ShowWarningMessage("У программы нет доступа для запси файлов на данный диск",
                     this);
@@ -402,7 +385,7 @@ namespace BookKeeper.UI
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
                 {
-                    MessageBoxHelper.ShowCompeteMessage("Добавлено", this);
+
                 }
             }
         }
@@ -512,9 +495,9 @@ namespace BookKeeper.UI
                     StreetId = streetId,
                     Account = ValidPersonalAccount(txtAccount.Text),
                     AccountType = Convert(cmbPersonalAccountType.SelectedIndex),
-                    HouseNumber = cmbHouses.Text,
-                    BuildingNumber = cmbBuildings.Text,
-                    ApartmentNumber = cmbApartmens.Text,
+                    HouseNumber = cmbHouses.SelectedIndex == 0 ? string.Empty : cmbHouses.Text,
+                    BuildingNumber = cmbBuildings.SelectedIndex == 0 ? string.Empty : cmbHouses.Text,
+                    ApartmentNumber = cmbApartmens.SelectedIndex == 0 ? string.Empty : cmbHouses.Text,
                     IsArchive = chkIsArchive.Checked,
                     From = dateFrom.Value,
                     To = dateTo.Value
@@ -581,6 +564,7 @@ namespace BookKeeper.UI
 
                 var listViewItem = new ListViewItem(new string[]
                 {
+                    string.Format(AddressTemplate,account.Location.Street.StreetName,account.Location.HouseNumber,account.Location.BuildingCorpus,account.Location.ApartmentNumber),
                     account.Account.ToString(),
                 });
 
@@ -633,10 +617,12 @@ namespace BookKeeper.UI
                 from = from.AddMonths(1);
             } while (true);
 
+            lvlMonthReportTest.Columns.Add("Адрес");
             lvlMonthReportTest.Columns.Add("Счет");
             lvlMonthReportTest.Columns.AddRange(columns.ToArray());
             lvlMonthReportTest.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            lvlMonthReportTest.Columns[0].Width = 150;
+            lvlMonthReportTest.Columns[0].Width = 350;
+            lvlMonthReportTest.Columns[1].Width = 100;
         }
 
         private string GetColumnKey(DateTime @from)
@@ -652,6 +638,44 @@ namespace BookKeeper.UI
             }
 
             return personalAccount;
+        }
+
+        #endregion
+
+        #region Data source
+
+        private void cmbStreet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbHouses.DataSource = null;
+            cmbBuildings.DataSource = null;
+            cmbApartmens.DataSource = null;
+        }
+
+        private void cmbHouses_DropDown(object sender, EventArgs e)
+        {
+            _dataSourceHelper.StreetIndexChanged
+                (cmbStreets, cmbHouses, x => x.HouseNumber);
+        }
+
+        private void cmbBuildings_DropDown(object sender, EventArgs e)
+        {
+            _dataSourceHelper.HouseIndexChanged
+                (cmbStreets, cmbHouses, cmbBuildings, x => x.BuildingCorpus);
+        }
+
+        private void cmbApartments_DropDown(object sender, EventArgs e)
+        {
+            _dataSourceHelper.BuildingIndexChanged
+                (cmbStreets, cmbHouses, cmbBuildings, cmbApartmens, x => x.ApartmentNumber);
+        }
+
+        private void cmbHouses_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            if (cmbHouses.SelectedIndex == 0)
+                cmbApartmens.SelectedIndex = 0;
+
+            _dataSourceHelper.HouseIndexChanged
+                (cmbStreets, cmbHouses, cmbBuildings, x => x.BuildingCorpus);
         }
 
         #endregion
@@ -796,6 +820,16 @@ namespace BookKeeper.UI
 
         #endregion
 
+        #region Right click
+
+        private void lvlRates_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                cntRates.Show();
+        }
+
+        #endregion
+
         #endregion
 
         #region DiscountListView
@@ -823,11 +857,6 @@ namespace BookKeeper.UI
                     LoadDiscounts();
                 }
             }
-        }
-
-        private void btnDiscountsArchive_Click(object sender, EventArgs e)
-        {
-            cntDiscountArchive.Show(btnDiscountsArchive, 0, btnDiscountsArchive.Height);
         }
 
         private void btnAddDiscountPercent_Click(object sender, EventArgs e)
@@ -894,41 +923,21 @@ namespace BookKeeper.UI
 
         #endregion
 
-        #region Methods
+        #region ToolStrip
 
-        private void LoadDiscount(DiscountModel model)
+        private void btnDiscountsArchive_Click(object sender, EventArgs e)
         {
-            if (model == null)
-                return;
+            cntDiscountArchive.Show(btnDiscountsArchive, 0, btnDiscountsArchive.Height);
+        }
 
-            switch (model.Type)
-            {
-                case DiscountType.PersonalAccount:
-                    {
-                        var listViewItem = new ListViewItem(new[]
-                            {
-                            "Счет", model.Account, $"{model.Price}%", model.Description
-                        })
-                        { Tag = model };
-                        lvlDiscounts.Items.Add(listViewItem);
-                        break;
-                    }
-                case DiscountType.Address:
-                    {
-                        var listViewItem = new ListViewItem(new[]
-                            {
-                            "Адрес", model.Address
-                            , $"{model.Price}%", model.Description
-                        })
-                        { Tag = model };
-                        lvlDiscounts.Items.Add(listViewItem);
-                        break;
-                    }
+        #endregion
 
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
+        #region RightClick
 
+        private void lvlDiscountsTest_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                cntDiscounts.Show();
         }
 
         #endregion
@@ -939,6 +948,12 @@ namespace BookKeeper.UI
 
         private void btnCreateTotalReport_Click(object sender, EventArgs e)
         {
+            if (dateTotalReportFrom.Value.Date > dateTotalReportTo.Value.Date)
+            {
+                MessageBoxHelper.ShowWarningMessage("Начальная дата не может быть больше", this);
+                return;
+            }
+
             lvlTotalReport.Items.Clear();
 
             using (var scope = _container.BeginLifetimeScope())
@@ -946,7 +961,7 @@ namespace BookKeeper.UI
                 var service = scope.Resolve<ICalculationService>();
                 try
                 {
-                    var result = service.CalculateAllPrice(dateFrom.Value, dateTo.Value);
+                    var result = service.CalculateAllPrice(dateTotalReportFrom.Value, dateTotalReportFrom.Value);
                     if (result != null)
                     {
                         lvlTotalReport.Items
@@ -966,7 +981,7 @@ namespace BookKeeper.UI
                     }
                     else
                     {
-                        MessageBoxHelper.ShowConfirmMessage("Записи не найдены", this);
+                        MessageBoxHelper.ShowWarningMessage("Записи не найдены", this);
                         return;
                     }
                 }
@@ -1084,7 +1099,7 @@ namespace BookKeeper.UI
 
         #endregion
 
-        #region Filter buttons
+        #region Help button
 
         private void btnClear_Click(object sender, EventArgs e)
         {
@@ -1094,9 +1109,11 @@ namespace BookKeeper.UI
             cmbBuildings.Text = string.Empty;
             cmbApartmens.Text = string.Empty;
             txtAccount.Text = string.Empty;
+            cmbStreets.SelectedIndex = 0;
+            cmbHouses.DataSource = null;
+            cmbBuildings.DataSource = null;
+            cmbApartmens.DataSource = null;
         }
-
-        #endregion
 
         private static void ResetColors(ListView listView)
         {
@@ -1148,62 +1165,6 @@ namespace BookKeeper.UI
             }
         }
 
-        private void cmbStreet_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cmbHouses.DataSource = null;
-
-            if (!(cmbStreets.SelectedItem is StreetEntity selectedStreet))
-                return;
-
-            cmbHouses.DataSource = selectedStreet.Locations
-                .Where(x => x.IsDeleted == false)
-                .Select(x => x.HouseNumber)
-                .Distinct()
-                .ToList();
-        }
-
-        private void cmbHouses_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cmbBuildings.DataSource = null;
-
-            var selectedStreet = cmbStreets.SelectedItem as StreetEntity;
-            if (selectedStreet == null)
-                return;
-
-            var house = cmbHouses.SelectedItem as string;
-            if (string.IsNullOrWhiteSpace(house))
-                return;
-
-
-            cmbBuildings.DataSource = selectedStreet.Locations
-                .Where(x => x.IsDeleted == false && string.Equals(x.HouseNumber, house, StringComparison.OrdinalIgnoreCase))
-                .Select(x => x.BuildingCorpus)
-                .Distinct()
-                .ToList();
-
-        }
-
-        private void cmbBuildings_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            cmbApartmens.DataSource = null;
-
-            var selectedStreet = cmbStreets.SelectedItem as StreetEntity;
-            if (selectedStreet == null)
-                return;
-
-            var selectedHouse = cmbHouses.SelectedItem as string;
-            if (string.IsNullOrWhiteSpace(selectedHouse))
-                return;
-
-            var selectedBuilding = cmbBuildings.SelectedItem as string;
-
-            cmbApartmens.DataSource = selectedStreet.Locations
-                .Where(x => x.IsDeleted == false &&
-                            string.Equals(x.HouseNumber, selectedHouse, StringComparison.OrdinalIgnoreCase) &&
-                            string.Equals(x.BuildingCorpus, selectedBuilding, StringComparison.OrdinalIgnoreCase))
-                .Select(x => x.ApartmentNumber)
-                .Distinct()
-                .ToList();
-        }
+        #endregion
     }
 }

@@ -65,6 +65,10 @@
     <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Helpers\AutoCompleteSourceHelper.cs" />
+    <Compile Include="Helpers\DefaultRateLoader.cs" />
+    <Compile Include="Helpers\DataSourceHelper.cs" />
+    <Compile Include="Helpers\DoubleBufferExtension.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -108,10 +112,16 @@
     <Compile Include="UI\Forms\Discount\DiscountPercentItem.Designer.cs">
       <DependentUpon>DiscountPercentItem.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Forms\Discount\HousesForm.cs">
+    <Compile Include="UI\Forms\Houses\DeleteHouseForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Forms\Discount\HousesForm.Designer.cs">
+    <Compile Include="UI\Forms\Houses\DeleteHouseForm.Designer.cs">
+      <DependentUpon>DeleteHouseForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Forms\Houses\HousesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Forms\Houses\HousesForm.Designer.cs">
       <DependentUpon>HousesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Forms\ProgressForm.cs">
@@ -159,7 +169,10 @@
     <EmbeddedResource Include="UI\Forms\Discount\DiscountPercentItem.resx">
       <DependentUpon>DiscountPercentItem.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Forms\Discount\HousesForm.resx">
+    <EmbeddedResource Include="UI\Forms\Houses\DeleteHouseForm.resx">
+      <DependentUpon>DeleteHouseForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Forms\Houses\HousesForm.resx">
       <DependentUpon>HousesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Forms\ProgressForm.resx">
@@ -214,6 +227,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="homestuck-wallpaper-SBURB-i9-800.ico" />
@@ -230,6 +244,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.1.1.1\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.1.1\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

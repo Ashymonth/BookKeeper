@@ -80,7 +80,6 @@ namespace BookKeeper.Data.Services
 
             return _accountService.GetWithInclude(account,
                 x => x.Location,
-                x => x.PaymentDocuments,
                 x => x.Location.Street,
                 x => x.Location.Street.Rates);
         }
