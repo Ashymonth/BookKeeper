@@ -69,7 +69,7 @@
     <Compile Include="Helpers\DefaultRateLoader.cs" />
     <Compile Include="Helpers\DataSourceHelper.cs" />
     <Compile Include="Helpers\DoubleBufferExtension.cs" />
-    <Compile Include="Helpers\ListViewColumnComparer.cs" />
+    <Compile Include="Helpers\ListViewStringComparer.cs" />
     <Compile Include="Helpers\MessageBoxHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -226,10 +226,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="homestuck-wallpaper-SBURB-i9-800.ico" />

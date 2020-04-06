@@ -26,6 +26,10 @@ namespace BookKeeper.Data.Services.EntityService.Rate
         public RateEntity AddRate(LocationEntity entity, string description, decimal price)
         {
             var activeRate = GetActiveRate(entity);
+
+            //if (activeRate != null && activeRate.StartDate.Date == DateTime.Now.Date)
+            //    return null;
+
             if (activeRate != null)
                 SendToArchive(activeRate);
 
@@ -118,14 +122,18 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 
         private RateEntity SendToArchive(RateEntity rate)
         {
-            if (rate != null)
+            if (rate == null)
+                return null;
+
+            var updatetRate = base.GetItemById(rate.Id);
+            if (updatetRate != null)
             {
-                rate.IsArchive = true;
-                rate.EndDate = DateTime.Now;
-                base.Update(rate);
+                updatetRate.IsArchive = true;
+                updatetRate.EndDate = DateTime.Now;
+                base.Update(updatetRate);
             }
 
-            return rate;
+            return updatetRate;
         }
 
         private decimal GetDefaultRate()

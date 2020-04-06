@@ -45,7 +45,6 @@ namespace BookKeeper.UI
         private const string AddressTemplate = "{0} Дом: {1} Корпус: {2} Квартира: {3}";
         private readonly DataSourceHelper _dataSourceHelper;
         private readonly AutoCompleteSourceHelper _sourceHelper;
-        private readonly ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
 
         public MainForm()
         {
@@ -505,8 +504,8 @@ namespace BookKeeper.UI
                     Account = ValidPersonalAccount(txtAccount.Text),
                     AccountType = Convert(cmbPersonalAccountType.SelectedIndex),
                     HouseNumber = cmbHouses.SelectedIndex == 0 ? string.Empty : cmbHouses.Text,
-                    BuildingNumber = cmbBuildings.SelectedIndex == 0 ? string.Empty : cmbHouses.Text,
-                    ApartmentNumber = cmbApartmens.SelectedIndex == 0 ? string.Empty : cmbHouses.Text,
+                    BuildingNumber = cmbBuildings.SelectedIndex == 0 ? string.Empty : cmbBuildings.Text,
+                    ApartmentNumber = cmbApartmens.SelectedIndex == 0 ? string.Empty : cmbApartmens.Text,
                     IsArchive = chkIsArchive.Checked,
                     From = dateFrom.Value,
                     To = dateTo.Value
@@ -688,6 +687,19 @@ namespace BookKeeper.UI
 
             _dataSourceHelper.HouseIndexChanged
                 (cmbStreets, cmbHouses, cmbBuildings, x => x.BuildingCorpus);
+        }
+
+        #endregion
+
+        #region ColumnHeader click
+
+        private void lvlMonthReportTest_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            lvlMonthReportTest.Sorting = lvlMonthReportTest.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+
+            lvlMonthReportTest.ListViewItemSorter = new ListViewStringComparer(e.Column,lvlMonthReportTest.Sorting);
+
+            lvlMonthReportTest.Sort();
         }
 
         #endregion
@@ -1191,32 +1203,13 @@ namespace BookKeeper.UI
 
         #endregion
 
-        private void lvlMonthReportTest_ColumnClick(object sender, ColumnClickEventArgs e)
+        private void lvlRates_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            ListView myListView = (ListView)sender;
+            lvlRates.Sorting = lvlRates.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
 
-            // Determine if clicked column is already the column that is being sorted.
-            if (e.Column == lvwColumnSorter.SortColumn)
-            {
-                // Reverse the current sort direction for this column.
-                if (lvwColumnSorter.Order == SortOrder.Ascending)
-                {
-                    lvwColumnSorter.Order = SortOrder.Descending;
-                }
-                else
-                {
-                    lvwColumnSorter.Order = SortOrder.Ascending;
-                }
-            }
-            else
-            {
-                // Set the column number that is to be sorted; default to ascending.
-                lvwColumnSorter.SortColumn = e.Column;
-                lvwColumnSorter.Order = SortOrder.Ascending;
-            }
+            lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column,lvlRates.Sorting);
 
-            // Perform the sort with these new sort options.
-            myListView.ListViewItemSorter = new ListViewColumnComparer(e.Column);
+            lvlRates.Sort();
         }
     }
 }

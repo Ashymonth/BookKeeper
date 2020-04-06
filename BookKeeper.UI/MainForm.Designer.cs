@@ -493,6 +493,7 @@
             this.lvlRates.UseCustomForeColor = true;
             this.lvlRates.UseSelectable = true;
             this.lvlRates.View = System.Windows.Forms.View.Details;
+            this.lvlRates.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvlRates_ColumnClick);
             this.lvlRates.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lvlRates_MouseUp);
             // 
             // columnHeader2
@@ -623,7 +624,6 @@
             this.lvlMonthReportTest.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader25,
             this.columnHeader23});
-            this.lvlMonthReportTest.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvlMonthReportTest.FullRowSelect = true;
             this.lvlMonthReportTest.GridLines = true;
             this.lvlMonthReportTest.HideSelection = false;
@@ -1199,19 +1199,19 @@
             this.btnHideArchvieRates});
             this.cntRateArchive.Name = "metroContextMenu1";
             this.cntRateArchive.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.cntRateArchive.Size = new System.Drawing.Size(224, 48);
+            this.cntRateArchive.Size = new System.Drawing.Size(228, 48);
             // 
             // btnShowArchiveRates
             // 
             this.btnShowArchiveRates.Name = "btnShowArchiveRates";
-            this.btnShowArchiveRates.Size = new System.Drawing.Size(223, 22);
-            this.btnShowArchiveRates.Text = "Показать архивные льготы";
+            this.btnShowArchiveRates.Size = new System.Drawing.Size(227, 22);
+            this.btnShowArchiveRates.Text = "Показать архивные тарифы";
             this.btnShowArchiveRates.Click += new System.EventHandler(this.btnShowArchiveRates_Click);
             // 
             // btnHideArchvieRates
             // 
             this.btnHideArchvieRates.Name = "btnHideArchvieRates";
-            this.btnHideArchvieRates.Size = new System.Drawing.Size(223, 22);
+            this.btnHideArchvieRates.Size = new System.Drawing.Size(227, 22);
             this.btnHideArchvieRates.Text = "Скрыть";
             this.btnHideArchvieRates.Click += new System.EventHandler(this.btnHideArchiveRates_Click);
             // 

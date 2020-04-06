@@ -34,8 +34,8 @@ namespace BookKeeperTest.Rates
 
             const int price = 200;
             const string description = "Test";
-            var starDate = DateTime.Parse("01.01.2020");
-            var endDate = DateTime.Parse("01.03.2020");
+            var starDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
 
             var expected = new RateEntity
             {
@@ -61,7 +61,7 @@ namespace BookKeeperTest.Rates
         }
 
         [TestMethod]
-        public void ChangeRatePriceTest()
+        public void AddRate_WhenNotArchiveRateExist()
         {
             var comparer = new RateComparer();
 
@@ -75,9 +75,52 @@ namespace BookKeeperTest.Rates
 
             const int price = 200;
             const string description = "Test";
+            var starDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
+
+            var expected = new RateEntity
+            {
+                StartDate = starDate,
+                EndDate = endDate,
+                Description = description,
+                Price = price,
+                IsArchive = true
+            };
+
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var locationService = scope.Resolve<ILocationService>();
+                var location = locationService.Add(locationEntity);
+
+
+                var rateService = scope.Resolve<IRateService>();
+
+                var actual = rateService.AddRate(locationEntity, description, price);
+                rateService.AddRate(locationEntity, description, price);
+
+                Assert.IsTrue(comparer.Equals(expected, actual));
+                Assert.AreEqual(expected.IsArchive, actual.IsArchive);
+                locationService.Delete(location);
+                rateService.Delete(actual);
+            }
+        }
+
+        [TestMethod]
+        public void ChangeRatePriceTest()
+        {
+            var locationEntity = new LocationEntity
+            {
+                StreetId = 1,
+                HouseNumber = "105",
+                BuildingCorpus = "2в",
+                ApartmentNumber = "100",
+            };
+
+            const int price = 200;
+            const string description = "Test";
             const decimal newPrice = 300;
-            var starDate = DateTime.Parse("01.01.2020");
-            var endDate = DateTime.Parse("01.03.2020");
+            var starDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
 
             var expected = new RateEntity
             {
@@ -121,9 +164,9 @@ namespace BookKeeperTest.Rates
 
             const int price = 200;
             const string description = "Test";
-            var paymentDate = DateTime.Parse("01.01.2020");
-            var starDate = DateTime.Parse("01.01.2020");
-            var endDate = DateTime.Parse("01.03.2020");
+            var paymentDate = DateTime.Parse("06.04.2020");
+            var starDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
 
             var expected = new RateEntity
             {
@@ -139,94 +182,6 @@ namespace BookKeeperTest.Rates
                 var locationService = scope.Resolve<ILocationService>();
                 var location = locationService.Add(locationEntity);
 
-
-                var rateService = scope.Resolve<IRateService>();
-                var rate = rateService.AddRate(locationEntity, description, price);
-
-                var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
-
-                Assert.AreEqual(expected.Price, actual);
-
-                locationService.Delete(location);
-                rateService.Delete(rate);
-            }
-        }
-
-        [TestMethod]
-        public void GetCurrentRateTest_StartDayLessThatPaymentDate()
-        {
-            var comparer = new RateComparer();
-
-            var locationEntity = new LocationEntity
-            {
-                StreetId = 1,
-                HouseNumber = "105",
-                BuildingCorpus = "2в",
-                ApartmentNumber = "100",
-            };
-
-            const int price = 200;
-            const string description = "Test";
-            var paymentDate = DateTime.Parse("01.01.2020");
-            var StarDateLessThatPaymentDate = DateTime.Parse("01.12.2019");
-            var endDate = DateTime.Parse("01.03.2020");
-
-            var expected = new RateEntity
-            {
-                StartDate = StarDateLessThatPaymentDate,
-                EndDate = endDate,
-                Description = description,
-                Price = price,
-                IsArchive = true
-            };
-
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var locationService = scope.Resolve<ILocationService>();
-                var location = locationService.Add(locationEntity);
-
-                var rateService = scope.Resolve<IRateService>();
-                var rate = rateService.AddRate(locationEntity, description, price);
-
-                var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
-
-                Assert.AreEqual(expected.Price, actual);
-
-                locationService.Delete(location);
-                rateService.Delete(rate);
-            }
-        }
-
-        [TestMethod]
-        public void GetCurrentRateTest_EndDayLessThatPaymentDate()
-        {
-            var locationEntity = new LocationEntity
-            {
-                StreetId = 1,
-                HouseNumber = "105",
-                BuildingCorpus = "2в",
-                ApartmentNumber = "100",
-            };
-
-            const int price = 200;
-            const string description = "Test";
-            var paymentDate = DateTime.Parse("01.01.2020");
-            var startDate = DateTime.Parse("01.01.2020");
-            var endDateLessThatPaymentDate = DateTime.Parse("01.03.2020");
-
-            var expected = new RateEntity
-            {
-                StartDate = startDate,
-                EndDate = endDateLessThatPaymentDate,
-                Description = description,
-                Price = price,
-                IsArchive = true
-            };
-
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var locationService = scope.Resolve<ILocationService>();
-                var location = locationService.Add(locationEntity);
 
                 var rateService = scope.Resolve<IRateService>();
                 var rate = rateService.AddRate(locationEntity, description, price);

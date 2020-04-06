@@ -13,7 +13,6 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using BookKeeper.UI.Models.Discount;
-using DocumentFormat.OpenXml.Vml.Spreadsheet;
 using IContainer = Autofac.IContainer;
 
 namespace BookKeeper.UI.UI.Forms.Discount
