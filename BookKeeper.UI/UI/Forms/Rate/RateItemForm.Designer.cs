@@ -44,13 +44,14 @@
             this.cmbStreet.FormattingEnabled = true;
             this.cmbStreet.ItemHeight = 23;
             this.cmbStreet.Location = new System.Drawing.Point(31, 78);
-            this.cmbStreet.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbStreet.Margin = new System.Windows.Forms.Padding(4);
             this.cmbStreet.Name = "cmbStreet";
             this.cmbStreet.PromptText = "Адрес";
             this.cmbStreet.Size = new System.Drawing.Size(588, 29);
             this.cmbStreet.TabIndex = 0;
             this.cmbStreet.UseSelectable = true;
             this.cmbStreet.ValueMember = "Id";
+            this.cmbStreet.SelectedIndexChanged += new System.EventHandler(this.cmbStreet_SelectedIndexChanged);
             // 
             // txtDescription
             // 
@@ -58,10 +59,10 @@
             // 
             // 
             this.txtDescription.CustomButton.Image = null;
-            this.txtDescription.CustomButton.Location = new System.Drawing.Point(687, 1);
-            this.txtDescription.CustomButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDescription.CustomButton.Location = new System.Drawing.Point(515, 1);
+            this.txtDescription.CustomButton.Margin = new System.Windows.Forms.Padding(4);
             this.txtDescription.CustomButton.Name = "";
-            this.txtDescription.CustomButton.Size = new System.Drawing.Size(97, 90);
+            this.txtDescription.CustomButton.Size = new System.Drawing.Size(73, 73);
             this.txtDescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtDescription.CustomButton.TabIndex = 1;
             this.txtDescription.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -69,7 +70,7 @@
             this.txtDescription.CustomButton.Visible = false;
             this.txtDescription.Lines = new string[0];
             this.txtDescription.Location = new System.Drawing.Point(30, 183);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(4);
             this.txtDescription.MaxLength = 32767;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.PasswordChar = '\0';
@@ -90,7 +91,7 @@
             // 
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
             this.btnSave.Location = new System.Drawing.Point(435, 283);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(184, 28);
             this.btnSave.TabIndex = 5;
@@ -102,7 +103,7 @@
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnCancel.Location = new System.Drawing.Point(30, 285);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(185, 28);
             this.btnCancel.TabIndex = 6;
@@ -118,22 +119,23 @@
             this.cmbHouses.Location = new System.Drawing.Point(30, 136);
             this.cmbHouses.Margin = new System.Windows.Forms.Padding(4);
             this.cmbHouses.Name = "cmbHouses";
-            this.cmbHouses.PromptText = "Адрес";
-            this.cmbHouses.Size = new System.Drawing.Size(171, 29);
+            this.cmbHouses.PromptText = "Дом";
+            this.cmbHouses.Size = new System.Drawing.Size(184, 29);
             this.cmbHouses.TabIndex = 1;
             this.cmbHouses.UseSelectable = true;
             this.cmbHouses.ValueMember = "Id";
+            this.cmbHouses.SelectionChangeCommitted += new System.EventHandler(this.cmbHouses_SelectionChangeCommitted);
             // 
             // cmbBuildings
             // 
             this.cmbBuildings.DisplayMember = "StreetName";
             this.cmbBuildings.FormattingEnabled = true;
             this.cmbBuildings.ItemHeight = 23;
-            this.cmbBuildings.Location = new System.Drawing.Point(227, 136);
+            this.cmbBuildings.Location = new System.Drawing.Point(232, 136);
             this.cmbBuildings.Margin = new System.Windows.Forms.Padding(4);
             this.cmbBuildings.Name = "cmbBuildings";
-            this.cmbBuildings.PromptText = "Адрес";
-            this.cmbBuildings.Size = new System.Drawing.Size(171, 29);
+            this.cmbBuildings.PromptText = "Корпус";
+            this.cmbBuildings.Size = new System.Drawing.Size(184, 29);
             this.cmbBuildings.TabIndex = 2;
             this.cmbBuildings.UseSelectable = true;
             this.cmbBuildings.ValueMember = "Id";
@@ -153,7 +155,7 @@
             this.txtPrice.CustomButton.UseSelectable = true;
             this.txtPrice.CustomButton.Visible = false;
             this.txtPrice.Lines = new string[0];
-            this.txtPrice.Location = new System.Drawing.Point(435, 136);
+            this.txtPrice.Location = new System.Drawing.Point(434, 136);
             this.txtPrice.MaxLength = 32767;
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.PasswordChar = '\0';
@@ -183,7 +185,7 @@
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.cmbStreet);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RateItemForm";

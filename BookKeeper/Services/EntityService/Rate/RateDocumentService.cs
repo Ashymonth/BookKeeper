@@ -93,11 +93,9 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 
             var result = rate.FirstOrDefault(x => x.AssignedLocations.FirstOrDefault(z => z.IsDeleted == false &&
                                                                                           z.StreetId == entity.StreetId &&
-                                                                                          z.HouseNumber
-                                                                                              .Equals(entity.HouseNumber,
-                                                                                                  StringComparison.OrdinalIgnoreCase) &&
-                                                                                          z.BuildingNumber
-                                                                                              .Equals(entity.BuildingCorpus,
+                                                                                          z.HouseNumber.Equals(entity.HouseNumber,
+                                                                                              StringComparison.OrdinalIgnoreCase) &&
+                                                                                          z.BuildingNumber.Equals(entity.BuildingCorpus,
                                                                                                   StringComparison.OrdinalIgnoreCase)) != null);
 
             return result?.Price ?? GetDefaultRate();
@@ -110,11 +108,9 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                                                 x.IsArchive == false, x => x.AssignedLocations);
 
             var result = rate.FirstOrDefault(x => x.AssignedLocations.FirstOrDefault(z => z.IsDeleted == false &&
-                                                                                          z.HouseNumber
-                                                                                              .Equals(location.HouseNumber,
+                                                                                          z.HouseNumber.Equals(location.HouseNumber,
                                                                                                   StringComparison.OrdinalIgnoreCase) &&
-                                                                                          z.BuildingNumber
-                                                                                              .Equals(location.BuildingCorpus,
+                                                                                          z.BuildingNumber.Equals(location.BuildingCorpus,
                                                                                                   StringComparison.OrdinalIgnoreCase)) != null);
 
             return result;
@@ -136,6 +132,5 @@ namespace BookKeeper.Data.Services.EntityService.Rate
         {
             return GetItem(x => x.IsDefault).Price;
         }
-
     }
 }

@@ -52,7 +52,7 @@ namespace BookKeeperTest.Rates
 
 
                 var rateService = scope.Resolve<IRateService>();
-                var actual = rateService.AddRate(locationEntity, description, price, starDate, endDate);
+                var actual = rateService.AddRate(locationEntity, description, price);
 
                 Assert.IsTrue(comparer.Equals(expected, actual));
                 locationService.Delete(location);
@@ -95,7 +95,7 @@ namespace BookKeeperTest.Rates
 
 
                 var rateService = scope.Resolve<IRateService>();
-                var rate = rateService.AddRate(locationEntity, description, price, starDate, endDate);
+                var rate = rateService.AddRate(locationEntity, description, price);
 
                 var actual = rateService.ChangeRatePrice(rate, newPrice);
 
@@ -141,7 +141,7 @@ namespace BookKeeperTest.Rates
 
 
                 var rateService = scope.Resolve<IRateService>();
-                var rate = rateService.AddRate(locationEntity, description, price, starDate, endDate);
+                var rate = rateService.AddRate(locationEntity, description, price);
 
                 var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
 
@@ -186,8 +186,7 @@ namespace BookKeeperTest.Rates
                 var location = locationService.Add(locationEntity);
 
                 var rateService = scope.Resolve<IRateService>();
-                var rate = rateService.AddRate(locationEntity, description, price, StarDateLessThatPaymentDate,
-                    endDate);
+                var rate = rateService.AddRate(locationEntity, description, price);
 
                 var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
 
@@ -230,8 +229,7 @@ namespace BookKeeperTest.Rates
                 var location = locationService.Add(locationEntity);
 
                 var rateService = scope.Resolve<IRateService>();
-                var rate = rateService.AddRate(locationEntity, description, price, startDate,
-                    endDateLessThatPaymentDate);
+                var rate = rateService.AddRate(locationEntity, description, price);
 
                 var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
 
@@ -304,8 +302,7 @@ namespace BookKeeperTest.Rates
                 var location = locationService.Add(locationEntity);
 
                 var rateService = scope.Resolve<IRateService>();
-                var rate = rateService.AddRate(locationEntity, description, price, startDate,
-                    endDateLessThatPaymentDate);
+                var rate = rateService.AddRate(locationEntity, description, price);
 
                 var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
 

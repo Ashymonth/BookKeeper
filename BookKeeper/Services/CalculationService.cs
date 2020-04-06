@@ -73,20 +73,22 @@ namespace BookKeeper.Data.Services
                 {
                     foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
                         x.IsDeleted == false &&
-                        x.PaymentDate.Date >= from.Date && x.PaymentDate.Date < To.Date))
+                        x.PaymentDate.Date >= from.Date && x.PaymentDate.Date <= To.Date))
                     {
-                        switch (accountEntity.AccountType)
+                        totalPayment.PaymentsDate.Add(paymentDocumentEntity.PaymentDate.ToString("Y"));
+                        if (accountEntity.AccountType == AccountType.Municipal)
                         {
-                            case AccountType.Municipal:
-                                totalPayment.AccruedMunicipal += paymentDocumentEntity.Accrued;
-                                totalPayment.ReceivedMunicipal += paymentDocumentEntity.Received;
-                                break;
-                            case AccountType.Private:
-                                totalPayment.AccruedPrivate += paymentDocumentEntity.Accrued;
-                                totalPayment.ReceivedPrivate += paymentDocumentEntity.Received;
-                                break;
-                            default:
-                                throw new ArgumentOutOfRangeException();
+                            totalPayment.AccruedMunicipal += paymentDocumentEntity.Accrued;
+                            totalPayment.ReceivedMunicipal += paymentDocumentEntity.Received;
+                        }
+                        else if (accountEntity.AccountType == AccountType.Private)
+                        {
+                            totalPayment.AccruedPrivate += paymentDocumentEntity.Accrued;
+                            totalPayment.ReceivedPrivate += paymentDocumentEntity.Received;
+                        }
+                        else
+                        {
+                            throw new ArgumentOutOfRangeException();
                         }
                     }
                 }
@@ -105,6 +107,10 @@ namespace BookKeeper.Data.Services
 
     public class TotalPayments
     {
+        public TotalPayments()
+        {
+            PaymentsDate = new List<string>();
+        }
         public string StreetName { get; set; }
 
         public decimal AccruedMunicipal { get; set; }
@@ -120,5 +126,7 @@ namespace BookKeeper.Data.Services
         public decimal TotalReceived { get; set; }
 
         public decimal Percent { get; set; }
+
+        public List<string> PaymentsDate { get; set; }
     }
 }

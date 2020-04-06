@@ -17,12 +17,10 @@ namespace BookKeeper.Data.Services
     public class SearchService : ISearchService
     {
         private readonly IAccountService _accountService;
-        private readonly IPaymentDocumentService _paymentDocumentService;
 
-        public SearchService(IAccountService accountService, IPaymentDocumentService paymentDocumentService)
+        public SearchService(IAccountService accountService)
         {
             _accountService = accountService;
-            _paymentDocumentService = paymentDocumentService;
         }
 
         public IEnumerable<AccountEntity> FindAccounts(SearchModel model)

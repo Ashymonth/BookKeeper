@@ -85,7 +85,7 @@
             // 
             this.cmbPercent.FormattingEnabled = true;
             this.cmbPercent.ItemHeight = 23;
-            this.cmbPercent.Location = new System.Drawing.Point(353, 168);
+            this.cmbPercent.Location = new System.Drawing.Point(353, 181);
             this.cmbPercent.Margin = new System.Windows.Forms.Padding(4);
             this.cmbPercent.Name = "cmbPercent";
             this.cmbPercent.PromptText = "Скидка";
@@ -97,7 +97,7 @@
             // 
             this.cmbDescription.FormattingEnabled = true;
             this.cmbDescription.ItemHeight = 23;
-            this.cmbDescription.Location = new System.Drawing.Point(353, 236);
+            this.cmbDescription.Location = new System.Drawing.Point(353, 259);
             this.cmbDescription.Margin = new System.Windows.Forms.Padding(4);
             this.cmbDescription.Name = "cmbDescription";
             this.cmbDescription.PromptText = "Описание";
@@ -128,7 +128,7 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(353, 213);
+            this.metroLabel3.Location = new System.Drawing.Point(353, 225);
             this.metroLabel3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(72, 19);
@@ -138,7 +138,7 @@
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(31, 292);
+            this.metroLabel1.Location = new System.Drawing.Point(31, 304);
             this.metroLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(66, 19);
@@ -148,7 +148,7 @@
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(31, 213);
+            this.metroLabel4.Location = new System.Drawing.Point(31, 225);
             this.metroLabel4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(52, 19);
@@ -169,7 +169,7 @@
             // 
             this.cmbApatmens.FormattingEnabled = true;
             this.cmbApatmens.ItemHeight = 23;
-            this.cmbApatmens.Location = new System.Drawing.Point(31, 314);
+            this.cmbApatmens.Location = new System.Drawing.Point(31, 337);
             this.cmbApatmens.Margin = new System.Windows.Forms.Padding(4);
             this.cmbApatmens.Name = "cmbApatmens";
             this.cmbApatmens.PromptText = "Квартира";
@@ -181,7 +181,7 @@
             // 
             this.cmbBuilding.FormattingEnabled = true;
             this.cmbBuilding.ItemHeight = 23;
-            this.cmbBuilding.Location = new System.Drawing.Point(31, 241);
+            this.cmbBuilding.Location = new System.Drawing.Point(31, 259);
             this.cmbBuilding.Margin = new System.Windows.Forms.Padding(4);
             this.cmbBuilding.Name = "cmbBuilding";
             this.cmbBuilding.PromptText = "Корпус";
@@ -194,7 +194,7 @@
             // 
             this.cmbHouses.FormattingEnabled = true;
             this.cmbHouses.ItemHeight = 23;
-            this.cmbHouses.Location = new System.Drawing.Point(31, 168);
+            this.cmbHouses.Location = new System.Drawing.Point(31, 181);
             this.cmbHouses.Margin = new System.Windows.Forms.Padding(4);
             this.cmbHouses.Name = "cmbHouses";
             this.cmbHouses.PromptText = "Дом";
@@ -205,9 +205,11 @@
             // 
             // DiscountOnAddressForm
             // 
+            this.AcceptButton = this.btnSaveDiscount;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(647, 469);
+            this.CancelButton = this.dtnCancelDiscount;
+            this.ClientSize = new System.Drawing.Size(647, 437);
             this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.metroLabel4);
             this.Controls.Add(this.metroLabel5);

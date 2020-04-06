@@ -32,7 +32,7 @@
             this.txtAccount = new MetroFramework.Controls.MetroTextBox();
             this.cmbPercent = new MetroFramework.Controls.MetroComboBox();
             this.btnSave = new MetroFramework.Controls.MetroButton();
-            this.metroButton2 = new MetroFramework.Controls.MetroButton();
+            this.btnCancel = new MetroFramework.Controls.MetroButton();
             this.cmbDescription = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
@@ -48,7 +48,7 @@
             // 
             this.txtAccount.CustomButton.Image = null;
             this.txtAccount.CustomButton.Location = new System.Drawing.Point(352, 1);
-            this.txtAccount.CustomButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtAccount.CustomButton.Margin = new System.Windows.Forms.Padding(4);
             this.txtAccount.CustomButton.Name = "";
             this.txtAccount.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtAccount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
@@ -58,7 +58,7 @@
             this.txtAccount.CustomButton.Visible = false;
             this.txtAccount.Lines = new string[0];
             this.txtAccount.Location = new System.Drawing.Point(31, 102);
-            this.txtAccount.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtAccount.Margin = new System.Windows.Forms.Padding(4);
             this.txtAccount.MaxLength = 32767;
             this.txtAccount.Name = "txtAccount";
             this.txtAccount.PasswordChar = '\0';
@@ -80,7 +80,7 @@
             this.cmbPercent.FormattingEnabled = true;
             this.cmbPercent.ItemHeight = 23;
             this.cmbPercent.Location = new System.Drawing.Point(31, 168);
-            this.cmbPercent.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbPercent.Margin = new System.Windows.Forms.Padding(4);
             this.cmbPercent.Name = "cmbPercent";
             this.cmbPercent.PromptText = "Процент скидки";
             this.cmbPercent.Size = new System.Drawing.Size(379, 29);
@@ -90,7 +90,7 @@
             // btnSave
             // 
             this.btnSave.Location = new System.Drawing.Point(310, 286);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(100, 28);
             this.btnSave.TabIndex = 2;
@@ -98,23 +98,23 @@
             this.btnSave.UseSelectable = true;
             this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
             // 
-            // metroButton2
+            // btnCancel
             // 
-            this.metroButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.metroButton2.Location = new System.Drawing.Point(31, 286);
-            this.metroButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.metroButton2.Name = "metroButton2";
-            this.metroButton2.Size = new System.Drawing.Size(100, 28);
-            this.metroButton2.TabIndex = 3;
-            this.metroButton2.Text = "Отменить";
-            this.metroButton2.UseSelectable = true;
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(31, 286);
+            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(100, 28);
+            this.btnCancel.TabIndex = 3;
+            this.btnCancel.Text = "Отменить";
+            this.btnCancel.UseSelectable = true;
             // 
             // cmbDescription
             // 
             this.cmbDescription.FormattingEnabled = true;
             this.cmbDescription.ItemHeight = 23;
             this.cmbDescription.Location = new System.Drawing.Point(31, 234);
-            this.cmbDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cmbDescription.Margin = new System.Windows.Forms.Padding(4);
             this.cmbDescription.Name = "cmbDescription";
             this.cmbDescription.PromptText = "Описание";
             this.cmbDescription.Size = new System.Drawing.Size(379, 29);
@@ -153,19 +153,21 @@
             // 
             // DiscountAccountItemForm
             // 
+            this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(459, 337);
             this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.metroLabel2);
             this.Controls.Add(this.cmbDescription);
-            this.Controls.Add(this.metroButton2);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.cmbPercent);
             this.Controls.Add(this.txtAccount);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DiscountAccountItemForm";
@@ -183,7 +185,7 @@
         private MetroFramework.Controls.MetroTextBox txtAccount;
         private MetroFramework.Controls.MetroComboBox cmbPercent;
         private MetroFramework.Controls.MetroButton btnSave;
-        private MetroFramework.Controls.MetroButton metroButton2;
+        private MetroFramework.Controls.MetroButton btnCancel;
         private MetroFramework.Controls.MetroComboBox cmbDescription;
         private MetroFramework.Controls.MetroLabel metroLabel3;
         private MetroFramework.Controls.MetroLabel metroLabel2;

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DiscountDescriptionItem));
             this.txtDescription = new MetroFramework.Controls.MetroTextBox();
             this.btnSave = new MetroFramework.Controls.MetroButton();
             this.lstDescription = new System.Windows.Forms.ListBox();
@@ -40,16 +41,18 @@
             // 
             // 
             this.txtDescription.CustomButton.Image = null;
-            this.txtDescription.CustomButton.Location = new System.Drawing.Point(243, 2);
+            this.txtDescription.CustomButton.Location = new System.Drawing.Point(436, 1);
+            this.txtDescription.CustomButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtDescription.CustomButton.Name = "";
-            this.txtDescription.CustomButton.Size = new System.Drawing.Size(35, 35);
+            this.txtDescription.CustomButton.Size = new System.Drawing.Size(63, 58);
             this.txtDescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtDescription.CustomButton.TabIndex = 1;
             this.txtDescription.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtDescription.CustomButton.UseSelectable = true;
             this.txtDescription.CustomButton.Visible = false;
             this.txtDescription.Lines = new string[0];
-            this.txtDescription.Location = new System.Drawing.Point(24, 231);
+            this.txtDescription.Location = new System.Drawing.Point(32, 284);
+            this.txtDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.txtDescription.MaxLength = 32767;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.PasswordChar = '\0';
@@ -59,7 +62,7 @@
             this.txtDescription.SelectionLength = 0;
             this.txtDescription.SelectionStart = 0;
             this.txtDescription.ShortcutsEnabled = true;
-            this.txtDescription.Size = new System.Drawing.Size(281, 40);
+            this.txtDescription.Size = new System.Drawing.Size(375, 49);
             this.txtDescription.TabIndex = 0;
             this.txtDescription.UseSelectable = true;
             this.txtDescription.WaterMark = "Описание";
@@ -68,9 +71,10 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(23, 296);
+            this.btnSave.Location = new System.Drawing.Point(31, 364);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(281, 23);
+            this.btnSave.Size = new System.Drawing.Size(375, 28);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseSelectable = true;
@@ -79,16 +83,19 @@
             // lstDescription
             // 
             this.lstDescription.FormattingEnabled = true;
-            this.lstDescription.Location = new System.Drawing.Point(24, 63);
+            this.lstDescription.ItemHeight = 16;
+            this.lstDescription.Location = new System.Drawing.Point(32, 78);
+            this.lstDescription.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.lstDescription.Name = "lstDescription";
-            this.lstDescription.Size = new System.Drawing.Size(281, 147);
+            this.lstDescription.Size = new System.Drawing.Size(373, 180);
             this.lstDescription.TabIndex = 2;
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(24, 338);
+            this.btnDelete.Location = new System.Drawing.Point(32, 416);
+            this.btnDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(281, 24);
+            this.btnDelete.Size = new System.Drawing.Size(375, 30);
             this.btnDelete.TabIndex = 3;
             this.btnDelete.Text = "Удалить";
             this.btnDelete.UseSelectable = true;
@@ -96,16 +103,20 @@
             // 
             // DiscountDescriptionItem
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AcceptButton = this.btnSave;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(324, 380);
+            this.ClientSize = new System.Drawing.Size(432, 468);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.lstDescription);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.txtDescription);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DiscountDescriptionItem";
+            this.Padding = new System.Windows.Forms.Padding(27, 74, 27, 25);
             this.Resizable = false;
             this.Text = "Описание";
             this.Load += new System.EventHandler(this.DiscountDescriptionItem_Load);

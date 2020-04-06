@@ -78,6 +78,7 @@
             this.btnRateArchive = new MetroFramework.Controls.MetroButton();
             this.tbpMonthReport = new MetroFramework.Controls.MetroTabPage();
             this.lvlMonthReportTest = new System.Windows.Forms.ListView();
+            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader23 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -132,7 +133,6 @@
             this.btnShowArchiveRates = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHideArchvieRates = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
-            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanel1.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
             this.metroTabPage4.SuspendLayout();
@@ -634,7 +634,13 @@
             this.lvlMonthReportTest.TabIndex = 0;
             this.lvlMonthReportTest.UseCompatibleStateImageBehavior = false;
             this.lvlMonthReportTest.View = System.Windows.Forms.View.Details;
+            this.lvlMonthReportTest.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvlMonthReportTest_ColumnClick);
             this.lvlMonthReportTest.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvlMonthReportTest_MouseDoubleClick);
+            // 
+            // columnHeader25
+            // 
+            this.columnHeader25.DisplayIndex = 1;
+            this.columnHeader25.Text = "Адрес";
             // 
             // columnHeader23
             // 
@@ -713,7 +719,7 @@
             this.cmbHouses.PromptText = "Дом";
             this.cmbHouses.Size = new System.Drawing.Size(163, 29);
             this.cmbHouses.Style = MetroFramework.MetroColorStyle.Blue;
-            this.cmbHouses.TabIndex = 2;
+            this.cmbHouses.TabIndex = 1;
             this.cmbHouses.Theme = MetroFramework.MetroThemeStyle.Light;
             this.cmbHouses.UseSelectable = true;
             this.cmbHouses.DropDown += new System.EventHandler(this.cmbHouses_DropDown);
@@ -731,7 +737,7 @@
             this.cmbBuildings.PromptText = "Корпус";
             this.cmbBuildings.Size = new System.Drawing.Size(163, 29);
             this.cmbBuildings.Style = MetroFramework.MetroColorStyle.Blue;
-            this.cmbBuildings.TabIndex = 3;
+            this.cmbBuildings.TabIndex = 2;
             this.cmbBuildings.Theme = MetroFramework.MetroThemeStyle.Light;
             this.cmbBuildings.UseSelectable = true;
             this.cmbBuildings.DropDown += new System.EventHandler(this.cmbBuildings_DropDown);
@@ -748,7 +754,7 @@
             this.cmbApartmens.PromptText = "Квартира";
             this.cmbApartmens.Size = new System.Drawing.Size(163, 29);
             this.cmbApartmens.Style = MetroFramework.MetroColorStyle.Blue;
-            this.cmbApartmens.TabIndex = 4;
+            this.cmbApartmens.TabIndex = 3;
             this.cmbApartmens.Theme = MetroFramework.MetroThemeStyle.Light;
             this.cmbApartmens.UseSelectable = true;
             this.cmbApartmens.DropDown += new System.EventHandler(this.cmbApartments_DropDown);
@@ -764,9 +770,9 @@
             this.cmbPersonalAccountType.Location = new System.Drawing.Point(884, 4);
             this.cmbPersonalAccountType.Margin = new System.Windows.Forms.Padding(4);
             this.cmbPersonalAccountType.Name = "cmbPersonalAccountType";
-            this.cmbPersonalAccountType.PromptText = "Тип";
+            this.cmbPersonalAccountType.PromptText = "Тип счета";
             this.cmbPersonalAccountType.Size = new System.Drawing.Size(213, 29);
-            this.cmbPersonalAccountType.TabIndex = 1;
+            this.cmbPersonalAccountType.TabIndex = 4;
             this.cmbPersonalAccountType.UseSelectable = true;
             // 
             // txtAccount
@@ -799,7 +805,7 @@
             this.txtAccount.SelectionStart = 0;
             this.txtAccount.ShortcutsEnabled = true;
             this.txtAccount.Size = new System.Drawing.Size(176, 36);
-            this.txtAccount.TabIndex = 7;
+            this.txtAccount.TabIndex = 5;
             this.txtAccount.UseSelectable = true;
             this.txtAccount.WaterMark = "Номер счета";
             this.txtAccount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
@@ -826,7 +832,7 @@
             this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(159, 29);
-            this.dateFrom.TabIndex = 5;
+            this.dateFrom.TabIndex = 7;
             this.dateFrom.Value = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
             // 
             // chkIsArchive
@@ -883,7 +889,7 @@
             this.btnFind.Size = new System.Drawing.Size(105, 36);
             this.btnFind.Style = MetroFramework.MetroColorStyle.Silver;
             this.btnFind.TabIndex = 11;
-            this.btnFind.Text = "Найти";
+            this.btnFind.Text = "&Найти";
             this.btnFind.Theme = MetroFramework.MetroThemeStyle.Light;
             this.btnFind.UseCustomBackColor = true;
             this.btnFind.UseCustomForeColor = true;
@@ -902,7 +908,7 @@
             this.tabpage.Name = "tabpage";
             this.tabpage.SelectedIndex = 0;
             this.tabpage.Size = new System.Drawing.Size(1886, 887);
-            this.tabpage.TabIndex = 2;
+            this.tabpage.TabIndex = 0;
             this.tabpage.UseSelectable = true;
             // 
             // metroTabPage1
@@ -1213,13 +1219,9 @@
             // 
             this.backgroundWorker3.WorkerSupportsCancellation = true;
             // 
-            // columnHeader25
-            // 
-            this.columnHeader25.DisplayIndex = 1;
-            this.columnHeader25.Text = "Адрес";
-            // 
             // MainForm
             // 
+            this.AcceptButton = this.btnFind;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1940, 1055);

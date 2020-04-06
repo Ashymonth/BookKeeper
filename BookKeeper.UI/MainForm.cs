@@ -27,6 +27,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using SortOrder = System.Windows.Forms.SortOrder;
 
 namespace BookKeeper.UI
 {
@@ -37,10 +38,14 @@ namespace BookKeeper.UI
         private readonly IContainer _container;
         private ProgressForm _form;
         private string[] _files;
-        private static readonly int PersonalAccountLength = System.Convert.ToInt32(ConfigurationManager.AppSettings["AccountLenght"]);
+
+        private static readonly int PersonalAccountLength =
+            System.Convert.ToInt32(ConfigurationManager.AppSettings["AccountLenght"]);
+
         private const string AddressTemplate = "{0} Дом: {1} Корпус: {2} Квартира: {3}";
         private readonly DataSourceHelper _dataSourceHelper;
         private readonly AutoCompleteSourceHelper _sourceHelper;
+        private readonly ListViewColumnSorter lvwColumnSorter = new ListViewColumnSorter();
 
         public MainForm()
         {
@@ -191,7 +196,8 @@ namespace BookKeeper.UI
                         var listView = new ListViewItem(new[]
                         {
                             firstColumnContentType, secondColumnContentType,
-                            Math.Round(discount.Percent,0).ToString(CultureInfo.CurrentCulture)+"%", discount.Description,
+                            Math.Round(discount.Percent, 0).ToString(CultureInfo.CurrentCulture) + "%",
+                            discount.Description,
                             $"Начало: {discount.StartDate.ToShortDateString()} Конец {discount.EndDate.ToShortDateString()}"
                         })
                         {
@@ -204,6 +210,7 @@ namespace BookKeeper.UI
 
                         list.Add(listView);
                     }
+
                     lvlDiscountsTest.Items.AddRange(list.ToArray());
                 }
             }
@@ -233,7 +240,8 @@ namespace BookKeeper.UI
 
         private void btnDataBase_Click(object sender, EventArgs e)
         {
-            cntDatabase.Show(btnDataBase, 0, btnDataBase.Height); ;
+            cntDatabase.Show(btnDataBase, 0, btnDataBase.Height);
+            ;
         }
 
         private void btnAddDiscounts_Click(object sender, EventArgs e)
@@ -272,6 +280,7 @@ namespace BookKeeper.UI
             {
                 backgroundWorker1.RunWorkerAsync(LoaderType.Excel);
             }
+
             _form = new ProgressForm();
             _form.ShowDialog(this);
             LoadAddresses();
@@ -564,7 +573,8 @@ namespace BookKeeper.UI
 
                 var listViewItem = new ListViewItem(new string[]
                 {
-                    string.Format(AddressTemplate,account.Location.Street.StreetName,account.Location.HouseNumber,account.Location.BuildingCorpus,account.Location.ApartmentNumber),
+                    string.Format(AddressTemplate, account.Location.Street.StreetName, account.Location.HouseNumber,
+                        account.Location.BuildingCorpus, account.Location.ApartmentNumber),
                     account.Account.ToString(),
                 });
 
@@ -572,9 +582,11 @@ namespace BookKeeper.UI
 
                 foreach (var paymentDocumentEntity in paymentDocumentEntities)
                 {
-                    var columnIndex = lvlMonthReportTest.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
+                    var columnIndex =
+                        lvlMonthReportTest.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
                     if (columnIndex != -1)
-                        listViewItem.SubItems[columnIndex].Text = paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture);
+                        listViewItem.SubItems[columnIndex].Text =
+                            paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture);
 
                 }
 
@@ -702,7 +714,7 @@ namespace BookKeeper.UI
         private void dtnRateForceDelete_Click(object sender, EventArgs e)
         {
             var confirm = MessageBoxHelper.ShowConfirmMessage
-                    ("Вы уверены, что хотите безвозвратно удалить данные", this);
+                ("Вы уверены, что хотите безвозвратно удалить данные", this);
 
             if (confirm != DialogResult.Yes)
                 return;
@@ -718,6 +730,7 @@ namespace BookKeeper.UI
                             var service = scope.Resolve<IRateService>();
                             service.Delete(rate);
                         }
+
                         LoadRates();
                     }
                     catch (IOException)
@@ -751,6 +764,7 @@ namespace BookKeeper.UI
                         }
                     }
                 }
+
                 LoadRates();
             }
         }
@@ -800,6 +814,7 @@ namespace BookKeeper.UI
                         discountService.Delete(result);
                 }
             }
+
             LoadDiscounts();
         }
 
@@ -915,6 +930,7 @@ namespace BookKeeper.UI
                         MessageBoxHelper.ShowWarningMessage("Ошибка операции", this);
                         return;
                     }
+
                     LoadDiscounts();
                 }
             }
@@ -968,7 +984,8 @@ namespace BookKeeper.UI
                             .AddRange(result
                                 .Select(payments =>
                                     new ListViewItem(new[]
-                                    {payments.StreetName,
+                                    {
+                                        payments.StreetName,
                                         payments.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
                                         payments.AccruedPrivate.ToString(CultureInfo.CurrentCulture),
                                         payments.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
@@ -978,6 +995,7 @@ namespace BookKeeper.UI
                                         payments.Percent.ToString(CultureInfo.CurrentCulture)
                                     }))
                                 .ToArray());
+
                     }
                     else
                     {
@@ -987,7 +1005,8 @@ namespace BookKeeper.UI
                 }
                 catch (DivideByZeroException)
                 {
-                    MessageBoxHelper.ShowWarningMessage("Была предпринята попытка деления на ноль. Проверьте данные", this);
+                    MessageBoxHelper.ShowWarningMessage("Была предпринята попытка деления на ноль. Проверьте данные",
+                        this);
                     return;
                 }
             }
@@ -1086,13 +1105,16 @@ namespace BookKeeper.UI
 
                 if (importReport.CorruptedRecords > 0)
                 {
-                    MessageBoxHelper.ShowWarningMessage("Были найдены записи, которые не удалось сопоставить. Записи сохранены в папке: Не сопоставленные записи", this);
+                    MessageBoxHelper.ShowWarningMessage(
+                        "Были найдены записи, которые не удалось сопоставить. Записи сохранены в папке: Не сопоставленные записи",
+                        this);
                     return;
                 }
             }
         }
 
-        private void backgroundWorker1_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        private void backgroundWorker1_RunWorkerCompleted(object sender,
+            System.ComponentModel.RunWorkerCompletedEventArgs e)
         {
             _form.Close();
         }
@@ -1138,8 +1160,10 @@ namespace BookKeeper.UI
                             House = account.Location.HouseNumber,
                             Building = account.Location.BuildingCorpus,
                             Apartment = account.Location.ApartmentNumber,
-                            Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued.ToString(CultureInfo.CurrentCulture),
-                            Received = account.PaymentDocuments.FirstOrDefault()?.Received.ToString(CultureInfo.CurrentCulture),
+                            Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued
+                                .ToString(CultureInfo.CurrentCulture),
+                            Received = account.PaymentDocuments.FirstOrDefault()?.Received
+                                .ToString(CultureInfo.CurrentCulture),
                             AccountType = account.AccountType == AccountType.Private ? "Частный" : "Муниципальный"
                         };
                         form.ShowDialog(this);
@@ -1166,5 +1190,33 @@ namespace BookKeeper.UI
         }
 
         #endregion
+
+        private void lvlMonthReportTest_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            ListView myListView = (ListView)sender;
+
+            // Determine if clicked column is already the column that is being sorted.
+            if (e.Column == lvwColumnSorter.SortColumn)
+            {
+                // Reverse the current sort direction for this column.
+                if (lvwColumnSorter.Order == SortOrder.Ascending)
+                {
+                    lvwColumnSorter.Order = SortOrder.Descending;
+                }
+                else
+                {
+                    lvwColumnSorter.Order = SortOrder.Ascending;
+                }
+            }
+            else
+            {
+                // Set the column number that is to be sorted; default to ascending.
+                lvwColumnSorter.SortColumn = e.Column;
+                lvwColumnSorter.Order = SortOrder.Ascending;
+            }
+
+            // Perform the sort with these new sort options.
+            myListView.ListViewItemSorter = new ListViewColumnComparer(e.Column);
+        }
     }
 }

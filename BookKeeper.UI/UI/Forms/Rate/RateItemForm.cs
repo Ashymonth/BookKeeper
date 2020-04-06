@@ -17,38 +17,25 @@ namespace BookKeeper.UI.UI.Forms.Rate
     public partial class RateItemForm : MetroForm
     {
         private readonly IContainer _container;
+        private readonly DataSourceHelper _dataSourceHelper;
 
         public RateItemForm()
         {
             InitializeComponent();
             _container = AutofacConfiguration.ConfigureContainer();
+            _dataSourceHelper = new DataSourceHelper();
         }
 
         private void Initialize()
         {
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var service = scope.Resolve<IStreetService>();
-
-                var result = service.GetItems().Where(x => x.IsDeleted == false).ToList();
-                cmbStreet.DataSource = result;
-                cmbStreet.DisplayMember = "Street";
-                cmbStreet.ValueMember = "Id";
-            }
+            _dataSourceHelper.LoadAddresses(cmbStreet);
         }
 
         private void RateItemForm_Load(object sender, EventArgs e)
         {
             Initialize();
-            if (RateModel == null)
-                return;
-
-            cmbHouses.Text = RateModel.House;
-            cmbBuildings.Text = RateModel.Building;
-            txtPrice.Text = RateModel.Price;
         }
 
-        public RateModel RateModel { get; set; }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -69,20 +56,8 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
                     var service = scope.Resolve<IRateService>();
 
-                    var document = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text));
+                    service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text));
 
-                    if (cmbStreet.SelectedItem is StreetEntity result)
-                    {
-                        RateModel = new RateModel
-                        {
-                            Street = result.StreetName,
-                            House = cmbHouses.Text,
-                            Building = cmbBuildings.Text,
-                            Price = txtPrice.Text,
-                            Description = txtDescription.Text,
-                            RateDocument = document
-                        };
-                    }
                 }
                 DialogResult = DialogResult.OK;
             }
@@ -96,6 +71,19 @@ namespace BookKeeper.UI.UI.Forms.Rate
         private void btnCancel_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void cmbStreet_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbBuildings.DataSource = null;
+            cmbHouses.DataSource = null;
+            _dataSourceHelper.StreetIndexChanged(cmbStreet, cmbHouses, x => x.HouseNumber);
+
+        }
+
+        private void cmbHouses_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            _dataSourceHelper.HouseIndexChanged(cmbStreet, cmbHouses, cmbBuildings, x => x.BuildingCorpus);
         }
     }
 }

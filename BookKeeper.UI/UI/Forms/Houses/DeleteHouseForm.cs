@@ -15,12 +15,12 @@ namespace BookKeeper.UI.UI.Forms.Houses
 
         private void btnDelete_Click(object sender, System.EventArgs e)
         {
-            _dataSourceHelper.LoadAddresses(cmbStreets);
+            
         }
 
         private void DeleteHouseForm_Load(object sender, System.EventArgs e)
         {
-
+            _dataSourceHelper.LoadAddresses(cmbStreets);
         }
     }
 }
