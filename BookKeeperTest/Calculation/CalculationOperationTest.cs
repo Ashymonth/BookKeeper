@@ -1,20 +1,18 @@
 ﻿using Autofac;
 using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
+using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Payments;
 using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Services;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Address;
+using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using BookKeeper.Data.Data;
-using BookKeeper.Data.Data.Entities.Discounts;
-using BookKeeper.Data.Services.EntityService.Discount;
 
 namespace BookKeeperTest.Calculation
 {
@@ -22,7 +20,7 @@ namespace BookKeeperTest.Calculation
     public class CalculationOperationTest
     {
         private readonly IContainer _container;
-        
+
         public CalculationOperationTest()
         {
             _container = AutofacConfiguration.ConfigureContainer();
@@ -31,7 +29,7 @@ namespace BookKeeperTest.Calculation
         [TestMethod]
         public void CalculatePriceTest_NoRates_NoDiscount_Paid()
         {
-            var paymentDate = DateTime.Parse("01.02.2020");
+            var paymentDate = DateTime.Now;
             const int accrued = 166;
             const int received = 166;
             const decimal expected = 0;
@@ -70,7 +68,7 @@ namespace BookKeeperTest.Calculation
             using (var scope = _container.BeginLifetimeScope())
             {
                 var locationService = scope.Resolve<ILocationService>();
-                
+
 
                 var accountService = scope.Resolve<IAccountService>();
                 accountService.Add(account);
@@ -86,7 +84,7 @@ namespace BookKeeperTest.Calculation
         [TestMethod]
         public void CalculatePriceTest_NoRates_NoDiscount_UnPaid()
         {
-            var paymentDate = DateTime.Parse("01.02.2020");
+            var paymentDate = DateTime.Now;
             const int accrued = 166;
             const int received = 0;
             const decimal expected = -166;
@@ -147,10 +145,10 @@ namespace BookKeeperTest.Calculation
 
             const int accrued = 166;
             const int received = 100;
-            var paymentDate = DateTime.Parse("01.02.2020");
+            var paymentDate = DateTime.Now;
 
-            var startDate = DateTime.Parse("01.01.2020");
-            var endDate = DateTime.Parse("01.04.2020");
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
             const decimal price = 100;
 
             const decimal expected = 0;
@@ -234,10 +232,10 @@ namespace BookKeeperTest.Calculation
 
             const int accrued = 166;
             const int received = 0;
-            var paymentDate = DateTime.Parse("01.02.2020");
+            var paymentDate = DateTime.Now;
 
-            var startDate = DateTime.Parse("01.01.2020");
-            var endDate = DateTime.Parse("01.04.2020");
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
             const decimal price = 100;
 
             const decimal expected = -100;
@@ -321,10 +319,10 @@ namespace BookKeeperTest.Calculation
 
             const int accrued = 166;
             const int received = 200;
-            var paymentDate = DateTime.Parse("01.06.2020");
+            var paymentDate = DateTime.Now;
 
-            var startDate = DateTime.Parse("01.06.2020");
-            var endDate = DateTime.Parse("01.07.2020");
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
             const decimal percent = 25;
             const string description = "test";
 
@@ -396,10 +394,10 @@ namespace BookKeeperTest.Calculation
 
             const int accrued = 166;
             const int received = 0;
-            var paymentDate = DateTime.Parse("01.02.2020");
+            var paymentDate = DateTime.Now;
 
-            var startDate = DateTime.Parse("01.01.2020");
-            var endDate = DateTime.Parse("01.04.2020");
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
             const decimal percent = 25;
             const string description = "test";
 
@@ -472,10 +470,10 @@ namespace BookKeeperTest.Calculation
 
             const int accrued = 166;
             const int received = 200;
-            var paymentDate = DateTime.Parse("01.05.2020");
+            var paymentDate = DateTime.Now;
 
-            var startDate = DateTime.Parse("01.05.2020");
-            var endDate = DateTime.Parse("01.06.2020");
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
             const decimal percent = 25;
             const string description = "test";
 
@@ -574,10 +572,10 @@ namespace BookKeeperTest.Calculation
 
             const int accrued = 166;
             const int received = 0;
-            var paymentDate = DateTime.Parse("01.02.2021");
+            var paymentDate = DateTime.Now;
 
-            var startDate = DateTime.Parse("01.01.2021");
-            var endDate = DateTime.Parse("01.04.2021");
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
             const decimal percent = 25;
             const string description = "test";
 

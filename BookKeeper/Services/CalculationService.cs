@@ -58,45 +58,49 @@ namespace BookKeeper.Data.Services
             return received - (((100 - discount.Percent) / 100) * rate);
         }
 
-        public List<TotalPayments> CalculateAllPrice(DateTime from, DateTime To)
+        public List<TotalPayments> CalculateAllPrice(DateTime from, DateTime to)
         {
-            var streets = _streetService.GetItems(x => x.IsDeleted == false);
+            var streets = _streetService.GetWithInclude(x => x.IsDeleted == false);
 
             var accounts = _accountService.GetWithInclude(x => x.IsDeleted == false,
-                x => x.PaymentDocuments);
+                x => x.PaymentDocuments).ToList();
 
             var total = new List<TotalPayments>();
+
             foreach (var streetEntity in streets)
             {
                 var totalPayment = new TotalPayments { StreetName = streetEntity.StreetName };
+
                 foreach (var accountEntity in accounts.Where(x => x.StreetId == streetEntity.Id && x.IsDeleted == false))
                 {
                     foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
                         x.IsDeleted == false &&
-                        x.PaymentDate.Date >= from.Date && x.PaymentDate.Date <= To.Date))
+                        x.PaymentDate.Date >= from.Date && x.PaymentDate.Date <= to.Date))
                     {
                         totalPayment.PaymentsDate.Add(paymentDocumentEntity.PaymentDate.ToString("Y"));
-                        if (accountEntity.AccountType == AccountType.Municipal)
+
+                        switch (accountEntity.AccountType)
                         {
-                            totalPayment.AccruedMunicipal += paymentDocumentEntity.Accrued;
-                            totalPayment.ReceivedMunicipal += paymentDocumentEntity.Received;
-                        }
-                        else if (accountEntity.AccountType == AccountType.Private)
-                        {
-                            totalPayment.AccruedPrivate += paymentDocumentEntity.Accrued;
-                            totalPayment.ReceivedPrivate += paymentDocumentEntity.Received;
-                        }
-                        else
-                        {
-                            throw new ArgumentOutOfRangeException();
+                            case AccountType.Municipal:
+                                totalPayment.AccruedMunicipal += paymentDocumentEntity.Accrued;
+                                totalPayment.ReceivedMunicipal += paymentDocumentEntity.Received;
+                                break;
+                            case AccountType.Private:
+                                totalPayment.AccruedPrivate += paymentDocumentEntity.Accrued;
+                                totalPayment.ReceivedPrivate += paymentDocumentEntity.Received;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
                         }
                     }
                 }
 
                 totalPayment.TotalAccrued += totalPayment.AccruedMunicipal + totalPayment.AccruedPrivate;
                 totalPayment.TotalReceived += totalPayment.ReceivedMunicipal + totalPayment.ReceivedPrivate;
+
                 if (totalPayment.TotalAccrued == 0)
-                    return null;
+                    continue;
+
                 totalPayment.Percent = Math.Round(((totalPayment.TotalReceived / totalPayment.TotalAccrued) * 100), 4);
                 total.Add(totalPayment);
             }

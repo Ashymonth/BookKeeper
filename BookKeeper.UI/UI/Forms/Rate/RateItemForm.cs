@@ -58,13 +58,13 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
                     var result = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text));
 
-//#if DEBUG
-//                    if (result == null)
-//                    {
-//                        MessageBoxHelper.ShowWarningMessage("Действующий тариф уже создан. Добавление 2 тарифов на 1 адрес в 1 день невозможно. Удалите действующий тариф и попробуйте снова",this);
-//                        return;
-//                    }
-//#endif
+
+                    //if (result == null)
+                    //{
+                    //    MessageBoxHelper.ShowWarningMessage("Действующий тариф уже создан. Добавление 2 тарифов на 1 адрес в 1 день невозможно. Удалите действующий тариф и попробуйте снова", this);
+                    //    return;
+                    //}
+
 
                 }
                 DialogResult = DialogResult.OK;

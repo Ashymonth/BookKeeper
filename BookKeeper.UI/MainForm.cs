@@ -27,6 +27,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using BookKeeper.UI.UI.Forms.Houses;
 using SortOrder = System.Windows.Forms.SortOrder;
 
 namespace BookKeeper.UI
@@ -55,6 +56,8 @@ namespace BookKeeper.UI
             _dataSourceHelper = new DataSourceHelper();
 
             _sourceHelper = new AutoCompleteSourceHelper();
+
+            cmbPersonalAccountType.SelectedIndex = 0;
 
             var loader = new DefaultRateLoader();
 
@@ -148,12 +151,12 @@ namespace BookKeeper.UI
                                 location.BuildingCorpus,
                                 rate.Price.ToString(CultureInfo.CurrentCulture),
                                 rate.Description,
-                                $"Начало: {rate.StartDate.ToShortDateString()} Конец: {rate.EndDate.ToShortDateString()}"
+                                rate.StartDate.ToShortDateString()
                             })
                         { Tag = rate };
 
                         if (rate.IsArchive)
-                            listView.SubItems[0].BackColor = Color.LightSlateGray;
+                            listView.SubItems.Add(rate.EndDate.ToShortDateString());
 
                         lvlRates.Items.Add(listView);
                     }
@@ -197,14 +200,14 @@ namespace BookKeeper.UI
                             firstColumnContentType, secondColumnContentType,
                             Math.Round(discount.Percent, 0).ToString(CultureInfo.CurrentCulture) + "%",
                             discount.Description,
-                            $"Начало: {discount.StartDate.ToShortDateString()} Конец {discount.EndDate.ToShortDateString()}"
+                            discount.StartDate.ToShortDateString()
                         })
                         {
                             Tag = discount
                         };
                         if (discount.IsArchive)
                         {
-                            listView.SubItems[0].BackColor = Color.LightSlateGray;
+                            listView.SubItems.Add(discount.EndDate.ToShortDateString());
                         }
 
                         list.Add(listView);
@@ -240,7 +243,10 @@ namespace BookKeeper.UI
         private void btnDataBase_Click(object sender, EventArgs e)
         {
             cntDatabase.Show(btnDataBase, 0, btnDataBase.Height);
-            ;
+        }
+        private void btnHouses_Click(object sender, EventArgs e)
+        {
+            cntHouses.Show(btnHouses, 0, btnHouses.Width);
         }
 
         private void btnAddDiscounts_Click(object sender, EventArgs e)
@@ -387,14 +393,21 @@ namespace BookKeeper.UI
 
         #region Houses
 
-        private void btnHouses_Click(object sender, EventArgs e)
+        private void btnAddHouse_Click(object sender, EventArgs e)
         {
-            using (var form = new HousesForm())
+            using (var form = new AddHousesForm())
             {
                 if (form.ShowDialog(this) == DialogResult.OK)
-                {
+                    MessageBoxHelper.ShowCompeteMessage("Успешно", this);
+            }
+        }
 
-                }
+        private void btnDeleteHouse_Click(object sender, EventArgs e)
+        {
+            using (var form = new DeleteHouseForm())
+            {
+                if (form.ShowDialog(this) == DialogResult.OK)
+                    MessageBoxHelper.ShowCompeteMessage("Успешно", this);
             }
         }
 
@@ -572,8 +585,8 @@ namespace BookKeeper.UI
 
                 var listViewItem = new ListViewItem(new string[]
                 {
-                    string.Format(AddressTemplate, account.Location.Street.StreetName, account.Location.HouseNumber,
-                        account.Location.BuildingCorpus, account.Location.ApartmentNumber),
+                     account.Location.Street.StreetName, account.Location.HouseNumber,
+                        account.Location.BuildingCorpus, account.Location.ApartmentNumber,
                     account.Account.ToString(),
                 });
 
@@ -628,12 +641,16 @@ namespace BookKeeper.UI
                 from = from.AddMonths(1);
             } while (true);
 
-            lvlMonthReportTest.Columns.Add("Адрес");
+
+            lvlMonthReportTest.Columns.Add("Улица");
+            lvlMonthReportTest.Columns.Add("Дом");
+            lvlMonthReportTest.Columns.Add("Корпус");
+            lvlMonthReportTest.Columns.Add("Квартира");
             lvlMonthReportTest.Columns.Add("Счет");
             lvlMonthReportTest.Columns.AddRange(columns.ToArray());
             lvlMonthReportTest.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            lvlMonthReportTest.Columns[0].Width = 350;
-            lvlMonthReportTest.Columns[1].Width = 100;
+            lvlMonthReportTest.Columns[0].Width = 150;
+            lvlMonthReportTest.Columns[4].Width = 100;
         }
 
         private string GetColumnKey(DateTime @from)
@@ -697,7 +714,7 @@ namespace BookKeeper.UI
         {
             lvlMonthReportTest.Sorting = lvlMonthReportTest.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
 
-            lvlMonthReportTest.ListViewItemSorter = new ListViewStringComparer(e.Column,lvlMonthReportTest.Sorting);
+            lvlMonthReportTest.ListViewItemSorter = new ListViewStringComparer(e.Column, lvlMonthReportTest.Sorting);
 
             lvlMonthReportTest.Sort();
         }
@@ -1207,9 +1224,11 @@ namespace BookKeeper.UI
         {
             lvlRates.Sorting = lvlRates.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
 
-            lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column,lvlRates.Sorting);
+            lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column, lvlRates.Sorting);
 
             lvlRates.Sort();
         }
+
+     
     }
 }

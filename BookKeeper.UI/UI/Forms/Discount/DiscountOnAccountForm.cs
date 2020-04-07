@@ -19,7 +19,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
         {
             InitializeComponent();
             _container = AutofacConfiguration.ConfigureContainer();
-           
+
         }
 
         private void DiscountAccountItem_Load(object sender, EventArgs e)
@@ -27,26 +27,9 @@ namespace BookKeeper.UI.UI.Forms.Discount
             var autoCompleteSourceHelper = new AutoCompleteSourceHelper();
             autoCompleteSourceHelper.FillAutoSource(txtAccount);
 
-            using (var scope = _container.BeginLifetimeScope())
-            {
-                var percentService = scope.Resolve<IDiscountPercentService>();
-                var percents = percentService.GetItems(x => x.IsDeleted == false).ToList();
-
-                var descriptionService = scope.Resolve<IDiscountDescriptionService>();
-                var descriptions = descriptionService.GetItems(x => x.IsDeleted == false).ToList();
-
-                var accountService = scope.Resolve<IAccountService>();
-                var accounts = accountService.GetItems(x => x.IsDeleted == false).ToList();
-
-
-                cmbPercent.DataSource = percents;
-                cmbPercent.DisplayMember = "Percent";
-                cmbPercent.ValueMember = "Percent";
-
-                cmbDescription.DataSource = descriptions;
-                cmbDescription.DisplayMember = "Description";
-                cmbDescription.ValueMember = "Description";
-            }
+            var dataSource = new DataSourceHelper();
+            dataSource.LoadDiscountsPercent(cmbPercent);
+            dataSource.LoadDiscountsDescription(cmbDescription);
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -59,24 +42,25 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(cmbPercent.SelectedText))
+            
+
+            if (!(cmbPercent.SelectedValue is decimal percent))
             {
                 MessageBoxHelper.ShowWarningMessage("Выберите  скидку", this);
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(cmbDescription.SelectedText))
+            if (string.IsNullOrWhiteSpace(cmbDescription.SelectedValue as string))
             {
-                MessageBoxHelper.ShowWarningMessage("Выберите описание",this);
+                MessageBoxHelper.ShowWarningMessage("Выберите описание", this);
                 return;
             }
 
-            decimal percent = 0;
             long account = 0;
             var description = string.Empty;
             try
             {
-                percent = Convert.ToDecimal(cmbPercent.SelectedValue);
+                percent = Convert.ToDecimal(cmbPercent.Text);
                 account = Convert.ToInt64(txtAccount.Text);
                 description = cmbDescription.SelectedValue as string;
             }

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using BookKeeper.Data.Data.Entities.Discounts;
 
 namespace BookKeeper.UI.Helpers
 {

@@ -45,7 +45,6 @@
     <Compile Include="Calculation\CalculationOperationTest.cs" />
     <Compile Include="Discounts\DicountOpertionTest.cs" />
     <Compile Include="Discounts\DiscountComparer.cs" />
-    <Compile Include="Discounts\DiscountPriceTest.cs" />
     <Compile Include="FormatTest.cs" />
     <Compile Include="ImportTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

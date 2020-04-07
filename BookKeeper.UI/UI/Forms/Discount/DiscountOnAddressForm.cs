@@ -32,20 +32,44 @@ namespace BookKeeper.UI.UI.Forms.Discount
         private void DiscountOnAddressForm_Load(object sender, EventArgs e)
         {
             _dataSourceHelper.LoadAddresses(cmbStreets);
+            _dataSourceHelper.LoadDiscountsPercent(cmbPercent);
+            _dataSourceHelper.LoadDiscountsDescription(cmbDescription);
         }
 
         private void btnSaveDiscount_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.None;
 
+            if (string.IsNullOrWhiteSpace(cmbStreets.SelectedValue as string))
+            {
+                MessageBoxHelper.ShowWarningMessage("Выберите улицу",this);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cmbHouses.SelectedValue as string))
+            {
+                MessageBoxHelper.ShowWarningMessage("Выберите улицу", this);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cmbBuilding.SelectedValue as string))
+            {
+                MessageBoxHelper.ShowWarningMessage("Выберите улицу", this);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(cmbApatmens.SelectedValue as string))
+            {
+                MessageBoxHelper.ShowWarningMessage("Выберите улицу", this);
+                return;
+            }
 
             if (cmbStreets.SelectedValue is int streetId && cmbPercent.SelectedValue is decimal percent && cmbDescription.SelectedValue is string description)
             {
-                var discountToAdd = new List<DiscountDocumentEntity>();
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var locationService = scope.Resolve<ILocationService>();
-                    var location = locationService.GetLocation(streetId, cmbHouses.SelectedText, cmbBuilding.SelectedText, cmbApatmens.SelectedText);
+                    var location = locationService.GetLocation(streetId, cmbHouses.Text, cmbBuilding.Text, cmbApatmens.Text);
 
                     if (location == null)
                     {

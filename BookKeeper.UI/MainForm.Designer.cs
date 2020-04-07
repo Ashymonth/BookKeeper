@@ -78,8 +78,6 @@
             this.btnRateArchive = new MetroFramework.Controls.MetroButton();
             this.tbpMonthReport = new MetroFramework.Controls.MetroTabPage();
             this.lvlMonthReportTest = new System.Windows.Forms.ListView();
-            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader23 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblCounter = new System.Windows.Forms.ToolStripStatusLabel();
@@ -133,6 +131,16 @@
             this.btnShowArchiveRates = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHideArchvieRates = new System.Windows.Forms.ToolStripMenuItem();
             this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
+            this.columnHeader29 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader30 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader32 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader23 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.cntHouses = new MetroFramework.Controls.MetroContextMenu(this.components);
+            this.btnAddHouse = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnDeleteHouse = new System.Windows.Forms.ToolStripMenuItem();
             this.flowLayoutPanel1.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
             this.metroTabPage4.SuspendLayout();
@@ -152,6 +160,7 @@
             this.cntDiscountArchive.SuspendLayout();
             this.cntPercentAndDescription.SuspendLayout();
             this.cntRateArchive.SuspendLayout();
+            this.cntHouses.SuspendLayout();
             this.SuspendLayout();
             // 
             // flowLayoutPanel1
@@ -281,7 +290,8 @@
             this.columnHeader20,
             this.columnHeader21,
             this.columnHeader22,
-            this.columnHeader24});
+            this.columnHeader24,
+            this.columnHeader25});
             this.lvlDiscountsTest.ContextMenuStrip = this.cntDiscounts;
             this.lvlDiscountsTest.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvlDiscountsTest.FullRowSelect = true;
@@ -304,21 +314,21 @@
             // columnHeader20
             // 
             this.columnHeader20.Text = "Адрес или счет";
-            this.columnHeader20.Width = 211;
+            this.columnHeader20.Width = 321;
             // 
             // columnHeader21
             // 
             this.columnHeader21.Text = "Процент скидки";
-            this.columnHeader21.Width = 337;
+            this.columnHeader21.Width = 392;
             // 
             // columnHeader22
             // 
             this.columnHeader22.Text = "Причина";
-            this.columnHeader22.Width = 304;
+            this.columnHeader22.Width = 371;
             // 
             // columnHeader24
             // 
-            this.columnHeader24.Text = "Дата";
+            this.columnHeader24.Text = "Дата начала";
             this.columnHeader24.Width = 254;
             // 
             // cntDiscounts
@@ -476,7 +486,8 @@
             this.columnHeader4,
             this.columnHeader6,
             this.columnHeader7,
-            this.columnHeader1});
+            this.columnHeader1,
+            this.columnHeader23});
             this.lvlRates.ContextMenuStrip = this.cntRates;
             this.lvlRates.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lvlRates.Font = new System.Drawing.Font("Segoe UI", 12F);
@@ -515,16 +526,17 @@
             // columnHeader6
             // 
             this.columnHeader6.Text = "Цена";
-            this.columnHeader6.Width = 147;
+            this.columnHeader6.Width = 255;
             // 
             // columnHeader7
             // 
             this.columnHeader7.Text = "Описание";
-            this.columnHeader7.Width = 218;
+            this.columnHeader7.Width = 285;
             // 
             // columnHeader1
             // 
-            this.columnHeader1.Text = "Дата";
+            this.columnHeader1.Text = "Дата начала";
+            this.columnHeader1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.columnHeader1.Width = 354;
             // 
             // cntRates
@@ -621,9 +633,13 @@
             // 
             // lvlMonthReportTest
             // 
+            this.lvlMonthReportTest.BackColor = System.Drawing.SystemColors.HighlightText;
             this.lvlMonthReportTest.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader25,
-            this.columnHeader23});
+            this.columnHeader29,
+            this.columnHeader30,
+            this.columnHeader31,
+            this.columnHeader32,
+            this.columnHeader33});
             this.lvlMonthReportTest.FullRowSelect = true;
             this.lvlMonthReportTest.GridLines = true;
             this.lvlMonthReportTest.HideSelection = false;
@@ -636,16 +652,6 @@
             this.lvlMonthReportTest.View = System.Windows.Forms.View.Details;
             this.lvlMonthReportTest.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvlMonthReportTest_ColumnClick);
             this.lvlMonthReportTest.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lvlMonthReportTest_MouseDoubleClick);
-            // 
-            // columnHeader25
-            // 
-            this.columnHeader25.DisplayIndex = 1;
-            this.columnHeader25.Text = "Адрес";
-            // 
-            // columnHeader23
-            // 
-            this.columnHeader23.DisplayIndex = 0;
-            this.columnHeader23.Text = "Счет";
             // 
             // statusStrip1
             // 
@@ -906,7 +912,7 @@
             this.tabpage.Location = new System.Drawing.Point(27, 143);
             this.tabpage.Margin = new System.Windows.Forms.Padding(4);
             this.tabpage.Name = "tabpage";
-            this.tabpage.SelectedIndex = 0;
+            this.tabpage.SelectedIndex = 2;
             this.tabpage.Size = new System.Drawing.Size(1886, 887);
             this.tabpage.TabIndex = 0;
             this.tabpage.UseSelectable = true;
@@ -1031,7 +1037,7 @@
             this.dateTotalReportFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportFrom.Location = new System.Drawing.Point(65, 2);
             this.dateTotalReportFrom.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTotalReportFrom.Name = "dateTotalReportFrom";
             this.dateTotalReportFrom.Size = new System.Drawing.Size(200, 29);
             this.dateTotalReportFrom.TabIndex = 2;
@@ -1059,7 +1065,7 @@
             this.dateTotalReportTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportTo.Location = new System.Drawing.Point(335, 2);
             this.dateTotalReportTo.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTotalReportTo.Name = "dateTotalReportTo";
             this.dateTotalReportTo.Size = new System.Drawing.Size(200, 29);
             this.dateTotalReportTo.TabIndex = 1;
@@ -1219,6 +1225,60 @@
             // 
             this.backgroundWorker3.WorkerSupportsCancellation = true;
             // 
+            // columnHeader29
+            // 
+            this.columnHeader29.Text = "Улица";
+            // 
+            // columnHeader30
+            // 
+            this.columnHeader30.Text = "Дом";
+            // 
+            // columnHeader31
+            // 
+            this.columnHeader31.Text = "Корпус";
+            // 
+            // columnHeader32
+            // 
+            this.columnHeader32.Text = "Квартира";
+            // 
+            // columnHeader33
+            // 
+            this.columnHeader33.Text = "Счет";
+            // 
+            // columnHeader23
+            // 
+            this.columnHeader23.Text = "Дата окончания";
+            this.columnHeader23.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.columnHeader23.Width = 314;
+            // 
+            // columnHeader25
+            // 
+            this.columnHeader25.Text = "Дата окончания";
+            this.columnHeader25.Width = 365;
+            // 
+            // cntHouses
+            // 
+            this.cntHouses.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.btnAddHouse,
+            this.btnDeleteHouse});
+            this.cntHouses.Name = "metroContextMenu1";
+            this.cntHouses.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
+            this.cntHouses.Size = new System.Drawing.Size(181, 70);
+            // 
+            // btnAddHouse
+            // 
+            this.btnAddHouse.Name = "btnAddHouse";
+            this.btnAddHouse.Size = new System.Drawing.Size(180, 22);
+            this.btnAddHouse.Text = "Добавить";
+            this.btnAddHouse.Click += new System.EventHandler(this.btnAddHouse_Click);
+            // 
+            // btnDeleteHouse
+            // 
+            this.btnDeleteHouse.Name = "btnDeleteHouse";
+            this.btnDeleteHouse.Size = new System.Drawing.Size(180, 22);
+            this.btnDeleteHouse.Text = "Удалить";
+            this.btnDeleteHouse.Click += new System.EventHandler(this.btnDeleteHouse_Click);
+            // 
             // MainForm
             // 
             this.AcceptButton = this.btnFind;
@@ -1260,6 +1320,7 @@
             this.cntDiscountArchive.ResumeLayout(false);
             this.cntPercentAndDescription.ResumeLayout(false);
             this.cntRateArchive.ResumeLayout(false);
+            this.cntHouses.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1345,7 +1406,6 @@
         private System.Windows.Forms.ColumnHeader columnHeader21;
         private System.Windows.Forms.ColumnHeader columnHeader22;
         private System.Windows.Forms.ListView lvlMonthReportTest;
-        private System.Windows.Forms.ColumnHeader columnHeader23;
         private System.ComponentModel.BackgroundWorker backgroundWorker2;
         private System.Windows.Forms.ToolStripMenuItem btnDeleteDiscounts;
         private MetroFramework.Controls.MetroButton btnAccounts;
@@ -1367,7 +1427,16 @@
         private System.Windows.Forms.ToolStripMenuItem btnShowArchiveRates;
         private System.Windows.Forms.ToolStripMenuItem btnHideArchvieRates;
         private System.ComponentModel.BackgroundWorker backgroundWorker3;
+        private System.Windows.Forms.ColumnHeader columnHeader29;
+        private System.Windows.Forms.ColumnHeader columnHeader30;
+        private System.Windows.Forms.ColumnHeader columnHeader31;
+        private System.Windows.Forms.ColumnHeader columnHeader32;
+        private System.Windows.Forms.ColumnHeader columnHeader33;
         private System.Windows.Forms.ColumnHeader columnHeader25;
+        private System.Windows.Forms.ColumnHeader columnHeader23;
+        private MetroFramework.Controls.MetroContextMenu cntHouses;
+        private System.Windows.Forms.ToolStripMenuItem btnAddHouse;
+        private System.Windows.Forms.ToolStripMenuItem btnDeleteHouse;
     }
 }
 

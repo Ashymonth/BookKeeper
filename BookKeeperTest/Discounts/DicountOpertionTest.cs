@@ -26,15 +26,15 @@ namespace BookKeeperTest.Discounts
         {
             const int accountWith25PercentDiscount = 1;
             const decimal percent25 = 25;
-            var startDate = DateTime.Parse("01.02.2020");
-            var endDate = DateTime.Parse("01.03.2020");
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
             const string description = "Test";
 
             var expected = new DiscountDocumentEntity()
             {
                 AccountId = accountWith25PercentDiscount,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.MaxValue,
+                StartDate = startDate,
+                EndDate = endDate,
                 IsDeleted = false,
                 Type = DiscountType.PersonalAccount,
                 Description = description,
@@ -49,8 +49,7 @@ namespace BookKeeperTest.Discounts
 
                 Assert.IsTrue(comparer.Equals(expected, actual));
 
-                if (actual != null)
-                    discountService.Delete(actual);
+                discountService.Delete(actual);
             }
         }
 
@@ -61,8 +60,8 @@ namespace BookKeeperTest.Discounts
 
             const decimal percent = 25;
             const string description = "Test";
-            var startDate = DateTime.Parse("01.01.2020");
-            var endDate = DateTime.Parse("01.04.2020");
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
 
             var discount1 = new DiscountDocumentEntity
             {
@@ -156,14 +155,16 @@ namespace BookKeeperTest.Discounts
             const int accountWithDiscount = 1;
             const decimal percent = 25;
             const string description = "Test";
-            var paymentDate = DateTime.Parse("01.01.2020");
+            var paymentDate = DateTime.Now;
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
             var comparer = new CurrentDiscountComparer();
 
             var expected = new DiscountDocumentEntity
             {
                 AccountId = accountWithDiscount,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.MaxValue,
+                StartDate =startDate,
+                EndDate = endDate,
                 IsDeleted = false,
                 Percent = percent,
                 Description = description,
@@ -188,39 +189,23 @@ namespace BookKeeperTest.Discounts
 
                 Assert.IsTrue(comparer.Equals(expected, actual));
 
+                discountService.Delete(correctDiscount);
 
-                var discount1 = discountService.GetItemById(correctDiscount.Id);
-                if (discount1 != null)
-                    discountService.Delete(discount1);
+                discountService.Delete(startDateOutRangeDiscount);
 
-                var discount2 = discountService.GetItemById(startDateOutRangeDiscount.Id);
-                if (discount2 != null)
-                    discountService.Delete(discount2);
-
-                var discount3 = discountService.GetItemById(endDateOutRangeDiscount.Id);
-                if (discount3 != null)
-                    discountService.Delete(discount3);
+                discountService.Delete(endDateOutRangeDiscount);
             }
         }
 
         [TestMethod]
-        public void GetCurrentDiscount_StartDateIsLongerThatPaymentDate()
+        public void GetCurrentDiscount_PaymentDayIsEarlier()
         {
             const int accountWithDiscount = 1;
             const decimal percent = 25;
             const string description = "Test";
-            var paymentDate = DateTime.Parse("01.03.2020");
-            var lessThatPaymentStartDate = DateTime.Parse("01.12.2019");
+            var paymentDate = DateTime.Now.AddMonths(-1);
 
-            var expected = new DiscountDocumentEntity
-            {
-                AccountId = accountWithDiscount,
-                StartDate = lessThatPaymentStartDate,
-                EndDate = DateTime.MaxValue,
-                IsDeleted = false,
-                Percent = percent,
-                Description = description,
-            };
+            DiscountDocumentEntity expected = null;
 
             using (var scope = _container.BeginLifetimeScope())
             {
@@ -236,27 +221,28 @@ namespace BookKeeperTest.Discounts
                 var correctDiscount = discountService.AddDiscountOnAccount(accountWithDiscount, percent, description);
 
                 var actual = discountService.GetCurrentDiscount(accountWithDiscount, paymentDate);
-                var comparer = new CurrentDiscountComparer();
 
-                Assert.IsTrue(comparer.Equals(expected, actual));
+                Assert.AreEqual(expected, actual);
 
                 discountService.Delete(correctDiscount);
             }
         }
 
         [TestMethod]
-        public void GetCurrentDiscount_EndDateIsLessThatPaymentDate()
+        public void GetCurrentDiscount_PaymentDataIsLater()
         {
             const int accountWithDiscount = 1;
             const decimal percent = 25;
             const string description = "Test";
-            var paymentDate = DateTime.Parse("01.01.2020");
+            var paymentDate = DateTime.Parse("01.08.2020");
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
 
             var expected = new DiscountDocumentEntity
             {
                 AccountId = accountWithDiscount,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.MaxValue,
+                StartDate = startDate,
+                EndDate = endDate,
                 IsDeleted = false,
                 Percent = percent,
                 Description = description,

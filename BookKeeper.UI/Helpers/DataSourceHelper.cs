@@ -5,6 +5,7 @@ using System.Linq;
 using Autofac;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Services.EntityService.Address;
+using BookKeeper.Data.Services.EntityService.Discount;
 
 namespace BookKeeper.UI.Helpers
 {
@@ -89,6 +90,32 @@ namespace BookKeeper.UI.Helpers
                 addressBox.DataSource = streets;
                 addressBox.DisplayMember = "StreetName";
                 addressBox.ValueMember = "Id";
+            }
+        }
+
+        public void LoadDiscountsPercent(MetroComboBox percentBox)
+        {
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var service = scope.Resolve<IDiscountPercentService>();
+
+                var percents = service.GetItems(x => x.IsDeleted == false).ToList();
+                percentBox.DataSource = percents;
+                percentBox.DisplayMember = "Percent";
+                percentBox.ValueMember = "Percent";
+            }
+        }
+
+        public void LoadDiscountsDescription(MetroComboBox descriptionBox)
+        {
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var service = scope.Resolve<IDiscountDescriptionService>();
+
+                var descriptions = service.GetItems(x => x.IsDeleted == false).ToList();
+                descriptionBox.DataSource = descriptions;
+                descriptionBox.DisplayMember = "Description";
+                descriptionBox.ValueMember = "Description";
             }
         }
     }

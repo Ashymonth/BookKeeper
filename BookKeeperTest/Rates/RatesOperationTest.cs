@@ -164,7 +164,7 @@ namespace BookKeeperTest.Rates
 
             const int price = 200;
             const string description = "Test";
-            var paymentDate = DateTime.Parse("06.04.2020");
+            var paymentDate = DateTime.Now;
             var starDate = DateTime.Now;
             var endDate = DateTime.MaxValue;
 
@@ -242,14 +242,7 @@ namespace BookKeeperTest.Rates
             var startDate = DateTime.Parse("01.01.209");
             var endDateLessThatPaymentDate = DateTime.Parse("01.02.2019");
 
-            var expected = new RateEntity
-            {
-                StartDate = startDate,
-                EndDate = endDateLessThatPaymentDate,
-                Description = description,
-                Price = price,
-                IsArchive = true
-            };
+            const int expected = 166;
 
             using (var scope = _container.BeginLifetimeScope())
             {
@@ -261,7 +254,7 @@ namespace BookKeeperTest.Rates
 
                 var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
 
-                Assert.AreEqual(expected.Price, actual);
+                Assert.AreEqual(expected, actual);
 
                 locationService.Delete(location);
                 rateService.Delete(rate);
