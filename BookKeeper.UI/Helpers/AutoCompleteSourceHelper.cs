@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Services.EntityService;
 using MetroFramework.Controls;
+using System.Linq;
 
 namespace BookKeeper.UI.Helpers
 {

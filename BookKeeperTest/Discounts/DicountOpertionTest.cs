@@ -30,7 +30,7 @@ namespace BookKeeperTest.Discounts
             var endDate = DateTime.MaxValue;
             const string description = "Test";
 
-            var expected = new DiscountDocumentEntity()
+            var expected = new DiscountEntity()
             {
                 AccountId = accountWith25PercentDiscount,
                 StartDate = startDate,
@@ -63,7 +63,7 @@ namespace BookKeeperTest.Discounts
             var startDate = DateTime.Now;
             var endDate = DateTime.MaxValue;
 
-            var discount1 = new DiscountDocumentEntity
+            var discount1 = new DiscountEntity
             {
                 AccountId = accounts[0],
                 StartDate = startDate,
@@ -74,7 +74,7 @@ namespace BookKeeperTest.Discounts
                 Type = DiscountType.Address
             };
 
-            var discount2 = new DiscountDocumentEntity
+            var discount2 = new DiscountEntity
             {
                 AccountId = accounts[1],
                 StartDate = startDate,
@@ -85,7 +85,7 @@ namespace BookKeeperTest.Discounts
                 Type = DiscountType.Address
             };
 
-            var discount3 = new DiscountDocumentEntity
+            var discount3 = new DiscountEntity
             {
                 AccountId = accounts[2],
                 StartDate = startDate,
@@ -128,7 +128,7 @@ namespace BookKeeperTest.Discounts
         [TestMethod]
         public void SendDiscountToArchiveTest()
         {
-            var discountToAdd = new DiscountDocumentEntity()
+            var discountToAdd = new DiscountEntity()
             {
                 AccountId = 20,
                 IsArchive = false
@@ -160,7 +160,7 @@ namespace BookKeeperTest.Discounts
             var endDate = DateTime.MaxValue;
             var comparer = new CurrentDiscountComparer();
 
-            var expected = new DiscountDocumentEntity
+            var expected = new DiscountEntity
             {
                 AccountId = accountWithDiscount,
                 StartDate =startDate,
@@ -205,7 +205,7 @@ namespace BookKeeperTest.Discounts
             const string description = "Test";
             var paymentDate = DateTime.Now.AddMonths(-1);
 
-            DiscountDocumentEntity expected = null;
+            DiscountEntity expected = null;
 
             using (var scope = _container.BeginLifetimeScope())
             {
@@ -238,7 +238,7 @@ namespace BookKeeperTest.Discounts
             var startDate = DateTime.Now;
             var endDate = DateTime.MaxValue;
 
-            var expected = new DiscountDocumentEntity
+            var expected = new DiscountEntity
             {
                 AccountId = accountWithDiscount,
                 StartDate = startDate,

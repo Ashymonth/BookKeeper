@@ -184,8 +184,12 @@
     <EmbeddedResource Include="UI\Forms\Rate\RatePriceForm.resx">
       <DependentUpon>RatePriceForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="bin\Debug\src\Configuration\ExcelConfiguration.json" />
-    <None Include="bin\Debug\src\Configuration\HtmlConfig.json" />
+    <None Include="Configuration\ExcelConfiguration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Configuration\HtmlConfiguration.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -209,6 +213,9 @@
     </PackageReference>
     <PackageReference Include="MetroModernUI">
       <Version>1.4.0</Version>
+    </PackageReference>
+    <PackageReference Include="ObjectListView.Official">
+      <Version>2.9.1</Version>
     </PackageReference>
     <PackageReference Include="System.Data.SqlClient">
       <Version>4.8.1</Version>
@@ -242,7 +249,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="bin\Debug\src\Configuration\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Microsoft.Data.SqlClient.SNI.1.1.1\build\net46\Microsoft.Data.SqlClient.SNI.targets" Condition="Exists('..\packages\Microsoft.Data.SqlClient.SNI.1.1.1\build\net46\Microsoft.Data.SqlClient.SNI.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

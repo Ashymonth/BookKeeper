@@ -1,0 +1,13 @@
+{
+  "HeaderId": "TOC",
+  "DistrictCell": 2,
+  "DocumentDateCell": 3,
+  "ApartmentNumberCell": 0,
+  "PersonalAccountCell": 1,
+  "AccruedCell": 2,
+  "ReceivedCell": 3,
+  "Address": "адрес:",
+  "LastRow": "поступило",
+  "LastTableRow": "итого",
+  "AccountLength": 8
+}

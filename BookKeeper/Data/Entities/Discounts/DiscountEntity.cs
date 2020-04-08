@@ -12,7 +12,7 @@ namespace BookKeeper.Data.Data.Entities.Discounts
     }
 
     [Table("DiscountDocuments")]
-    public class DiscountDocumentEntity : BaseEntity
+    public class DiscountEntity : BaseEntity
     {
         public int AccountId { get; set; }
 

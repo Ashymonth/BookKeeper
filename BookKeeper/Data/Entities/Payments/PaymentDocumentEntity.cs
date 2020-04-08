@@ -19,7 +19,7 @@ namespace BookKeeper.Data.Data.Entities.Payments
 
         public DateTime PaymentDate { get; set; }
 
-        public virtual ICollection<DiscountDocumentEntity> DiscountDocuments { get; set; }
+        public virtual ICollection<DiscountEntity> DiscountDocuments { get; set; }
 
     }
 }

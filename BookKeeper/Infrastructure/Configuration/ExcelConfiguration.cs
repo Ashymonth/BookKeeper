@@ -7,7 +7,7 @@ namespace BookKeeper.Data.Infrastructure.Configuration
     {
         private const string ConfigurationFile = "ExcelConfiguration.json";
 
-        private const string Folder = "src\\Configuration";
+        private const string Folder = "Configuration";
 
         public string MunicipalMark { get; set; }
 

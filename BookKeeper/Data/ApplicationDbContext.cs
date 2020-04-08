@@ -30,7 +30,7 @@ namespace BookKeeper.Data.Data
 
         public virtual DbSet<PaymentDocumentEntity> PaymentDocuments { get; set; }
 
-        public virtual DbSet<DiscountDocumentEntity> DiscountDocuments { get; set; }
+        public virtual DbSet<DiscountEntity> DiscountDocuments { get; set; }
 
         public virtual DbSet<DiscountPercentEntity> DiscountPercents { get; set; }
 
@@ -42,8 +42,6 @@ namespace BookKeeper.Data.Data
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-           
-
             modelBuilder.Properties<DateTime>().Configure(x => x.HasColumnType("datetime2"));
             base.OnModelCreating(modelBuilder);
         }

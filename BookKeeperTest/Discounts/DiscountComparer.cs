@@ -7,9 +7,9 @@ using BookKeeper.Data.Data.Entities.Discounts;
 
 namespace BookKeeperTest.Discounts
 {
-    public class DiscountComparer : IEqualityComparer<DiscountDocumentEntity>
+    public class DiscountComparer : IEqualityComparer<DiscountEntity>
     {
-        public bool Equals(DiscountDocumentEntity x, DiscountDocumentEntity y)
+        public bool Equals(DiscountEntity x, DiscountEntity y)
         {
             if (x == null || y == null)
                 return false;
@@ -26,15 +26,15 @@ namespace BookKeeperTest.Discounts
                 return false;
         }
 
-        public int GetHashCode(DiscountDocumentEntity obj)
+        public int GetHashCode(DiscountEntity obj)
         {
             return obj.GetHashCode();
         }
     }
 
-    public class CurrentDiscountComparer : IEqualityComparer<DiscountDocumentEntity>
+    public class CurrentDiscountComparer : IEqualityComparer<DiscountEntity>
     {
-        public bool Equals(DiscountDocumentEntity x, DiscountDocumentEntity y)
+        public bool Equals(DiscountEntity x, DiscountEntity y)
         {
             if (x == null || y == null)
                 return false;
@@ -50,7 +50,7 @@ namespace BookKeeperTest.Discounts
                 return false;
         }
 
-        public int GetHashCode(DiscountDocumentEntity obj)
+        public int GetHashCode(DiscountEntity obj)
         {
             return obj.GetHashCode();
         }

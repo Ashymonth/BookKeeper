@@ -166,7 +166,7 @@ namespace BookKeeper.UI
 
         private void LoadDiscounts(bool dontShowArchive = true)
         {
-            lvlDiscountsTest.Items.Clear();
+            lvlDiscounts.Items.Clear();
 
             using (var scope = _container.BeginLifetimeScope())
             {
@@ -213,7 +213,7 @@ namespace BookKeeper.UI
                         list.Add(listView);
                     }
 
-                    lvlDiscountsTest.Items.AddRange(list.ToArray());
+                    lvlDiscounts.Items.AddRange(list.ToArray());
                 }
             }
         }
@@ -225,8 +225,10 @@ namespace BookKeeper.UI
 
         private void SetDoubleBufferForListView()
         {
-            lvlMonthReportTest.DoubleBuffered(true);
+            lvlMonthReport.DoubleBuffered(true);
             lvlTotalReport.DoubleBuffered(true);
+            lvlRates.DoubleBuffered(true);
+            lvlDiscounts.DoubleBuffered(true);
         }
 
         #endregion
@@ -246,7 +248,7 @@ namespace BookKeeper.UI
         }
         private void btnHouses_Click(object sender, EventArgs e)
         {
-            cntHouses.Show(btnHouses, 0, btnHouses.Width);
+            cntHouses.Show(btnHouses, 0, btnHouses.Height);
         }
 
         private void btnAddDiscounts_Click(object sender, EventArgs e)
@@ -419,9 +421,9 @@ namespace BookKeeper.UI
         {
             var debtorsCount = 0;
 
-            ResetColors(lvlMonthReportTest);
+            ResetColors(lvlMonthReport);
 
-            foreach (ListViewItem listViewItem in lvlMonthReportTest.Items)
+            foreach (ListViewItem listViewItem in lvlMonthReport.Items)
             {
                 try
                 {
@@ -468,7 +470,7 @@ namespace BookKeeper.UI
         private void btnShowNewAccountsInRange_Click(object sender, EventArgs e)
         {
             var newAccountsCount = 0;
-            foreach (ListViewItem listViewItem in lvlMonthReportTest.Items)
+            foreach (ListViewItem listViewItem in lvlMonthReport.Items)
             {
                 if (listViewItem.Tag is AccountEntity account)
                 {
@@ -491,7 +493,7 @@ namespace BookKeeper.UI
 
         private void btnResetMonthReportColor_Click(object sender, EventArgs e)
         {
-            ResetColors(lvlMonthReportTest);
+            ResetColors(lvlMonthReport);
         }
 
         #endregion
@@ -590,12 +592,12 @@ namespace BookKeeper.UI
                     account.Account.ToString(),
                 });
 
-                listViewItem.SubItems.AddRange(Enumerable.Repeat("-", lvlMonthReportTest.Columns.Count - 1).ToArray());
+                listViewItem.SubItems.AddRange(Enumerable.Repeat("-", lvlMonthReport.Columns.Count - 1).ToArray());
 
                 foreach (var paymentDocumentEntity in paymentDocumentEntities)
                 {
                     var columnIndex =
-                        lvlMonthReportTest.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
+                        lvlMonthReport.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
                     if (columnIndex != -1)
                         listViewItem.SubItems[columnIndex].Text =
                             paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture);
@@ -613,7 +615,7 @@ namespace BookKeeper.UI
             }
 
             lblCounter.Text = tempList.Count.ToString();
-            lvlMonthReportTest.Items.AddRange(tempList.ToArray());
+            lvlMonthReport.Items.AddRange(tempList.ToArray());
         }
 
         private static AccountType Convert(int index)
@@ -626,7 +628,7 @@ namespace BookKeeper.UI
 
         private void CreateColumns(DateTime from, DateTime to)
         {
-            lvlMonthReportTest.Clear();
+            lvlMonthReport.Clear();
 
             var columns = new List<ColumnHeader>();
 
@@ -642,15 +644,15 @@ namespace BookKeeper.UI
             } while (true);
 
 
-            lvlMonthReportTest.Columns.Add("Улица");
-            lvlMonthReportTest.Columns.Add("Дом");
-            lvlMonthReportTest.Columns.Add("Корпус");
-            lvlMonthReportTest.Columns.Add("Квартира");
-            lvlMonthReportTest.Columns.Add("Счет");
-            lvlMonthReportTest.Columns.AddRange(columns.ToArray());
-            lvlMonthReportTest.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
-            lvlMonthReportTest.Columns[0].Width = 150;
-            lvlMonthReportTest.Columns[4].Width = 100;
+            lvlMonthReport.Columns.Add("Улица");
+            lvlMonthReport.Columns.Add("Дом");
+            lvlMonthReport.Columns.Add("Корпус");
+            lvlMonthReport.Columns.Add("Квартира");
+            lvlMonthReport.Columns.Add("Счет");
+            lvlMonthReport.Columns.AddRange(columns.ToArray());
+            lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
+            lvlMonthReport.Columns[0].Width = 150;
+            lvlMonthReport.Columns[4].Width = 100;
         }
 
         private string GetColumnKey(DateTime @from)
@@ -712,11 +714,11 @@ namespace BookKeeper.UI
 
         private void lvlMonthReportTest_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            lvlMonthReportTest.Sorting = lvlMonthReportTest.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+            lvlMonthReport.Sorting = lvlMonthReport.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
 
-            lvlMonthReportTest.ListViewItemSorter = new ListViewStringComparer(e.Column, lvlMonthReportTest.Sorting);
+            lvlMonthReport.ListViewItemSorter = new ListViewStringComparer(e.Column, lvlMonthReport.Sorting);
 
-            lvlMonthReportTest.Sort();
+            lvlMonthReport.Sort();
         }
 
         #endregion
@@ -830,9 +832,9 @@ namespace BookKeeper.UI
             if (confirm != DialogResult.Yes)
                 return;
 
-            foreach (ListViewItem listViewItem in lvlDiscountsTest.CheckedItems)
+            foreach (ListViewItem listViewItem in lvlDiscounts.CheckedItems)
             {
-                if (!(listViewItem.Tag is DiscountDocumentEntity discount))
+                if (!(listViewItem.Tag is DiscountEntity discount))
                     continue;
 
                 using (var scope = _container.BeginLifetimeScope())
@@ -942,9 +944,9 @@ namespace BookKeeper.UI
 
         private void btnSendDiscountToArchive_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem lvlDiscountsItem in lvlDiscountsTest.CheckedItems)
+            foreach (ListViewItem lvlDiscountsItem in lvlDiscounts.CheckedItems)
             {
-                if (lvlDiscountsItem.Tag is DiscountDocumentEntity discount)
+                if (lvlDiscountsItem.Tag is DiscountEntity discount)
                 {
                     try
                     {
@@ -1178,7 +1180,7 @@ namespace BookKeeper.UI
         {
             try
             {
-                if (lvlMonthReportTest.FocusedItem.Tag is AccountEntity account)
+                if (lvlMonthReport.FocusedItem.Tag is AccountEntity account)
                 {
                     using (var form = new AccountDetailsForm())
                     {
@@ -1222,13 +1224,30 @@ namespace BookKeeper.UI
 
         private void lvlRates_ColumnClick(object sender, ColumnClickEventArgs e)
         {
-            lvlRates.Sorting = lvlRates.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
+            lvlRates.Sorting = lvlRates.Sorting == SortOrder.Ascending
+                ? SortOrder.Descending
+                : SortOrder.Ascending;
 
-            lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column, lvlRates.Sorting);
+            if(e.Column >4)
+                lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column, lvlRates.Sorting);
+            else
+                lvlRates.ListViewItemSorter = new ListViewStringComparer(e.Column,lvlRates.Sorting);
 
             lvlRates.Sort();
         }
 
-     
+        private void lvlDiscounts_ColumnClick(object sender, ColumnClickEventArgs e)
+        {
+            lvlDiscounts.Sorting = lvlDiscounts.Sorting == SortOrder.Ascending
+                ? SortOrder.Descending
+                : SortOrder.Ascending;
+
+            if (e.Column > 4)
+                lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column, lvlDiscounts.Sorting);
+            else
+                lvlRates.ListViewItemSorter = new ListViewStringComparer(e.Column,lvlDiscounts.Sorting);
+
+            lvlRates.Sort();
+        }
     }
 }

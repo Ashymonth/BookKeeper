@@ -26,9 +26,7 @@ namespace BookKeeper.Data.Infrastructure.Formats
             if (!Directory.Exists(Path.Combine(Directory.GetCurrentDirectory(), TempFolder)))
                 Directory.CreateDirectory(Path.Combine(Directory.GetCurrentDirectory(), TempFolder));
 
-
             var newFile = $"{Path.GetFileNameWithoutExtension(file)}.html";
-
 
             File.Copy(Path.GetFullPath(file), Path.Combine(Directory.GetCurrentDirectory(), TempFolder, newFile), true);
 

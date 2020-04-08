@@ -359,7 +359,7 @@ namespace BookKeeperTest.Calculation
                 }
             };
 
-            var discount = new DiscountDocumentEntity
+            var discount = new DiscountEntity
             {
                 Account = account,
                 StartDate = startDate,
@@ -434,7 +434,7 @@ namespace BookKeeperTest.Calculation
                 }
             };
 
-            var discount = new DiscountDocumentEntity
+            var discount = new DiscountEntity
             {
                 Account = account,
                 StartDate = startDate,
@@ -513,7 +513,7 @@ namespace BookKeeperTest.Calculation
                 }
             };
 
-            var discount = new DiscountDocumentEntity
+            var discount = new DiscountEntity
             {
                 Account = account,
                 StartDate = startDate,
@@ -614,7 +614,7 @@ namespace BookKeeperTest.Calculation
                 }
             };
 
-            var discount = new DiscountDocumentEntity
+            var discount = new DiscountEntity
             {
                 Account = account,
                 StartDate = startDate,

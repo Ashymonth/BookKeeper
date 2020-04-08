@@ -1,0 +1,14 @@
+{
+  "MunicipalMark": "5",
+  "StartColumn": "B",
+  "ServiceProviderCode": 1,
+  "ServiceProviderCodeValue": "81",
+  "DistrictName": 3,
+  "DistrictType": 4,
+  "AccrualMonth": 5,
+  "StreetName": 6,
+  "HouseNumber": 7,
+  "CorpusNumber": 8,
+  "ApartmentNumber": 9,
+  "PersonalAccount": 10
+}

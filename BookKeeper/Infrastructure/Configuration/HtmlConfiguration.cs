@@ -6,9 +6,9 @@ namespace BookKeeper.Data.Infrastructure.Configuration
 {
     public class HtmlConfiguration : IConfiguration<HtmlConfiguration>
     {
-        private const string ConfigurationFile = "HtmlConfig.json";
+        private const string ConfigurationFile = "HtmlConfiguration.json";
 
-        private const string Folder = "src\\Configuration";
+        private const string Folder = "Configuration";
 
         public string HeaderId { get; set; }
 

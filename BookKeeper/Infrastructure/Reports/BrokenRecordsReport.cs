@@ -15,7 +15,7 @@ namespace BookKeeper.Data.Infrastructure.Reports
     public class BrokenRecordsReport : IBrokenRecordsReport
     {
         private const string ReportFolder = "Не сопоставленные записи";
-        private const string FileName = "Записи";
+        private const string FileName = "Не сопоставленные счета.txt";
 
         public void Write(string account)
         {
@@ -28,17 +28,12 @@ namespace BookKeeper.Data.Infrastructure.Reports
             if (!Directory.Exists(ReportFolder))
                 Directory.CreateDirectory(ReportFolder);
 
-            var path = Path.Combine(Path.Combine(Directory.GetCurrentDirectory(), FileName,
-                DateTime.Now.ToString("Y")));
+            if (!File.Exists(FileName))
+                File.Create(FileName);
 
             try
             {
-                File.Create(path);
-
-                if (File.Exists(path))
-                {
-                    File.WriteAllText(path,account,Encoding.UTF8);
-                }
+                File.WriteAllText(Path.Combine(ReportFolder,FileName),account,Encoding.UTF8);
             }
             catch (Exception)
             {

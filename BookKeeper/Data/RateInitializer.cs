@@ -9,16 +9,7 @@ namespace BookKeeper.Data.Data
     {
         protected override void Seed(ApplicationDbContext context)
         {
-            var rateDocument = new RateEntity()
-            {
-                Price = Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]),
-                StartDate = DateTime.MinValue,
-                EndDate = DateTime.MaxValue,
-                IsDefault = true,
-            };
-            context.Rates.Add(rateDocument);
-            context.SaveChanges();
-            base.Seed(context);
+            
         }
     }
 }
