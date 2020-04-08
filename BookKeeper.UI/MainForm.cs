@@ -281,6 +281,7 @@ namespace BookKeeper.UI
                     return;
 
                 _files = dialog.FileNames;
+                
             }
 
             if (backgroundWorker1.IsBusy == false)
@@ -1126,9 +1127,8 @@ namespace BookKeeper.UI
                             return;
                         }
                     }
+                    FileManager.DeleteTempFolder();
                 }
-
-                ExcelExtensionConverter.DeleteTempFolder();
 
                 MessageBoxHelper.ShowCompeteMessage(
                     $"Успешно загружено. Добавленно {importReport.Add}\n Обновленно {importReport.Updates}",

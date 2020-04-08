@@ -8,6 +8,7 @@ using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using BookKeeper.Data.Infrastructure.Reports;
 using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService.Rate;
 
@@ -20,16 +21,18 @@ namespace BookKeeper.Data.Services.Load
         private readonly IStreetService _streetService;
         private readonly IAccountService _accountService;
         private readonly IConfiguration<ExcelConfiguration> _configuration;
+        private readonly IBrokenRecordsReport _brokenRecordsReport;
 
 
         public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IStreetService streetService, IAccountService accountService, 
-            IConfiguration<ExcelConfiguration> configuration)
+            IConfiguration<ExcelConfiguration> configuration, IBrokenRecordsReport brokenRecordsReport)
         {
             _import = import;
             _districtService = districtService;
             _streetService = streetService;
             _accountService = accountService;
             _configuration = configuration;
+            _brokenRecordsReport = brokenRecordsReport;
         }
 
         public ImportReportModel LoadData(string file)
@@ -63,46 +66,53 @@ namespace BookKeeper.Data.Services.Load
 
                     foreach (var dataRow in addressGroup)
                     {
-                        var account = _accountService.GetItem(x => x.Account == dataRow.Account.PersonalAccount && !x.IsDeleted);
-
-                        if (account != null)
+                        try
                         {
-                            account.IsArchive = account.IsEmpty && account.IsEmptyAgain && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
-                            account.IsEmptyAgain = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode) &&
-                                                   account.IsEmpty;
+                            var account = _accountService.GetItem(x => x.Account == dataRow.Account.PersonalAccount && !x.IsDeleted);
 
-                            account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
-                            account.IsNew = false;
+                            if (account != null)
+                            {
+                                account.IsArchive = account.IsEmpty && account.IsEmptyAgain && string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
+                                account.IsEmptyAgain = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode) &&
+                                                       account.IsEmpty;
 
-                            accountsToUpdate.Add(account);
-                            continue;
+                                account.IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode);
+                                account.IsNew = false;
+
+                                accountsToUpdate.Add(account);
+                                continue;
+                            }
+
+                            account = new AccountEntity
+                            {
+                                AccountCreationDate = ConvertAccrualMonth(dataRow.Account.AccrualMonth),
+                                Account = dataRow.Account.PersonalAccount,
+                                AccountType = ConvertAccountType(dataRow.Account.AccountType, configuration.MunicipalMark),
+                                IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
+                                IsNew = true
+                            };
+
+                            if (street.Locations == null)
+                                street.Locations = new List<LocationEntity>();
+
+                            var location = new LocationEntity
+                            {
+                                HouseNumber = dataRow.LocationImport.HouseNumber,
+                                BuildingCorpus = dataRow.LocationImport.BuildingNumber,
+                                ApartmentNumber = dataRow.LocationImport.ApartmentNumber,
+                                StreetId = street.Id,
+                            };
+                            street.Locations.Add(location);
+
+                            account.StreetId = street.Id;
+                            account.Location = location;
+
+                            accountsToAdd.Add(account);
                         }
-
-                        account = new AccountEntity
+                        catch (Exception e)
                         {
-                            AccountCreationDate = ConvertAccrualMonth(dataRow.Account.AccrualMonth),
-                            Account = dataRow.Account.PersonalAccount,
-                            AccountType = ConvertAccountType(dataRow.Account.AccountType, configuration.MunicipalMark),
-                            IsEmpty = string.IsNullOrWhiteSpace(dataRow.Account.ServiceProviderCode),
-                            IsNew = true
-                        };
-
-                        if (street.Locations == null)
-                            street.Locations = new List<LocationEntity>();
-
-                        var location = new LocationEntity
-                        {
-                            HouseNumber = dataRow.LocationImport.HouseNumber,
-                            BuildingCorpus = dataRow.LocationImport.BuildingNumber,
-                            ApartmentNumber = dataRow.LocationImport.ApartmentNumber,
-                            StreetId = street.Id,
-                        };
-                        street.Locations.Add(location);
-
-                        account.StreetId = street.Id;
-                        account.Location = location;
-
-                        accountsToAdd.Add(account);
+                            _brokenRecordsReport.WriteException(e.Message,FileType.Excel);
+                        }
                        
                     }
                     if (accountsToAdd.Count != 0)
@@ -117,7 +127,6 @@ namespace BookKeeper.Data.Services.Load
                     }
                 }
             }
-
             return importReport;
         }
 

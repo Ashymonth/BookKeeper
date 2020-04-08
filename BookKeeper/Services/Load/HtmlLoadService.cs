@@ -1,18 +1,14 @@
-﻿using BookKeeper.Data.Data.Entities;
-using BookKeeper.Data.Data.Entities.Payments;
+﻿using BookKeeper.Data.Data.Entities.Payments;
+using BookKeeper.Data.Infrastructure.Configuration;
+using BookKeeper.Data.Infrastructure.Reports;
+using BookKeeper.Data.Models;
 using BookKeeper.Data.Models.HtmlImport;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
-using BookKeeper.Data.Infrastructure.Configuration;
-using BookKeeper.Data.Infrastructure.Reports;
-using BookKeeper.Data.Models;
-using BookKeeper.Data.Services.EntityService.Rate;
 
 namespace BookKeeper.Data.Services.Load
 {
@@ -41,7 +37,7 @@ namespace BookKeeper.Data.Services.Load
         private readonly IBrokenRecordsReport _report;
 
         public HtmlLoadService(IImportService<List<PaymentDocumentImport>> importService, IAccountService accountService, IPaymentDocumentService documentService,
-            IConfiguration<HtmlConfiguration> configuration,IBrokenRecordsReport report)
+            IConfiguration<HtmlConfiguration> configuration, IBrokenRecordsReport report)
         {
             _importService = importService;
             _accountService = accountService;
@@ -53,7 +49,7 @@ namespace BookKeeper.Data.Services.Load
         {
             var result = _importService.ImportDataRow(file);
 
-            if(result == null)
+            if (result == null)
                 throw new NullReferenceException(nameof(result));
 
             var importReport = new ImportReportModel();
@@ -67,42 +63,51 @@ namespace BookKeeper.Data.Services.Load
                 var documentsToAdd = new List<PaymentDocumentEntity>();
                 var documentsToUpdate = new List<PaymentDocumentEntity>();
 
-                foreach (var item1 in item.PaymentDetailsImports)
+                foreach (var detailsImport in item.PaymentDetailsImports)
                 {
-                    var personalAccount = ValidPersonalAccount(item1.PersonalAccount, configuration.AccountLength);
-                    var documentDate = ValidDateTime(item.DocumentData);
-
-                    var account = _accountService.GetItem(x => x.Account == personalAccount);
-                    if (account == null)
+                    try
                     {
-                        _report.Write(personalAccount.ToString());
-                        importReport.CorruptedRecords++;
-                        continue;
+                        var personalAccount = ValidPersonalAccount(detailsImport.PersonalAccount, configuration.AccountLength);
+                        var documentDate = ValidDateTime(item.DocumentData);
+
+                        var account = _accountService.GetItem(x => x.Account == personalAccount);
+                        if (account == null)
+                        {
+                            _report.Write(personalAccount.ToString(), FileType.Html);
+                            importReport.CorruptedRecords++;
+                            continue;
+                        }
+
+                        var paymentDocuments = account.PaymentDocuments.Where(x => x.PaymentDate == documentDate).ToList();
+                        if (paymentDocuments.Count() != 0)
+                        {
+                            documentsToUpdate
+                                .AddRange(paymentDocuments
+                                    .Where(entity => entity.Accrued != detailsImport.Accrued ||
+                                                     entity.Received != detailsImport.Received &&
+                                                     entity.IsDeleted == false));
+                            continue;
+                        }
+
+                        if (account.PaymentDocuments == null)
+                            account.PaymentDocuments = new List<PaymentDocumentEntity>();
+
+                        var paymentDocument = new PaymentDocumentEntity
+                        {
+                            AccountId = account.Id,
+                            Accrued = detailsImport.Accrued,
+                            Received = detailsImport.Received,
+                            PaymentDate = documentDate,
+                        };
+
+                        documentsToAdd.Add(paymentDocument);
                     }
-
-                    var paymentDocuments = account.PaymentDocuments.Where(x => x.PaymentDate == documentDate).ToList();
-                    if (paymentDocuments.Count() != 0)
+                    catch (Exception e)
                     {
-                        documentsToUpdate
-                            .AddRange(paymentDocuments
-                                .Where(entity => entity.Accrued != item1.Accrued ||
-                                                 entity.Received != item1.Received &&
-                                                 entity.IsDeleted == false));
-                        continue;
+                        _report.Write(detailsImport.PersonalAccount.ToString(), FileType.Html);
+
+                        _report.WriteException(e.Message, FileType.Html);
                     }
-
-                    if (account.PaymentDocuments == null)
-                        account.PaymentDocuments = new List<PaymentDocumentEntity>();
-
-                    var paymentDocument = new PaymentDocumentEntity
-                    {
-                        AccountId = account.Id,
-                        Accrued = item1.Accrued,
-                        Received = item1.Received,
-                        PaymentDate = documentDate,
-                    };
-
-                    documentsToAdd.Add(paymentDocument);
                 }
 
                 if (documentsToAdd.Count != 0)
@@ -121,7 +126,7 @@ namespace BookKeeper.Data.Services.Load
         }
 
 
-        private static long ValidPersonalAccount(long personalAccount,int accountLength)
+        private static long ValidPersonalAccount(long personalAccount, int accountLength)
         {
             if (personalAccount.ToString().Length > accountLength)//TODO Add municipal account mark to config
             {

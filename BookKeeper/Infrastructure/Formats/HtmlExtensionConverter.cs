@@ -3,10 +3,8 @@ using System.IO;
 
 namespace BookKeeper.Data.Infrastructure.Formats
 {
-    public static class HtmlExtensionConverter
+    public abstract class HtmlExtensionConverter : FileManager
     {
-        private const string TempFolder = "TempFolder";
-
         /// <summary>
         /// Большинство документов имеют .htm расширение, его нужно заменять на .html
         /// </summary>
@@ -34,8 +32,6 @@ namespace BookKeeper.Data.Infrastructure.Formats
                 throw new FileNotFoundException(nameof(newFile));
 
             return Path.GetFullPath(newFile);
-
-
         }
     }
 }
