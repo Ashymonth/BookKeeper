@@ -12,6 +12,9 @@ namespace BookKeeper.Data.Services.EntityService.Rate
     {
         RateEntity AddRate(LocationEntity entity, string description, decimal price);
 
+        RateEntity AddRate(LocationEntity entity, string description, decimal price, DateTime fromDateTime,
+            DateTime toDateTime);
+
         decimal GetCurrentRate(LocationEntity entity, DateTime paymentDate);
 
         RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price);
@@ -27,17 +30,48 @@ namespace BookKeeper.Data.Services.EntityService.Rate
         {
             var activeRate = GetActiveRate(entity);
 
-            //if (activeRate != null && activeRate.StartDate.Date == DateTime.Now.Date)
-            //    return null;
+            if (activeRate != null && activeRate.StartDate.Date == DateTime.Now.Date)
+                return null;
 
             if (activeRate != null)
                 SendToArchive(activeRate);
 
             var result = new RateEntity
             {
-                StartDate = DateTime.Now,
+                StartDate = DateTime.Parse($"01.{DateTime.Today.Month}.{DateTime.Today.Year}"),//
                 Price = price,
                 EndDate = DateTime.MaxValue,
+                Description = description,
+                AssignedLocations = new List<RateDetailsEntity>()
+                {
+                    new RateDetailsEntity()
+                    {
+                        StreetId = entity.StreetId,
+                        LocationRefId = entity.Id,
+                        HouseNumber = entity.HouseNumber,
+                        BuildingNumber = entity.BuildingCorpus
+                    }
+                }
+            };
+
+            return base.Add(result);
+        }
+
+        public RateEntity AddRate(LocationEntity entity, string description, decimal price,DateTime fromDateTime, DateTime toDateTime)
+        {
+            var activeRate = GetActiveRate(entity);
+
+            if (activeRate != null && activeRate.StartDate.Date == DateTime.Now.Date)
+                return null;
+
+            if (activeRate != null)
+                SendToArchive(activeRate);
+
+            var result = new RateEntity
+            {
+                StartDate = fromDateTime,
+                Price = price,
+                EndDate = toDateTime,
                 Description = description,
                 AssignedLocations = new List<RateDetailsEntity>()
                 {
@@ -59,6 +93,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             var rate = base.GetItemById(rateEntity.Id);
             if (rate == null)
                 return null;
+
             var changedRate = new RateEntity
             {
                 Price = price,
@@ -125,15 +160,15 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             if (rate == null)
                 return null;
 
-            var updatetRate = base.GetItemById(rate.Id);
-            if (updatetRate != null)
+            var updaterRate = base.GetItemById(rate.Id);
+            if (updaterRate != null)
             {
-                updatetRate.IsArchive = true;
-                updatetRate.EndDate = DateTime.Now;
-                base.Update(updatetRate);
+                updaterRate.IsArchive = true;
+                updaterRate.EndDate = DateTime.Now;
+                base.Update(updaterRate);
             }
 
-            return updatetRate;
+            return updaterRate;
         }
 
         private decimal GetDefaultRate()

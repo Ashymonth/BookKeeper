@@ -42,8 +42,6 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 return;
             }
 
-            
-
             if (!(cmbPercent.SelectedValue is decimal percent))
             {
                 MessageBoxHelper.ShowWarningMessage("Выберите  скидку", this);
@@ -84,7 +82,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 }
 
                 var discountService = scope.Resolve<IDiscountDocumentService>();
-                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description);
+                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description,dateFrom.Value.Date,dateTo.Value.Date);
                 if (discountOnAccount == null)
                 {
                     MessageBoxHelper.ShowWarningMessage("Не удалось добавить", this);

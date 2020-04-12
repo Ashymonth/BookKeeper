@@ -36,6 +36,8 @@
             this.cmbHouses = new MetroFramework.Controls.MetroComboBox();
             this.cmbBuildings = new MetroFramework.Controls.MetroComboBox();
             this.txtPrice = new MetroFramework.Controls.MetroTextBox();
+            this.dateFrom = new MetroFramework.Controls.MetroDateTime();
+            this.dateTo = new MetroFramework.Controls.MetroDateTime();
             this.SuspendLayout();
             // 
             // cmbStreet
@@ -43,11 +45,10 @@
             this.cmbStreet.DisplayMember = "StreetName";
             this.cmbStreet.FormattingEnabled = true;
             this.cmbStreet.ItemHeight = 23;
-            this.cmbStreet.Location = new System.Drawing.Point(31, 78);
-            this.cmbStreet.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbStreet.Location = new System.Drawing.Point(23, 63);
             this.cmbStreet.Name = "cmbStreet";
             this.cmbStreet.PromptText = "Адрес";
-            this.cmbStreet.Size = new System.Drawing.Size(588, 29);
+            this.cmbStreet.Size = new System.Drawing.Size(442, 29);
             this.cmbStreet.TabIndex = 0;
             this.cmbStreet.UseSelectable = true;
             this.cmbStreet.ValueMember = "Id";
@@ -59,18 +60,16 @@
             // 
             // 
             this.txtDescription.CustomButton.Image = null;
-            this.txtDescription.CustomButton.Location = new System.Drawing.Point(515, 1);
-            this.txtDescription.CustomButton.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDescription.CustomButton.Location = new System.Drawing.Point(286, 1);
             this.txtDescription.CustomButton.Name = "";
-            this.txtDescription.CustomButton.Size = new System.Drawing.Size(73, 73);
+            this.txtDescription.CustomButton.Size = new System.Drawing.Size(44, 48);
             this.txtDescription.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtDescription.CustomButton.TabIndex = 1;
             this.txtDescription.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtDescription.CustomButton.UseSelectable = true;
             this.txtDescription.CustomButton.Visible = false;
             this.txtDescription.Lines = new string[0];
-            this.txtDescription.Location = new System.Drawing.Point(30, 183);
-            this.txtDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.txtDescription.Location = new System.Drawing.Point(22, 149);
             this.txtDescription.MaxLength = 32767;
             this.txtDescription.Name = "txtDescription";
             this.txtDescription.PasswordChar = '\0';
@@ -80,7 +79,7 @@
             this.txtDescription.SelectionLength = 0;
             this.txtDescription.SelectionStart = 0;
             this.txtDescription.ShortcutsEnabled = true;
-            this.txtDescription.Size = new System.Drawing.Size(589, 75);
+            this.txtDescription.Size = new System.Drawing.Size(442, 61);
             this.txtDescription.TabIndex = 4;
             this.txtDescription.UseSelectable = true;
             this.txtDescription.WaterMark = "Описание";
@@ -90,10 +89,9 @@
             // btnSave
             // 
             this.btnSave.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSave.Location = new System.Drawing.Point(435, 283);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Location = new System.Drawing.Point(326, 230);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(184, 28);
+            this.btnSave.Size = new System.Drawing.Size(138, 23);
             this.btnSave.TabIndex = 5;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseSelectable = true;
@@ -102,10 +100,9 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(30, 285);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(22, 232);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(185, 28);
+            this.btnCancel.Size = new System.Drawing.Size(139, 23);
             this.btnCancel.TabIndex = 6;
             this.btnCancel.Text = "Отменить";
             this.btnCancel.UseSelectable = true;
@@ -116,11 +113,10 @@
             this.cmbHouses.DisplayMember = "StreetName";
             this.cmbHouses.FormattingEnabled = true;
             this.cmbHouses.ItemHeight = 23;
-            this.cmbHouses.Location = new System.Drawing.Point(30, 136);
-            this.cmbHouses.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbHouses.Location = new System.Drawing.Point(22, 110);
             this.cmbHouses.Name = "cmbHouses";
             this.cmbHouses.PromptText = "Дом";
-            this.cmbHouses.Size = new System.Drawing.Size(184, 29);
+            this.cmbHouses.Size = new System.Drawing.Size(139, 29);
             this.cmbHouses.TabIndex = 1;
             this.cmbHouses.UseSelectable = true;
             this.cmbHouses.ValueMember = "Id";
@@ -131,11 +127,10 @@
             this.cmbBuildings.DisplayMember = "StreetName";
             this.cmbBuildings.FormattingEnabled = true;
             this.cmbBuildings.ItemHeight = 23;
-            this.cmbBuildings.Location = new System.Drawing.Point(232, 136);
-            this.cmbBuildings.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbBuildings.Location = new System.Drawing.Point(174, 110);
             this.cmbBuildings.Name = "cmbBuildings";
             this.cmbBuildings.PromptText = "Корпус";
-            this.cmbBuildings.Size = new System.Drawing.Size(184, 29);
+            this.cmbBuildings.Size = new System.Drawing.Size(139, 29);
             this.cmbBuildings.TabIndex = 2;
             this.cmbBuildings.UseSelectable = true;
             this.cmbBuildings.ValueMember = "Id";
@@ -146,16 +141,18 @@
             // 
             // 
             this.txtPrice.CustomButton.Image = null;
-            this.txtPrice.CustomButton.Location = new System.Drawing.Point(156, 1);
+            this.txtPrice.CustomButton.Location = new System.Drawing.Point(87, 2);
+            this.txtPrice.CustomButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPrice.CustomButton.Name = "";
-            this.txtPrice.CustomButton.Size = new System.Drawing.Size(27, 27);
+            this.txtPrice.CustomButton.Size = new System.Drawing.Size(14, 15);
             this.txtPrice.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtPrice.CustomButton.TabIndex = 1;
             this.txtPrice.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtPrice.CustomButton.UseSelectable = true;
             this.txtPrice.CustomButton.Visible = false;
             this.txtPrice.Lines = new string[0];
-            this.txtPrice.Location = new System.Drawing.Point(434, 136);
+            this.txtPrice.Location = new System.Drawing.Point(326, 110);
+            this.txtPrice.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtPrice.MaxLength = 32767;
             this.txtPrice.Name = "txtPrice";
             this.txtPrice.PasswordChar = '\0';
@@ -165,18 +162,40 @@
             this.txtPrice.SelectionLength = 0;
             this.txtPrice.SelectionStart = 0;
             this.txtPrice.ShortcutsEnabled = true;
-            this.txtPrice.Size = new System.Drawing.Size(184, 29);
+            this.txtPrice.Size = new System.Drawing.Size(138, 24);
             this.txtPrice.TabIndex = 3;
             this.txtPrice.UseSelectable = true;
             this.txtPrice.WaterMark = "Цена";
             this.txtPrice.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtPrice.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
+            // dateFrom
+            // 
+            this.dateFrom.CustomFormat = "MMMM yyyy";
+            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateFrom.Location = new System.Drawing.Point(471, 63);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(200, 29);
+            this.dateFrom.TabIndex = 7;
+            // 
+            // dateTo
+            // 
+            this.dateTo.CustomFormat = "MMMM yyyy";
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTo.Location = new System.Drawing.Point(469, 110);
+            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(200, 29);
+            this.dateTo.TabIndex = 8;
+            // 
             // RateItemForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 355);
+            this.ClientSize = new System.Drawing.Size(680, 286);
+            this.Controls.Add(this.dateTo);
+            this.Controls.Add(this.dateFrom);
             this.Controls.Add(this.txtPrice);
             this.Controls.Add(this.cmbBuildings);
             this.Controls.Add(this.cmbHouses);
@@ -185,11 +204,9 @@
             this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.cmbStreet);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "RateItemForm";
-            this.Padding = new System.Windows.Forms.Padding(27, 74, 27, 25);
             this.Resizable = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.Text = "Тариф";
@@ -207,5 +224,7 @@
         private MetroFramework.Controls.MetroComboBox cmbHouses;
         private MetroFramework.Controls.MetroComboBox cmbBuildings;
         private MetroFramework.Controls.MetroTextBox txtPrice;
+        private MetroFramework.Controls.MetroDateTime dateFrom;
+        private MetroFramework.Controls.MetroDateTime dateTo;
     }
 }

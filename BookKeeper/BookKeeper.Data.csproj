@@ -61,7 +61,6 @@
     <Compile Include="Infrastructure\Configuration\IConfiguration.cs" />
     <Compile Include="Infrastructure\Formats\ExcelExtensionConverter.cs" />
     <Compile Include="Infrastructure\Formats\FileManager.cs" />
-    <Compile Include="Infrastructure\Formats\HtmlExtensionConverter.cs" />
     <Compile Include="Infrastructure\Reports\BrokenRecordsReport.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />
@@ -82,7 +81,7 @@
     <Compile Include="Services\EntityService\Address\DistrictService.cs" />
     <Compile Include="Services\EntityService\Address\LocationService.cs" />
     <Compile Include="Services\EntityService\Discount\DiscountDescriptionService.cs" />
-    <Compile Include="Services\EntityService\Discount\DiscountDocumentService.cs" />
+    <Compile Include="Services\EntityService\Discount\DiscountService.cs" />
     <Compile Include="Services\EntityService\Discount\DiscountPercentService.cs" />
     <Compile Include="Services\EntityService\PaymentDocumentService.cs" />
     <Compile Include="Services\EntityService\Rate\RateDocumentService.cs" />

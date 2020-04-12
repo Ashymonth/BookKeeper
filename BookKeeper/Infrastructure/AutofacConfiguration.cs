@@ -82,7 +82,7 @@ namespace BookKeeper.Data.Infrastructure
                 .As<IImportService<List<ImportDataRow>>>()
                 .InstancePerLifetimeScope();
 
-            container.RegisterType(typeof(DiscountDocumentService))
+            container.RegisterType(typeof(DiscountService))
                 .As<IDiscountDocumentService>()
                 .InstancePerLifetimeScope();
 

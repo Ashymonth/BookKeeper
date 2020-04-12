@@ -107,6 +107,8 @@ namespace BookKeeper.Data.Services.Load
                         _report.Write(detailsImport.PersonalAccount.ToString(), FileType.Html);
 
                         _report.WriteException(e.Message, FileType.Html);
+
+                        continue;
                     }
                 }
 

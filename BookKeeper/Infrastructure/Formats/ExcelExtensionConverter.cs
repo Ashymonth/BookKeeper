@@ -21,9 +21,15 @@ namespace BookKeeper.Data.Infrastructure.Formats
             if (!Directory.Exists(TempFolder))
                 Directory.CreateDirectory(TempFolder);
 
-            var workBook = new Workbook();
-            workBook.SaveToFile(Path.Combine(Directory.GetCurrentDirectory(),TempFolder,file), ExcelVersion.Version2013);
-            return Path.GetFullPath($"{Path.GetFileNameWithoutExtension(file)}.xlsx");
+            var path = Path.Combine(TempFolder, $"{Path.GetFileNameWithoutExtension(file)}.xlsx");
+
+            using(var workbook = new Workbook())
+            {
+                workbook.LoadFromFile(file);
+                workbook.SaveToFile(path, ExcelVersion.Version2016);
+            }
+
+            return path;
         }
     }
 }

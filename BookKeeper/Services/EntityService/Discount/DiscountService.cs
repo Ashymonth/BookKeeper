@@ -15,15 +15,19 @@ namespace BookKeeper.Data.Services.EntityService.Discount
     {
         DiscountEntity AddDiscountOnAccount(int accountId, decimal percent, string description);
 
+        DiscountEntity AddDiscountOnAccount(int accountId, decimal percent, string description,DateTime fromDateTime,DateTime toDateTime);
+
         IEnumerable<DiscountEntity> AddDiscountOnAddress(IEnumerable<int> accountId, decimal percent, string description);
+
+        IEnumerable<DiscountEntity> AddDiscountOnAddress(IEnumerable<int> accountId, decimal percent, string description,DateTime fromDateTime,DateTime toDateTime);
 
         DiscountEntity GetCurrentDiscount(int accountId, DateTime paymentDate);
 
         void SendToArchive(DiscountEntity entity);
     }
-    public class DiscountDocumentService : Service<DiscountEntity>, IDiscountDocumentService
+    public class DiscountService : Service<DiscountEntity>, IDiscountDocumentService
     {
-        public DiscountDocumentService(IRepository<DiscountEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
+        public DiscountService(IRepository<DiscountEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
         }
 
@@ -36,8 +40,27 @@ namespace BookKeeper.Data.Services.EntityService.Discount
             var document = new DiscountEntity
             {
                 AccountId = accountId,
-                StartDate = DateTime.Now,
+                StartDate = DateTime.Parse($"01.{DateTime.Today.Month}.{DateTime.Today.Year}"),
                 EndDate = DateTime.MaxValue,
+                Percent = percent,
+                Description = description,
+                Type = DiscountType.PersonalAccount
+            };
+            return base.Add(document);
+        }
+
+        public DiscountEntity AddDiscountOnAccount(int accountId, decimal percent, string description, DateTime fromDateTime,
+            DateTime toDateTime)
+        {
+            var activeDiscount = GetActiveDiscount(accountId);
+            if (activeDiscount != null)
+                SendToArchive(activeDiscount);
+
+            var document = new DiscountEntity
+            {
+                AccountId = accountId,
+                StartDate = fromDateTime,
+                EndDate = toDateTime,
                 Percent = percent,
                 Description = description,
                 Type = DiscountType.PersonalAccount
@@ -48,7 +71,7 @@ namespace BookKeeper.Data.Services.EntityService.Discount
         public IEnumerable<DiscountEntity> AddDiscountOnAddress(IEnumerable<int> accountId, decimal percent, string description)
         {
             var activeDiscount = GetActiveDiscount(accountId.FirstOrDefault());
-            if(activeDiscount !=null)
+            if (activeDiscount != null)
                 SendToArchive(activeDiscount);
 
             var discounts = new List<DiscountEntity>();
@@ -57,8 +80,33 @@ namespace BookKeeper.Data.Services.EntityService.Discount
                 var document = new DiscountEntity
                 {
                     AccountId = account,
-                    StartDate = DateTime.Now,
+                    StartDate = DateTime.Parse($"01.{DateTime.Today.Month}.{DateTime.Today.Year}"),
                     EndDate = DateTime.MaxValue,
+                    Percent = percent,
+                    Description = description,
+                    Type = DiscountType.Address
+                };
+                discounts.Add(document);
+            }
+            base.Add(discounts);
+            return discounts;
+        }
+
+        public IEnumerable<DiscountEntity> AddDiscountOnAddress(IEnumerable<int> accountId, decimal percent, string description, DateTime fromDateTime,
+            DateTime toDateTime)
+        {
+            var activeDiscount = GetActiveDiscount(accountId.FirstOrDefault());
+            if (activeDiscount != null)
+                SendToArchive(activeDiscount);
+
+            var discounts = new List<DiscountEntity>();
+            foreach (var account in accountId)
+            {
+                var document = new DiscountEntity
+                {
+                    AccountId = account,
+                    StartDate = fromDateTime,
+                    EndDate = toDateTime,
                     Percent = percent,
                     Description = description,
                     Type = DiscountType.Address

@@ -16,6 +16,7 @@ using BookKeeper.UI.Models.Account;
 using BookKeeper.UI.UI.Forms;
 using BookKeeper.UI.UI.Forms.Account;
 using BookKeeper.UI.UI.Forms.Discount;
+using BookKeeper.UI.UI.Forms.Houses;
 using BookKeeper.UI.UI.Forms.Rate;
 using MetroFramework.Forms;
 using System;
@@ -27,7 +28,6 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using BookKeeper.UI.UI.Forms.Houses;
 using SortOrder = System.Windows.Forms.SortOrder;
 
 namespace BookKeeper.UI
@@ -188,12 +188,23 @@ namespace BookKeeper.UI
 
                         var firstColumnContentType =
                             discount.Type == DiscountType.PersonalAccount ? "Счет" : "Адрес";
-                        var secondColumnContentType =
-                            discount.Type == DiscountType.PersonalAccount
-                                ? discount.Account.Account.ToString(CultureInfo.CurrentCulture)
-                                : string.Format(AddressTemplate, discount.Account.Location.Street.StreetName,
-                                    discount.Account.Location.HouseNumber, discount.Account.Location.BuildingCorpus,
-                                    discount.Account.Location.ApartmentNumber);
+                        string secondColumnContentType;
+                        if (discount.Type == DiscountType.PersonalAccount)
+                        {
+
+                            secondColumnContentType =
+                                $"{discount.Account.Location.Street.StreetName} Дом: " +
+                                $"{discount.Account.Location.HouseNumber} Корпус: " +
+                                $"{discount.Account.Location.BuildingCorpus} Кваритра: " +
+                                $"{discount.Account.Location.ApartmentNumber} Счет: " +
+                                $"{discount.Account.Account.ToString(CultureInfo.CurrentCulture)}";
+
+                        }
+                        else
+                            secondColumnContentType = string.Format(AddressTemplate,
+                                discount.Account.Location.Street.StreetName,
+                                discount.Account.Location.HouseNumber, discount.Account.Location.BuildingCorpus,
+                                discount.Account.Location.ApartmentNumber);
 
                         var listView = new ListViewItem(new[]
                         {
@@ -281,7 +292,7 @@ namespace BookKeeper.UI
                     return;
 
                 _files = dialog.FileNames;
-                
+
             }
 
             if (backgroundWorker1.IsBusy == false)
@@ -381,8 +392,9 @@ namespace BookKeeper.UI
                 {
                     MessageBoxHelper.ShowWarningMessage("Файл пуст", this);
                 }
-                catch (SqlException)
+                catch (SqlException exception)
                 {
+                    MessageBoxHelper.ShowWarningMessage(exception.Message, this);
                     MessageBoxHelper.ShowWarningMessage("Не удалось восстановить", this);
                 }
                 catch (Exception exception)
@@ -507,9 +519,10 @@ namespace BookKeeper.UI
 
         private void btnFind_Click(object sender, EventArgs e)
         {
-            if (backgroundWorker3.IsBusy == false)
+            if (dateFrom.Value.Date > dateTo.Value.Date)
             {
-                backgroundWorker3.RunWorkerAsync();
+                MessageBoxHelper.ShowWarningMessage("Дата начала не может быть больше конца", this);
+                return;
             }
 
             if (cmbStreets.SelectedValue is int streetId)
@@ -656,7 +669,7 @@ namespace BookKeeper.UI
             lvlMonthReport.Columns[4].Width = 100;
         }
 
-        private string GetColumnKey(DateTime @from)
+        private static string GetColumnKey(DateTime @from)
         {
             return $"{from.Year}{from.Month}";
         }
@@ -717,9 +730,12 @@ namespace BookKeeper.UI
         {
             lvlMonthReport.Sorting = lvlMonthReport.Sorting == SortOrder.Ascending ? SortOrder.Descending : SortOrder.Ascending;
 
-            lvlMonthReport.ListViewItemSorter = new ListViewStringComparer(e.Column, lvlMonthReport.Sorting);
+            if (e.Column > 4)
+            {
+                lvlMonthReport.ListViewItemSorter = new ListViewStringComparer(e.Column, lvlMonthReport.Sorting);
 
-            lvlMonthReport.Sort();
+                lvlMonthReport.Sort();
+            }
         }
 
         #endregion
@@ -1010,7 +1026,7 @@ namespace BookKeeper.UI
                 try
                 {
                     var result = service.CalculateAllPrice(dateTotalReportFrom.Value, dateTotalReportFrom.Value);
-                    if (result != null)
+                    if (result != null && result.Count != 0)
                     {
                         lvlTotalReport.Items
                             .AddRange(result
@@ -1032,14 +1048,11 @@ namespace BookKeeper.UI
                     else
                     {
                         MessageBoxHelper.ShowWarningMessage("Записи не найдены", this);
-                        return;
                     }
                 }
                 catch (DivideByZeroException)
                 {
-                    MessageBoxHelper.ShowWarningMessage("Была предпринята попытка деления на ноль. Проверьте данные",
-                        this);
-                    return;
+                    MessageBoxHelper.ShowWarningMessage("Была предпринята попытка деления на ноль. Проверьте данные", this);
                 }
             }
         }
@@ -1054,7 +1067,7 @@ namespace BookKeeper.UI
 
             using (var saveFileDialog = new SaveFileDialog())
             {
-                saveFileDialog.Filter = @"Excel files(*.xls;*.xls)|*.xlsx;*xlsx|All files(*.*)|*.*";
+                saveFileDialog.Filter = @"Excel files(*.xlsx)|*xlsx";
                 saveFileDialog.AddExtension = true;
 
                 if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
@@ -1062,6 +1075,7 @@ namespace BookKeeper.UI
                     try
                     {
                         ExportService.ExportTotalReportToExcel(lvlTotalReport, saveFileDialog.FileName);
+                        MessageBoxHelper.ShowCompeteMessage("Успешно", this);
                     }
 
                     catch (FileNotFoundException)
@@ -1102,6 +1116,7 @@ namespace BookKeeper.UI
                             var report = service.LoadData(file);
                             importReport.Add += report.Add;
                             importReport.Updates += report.Updates;
+                            importReport.CorruptedRecords += report.CorruptedRecords;
 
                         }
                         catch (FileLoadException)
@@ -1117,7 +1132,6 @@ namespace BookKeeper.UI
                         }
                         catch (IOException exsException)
                         {
-                            MessageBox.Show(exsException.Message);
                             MessageBoxHelper.ShowWarningMessage(exsException.Message, this);
                             return;
                         }
@@ -1162,7 +1176,14 @@ namespace BookKeeper.UI
             cmbBuildings.Text = string.Empty;
             cmbApartmens.Text = string.Empty;
             txtAccount.Text = string.Empty;
-            cmbStreets.SelectedIndex = 0;
+            try
+            {
+                cmbStreets.SelectedIndex = 0;
+            }
+            catch (Exception)
+            {
+                //
+            }
             cmbHouses.DataSource = null;
             cmbBuildings.DataSource = null;
             cmbApartmens.DataSource = null;
@@ -1228,10 +1249,10 @@ namespace BookKeeper.UI
                 ? SortOrder.Descending
                 : SortOrder.Ascending;
 
-            if(e.Column >4)
+            if (e.Column > 4)
                 lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column, lvlRates.Sorting);
             else
-                lvlRates.ListViewItemSorter = new ListViewStringComparer(e.Column,lvlRates.Sorting);
+                lvlRates.ListViewItemSorter = new ListViewStringComparer(e.Column, lvlRates.Sorting);
 
             lvlRates.Sort();
         }
@@ -1245,7 +1266,7 @@ namespace BookKeeper.UI
             if (e.Column > 4)
                 lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column, lvlDiscounts.Sorting);
             else
-                lvlRates.ListViewItemSorter = new ListViewStringComparer(e.Column,lvlDiscounts.Sorting);
+                lvlRates.ListViewItemSorter = new ListViewStringComparer(e.Column, lvlDiscounts.Sorting);
 
             lvlRates.Sort();
         }

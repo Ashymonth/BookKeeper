@@ -112,6 +112,7 @@ namespace BookKeeper.Data.Services.Load
                         catch (Exception e)
                         {
                             _brokenRecordsReport.WriteException(e.Message,FileType.Excel);
+                            continue;
                         }
                        
                     }

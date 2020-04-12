@@ -90,8 +90,8 @@
             this.cmbApartmens = new MetroFramework.Controls.MetroComboBox();
             this.cmbPersonalAccountType = new MetroFramework.Controls.MetroComboBox();
             this.txtAccount = new MetroFramework.Controls.MetroTextBox();
-            this.dateTo = new MetroFramework.Controls.MetroDateTime();
             this.dateFrom = new MetroFramework.Controls.MetroDateTime();
+            this.dateTo = new MetroFramework.Controls.MetroDateTime();
             this.chkIsArchive = new MetroFramework.Controls.MetroCheckBox();
             this.chkIsBuilding = new MetroFramework.Controls.MetroCheckBox();
             this.btnClear = new MetroFramework.Controls.MetroButton();
@@ -261,7 +261,7 @@
             this.metroTabPage4.HorizontalScrollbarSize = 10;
             this.metroTabPage4.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage4.Name = "metroTabPage4";
-            this.metroTabPage4.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.metroTabPage4.Padding = new System.Windows.Forms.Padding(5);
             this.metroTabPage4.Size = new System.Drawing.Size(1407, 679);
             this.metroTabPage4.TabIndex = 3;
             this.metroTabPage4.Text = "Льготы";
@@ -285,7 +285,7 @@
             this.lvlDiscounts.GridLines = true;
             this.lvlDiscounts.HideSelection = false;
             this.lvlDiscounts.Location = new System.Drawing.Point(5, 45);
-            this.lvlDiscounts.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvlDiscounts.Margin = new System.Windows.Forms.Padding(2);
             this.lvlDiscounts.Name = "lvlDiscounts";
             this.lvlDiscounts.Size = new System.Drawing.Size(1397, 629);
             this.lvlDiscounts.TabIndex = 4;
@@ -302,17 +302,17 @@
             // columnHeader20
             // 
             this.columnHeader20.Text = "Адрес или счет";
-            this.columnHeader20.Width = 293;
+            this.columnHeader20.Width = 472;
             // 
             // columnHeader21
             // 
             this.columnHeader21.Text = "Процент скидки";
-            this.columnHeader21.Width = 227;
+            this.columnHeader21.Width = 134;
             // 
             // columnHeader22
             // 
             this.columnHeader22.Text = "Причина";
-            this.columnHeader22.Width = 180;
+            this.columnHeader22.Width = 94;
             // 
             // columnHeader24
             // 
@@ -371,7 +371,7 @@
             this.flowLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel2.Location = new System.Drawing.Point(5, 5);
             this.flowLayoutPanel2.Name = "flowLayoutPanel2";
-            this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.flowLayoutPanel2.Padding = new System.Windows.Forms.Padding(5);
             this.flowLayoutPanel2.Size = new System.Drawing.Size(1397, 40);
             this.flowLayoutPanel2.TabIndex = 2;
             // 
@@ -414,7 +414,7 @@
             this.metroTabPage3.HorizontalScrollbarSize = 10;
             this.metroTabPage3.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage3.Name = "metroTabPage3";
-            this.metroTabPage3.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.metroTabPage3.Padding = new System.Windows.Forms.Padding(5);
             this.metroTabPage3.Size = new System.Drawing.Size(1407, 679);
             this.metroTabPage3.TabIndex = 2;
             this.metroTabPage3.Text = "Тарифы";
@@ -535,7 +535,7 @@
             this.flowLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.flowLayoutPanel3.Location = new System.Drawing.Point(5, 5);
             this.flowLayoutPanel3.Name = "flowLayoutPanel3";
-            this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.flowLayoutPanel3.Padding = new System.Windows.Forms.Padding(5);
             this.flowLayoutPanel3.Size = new System.Drawing.Size(1397, 39);
             this.flowLayoutPanel3.TabIndex = 5;
             // 
@@ -569,7 +569,7 @@
             this.tbpMonthReport.HorizontalScrollbarSize = 10;
             this.tbpMonthReport.Location = new System.Drawing.Point(4, 38);
             this.tbpMonthReport.Name = "tbpMonthReport";
-            this.tbpMonthReport.Padding = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.tbpMonthReport.Padding = new System.Windows.Forms.Padding(5);
             this.tbpMonthReport.Size = new System.Drawing.Size(1407, 679);
             this.tbpMonthReport.TabIndex = 0;
             this.tbpMonthReport.Text = "Месячный отчет";
@@ -591,7 +591,7 @@
             this.lvlMonthReport.GridLines = true;
             this.lvlMonthReport.HideSelection = false;
             this.lvlMonthReport.Location = new System.Drawing.Point(5, 75);
-            this.lvlMonthReport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lvlMonthReport.Margin = new System.Windows.Forms.Padding(2);
             this.lvlMonthReport.Name = "lvlMonthReport";
             this.lvlMonthReport.Size = new System.Drawing.Size(1397, 577);
             this.lvlMonthReport.TabIndex = 0;
@@ -652,8 +652,8 @@
             this.flpFilter.Controls.Add(this.cmbApartmens);
             this.flpFilter.Controls.Add(this.cmbPersonalAccountType);
             this.flpFilter.Controls.Add(this.txtAccount);
-            this.flpFilter.Controls.Add(this.dateTo);
             this.flpFilter.Controls.Add(this.dateFrom);
+            this.flpFilter.Controls.Add(this.dateTo);
             this.flpFilter.Controls.Add(this.chkIsArchive);
             this.flpFilter.Controls.Add(this.chkIsBuilding);
             this.flpFilter.Controls.Add(this.btnClear);
@@ -750,9 +750,9 @@
             // 
             // 
             this.txtAccount.CustomButton.Image = null;
-            this.txtAccount.CustomButton.Location = new System.Drawing.Point(78, 1);
+            this.txtAccount.CustomButton.Location = new System.Drawing.Point(104, 1);
             this.txtAccount.CustomButton.Name = "";
-            this.txtAccount.CustomButton.Size = new System.Drawing.Size(20, 22);
+            this.txtAccount.CustomButton.Size = new System.Drawing.Size(27, 27);
             this.txtAccount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtAccount.CustomButton.TabIndex = 1;
             this.txtAccount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
@@ -776,27 +776,27 @@
             this.txtAccount.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
             this.txtAccount.WaterMarkFont = new System.Drawing.Font("Segoe UI", 13F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
             // 
-            // dateTo
-            // 
-            this.dateTo.CustomFormat = "MMMM yyyy";
-            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTo.Location = new System.Drawing.Point(971, 3);
-            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
-            this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(118, 29);
-            this.dateTo.TabIndex = 6;
-            this.dateTo.Value = new System.DateTime(2020, 1, 4, 1, 37, 0, 0);
-            // 
             // dateFrom
             // 
             this.dateFrom.CustomFormat = "MMMM yyyy";
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateFrom.Location = new System.Drawing.Point(1095, 3);
+            this.dateFrom.Location = new System.Drawing.Point(971, 3);
             this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(120, 29);
             this.dateFrom.TabIndex = 7;
             this.dateFrom.Value = new System.DateTime(2020, 1, 1, 0, 0, 0, 0);
+            // 
+            // dateTo
+            // 
+            this.dateTo.CustomFormat = "MMMM yyyy";
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTo.Location = new System.Drawing.Point(1097, 3);
+            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(118, 29);
+            this.dateTo.TabIndex = 6;
+            this.dateTo.Value = new System.DateTime(2020, 1, 4, 1, 37, 0, 0);
             // 
             // chkIsArchive
             // 
@@ -864,7 +864,7 @@
             this.tabpage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabpage.Location = new System.Drawing.Point(20, 116);
             this.tabpage.Name = "tabpage";
-            this.tabpage.SelectedIndex = 0;
+            this.tabpage.SelectedIndex = 1;
             this.tabpage.Size = new System.Drawing.Size(1415, 721);
             this.tabpage.TabIndex = 0;
             this.tabpage.UseSelectable = true;
@@ -878,7 +878,7 @@
             this.metroTabPage1.HorizontalScrollbarSize = 10;
             this.metroTabPage1.Location = new System.Drawing.Point(4, 38);
             this.metroTabPage1.Name = "metroTabPage1";
-            this.metroTabPage1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.metroTabPage1.Padding = new System.Windows.Forms.Padding(4);
             this.metroTabPage1.Size = new System.Drawing.Size(1407, 679);
             this.metroTabPage1.TabIndex = 4;
             this.metroTabPage1.Text = "Общий отчет";
@@ -984,8 +984,8 @@
             this.dateTotalReportFrom.CustomFormat = "MMMM yyyy";
             this.dateTotalReportFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportFrom.Location = new System.Drawing.Point(62, 2);
-            this.dateTotalReportFrom.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTotalReportFrom.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTotalReportFrom.Name = "dateTotalReportFrom";
             this.dateTotalReportFrom.Size = new System.Drawing.Size(151, 29);
             this.dateTotalReportFrom.TabIndex = 2;
@@ -1012,8 +1012,8 @@
             this.dateTotalReportTo.CustomFormat = "MMMM yyyy";
             this.dateTotalReportTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportTo.Location = new System.Drawing.Point(277, 2);
-            this.dateTotalReportTo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTotalReportTo.Margin = new System.Windows.Forms.Padding(2);
+            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTotalReportTo.Name = "dateTotalReportTo";
             this.dateTotalReportTo.Size = new System.Drawing.Size(151, 29);
             this.dateTotalReportTo.TabIndex = 1;
@@ -1022,7 +1022,7 @@
             // btnCreateTotalReport
             // 
             this.btnCreateTotalReport.Location = new System.Drawing.Point(432, 2);
-            this.btnCreateTotalReport.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnCreateTotalReport.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreateTotalReport.Name = "btnCreateTotalReport";
             this.btnCreateTotalReport.Size = new System.Drawing.Size(156, 29);
             this.btnCreateTotalReport.TabIndex = 0;
@@ -1033,7 +1033,7 @@
             // btnExportToExcel
             // 
             this.btnExportToExcel.Location = new System.Drawing.Point(592, 2);
-            this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(2);
             this.btnExportToExcel.Name = "btnExportToExcel";
             this.btnExportToExcel.Size = new System.Drawing.Size(156, 29);
             this.btnExportToExcel.TabIndex = 6;

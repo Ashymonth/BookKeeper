@@ -56,7 +56,7 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
                     var service = scope.Resolve<IRateService>();
 
-                    var result = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text));
+                    var result = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text),dateFrom.Value.Date,dateTo.Value.Date);
 
 
                     //if (result == null)

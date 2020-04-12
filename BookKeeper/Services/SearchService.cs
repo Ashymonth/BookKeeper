@@ -26,12 +26,12 @@ namespace BookKeeper.Data.Services
         public IEnumerable<AccountEntity> FindAccounts(SearchModel model)
         {
             var account = PredicateBuilder.New<AccountEntity>();
+            
+            Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
+                entity.StreetId == model.StreetId && entity.IsDeleted == false;
 
             Expression<Func<AccountEntity, bool>> accountPredicate =
                 entity => entity.Account == Convert.ToInt64(model.Account) && entity.IsDeleted == false;
-
-            Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
-                entity.StreetId == model.StreetId && entity.IsDeleted == false;
 
             Expression<Func<AccountEntity,bool>> accountTypePredicate = entity =>
                 entity.AccountType == model.AccountType && entity.IsArchive == model.IsArchive;
@@ -52,14 +52,14 @@ namespace BookKeeper.Data.Services
                 apartment => string.Equals(apartment.Location.ApartmentNumber, model.ApartmentNumber,
                                  StringComparison.CurrentCultureIgnoreCase) && apartment.IsDeleted == false;
 
-            account.And(defaultPredicate);
-
-
             if (!IsNullOrWhiteSpace(model.Account))
             {
                 account.And(accountPredicate);
                 return _accountService.GetItems(account);
             }
+
+            account.And(defaultPredicate);
+
 
             if (model.AccountType != AccountType.All)
                 account.And(accountTypePredicate);

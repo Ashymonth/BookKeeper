@@ -32,7 +32,7 @@ namespace BookKeeper.Data.Services
 
         private readonly BackupSettings _settings;
         private const string RestoreToSameDbQuery = "USE MASTER ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE RESTORE DATABASE [{0}] FROM DISK='{1}' WITH REPLACE alter database [{0}] set multi_user;";
-        private const string RestoreToNewDbQuery = "RESTORE DATABASE [{0}] FROM DISK='{1}' WITH REPLACE;";
+        private const string RestoreToNewDbQuery = "ALTER DATABASE [{0}] SET SINGLE_USER WITH ROLLBACK IMMEDIATE RESTORE DATABASE [{0}] FROM DISK='{1}' WITH REPLACE;";
         private const string BackupDbToFileQuery = @"BACKUP DATABASE [{0}] TO DISK = '{1}' WITH INIT , NOUNLOAD ,  NOSKIP , STATS = 10, NOFORMAT";
 
         public BackupService(BackupSettings settings)
@@ -81,7 +81,7 @@ namespace BookKeeper.Data.Services
 
                 using (var command = new SqlCommand(sqlCommand, connection))
                 {
-                    command.ExecuteReader();
+                    command.ExecuteReader(); 
                     connection.Close();
                 }
             }

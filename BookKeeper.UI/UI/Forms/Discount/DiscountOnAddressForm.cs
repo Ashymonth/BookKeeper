@@ -13,6 +13,7 @@ using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
 using BookKeeper.UI.Models.Discount;
+using MetroFramework.Controls;
 using IContainer = Autofac.IContainer;
 
 namespace BookKeeper.UI.UI.Forms.Discount
@@ -40,29 +41,21 @@ namespace BookKeeper.UI.UI.Forms.Discount
         {
             DialogResult = DialogResult.None;
 
-            if (string.IsNullOrWhiteSpace(cmbStreets.SelectedValue as string))
-            {
-                MessageBoxHelper.ShowWarningMessage("Выберите улицу",this);
+            var result = CheckField(cmbStreets, "Выберите улицу");
+            if(result == false)
                 return;
-            }
 
-            if (string.IsNullOrWhiteSpace(cmbHouses.SelectedValue as string))
-            {
-                MessageBoxHelper.ShowWarningMessage("Выберите улицу", this);
+            result = CheckField(cmbHouses, "Выберите дом");
+            if(result == false)
                 return;
-            }
 
-            if (string.IsNullOrWhiteSpace(cmbBuilding.SelectedValue as string))
-            {
-                MessageBoxHelper.ShowWarningMessage("Выберите улицу", this);
+            result = CheckField(cmbBuilding, "Выберите корпус");
+            if(result == false)
                 return;
-            }
 
-            if (string.IsNullOrWhiteSpace(cmbApatmens.SelectedValue as string))
-            {
-                MessageBoxHelper.ShowWarningMessage("Выберите улицу", this);
+            result = CheckField(cmbApatmens, "Выберите улицу");
+            if(result == false)
                 return;
-            }
 
             if (cmbStreets.SelectedValue is int streetId && cmbPercent.SelectedValue is decimal percent && cmbDescription.SelectedValue is string description)
             {
@@ -90,7 +83,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                         return;
                     }
 
-                    var discounts = discountService.AddDiscountOnAddress(selectedAccounts, percent, description);
+                    var discounts = discountService.AddDiscountOnAddress(selectedAccounts, percent, description,dateFrom.Value.Date,dateTo.Value.Date);
                     if (discounts != null)
                     {
                         DialogResult = DialogResult.OK;
@@ -104,6 +97,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
             }
         }
 
+     
 
         private void cmbStreets_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -120,6 +114,15 @@ namespace BookKeeper.UI.UI.Forms.Discount
             _dataSourceHelper.BuildingIndexChanged(cmbStreets,cmbHouses,cmbBuilding,cmbApatmens,x=>x.ApartmentNumber);
         }
 
-        
+        private bool CheckField(ListControl comboBox, string message)
+        {
+            if (string.IsNullOrWhiteSpace(comboBox.SelectedValue as string))
+            {
+                MessageBoxHelper.ShowWarningMessage(message, this);
+                return false;
+            }
+
+            return true;
+        }
     }
 }

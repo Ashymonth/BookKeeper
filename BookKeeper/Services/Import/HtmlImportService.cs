@@ -37,8 +37,6 @@ namespace BookKeeper.Data.Services.Import
             if (file == null)
                 throw new FileNotFoundException(nameof(file));
 
-            file = HtmlExtensionConverter.ConvertToHtml(file);
-
             var html = new HtmlDocument();
 
             html.LoadHtml(File.ReadAllText(file, Encoding.UTF8));

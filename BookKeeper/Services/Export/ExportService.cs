@@ -21,8 +21,6 @@ namespace BookKeeper.Data.Services.Export
             if (listView == null)
                 throw new ArgumentException(nameof(listView));
 
-            file = ExcelExtensionConverter.ConvertToXlsx(file);
-
 
             var dt = new DataTable();
             dt.Columns.AddRange(new[]
@@ -51,7 +49,7 @@ namespace BookKeeper.Data.Services.Export
             using (var workBook = new XLWorkbook())
             {
                 workBook.Worksheets.Add(dt, "Отчет");
-                workBook.SaveAs(file);
+                workBook.SaveAs($"{file}.xlsx");
             }
         }
     }

@@ -37,6 +37,8 @@
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel2 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+            this.dateTo = new MetroFramework.Controls.MetroDateTime();
+            this.dateFrom = new MetroFramework.Controls.MetroDateTime();
             this.SuspendLayout();
             // 
             // txtAccount
@@ -47,18 +49,16 @@
             // 
             // 
             this.txtAccount.CustomButton.Image = null;
-            this.txtAccount.CustomButton.Location = new System.Drawing.Point(352, 1);
-            this.txtAccount.CustomButton.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAccount.CustomButton.Location = new System.Drawing.Point(197, 2);
             this.txtAccount.CustomButton.Name = "";
-            this.txtAccount.CustomButton.Size = new System.Drawing.Size(27, 27);
+            this.txtAccount.CustomButton.Size = new System.Drawing.Size(14, 15);
             this.txtAccount.CustomButton.Style = MetroFramework.MetroColorStyle.Blue;
             this.txtAccount.CustomButton.TabIndex = 1;
             this.txtAccount.CustomButton.Theme = MetroFramework.MetroThemeStyle.Light;
             this.txtAccount.CustomButton.UseSelectable = true;
             this.txtAccount.CustomButton.Visible = false;
             this.txtAccount.Lines = new string[0];
-            this.txtAccount.Location = new System.Drawing.Point(31, 102);
-            this.txtAccount.Margin = new System.Windows.Forms.Padding(4);
+            this.txtAccount.Location = new System.Drawing.Point(23, 83);
             this.txtAccount.MaxLength = 32767;
             this.txtAccount.Name = "txtAccount";
             this.txtAccount.PasswordChar = '\0';
@@ -68,7 +68,7 @@
             this.txtAccount.SelectionLength = 0;
             this.txtAccount.SelectionStart = 0;
             this.txtAccount.ShortcutsEnabled = true;
-            this.txtAccount.Size = new System.Drawing.Size(380, 29);
+            this.txtAccount.Size = new System.Drawing.Size(285, 24);
             this.txtAccount.TabIndex = 0;
             this.txtAccount.UseSelectable = true;
             this.txtAccount.WaterMark = "Номер счета";
@@ -79,20 +79,18 @@
             // 
             this.cmbPercent.FormattingEnabled = true;
             this.cmbPercent.ItemHeight = 23;
-            this.cmbPercent.Location = new System.Drawing.Point(31, 168);
-            this.cmbPercent.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbPercent.Location = new System.Drawing.Point(23, 136);
             this.cmbPercent.Name = "cmbPercent";
             this.cmbPercent.PromptText = "Процент скидки";
-            this.cmbPercent.Size = new System.Drawing.Size(379, 29);
+            this.cmbPercent.Size = new System.Drawing.Size(285, 29);
             this.cmbPercent.TabIndex = 1;
             this.cmbPercent.UseSelectable = true;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(310, 286);
-            this.btnSave.Margin = new System.Windows.Forms.Padding(4);
+            this.btnSave.Location = new System.Drawing.Point(405, 232);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(100, 28);
+            this.btnSave.Size = new System.Drawing.Size(121, 23);
             this.btnSave.TabIndex = 2;
             this.btnSave.Text = "Сохранить";
             this.btnSave.UseSelectable = true;
@@ -101,10 +99,9 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(31, 286);
-            this.btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this.btnCancel.Location = new System.Drawing.Point(23, 232);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(100, 28);
+            this.btnCancel.Size = new System.Drawing.Size(121, 23);
             this.btnCancel.TabIndex = 3;
             this.btnCancel.Text = "Отменить";
             this.btnCancel.UseSelectable = true;
@@ -113,19 +110,17 @@
             // 
             this.cmbDescription.FormattingEnabled = true;
             this.cmbDescription.ItemHeight = 23;
-            this.cmbDescription.Location = new System.Drawing.Point(31, 234);
-            this.cmbDescription.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbDescription.Location = new System.Drawing.Point(23, 190);
             this.cmbDescription.Name = "cmbDescription";
             this.cmbDescription.PromptText = "Описание";
-            this.cmbDescription.Size = new System.Drawing.Size(379, 29);
+            this.cmbDescription.Size = new System.Drawing.Size(285, 29);
             this.cmbDescription.TabIndex = 4;
             this.cmbDescription.UseSelectable = true;
             // 
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(31, 206);
-            this.metroLabel3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.metroLabel3.Location = new System.Drawing.Point(23, 167);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(72, 19);
             this.metroLabel3.TabIndex = 14;
@@ -134,8 +129,7 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(31, 140);
-            this.metroLabel2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.metroLabel2.Location = new System.Drawing.Point(23, 114);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(52, 19);
             this.metroLabel2.TabIndex = 13;
@@ -144,20 +138,41 @@
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(31, 74);
-            this.metroLabel1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.metroLabel1.Location = new System.Drawing.Point(23, 60);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(37, 19);
             this.metroLabel1.TabIndex = 19;
             this.metroLabel1.Text = "Счет";
             // 
+            // dateTo
+            // 
+            this.dateTo.CustomFormat = "MMMM yyyy";
+            this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateTo.Location = new System.Drawing.Point(326, 136);
+            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTo.Name = "dateTo";
+            this.dateTo.Size = new System.Drawing.Size(200, 29);
+            this.dateTo.TabIndex = 22;
+            // 
+            // dateFrom
+            // 
+            this.dateFrom.CustomFormat = "MMMM yyyy";
+            this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dateFrom.Location = new System.Drawing.Point(326, 83);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateFrom.Name = "dateFrom";
+            this.dateFrom.Size = new System.Drawing.Size(200, 29);
+            this.dateFrom.TabIndex = 21;
+            // 
             // DiscountAccountItemForm
             // 
             this.AcceptButton = this.btnSave;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(459, 337);
+            this.ClientSize = new System.Drawing.Size(532, 274);
+            this.Controls.Add(this.dateTo);
+            this.Controls.Add(this.dateFrom);
             this.Controls.Add(this.metroLabel1);
             this.Controls.Add(this.metroLabel3);
             this.Controls.Add(this.metroLabel2);
@@ -167,11 +182,9 @@
             this.Controls.Add(this.cmbPercent);
             this.Controls.Add(this.txtAccount);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "DiscountAccountItemForm";
-            this.Padding = new System.Windows.Forms.Padding(27, 74, 27, 25);
             this.Resizable = false;
             this.Text = "Льгота на счет";
             this.Load += new System.EventHandler(this.DiscountAccountItem_Load);
@@ -190,5 +203,7 @@
         private MetroFramework.Controls.MetroLabel metroLabel3;
         private MetroFramework.Controls.MetroLabel metroLabel2;
         private MetroFramework.Controls.MetroLabel metroLabel1;
+        private MetroFramework.Controls.MetroDateTime dateTo;
+        private MetroFramework.Controls.MetroDateTime dateFrom;
     }
 }
