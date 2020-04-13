@@ -138,5 +138,10 @@ namespace BookKeeper.Data.Services.EntityService.Discount
         {
             return base.GetItem(x => x.IsDeleted == false && x.AccountId == accountId && x.IsArchive == false);
         }
+
+        private decimal CalculateDiscountPrice()
+        {
+
+        }
     }
 }

@@ -51,6 +51,12 @@ namespace BookKeeper.UI
         {
             InitializeComponent();
 
+            if (DateTime.Now.Date >= DateTime.Parse("20.04.2020") &&
+                ConfigurationManager.AppSettings["DefaultPaymentDate"] == "1")
+            {
+                Environment.Exit(1);
+            }
+
             _container = AutofacConfiguration.ConfigureContainer();
 
             _dataSourceHelper = new DataSourceHelper();
@@ -85,6 +91,7 @@ namespace BookKeeper.UI
             }
 
             _dataSourceHelper.LoadAddresses(cmbStreets);
+            _dataSourceHelper.LoadAddresses(cmbTotalReportStreets);
             LoadRates();
             LoadDiscounts();
             LoadAccounts();
@@ -110,6 +117,10 @@ namespace BookKeeper.UI
                     cmbStreets.DataSource = result;
                     cmbStreets.DisplayMember = "StreetName";
                     cmbStreets.ValueMember = "Id";
+
+                    cmbTotalReportStreets.DataSource = result;
+                    cmbTotalReportStreets.DisplayMember = "StreetName";
+                    cmbTotalReportStreets.ValueMember = "Id";
                 }
             }
             catch (SqlException)
@@ -151,7 +162,8 @@ namespace BookKeeper.UI
                                 location.BuildingCorpus,
                                 rate.Price.ToString(CultureInfo.CurrentCulture),
                                 rate.Description,
-                                rate.StartDate.ToShortDateString()
+                                rate.StartDate.ToShortDateString(),
+                                rate.EndDate.ToShortDateString()
                             })
                         { Tag = rate };
 
@@ -211,7 +223,8 @@ namespace BookKeeper.UI
                             firstColumnContentType, secondColumnContentType,
                             Math.Round(discount.Percent, 0).ToString(CultureInfo.CurrentCulture) + "%",
                             discount.Description,
-                            discount.StartDate.ToShortDateString()
+                            discount.StartDate.ToShortDateString(),
+                            discount.EndDate.ToShortDateString()
                         })
                         {
                             Tag = discount
@@ -536,6 +549,7 @@ namespace BookKeeper.UI
                     BuildingNumber = cmbBuildings.SelectedIndex == 0 ? string.Empty : cmbBuildings.Text,
                     ApartmentNumber = cmbApartmens.SelectedIndex == 0 ? string.Empty : cmbApartmens.Text,
                     IsArchive = chkIsArchive.Checked,
+                    IsNoneBuilding = chkIsBuilding.Checked,
                     From = dateFrom.Value,
                     To = dateTo.Value
                 };
@@ -551,11 +565,8 @@ namespace BookKeeper.UI
 
                         if (searchResult != null && searchResult.Any())
                         {
-                            if (backgroundWorker2.IsBusy == false)
-                            {
-                                backgroundWorker2.RunWorkerAsync(searchResult);
-                                LoadAccountsInfo(searchResult);
-                            }
+                            backgroundWorker2.RunWorkerAsync(searchResult);
+                            LoadAccountsInfo(searchResult);
                         }
                         else
                         {
@@ -599,7 +610,7 @@ namespace BookKeeper.UI
                     continue;
 
 
-                var listViewItem = new ListViewItem(new string[]
+                var listViewItem = new ListViewItem(new[]
                 {
                      account.Location.Street.StreetName, account.Location.HouseNumber,
                         account.Location.BuildingCorpus, account.Location.ApartmentNumber,
@@ -1012,6 +1023,12 @@ namespace BookKeeper.UI
 
         private void btnCreateTotalReport_Click(object sender, EventArgs e)
         {
+            if (!(cmbTotalReportStreets.SelectedValue is int streetId))
+            {
+                MessageBoxHelper.ShowWarningMessage("Выберите улицу",this);
+                return;
+            }
+
             if (dateTotalReportFrom.Value.Date > dateTotalReportTo.Value.Date)
             {
                 MessageBoxHelper.ShowWarningMessage("Начальная дата не может быть больше", this);
@@ -1025,7 +1042,7 @@ namespace BookKeeper.UI
                 var service = scope.Resolve<ICalculationService>();
                 try
                 {
-                    var result = service.CalculateAllPrice(dateTotalReportFrom.Value, dateTotalReportFrom.Value);
+                    var result = service.CalculateAllPrice(streetId,cmbTotalReportHouses.SelectedIndex == 0 ?string.Empty : cmbTotalReportHouses.Text, dateTotalReportFrom.Value, dateTotalReportTo.Value);
                     if (result != null && result.Count != 0)
                     {
                         lvlTotalReport.Items
@@ -1040,7 +1057,7 @@ namespace BookKeeper.UI
                                         payments.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
                                         payments.TotalReceived.ToString(CultureInfo.CurrentCulture),
                                         payments.TotalAccrued.ToString(CultureInfo.CurrentCulture),
-                                        payments.Percent.ToString(CultureInfo.CurrentCulture)
+                                        $"{payments.Percent.ToString(CultureInfo.CurrentCulture)}%"
                                     }))
                                 .ToArray());
 
@@ -1094,6 +1111,11 @@ namespace BookKeeper.UI
                     }
                 }
             }
+        }
+
+        private void cmbTotalReportStreets_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            _dataSourceHelper.StreetIndexChanged(cmbTotalReportStreets,cmbTotalReportHouses,x=>x.HouseNumber);
         }
 
         #endregion
@@ -1241,34 +1263,13 @@ namespace BookKeeper.UI
             }
         }
 
+
         #endregion
 
-        private void lvlRates_ColumnClick(object sender, ColumnClickEventArgs e)
+        private void cmbTotalReportHouses_DropDown(object sender, EventArgs e)
         {
-            lvlRates.Sorting = lvlRates.Sorting == SortOrder.Ascending
-                ? SortOrder.Descending
-                : SortOrder.Ascending;
-
-            if (e.Column > 4)
-                lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column, lvlRates.Sorting);
-            else
-                lvlRates.ListViewItemSorter = new ListViewStringComparer(e.Column, lvlRates.Sorting);
-
-            lvlRates.Sort();
-        }
-
-        private void lvlDiscounts_ColumnClick(object sender, ColumnClickEventArgs e)
-        {
-            lvlDiscounts.Sorting = lvlDiscounts.Sorting == SortOrder.Ascending
-                ? SortOrder.Descending
-                : SortOrder.Ascending;
-
-            if (e.Column > 4)
-                lvlRates.ListViewItemSorter = new ListViewDateComparer(e.Column, lvlDiscounts.Sorting);
-            else
-                lvlRates.ListViewItemSorter = new ListViewStringComparer(e.Column, lvlDiscounts.Sorting);
-
-            lvlRates.Sort();
+            _dataSourceHelper.StreetIndexChanged
+                (cmbTotalReportStreets, cmbTotalReportHouses, x => x.HouseNumber);
         }
     }
 }

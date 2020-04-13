@@ -14,7 +14,7 @@ namespace BookKeeper.Data.Services
     {
         decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime currentDate);
 
-        List<TotalPayments> CalculateAllPrice(DateTime from, DateTime to);
+        List<TotalPayments> CalculateAllPrice(int streetId, string houseNumber, DateTime from, DateTime to);
     }
 
     public class CalculationService : ICalculationService
@@ -27,14 +27,17 @@ namespace BookKeeper.Data.Services
 
         private readonly IDiscountDocumentService _discountDocumentService;
 
+        private readonly ISearchService _searchService;
+
 
         public CalculationService(IRateService rateService, IDiscountDocumentService discountDocumentService,
-            IAccountService accountService, IStreetService streetService)
+            IAccountService accountService, IStreetService streetService, ISearchService searchService)
         {
             _rateService = rateService;
             _discountDocumentService = discountDocumentService;
             _accountService = accountService;
             _streetService = streetService;
+            _searchService = searchService;
         }
 
         public decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime paymentDate)
@@ -58,20 +61,22 @@ namespace BookKeeper.Data.Services
             return received - (((100 - discount.Percent) / 100) * rate);
         }
 
-        public List<TotalPayments> CalculateAllPrice(DateTime from, DateTime to)
+        public List<TotalPayments> CalculateAllPrice(int streetId, string houseNumber, DateTime from, DateTime to)
         {
-            var streets = _streetService.GetWithInclude(x => x.IsDeleted == false);
+            var streets = _streetService.GetWithInclude(x => x.IsDeleted == false, x => x.Locations);
 
             var accounts = _accountService.GetWithInclude(x => x.IsDeleted == false,
                 x => x.PaymentDocuments).ToList();
 
             var total = new List<TotalPayments>();
 
-            foreach (var streetEntity in streets)
+            var predicate = _searchService.FindAccounts(streetId, houseNumber);
+
+            foreach (var streetEntity in streets.Where(x=>x.Id == streetId))
             {
                 var totalPayment = new TotalPayments { StreetName = streetEntity.StreetName };
 
-                foreach (var accountEntity in accounts.Where(x => x.StreetId == streetEntity.Id && x.IsDeleted == false))
+                foreach (var accountEntity in accounts.Where(predicate))
                 {
                     foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
                         x.IsDeleted == false &&
@@ -101,7 +106,7 @@ namespace BookKeeper.Data.Services
                 if (totalPayment.TotalAccrued == 0)
                     continue;
 
-                totalPayment.Percent = Math.Round(((totalPayment.TotalReceived / totalPayment.TotalAccrued) * 100), 4);
+                totalPayment.Percent = Math.Round(((totalPayment.TotalReceived / totalPayment.TotalAccrued) * 100), 2);
                 total.Add(totalPayment);
             }
 

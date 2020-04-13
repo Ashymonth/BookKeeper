@@ -45,12 +45,21 @@
             this.cmbHouses = new MetroFramework.Controls.MetroComboBox();
             this.dateTo = new MetroFramework.Controls.MetroDateTime();
             this.dateFrom = new MetroFramework.Controls.MetroDateTime();
+            this.metroLabel6 = new MetroFramework.Controls.MetroLabel();
+            this.metroLabel7 = new MetroFramework.Controls.MetroLabel();
+            this.lstPeople = new System.Windows.Forms.ListBox();
+            this.btnAdd = new MetroFramework.Controls.MetroButton();
+            this.btnDelete = new MetroFramework.Controls.MetroButton();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.lblCounter = new System.Windows.Forms.ToolStripStatusLabel();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnSaveDiscount
             // 
             this.btnSaveDiscount.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnSaveDiscount.Location = new System.Drawing.Point(547, 316);
+            this.btnSaveDiscount.Location = new System.Drawing.Point(772, 410);
             this.btnSaveDiscount.Name = "btnSaveDiscount";
             this.btnSaveDiscount.Size = new System.Drawing.Size(121, 23);
             this.btnSaveDiscount.TabIndex = 11;
@@ -61,7 +70,7 @@
             // dtnCancelDiscount
             // 
             this.dtnCancelDiscount.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.dtnCancelDiscount.Location = new System.Drawing.Point(23, 316);
+            this.dtnCancelDiscount.Location = new System.Drawing.Point(23, 410);
             this.dtnCancelDiscount.Name = "dtnCancelDiscount";
             this.dtnCancelDiscount.Size = new System.Drawing.Size(120, 23);
             this.dtnCancelDiscount.TabIndex = 12;
@@ -84,7 +93,7 @@
             // 
             this.cmbPercent.FormattingEnabled = true;
             this.cmbPercent.ItemHeight = 23;
-            this.cmbPercent.Location = new System.Drawing.Point(265, 147);
+            this.cmbPercent.Location = new System.Drawing.Point(254, 147);
             this.cmbPercent.Name = "cmbPercent";
             this.cmbPercent.PromptText = "Скидка";
             this.cmbPercent.Size = new System.Drawing.Size(182, 29);
@@ -95,7 +104,7 @@
             // 
             this.cmbDescription.FormattingEnabled = true;
             this.cmbDescription.ItemHeight = 23;
-            this.cmbDescription.Location = new System.Drawing.Point(265, 210);
+            this.cmbDescription.Location = new System.Drawing.Point(254, 210);
             this.cmbDescription.Name = "cmbDescription";
             this.cmbDescription.PromptText = "Описание";
             this.cmbDescription.Size = new System.Drawing.Size(182, 29);
@@ -114,7 +123,7 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(265, 118);
+            this.metroLabel2.Location = new System.Drawing.Point(254, 118);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(52, 19);
             this.metroLabel2.TabIndex = 4;
@@ -123,7 +132,7 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(265, 183);
+            this.metroLabel3.Location = new System.Drawing.Point(254, 183);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(72, 19);
             this.metroLabel3.TabIndex = 8;
@@ -211,13 +220,91 @@
             this.dateFrom.Size = new System.Drawing.Size(200, 29);
             this.dateFrom.TabIndex = 19;
             // 
+            // metroLabel6
+            // 
+            this.metroLabel6.AutoSize = true;
+            this.metroLabel6.Location = new System.Drawing.Point(468, 183);
+            this.metroLabel6.Name = "metroLabel6";
+            this.metroLabel6.Size = new System.Drawing.Size(47, 19);
+            this.metroLabel6.TabIndex = 26;
+            this.metroLabel6.Text = "Конец";
+            // 
+            // metroLabel7
+            // 
+            this.metroLabel7.AutoSize = true;
+            this.metroLabel7.Location = new System.Drawing.Point(468, 118);
+            this.metroLabel7.Name = "metroLabel7";
+            this.metroLabel7.Size = new System.Drawing.Size(54, 19);
+            this.metroLabel7.TabIndex = 25;
+            this.metroLabel7.Text = "Начало";
+            // 
+            // lstPeople
+            // 
+            this.lstPeople.FormattingEnabled = true;
+            this.lstPeople.Location = new System.Drawing.Point(701, 75);
+            this.lstPeople.Name = "lstPeople";
+            this.lstPeople.Size = new System.Drawing.Size(192, 225);
+            this.lstPeople.TabIndex = 28;
+            // 
+            // btnAdd
+            // 
+            this.btnAdd.Location = new System.Drawing.Point(701, 306);
+            this.btnAdd.Name = "btnAdd";
+            this.btnAdd.Size = new System.Drawing.Size(192, 23);
+            this.btnAdd.TabIndex = 29;
+            this.btnAdd.Text = "Добавить";
+            this.btnAdd.UseSelectable = true;
+            this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(701, 335);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(192, 23);
+            this.btnDelete.TabIndex = 30;
+            this.btnDelete.Text = "Удалить";
+            this.btnDelete.UseSelectable = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // statusStrip1
+            // 
+            this.statusStrip1.BackColor = System.Drawing.Color.Transparent;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.lblCounter});
+            this.statusStrip1.Location = new System.Drawing.Point(20, 454);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(876, 22);
+            this.statusStrip1.TabIndex = 31;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel1
+            // 
+            this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
+            this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(158, 17);
+            this.toolStripStatusLabel1.Text = "Количество проживающих";
+            // 
+            // lblCounter
+            // 
+            this.lblCounter.BackColor = System.Drawing.Color.Transparent;
+            this.lblCounter.Name = "lblCounter";
+            this.lblCounter.Size = new System.Drawing.Size(13, 17);
+            this.lblCounter.Text = "0";
+            // 
             // DiscountOnAddressForm
             // 
             this.AcceptButton = this.btnSaveDiscount;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.dtnCancelDiscount;
-            this.ClientSize = new System.Drawing.Size(680, 355);
+            this.ClientSize = new System.Drawing.Size(916, 496);
+            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnAdd);
+            this.Controls.Add(this.lstPeople);
+            this.Controls.Add(this.metroLabel6);
+            this.Controls.Add(this.metroLabel7);
             this.Controls.Add(this.dateTo);
             this.Controls.Add(this.dateFrom);
             this.Controls.Add(this.metroLabel1);
@@ -241,6 +328,8 @@
             this.Resizable = false;
             this.Text = "Льгота на адрес";
             this.Load += new System.EventHandler(this.DiscountOnAddressForm_Load);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -263,5 +352,13 @@
         private MetroFramework.Controls.MetroComboBox cmbHouses;
         private MetroFramework.Controls.MetroDateTime dateTo;
         private MetroFramework.Controls.MetroDateTime dateFrom;
+        private MetroFramework.Controls.MetroLabel metroLabel6;
+        private MetroFramework.Controls.MetroLabel metroLabel7;
+        private System.Windows.Forms.ListBox lstPeople;
+        private MetroFramework.Controls.MetroButton btnAdd;
+        private MetroFramework.Controls.MetroButton btnDelete;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+        private System.Windows.Forms.ToolStripStatusLabel lblCounter;
     }
 }

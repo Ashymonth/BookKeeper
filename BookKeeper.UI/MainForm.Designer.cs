@@ -108,6 +108,8 @@
             this.columnHeader17 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader18 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
+            this.cmbTotalReportStreets = new MetroFramework.Controls.MetroComboBox();
+            this.cmbTotalReportHouses = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.dateTotalReportFrom = new MetroFramework.Controls.MetroDateTime();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
@@ -291,7 +293,6 @@
             this.lvlDiscounts.TabIndex = 4;
             this.lvlDiscounts.UseCompatibleStateImageBehavior = false;
             this.lvlDiscounts.View = System.Windows.Forms.View.Details;
-            this.lvlDiscounts.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvlDiscounts_ColumnClick);
             this.lvlDiscounts.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lvlDiscountsTest_MouseUp);
             // 
             // columnHeader19
@@ -448,7 +449,6 @@
             this.lvlRates.UseCustomForeColor = true;
             this.lvlRates.UseSelectable = true;
             this.lvlRates.View = System.Windows.Forms.View.Details;
-            this.lvlRates.ColumnClick += new System.Windows.Forms.ColumnClickEventHandler(this.lvlRates_ColumnClick);
             this.lvlRates.MouseUp += new System.Windows.Forms.MouseEventHandler(this.lvlRates_MouseUp);
             // 
             // columnHeader2
@@ -781,7 +781,7 @@
             this.dateFrom.CustomFormat = "MMMM yyyy";
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFrom.Location = new System.Drawing.Point(971, 3);
-            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(120, 29);
             this.dateFrom.TabIndex = 7;
@@ -792,7 +792,7 @@
             this.dateTo.CustomFormat = "MMMM yyyy";
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTo.Location = new System.Drawing.Point(1097, 3);
-            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTo.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(118, 29);
             this.dateTo.TabIndex = 6;
@@ -864,7 +864,7 @@
             this.tabpage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabpage.Location = new System.Drawing.Point(20, 116);
             this.tabpage.Name = "tabpage";
-            this.tabpage.SelectedIndex = 1;
+            this.tabpage.SelectedIndex = 3;
             this.tabpage.Size = new System.Drawing.Size(1415, 721);
             this.tabpage.TabIndex = 0;
             this.tabpage.UseSelectable = true;
@@ -913,7 +913,7 @@
             // columnHeader11
             // 
             this.columnHeader11.Text = "Адрес";
-            this.columnHeader11.Width = 121;
+            this.columnHeader11.Width = 192;
             // 
             // columnHeader12
             // 
@@ -952,6 +952,8 @@
             // 
             // flowLayoutPanel4
             // 
+            this.flowLayoutPanel4.Controls.Add(this.cmbTotalReportStreets);
+            this.flowLayoutPanel4.Controls.Add(this.cmbTotalReportHouses);
             this.flowLayoutPanel4.Controls.Add(this.metroLabel1);
             this.flowLayoutPanel4.Controls.Add(this.dateTotalReportFrom);
             this.flowLayoutPanel4.Controls.Add(this.metroLabel3);
@@ -964,15 +966,44 @@
             this.flowLayoutPanel4.Size = new System.Drawing.Size(1399, 35);
             this.flowLayoutPanel4.TabIndex = 2;
             // 
+            // cmbTotalReportStreets
+            // 
+            this.cmbTotalReportStreets.DisplayFocus = true;
+            this.cmbTotalReportStreets.FormattingEnabled = true;
+            this.cmbTotalReportStreets.ItemHeight = 23;
+            this.cmbTotalReportStreets.Location = new System.Drawing.Point(3, 3);
+            this.cmbTotalReportStreets.Name = "cmbTotalReportStreets";
+            this.cmbTotalReportStreets.PromptText = "Улица";
+            this.cmbTotalReportStreets.Size = new System.Drawing.Size(270, 29);
+            this.cmbTotalReportStreets.TabIndex = 7;
+            this.cmbTotalReportStreets.UseSelectable = true;
+            this.cmbTotalReportStreets.SelectionChangeCommitted += new System.EventHandler(this.cmbTotalReportStreets_SelectionChangeCommitted);
+            // 
+            // cmbTotalReportHouses
+            // 
+            this.cmbTotalReportHouses.ItemHeight = 23;
+            this.cmbTotalReportHouses.Items.AddRange(new object[] {
+            "Дом"});
+            this.cmbTotalReportHouses.Location = new System.Drawing.Point(279, 3);
+            this.cmbTotalReportHouses.MaxLength = 32767;
+            this.cmbTotalReportHouses.Name = "cmbTotalReportHouses";
+            this.cmbTotalReportHouses.PromptText = "Дом";
+            this.cmbTotalReportHouses.Size = new System.Drawing.Size(123, 29);
+            this.cmbTotalReportHouses.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cmbTotalReportHouses.TabIndex = 8;
+            this.cmbTotalReportHouses.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.cmbTotalReportHouses.UseSelectable = true;
+            this.cmbTotalReportHouses.DropDown += new System.EventHandler(this.cmbTotalReportHouses_DropDown);
+            // 
             // metroLabel1
             // 
             this.metroLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.metroLabel1.Location = new System.Drawing.Point(3, 0);
+            this.metroLabel1.Location = new System.Drawing.Point(408, 0);
             this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(54, 33);
+            this.metroLabel1.Size = new System.Drawing.Size(54, 35);
             this.metroLabel1.TabIndex = 3;
             this.metroLabel1.Text = "Начало";
             this.metroLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -983,9 +1014,9 @@
             // 
             this.dateTotalReportFrom.CustomFormat = "MMMM yyyy";
             this.dateTotalReportFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTotalReportFrom.Location = new System.Drawing.Point(62, 2);
+            this.dateTotalReportFrom.Location = new System.Drawing.Point(467, 2);
             this.dateTotalReportFrom.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTotalReportFrom.Name = "dateTotalReportFrom";
             this.dateTotalReportFrom.Size = new System.Drawing.Size(151, 29);
             this.dateTotalReportFrom.TabIndex = 2;
@@ -997,10 +1028,10 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.metroLabel3.AutoSize = true;
             this.metroLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.metroLabel3.Location = new System.Drawing.Point(218, 0);
+            this.metroLabel3.Location = new System.Drawing.Point(623, 0);
             this.metroLabel3.Margin = new System.Windows.Forms.Padding(3, 0, 10, 0);
             this.metroLabel3.Name = "metroLabel3";
-            this.metroLabel3.Size = new System.Drawing.Size(47, 33);
+            this.metroLabel3.Size = new System.Drawing.Size(47, 35);
             this.metroLabel3.TabIndex = 5;
             this.metroLabel3.Text = "Конец";
             this.metroLabel3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -1011,9 +1042,9 @@
             // 
             this.dateTotalReportTo.CustomFormat = "MMMM yyyy";
             this.dateTotalReportTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTotalReportTo.Location = new System.Drawing.Point(277, 2);
+            this.dateTotalReportTo.Location = new System.Drawing.Point(682, 2);
             this.dateTotalReportTo.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTotalReportTo.Name = "dateTotalReportTo";
             this.dateTotalReportTo.Size = new System.Drawing.Size(151, 29);
             this.dateTotalReportTo.TabIndex = 1;
@@ -1021,7 +1052,7 @@
             // 
             // btnCreateTotalReport
             // 
-            this.btnCreateTotalReport.Location = new System.Drawing.Point(432, 2);
+            this.btnCreateTotalReport.Location = new System.Drawing.Point(837, 2);
             this.btnCreateTotalReport.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreateTotalReport.Name = "btnCreateTotalReport";
             this.btnCreateTotalReport.Size = new System.Drawing.Size(156, 29);
@@ -1032,7 +1063,7 @@
             // 
             // btnExportToExcel
             // 
-            this.btnExportToExcel.Location = new System.Drawing.Point(592, 2);
+            this.btnExportToExcel.Location = new System.Drawing.Point(997, 2);
             this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(2);
             this.btnExportToExcel.Name = "btnExportToExcel";
             this.btnExportToExcel.Size = new System.Drawing.Size(156, 29);
@@ -1347,6 +1378,8 @@
         private MetroFramework.Controls.MetroContextMenu cntHouses;
         private System.Windows.Forms.ToolStripMenuItem btnAddHouse;
         private System.Windows.Forms.ToolStripMenuItem btnDeleteHouse;
+        private MetroFramework.Controls.MetroComboBox cmbTotalReportStreets;
+        private MetroFramework.Controls.MetroComboBox cmbTotalReportHouses;
     }
 }
 

@@ -41,20 +41,28 @@ namespace BookKeeper.UI.UI.Forms.Discount
         {
             DialogResult = DialogResult.None;
 
-            var result = CheckField(cmbStreets, "Выберите улицу");
-            if(result == false)
+            if (dateFrom.Value.Date == dateTo.Value.Date)
+            {
+                MessageBoxHelper.ShowWarningMessage("Даты должны различаться", this);
                 return;
+            }
 
-            result = CheckField(cmbHouses, "Выберите дом");
-            if(result == false)
+            if (!(cmbStreets.SelectedValue is int))
+            {
+                MessageBoxHelper.ShowWarningMessage("Выберите улицу", this);
+                return;
+            }
+
+            var result = CheckField(cmbHouses, "Выберите дом");
+            if (result == false)
                 return;
 
             result = CheckField(cmbBuilding, "Выберите корпус");
-            if(result == false)
+            if (result == false)
                 return;
 
             result = CheckField(cmbApatmens, "Выберите улицу");
-            if(result == false)
+            if (result == false)
                 return;
 
             if (cmbStreets.SelectedValue is int streetId && cmbPercent.SelectedValue is decimal percent && cmbDescription.SelectedValue is string description)
@@ -83,7 +91,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                         return;
                     }
 
-                    var discounts = discountService.AddDiscountOnAddress(selectedAccounts, percent, description,dateFrom.Value.Date,dateTo.Value.Date);
+                    var discounts = discountService.AddDiscountOnAddress(selectedAccounts, percent, description, dateFrom.Value.Date, dateTo.Value.Date);
                     if (discounts != null)
                     {
                         DialogResult = DialogResult.OK;
@@ -97,8 +105,6 @@ namespace BookKeeper.UI.UI.Forms.Discount
             }
         }
 
-     
-
         private void cmbStreets_SelectedIndexChanged(object sender, EventArgs e)
         {
             _dataSourceHelper.StreetIndexChanged(cmbStreets, cmbHouses, x => x.HouseNumber);
@@ -111,7 +117,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
         private void cmbBuilding_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _dataSourceHelper.BuildingIndexChanged(cmbStreets,cmbHouses,cmbBuilding,cmbApatmens,x=>x.ApartmentNumber);
+            _dataSourceHelper.BuildingIndexChanged(cmbStreets, cmbHouses, cmbBuilding, cmbApatmens, x => x.ApartmentNumber);
         }
 
         private bool CheckField(ListControl comboBox, string message)
@@ -123,6 +129,31 @@ namespace BookKeeper.UI.UI.Forms.Discount
             }
 
             return true;
+        }
+
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            ResetValues();
+            if (cmbStreets.SelectedValue is int streetId && cmbPercent.SelectedValue is decimal percent &&
+                cmbDescription.SelectedValue is string description)
+            {
+                lstPeople.Items.Add($"{percent} - {description}");
+                lblCounter.Text = lstPeople.Items.Count.ToString();
+            }
+        }
+
+        private void ResetValues()
+        {
+            cmbHouses.SelectedIndex = 0;
+            cmbBuilding.SelectedIndex = 0;
+            cmbApatmens.SelectedIndex = 0;
+            cmbDescription.Text = string.Empty;
+            cmbPercent.SelectedIndex = 0;
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            lstPeople.Items.Remove(lstPeople.SelectedItem);
         }
     }
 }

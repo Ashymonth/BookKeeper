@@ -12,6 +12,8 @@ namespace BookKeeper.Data.Services
     public interface ISearchService
     {
         IEnumerable<AccountEntity> FindAccounts(SearchModel model);
+
+        ExpressionStarter<AccountEntity> FindAccounts(int streetId, string houseNumber);
     }
 
     public class SearchService : ISearchService
@@ -60,7 +62,6 @@ namespace BookKeeper.Data.Services
 
             account.And(defaultPredicate);
 
-
             if (model.AccountType != AccountType.All)
                 account.And(accountTypePredicate);
 
@@ -80,6 +81,30 @@ namespace BookKeeper.Data.Services
                 x => x.Location,
                 x => x.Location.Street,
                 x => x.Location.Street.Rates);
+        }
+
+        public ExpressionStarter<AccountEntity> FindAccounts(int streetId, string houseNumber)
+        {
+            var account = PredicateBuilder.New<AccountEntity>();
+
+            Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
+                entity.StreetId == streetId && entity.IsDeleted == false;
+
+
+            Expression<Func<AccountEntity, bool>> housePredicate = entity =>
+                entity.StreetId == streetId 
+                && entity.Location.HouseNumber.Equals(houseNumber,StringComparison.OrdinalIgnoreCase)
+                &&  entity.IsDeleted == false;
+
+            if (IsNullOrWhiteSpace(houseNumber))
+            {
+                account.And(defaultPredicate);
+                return account;
+            }
+
+            account.And(housePredicate);
+
+            return account;
         }
     }
 }
