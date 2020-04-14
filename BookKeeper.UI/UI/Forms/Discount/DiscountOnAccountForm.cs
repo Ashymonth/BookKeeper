@@ -5,7 +5,7 @@ using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.UI.Helpers;
 using MetroFramework.Forms;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using IContainer = Autofac.IContainer;
 
@@ -14,6 +14,8 @@ namespace BookKeeper.UI.UI.Forms.Discount
     public partial class DiscountAccountItemForm : MetroForm
     {
         private readonly IContainer _container;
+
+        private List<decimal> _percents = new List<decimal>();
 
         public DiscountAccountItemForm()
         {
@@ -82,15 +84,32 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 }
 
                 var discountService = scope.Resolve<IDiscountDocumentService>();
-                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description,dateFrom.Value.Date,dateTo.Value.Date);
-                if (discountOnAccount == null)
+                var occupantService = scope.Resolve<IOccupantService>();
+                foreach (var item in _percents)
                 {
-                    MessageBoxHelper.ShowWarningMessage("Не удалось добавить", this);
-                    return;
+                    var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, item, description, dateFrom.Value.Date, dateTo.Value.Date);
+                    var occupant = occupantService.AddOccupant(discountOnAccount.Id, accountItem.Id, item);
                 }
 
                 DialogResult = DialogResult.OK;
             }
+        }
+
+        private void btnAddOccupant_Click(object sender, EventArgs e)
+        {
+            lstOccupants.Items.Add("Жилец");
+            _percents.Add(0);
+        }
+
+        private void btnAddOccupantWithDiscount_Click(object sender, EventArgs e)
+        {
+            lstOccupants.Items.Add($"{cmbPercent.Text} - {cmbDescription.Text}");
+            _percents.Add(Convert.ToDecimal(cmbPercent.Text));
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            lstOccupants.Items.Remove(lstOccupants.SelectedItem);
         }
     }
 }

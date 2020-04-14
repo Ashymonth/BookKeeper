@@ -12,16 +12,24 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using BookKeeper.Data.Services;
 using BookKeeper.UI.Models.Discount;
 using MetroFramework.Controls;
 using IContainer = Autofac.IContainer;
+using System.Windows.Controls;
+using ListBox = System.Windows.Forms.ListBox;
 
 namespace BookKeeper.UI.UI.Forms.Discount
 {
     public partial class DiscountOnAddressForm : MetroForm
     {
         private readonly IContainer _container;
+
         private readonly DataSourceHelper _dataSourceHelper;
+
+        private int _count;
+
+        private List<decimal> _percents = new List<decimal>();
 
         public DiscountOnAddressForm()
         {
@@ -35,6 +43,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
             _dataSourceHelper.LoadAddresses(cmbStreets);
             _dataSourceHelper.LoadDiscountsPercent(cmbPercent);
             _dataSourceHelper.LoadDiscountsDescription(cmbDescription);
+            lblCounter.Text = _count.ToString();
         }
 
         private void btnSaveDiscount_Click(object sender, EventArgs e)
@@ -50,6 +59,12 @@ namespace BookKeeper.UI.UI.Forms.Discount
             if (!(cmbStreets.SelectedValue is int))
             {
                 MessageBoxHelper.ShowWarningMessage("Выберите улицу", this);
+                return;
+            }
+
+            if (lstPeople.Items.Count == 0)
+            {
+                MessageBoxHelper.ShowWarningMessage("Добавте жильцов", this);
                 return;
             }
 
@@ -79,28 +94,28 @@ namespace BookKeeper.UI.UI.Forms.Discount
                     }
 
                     var accountService = scope.Resolve<IAccountService>();
-                    var accounts = accountService.GetWithInclude(x => x.LocationId == location.Id &&
+                    var account = accountService.GetItem(x => x.LocationId == location.Id &&
                                                                       x.StreetId == streetId &&
-                                                                x.IsDeleted == false, x => x.Location);
+                                                                x.IsDeleted == false);
+
+                    if (account == null)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Счета по такому адресу не найдено", this);
+                        return;
+                    }
 
                     var discountService = scope.Resolve<IDiscountDocumentService>();
-                    var selectedAccounts = accounts.Select(x => x.Id).ToList();
-                    if (!selectedAccounts.Any())
+                    var occupantService = scope.Resolve<IOccupantService>();
+
+                    foreach (var item in _percents)
                     {
-                        MessageBoxHelper.ShowConfirmMessage("Счета по данному адресу не найдены", this);
-                        return;
+                        var discounts = discountService.AddDiscountOnAddress(account.Id, item, description,
+                            dateFrom.Value.Date, dateTo.Value.Date);
+
+                        occupantService.AddOccupant(discounts.Id, location.Id, item);
                     }
 
-                    var discounts = discountService.AddDiscountOnAddress(selectedAccounts, percent, description, dateFrom.Value.Date, dateTo.Value.Date);
-                    if (discounts != null)
-                    {
-                        DialogResult = DialogResult.OK;
-                    }
-                    else
-                    {
-                        MessageBoxHelper.ShowWarningMessage("Не удалось добавить", this);
-                        return;
-                    }
+                    DialogResult = DialogResult.OK;
                 }
             }
         }
@@ -133,12 +148,14 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            ResetValues();
             if (cmbStreets.SelectedValue is int streetId && cmbPercent.SelectedValue is decimal percent &&
                 cmbDescription.SelectedValue is string description)
             {
                 lstPeople.Items.Add($"{percent} - {description}");
-                lblCounter.Text = lstPeople.Items.Count.ToString();
+
+                _percents.Add(percent);
+
+                ++_count;
             }
         }
 
@@ -154,6 +171,13 @@ namespace BookKeeper.UI.UI.Forms.Discount
         private void btnDelete_Click(object sender, EventArgs e)
         {
             lstPeople.Items.Remove(lstPeople.SelectedItem);
+            --_count;
+        }
+
+        private void metroButton1_Click(object sender, EventArgs e)
+        {
+            lstPeople.Items.Add("Жилец");
+            _percents.Add(0);
         }
     }
 }

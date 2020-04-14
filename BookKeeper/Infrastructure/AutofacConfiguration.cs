@@ -94,6 +94,10 @@ namespace BookKeeper.Data.Infrastructure
                 .As<IDiscountDescriptionService>()
                 .InstancePerLifetimeScope();
 
+            container.RegisterType(typeof(OccupantService))
+                .As<IOccupantService>()
+                .InstancePerLifetimeScope();
+
             container.RegisterType(typeof(HtmlImportService))
                 .As<IImportService<List<PaymentDocumentImport>>>()
                 .InstancePerLifetimeScope();

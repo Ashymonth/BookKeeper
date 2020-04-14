@@ -43,6 +43,7 @@
     <Compile Include="Data\Entities\Discounts\DiscountDescriptionEntity.cs" />
     <Compile Include="Data\Entities\Discounts\DiscountEntity.cs" />
     <Compile Include="Data\Entities\Discounts\DiscountPercentEntity.cs" />
+    <Compile Include="Data\Entities\Discounts\OccupantEntity.cs" />
     <Compile Include="Data\Entities\MigrationsContextFactory.cs" />
     <Compile Include="Data\Entities\Payments\PaymentDocumentEntity.cs" />
     <Compile Include="Data\Entities\Rates\RateDetailsEntity.cs" />
@@ -83,6 +84,7 @@
     <Compile Include="Services\EntityService\Discount\DiscountDescriptionService.cs" />
     <Compile Include="Services\EntityService\Discount\DiscountService.cs" />
     <Compile Include="Services\EntityService\Discount\DiscountPercentService.cs" />
+    <Compile Include="Services\EntityService\Discount\OccupantService.cs" />
     <Compile Include="Services\EntityService\PaymentDocumentService.cs" />
     <Compile Include="Services\EntityService\Rate\RateDocumentService.cs" />
     <Compile Include="Services\Export\ExportService.cs" />

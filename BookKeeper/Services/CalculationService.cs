@@ -15,6 +15,7 @@ namespace BookKeeper.Data.Services
         decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime currentDate);
 
         List<TotalPayments> CalculateAllPrice(int streetId, string houseNumber, DateTime from, DateTime to);
+
     }
 
     public class CalculationService : ICalculationService
@@ -44,21 +45,31 @@ namespace BookKeeper.Data.Services
         {
             var rate = _rateService.GetCurrentRate(entity, paymentDate);
 
-            var discount = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate);
+            var discounts = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate).ToList();
 
-            if (discount == null && received == 0)
+            if (discounts.Count == 0 && received == 0)
                 return -rate;
 
-            if (discount == null)
+            if (discounts.Count == 0)
                 return received - rate;
 
             if (rate == 0)
                 return 0;
 
-            if (discount.Percent == 100)
-                return 0;
 
-            return received - (((100 - discount.Percent) / 100) * rate);
+            decimal result = 0;
+            foreach (var discount in discounts)
+            {
+                if (discount.Percent == 0)
+                    continue;
+
+                result += (rate / discounts.Count) - (discount.Percent / 100);
+            }
+
+            result = Math.Round(result, 2);
+
+            return rate - result;
+
         }
 
         public List<TotalPayments> CalculateAllPrice(int streetId, string houseNumber, DateTime from, DateTime to)
@@ -72,7 +83,7 @@ namespace BookKeeper.Data.Services
 
             var predicate = _searchService.FindAccounts(streetId, houseNumber);
 
-            foreach (var streetEntity in streets.Where(x=>x.Id == streetId))
+            foreach (var streetEntity in streets.Where(x => x.Id == streetId))
             {
                 var totalPayment = new TotalPayments { StreetName = streetEntity.StreetName };
 

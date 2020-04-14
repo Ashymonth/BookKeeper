@@ -19,9 +19,9 @@ namespace BookKeeper.Data.Services.EntityService.Discount
 
         IEnumerable<DiscountEntity> AddDiscountOnAddress(IEnumerable<int> accountId, decimal percent, string description);
 
-        IEnumerable<DiscountEntity> AddDiscountOnAddress(IEnumerable<int> accountId, decimal percent, string description,DateTime fromDateTime,DateTime toDateTime);
+        DiscountEntity AddDiscountOnAddress(int accountId, decimal percent, string description,DateTime fromDateTime,DateTime toDateTime);
 
-        DiscountEntity GetCurrentDiscount(int accountId, DateTime paymentDate);
+        IEnumerable<DiscountEntity> GetCurrentDiscount(int accountId, DateTime paymentDate);
 
         void SendToArchive(DiscountEntity entity);
     }
@@ -92,29 +92,24 @@ namespace BookKeeper.Data.Services.EntityService.Discount
             return discounts;
         }
 
-        public IEnumerable<DiscountEntity> AddDiscountOnAddress(IEnumerable<int> accountId, decimal percent, string description, DateTime fromDateTime,
+        public DiscountEntity AddDiscountOnAddress(int accountId, decimal percent, string description,
+            DateTime fromDateTime,
             DateTime toDateTime)
         {
-            var activeDiscount = GetActiveDiscount(accountId.FirstOrDefault());
+            var activeDiscount = GetActiveDiscount(accountId);
             if (activeDiscount != null)
                 SendToArchive(activeDiscount);
 
-            var discounts = new List<DiscountEntity>();
-            foreach (var account in accountId)
+            var document = new DiscountEntity
             {
-                var document = new DiscountEntity
-                {
-                    AccountId = account,
-                    StartDate = fromDateTime,
-                    EndDate = toDateTime,
-                    Percent = percent,
-                    Description = description,
-                    Type = DiscountType.Address
-                };
-                discounts.Add(document);
-            }
-            base.Add(discounts);
-            return discounts;
+                AccountId = accountId,
+                StartDate = fromDateTime,
+                EndDate = toDateTime,
+                Percent = percent,
+                Description = description,
+                Type = DiscountType.PersonalAccount
+            };
+            return base.Add(document);
         }
 
         public void SendToArchive(DiscountEntity entity)
@@ -129,19 +124,14 @@ namespace BookKeeper.Data.Services.EntityService.Discount
         }
 
 
-        public DiscountEntity GetCurrentDiscount(int accountId, DateTime paymentDate)
+        public IEnumerable<DiscountEntity> GetCurrentDiscount(int accountId, DateTime paymentDate)
         {
-            return base.GetItem(x => x.AccountId == accountId && x.StartDate.Date <= paymentDate.Date && paymentDate.Date < x.EndDate.Date && x.IsDeleted == false);
+            return base.GetItems(x => x.AccountId == accountId && x.StartDate.Date <= paymentDate.Date && paymentDate.Date < x.EndDate.Date && x.IsDeleted == false);
         }
 
         private DiscountEntity GetActiveDiscount(int accountId)
         {
             return base.GetItem(x => x.IsDeleted == false && x.AccountId == accountId && x.IsArchive == false);
-        }
-
-        private decimal CalculateDiscountPrice()
-        {
-
         }
     }
 }

@@ -11,7 +11,7 @@ namespace BookKeeper.Data.Data.Entities.Discounts
         PersonalAccount
     }
 
-    [Table("DiscountDocuments")]
+    [Table("Discounts")]
     public class DiscountEntity : BaseEntity
     {
         public int AccountId { get; set; }
@@ -30,5 +30,7 @@ namespace BookKeeper.Data.Data.Entities.Discounts
         public string Description { get; set; }
 
         public bool IsArchive { get; set; }
-    }
+
+        public virtual ICollection<OccupantEntity> Occupants { get; set; }
+     }
 }

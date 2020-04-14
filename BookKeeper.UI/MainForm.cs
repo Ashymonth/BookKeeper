@@ -187,41 +187,42 @@ namespace BookKeeper.UI
                     x => x.Account,
                     x => x.Account.Location,
                     x => x.Account.Location.Street);
+
+
                 if (discounts != null)
                 {
                     var list = new List<ListViewItem>();
-                    foreach (var discount in discounts)
+                    long accountId = 0;
+                    foreach (var discount in discounts.ToList())
                     {
+                        var percents = discounts.Where(x => x.AccountId == discount.AccountId).Select(x => x.Percent.ToString(CultureInfo.CurrentCulture).Replace(",00"," ")).ToArray();
+
+                        if (discount.AccountId == accountId)
+                            continue;
+
                         if (discount.IsArchive && dontShowArchive)
                             continue;
 
                         if (discount.IsDeleted)
                             continue;
 
-                        var firstColumnContentType =
+                        var discountType =
                             discount.Type == DiscountType.PersonalAccount ? "Счет" : "Адрес";
-                        string secondColumnContentType;
-                        if (discount.Type == DiscountType.PersonalAccount)
-                        {
 
-                            secondColumnContentType =
-                                $"{discount.Account.Location.Street.StreetName} Дом: " +
-                                $"{discount.Account.Location.HouseNumber} Корпус: " +
-                                $"{discount.Account.Location.BuildingCorpus} Кваритра: " +
-                                $"{discount.Account.Location.ApartmentNumber} Счет: " +
-                                $"{discount.Account.Account.ToString(CultureInfo.CurrentCulture)}";
+                        var addressAndAccount =
+                            $"{discount.Account.Location.Street.StreetName} Дом: " +
+                            $"{discount.Account.Location.HouseNumber} Корпус: " +
+                            $"{discount.Account.Location.BuildingCorpus} Кваритра: " +
+                            $"{discount.Account.Location.ApartmentNumber} Счет: " +
+                            $"{discount.Account.Account.ToString(CultureInfo.CurrentCulture)}";
 
-                        }
-                        else
-                            secondColumnContentType = string.Format(AddressTemplate,
-                                discount.Account.Location.Street.StreetName,
-                                discount.Account.Location.HouseNumber, discount.Account.Location.BuildingCorpus,
-                                discount.Account.Location.ApartmentNumber);
 
+                       
                         var listView = new ListViewItem(new[]
                         {
-                            firstColumnContentType, secondColumnContentType,
-                            Math.Round(discount.Percent, 0).ToString(CultureInfo.CurrentCulture) + "%",
+                            discountType, addressAndAccount,
+                            $" Колличество жителей - {percents.Count()} " +
+                            $" {string.Join("",percents)}",
                             discount.Description,
                             discount.StartDate.ToShortDateString(),
                             discount.EndDate.ToShortDateString()
@@ -235,6 +236,7 @@ namespace BookKeeper.UI
                         }
 
                         list.Add(listView);
+                        accountId = discount.AccountId;
                     }
 
                     lvlDiscounts.Items.AddRange(list.ToArray());
@@ -868,9 +870,11 @@ namespace BookKeeper.UI
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var discountService = scope.Resolve<IDiscountDocumentService>();
-                    var result = discountService.GetItemById(discount.Id);
-                    if (result != null)
-                        discountService.Delete(result);
+                    var result = discountService.GetItems(x => x.AccountId == discount.AccountId).ToList();
+                    foreach (var discountEntity in result)
+                    {
+                        discountService.Delete(discountEntity);
+                    }
                 }
             }
 
@@ -1025,7 +1029,7 @@ namespace BookKeeper.UI
         {
             if (!(cmbTotalReportStreets.SelectedValue is int streetId))
             {
-                MessageBoxHelper.ShowWarningMessage("Выберите улицу",this);
+                MessageBoxHelper.ShowWarningMessage("Выберите улицу", this);
                 return;
             }
 
@@ -1042,7 +1046,7 @@ namespace BookKeeper.UI
                 var service = scope.Resolve<ICalculationService>();
                 try
                 {
-                    var result = service.CalculateAllPrice(streetId,cmbTotalReportHouses.SelectedIndex == 0 ?string.Empty : cmbTotalReportHouses.Text, dateTotalReportFrom.Value, dateTotalReportTo.Value);
+                    var result = service.CalculateAllPrice(streetId, cmbTotalReportHouses.SelectedIndex == 0 ? string.Empty : cmbTotalReportHouses.Text, dateTotalReportFrom.Value, dateTotalReportTo.Value);
                     if (result != null && result.Count != 0)
                     {
                         lvlTotalReport.Items
@@ -1115,7 +1119,7 @@ namespace BookKeeper.UI
 
         private void cmbTotalReportStreets_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            _dataSourceHelper.StreetIndexChanged(cmbTotalReportStreets,cmbTotalReportHouses,x=>x.HouseNumber);
+            _dataSourceHelper.StreetIndexChanged(cmbTotalReportStreets, cmbTotalReportHouses, x => x.HouseNumber);
         }
 
         #endregion

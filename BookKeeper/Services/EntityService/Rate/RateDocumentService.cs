@@ -17,7 +17,11 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 
         decimal GetCurrentRate(LocationEntity entity, DateTime paymentDate);
 
+        RateEntity GetActiveRate(LocationEntity location);
+
         RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price);
+
+        decimal GetDefaultRate();
     }
 
     public class RateService : Service<RateEntity>, IRateService
@@ -140,7 +144,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             return result?.Price ?? GetDefaultRate();
         }
 
-        private RateEntity GetActiveRate(LocationEntity location)
+        public RateEntity GetActiveRate(LocationEntity location)
         {
             var rate = base.GetWithInclude(x => x.IsDeleted == false &&
                                                 x.IsDefault == false &&
@@ -171,7 +175,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             return updaterRate;
         }
 
-        private decimal GetDefaultRate()
+        public decimal GetDefaultRate()
         {
             return GetItem(x => x.IsDefault).Price;
         }
