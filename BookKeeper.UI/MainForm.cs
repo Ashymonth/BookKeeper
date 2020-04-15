@@ -193,12 +193,19 @@ namespace BookKeeper.UI
                 {
                     var list = new List<ListViewItem>();
                     long accountId = 0;
-                    foreach (var discount in discounts.ToList())
+                    foreach (var discount in discounts)
                     {
-                        var percents = discounts.Where(x => x.AccountId == discount.AccountId).Select(x => x.Percent.ToString(CultureInfo.CurrentCulture).Replace(",00"," ")).ToArray();
-
                         if (discount.AccountId == accountId)
                             continue;
+
+                        var percents = discounts.Where(x => x.AccountId == discount.AccountId)
+                            .Select(x => x.Percent.ToString(CultureInfo.CurrentCulture).Replace(",00", " ")).ToArray();
+
+                        var descriptions = discounts.Where(x => x.AccountId == discount.AccountId)
+                            .Select(x => x.Description).Distinct();
+
+                        var newDescription = descriptions.Select(description => description + " ").ToArray();
+
 
                         if (discount.IsArchive && dontShowArchive)
                             continue;
@@ -216,14 +223,12 @@ namespace BookKeeper.UI
                             $"{discount.Account.Location.ApartmentNumber} Счет: " +
                             $"{discount.Account.Account.ToString(CultureInfo.CurrentCulture)}";
 
-
-                       
                         var listView = new ListViewItem(new[]
                         {
                             discountType, addressAndAccount,
                             $" Колличество жителей - {percents.Count()} " +
                             $" {string.Join("",percents)}",
-                            discount.Description,
+                            $"{string.Join("",newDescription)}",
                             discount.StartDate.ToShortDateString(),
                             discount.EndDate.ToShortDateString()
                         })
@@ -623,12 +628,16 @@ namespace BookKeeper.UI
 
                 foreach (var paymentDocumentEntity in paymentDocumentEntities)
                 {
-                    var columnIndex =
-                        lvlMonthReport.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
-                    if (columnIndex != -1)
-                        listViewItem.SubItems[columnIndex].Text =
-                            paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture);
-
+                    using (var scope = _container.BeginLifetimeScope())
+                    {
+                        var service = scope.Resolve<IRateService>();
+                        var rate = service.GetCurrentRate(account.Location, paymentDocumentEntity.PaymentDate);
+                        var columnIndex =
+                            lvlMonthReport.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
+                        if (columnIndex != -1)
+                            listViewItem.SubItems[columnIndex].Text =
+                               $@"{ paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture)} / {rate}";
+                    }
                 }
 
                 listViewItem.Tag = account;
@@ -1078,6 +1087,56 @@ namespace BookKeeper.UI
             }
         }
 
+        private void btnTotalReport_Click(object sender, EventArgs e)
+        {
+            if (dateTotalReportFrom.Value.Date > dateTotalReportTo.Value.Date)
+            {
+                MessageBoxHelper.ShowWarningMessage("Начальная дата не может быть больше", this);
+                return;
+            }
+
+            lvlTotalReport.Items.Clear();
+
+
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var calculateService = scope.Resolve<ICalculationService>();
+                var result =
+                    calculateService.CalculateAllPrice(dateTotalReportFrom.Value.Date, dateTotalReportTo.Value.Date);
+
+                if (result != null && result.Count != 0)
+                {
+                    var listViewItems = new List<ListViewItem>();
+
+                    foreach (var payments in result)
+                    {
+                        foreach (var address in payments.Address)
+                        {
+                            var item = new ListViewItem(new[]
+                            {
+                                $"{payments.StreetName} Дом {address.HouseNumber}",
+                                address.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
+                                address.AccruedPrivate.ToString(CultureInfo.CurrentCulture),
+                                address.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
+                                address.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
+                                address.TotalReceived.ToString(CultureInfo.CurrentCulture),
+                                address.TotalAccrued.ToString(CultureInfo.CurrentCulture),
+                                $"{address.Percent.ToString(CultureInfo.CurrentCulture)}%"
+                            });
+                            listViewItems.Add(item);
+                        }
+                    }
+
+                    lvlTotalReport.Items.AddRange(listViewItems.ToArray());
+                }
+                else
+                {
+                    MessageBoxHelper.ShowWarningMessage("Платежей не найдено", this);
+                    return;
+                }
+            }
+        }
+
         private void btnExportToExcel_Click(object sender, EventArgs e)
         {
             if (lvlTotalReport.Items.Count == 0)
@@ -1120,6 +1179,12 @@ namespace BookKeeper.UI
         private void cmbTotalReportStreets_SelectionChangeCommitted(object sender, EventArgs e)
         {
             _dataSourceHelper.StreetIndexChanged(cmbTotalReportStreets, cmbTotalReportHouses, x => x.HouseNumber);
+        }
+
+        private void cmbTotalReportHouses_DropDown(object sender, EventArgs e)
+        {
+            _dataSourceHelper.StreetIndexChanged
+                (cmbTotalReportStreets, cmbTotalReportHouses, x => x.HouseNumber);
         }
 
         #endregion
@@ -1270,10 +1335,48 @@ namespace BookKeeper.UI
 
         #endregion
 
-        private void cmbTotalReportHouses_DropDown(object sender, EventArgs e)
+        private void btnCreateTotalReportAll_Click(object sender, EventArgs e)
         {
-            _dataSourceHelper.StreetIndexChanged
-                (cmbTotalReportStreets, cmbTotalReportHouses, x => x.HouseNumber);
+            if (dateTotalReportFrom.Value.Date > dateTotalReportTo.Value.Date)
+            {
+                MessageBoxHelper.ShowWarningMessage("Начальная дата не может быть больше", this);
+                return;
+            }
+
+            lvlTotalReportAll.Items.Clear();
+
+            using (var scope = _container.BeginLifetimeScope())
+            {
+                var calculateService = scope.Resolve<ICalculationService>();
+                var result =
+                    calculateService.CalculateTotalPrice(dateTotalReportFrom.Value.Date, dateTotalReportTo.Value.Date);
+
+                if (result != null)
+                {
+                    var item = new ListViewItem(new[]
+                    {
+                        result.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
+                        result.AccruedPrivate.ToString(CultureInfo.CurrentCulture),
+                        result.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
+                        result.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
+                        result.TotalReceived.ToString(CultureInfo.CurrentCulture),
+                        result.TotalAccrued.ToString(CultureInfo.CurrentCulture),
+                        $"{result.Percent.ToString(CultureInfo.CurrentCulture)}%"
+                    });
+
+                    lvlTotalReportAll.Items.Add(item);
+                }
+                else
+                {
+                    MessageBoxHelper.ShowWarningMessage("Платежей не найдено", this);
+                    return;
+                }
+            }
+        }
+
+        private void btnTotalReportAllClear_Click(object sender, EventArgs e)
+        {
+            lvlTotalReportAll.Items.Clear();
         }
     }
 }
