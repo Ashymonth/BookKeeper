@@ -61,18 +61,22 @@ namespace BookKeeper.Data.Services
                 return 0;
 
 
+            var discountForAll = rate/discounts.Count;
             decimal result = 0;
             foreach (var discount in discounts)
             {
                 if (discount.Percent == 0)
+                {
+                    result += discountForAll;
                     continue;
+                }
 
-                result += (rate / discounts.Count) - (discount.Percent / 100);
+                result += discountForAll - discountForAll * (discount.Percent / 100);
             }
 
             result = Math.Round(result, 2);
 
-            return rate - result;
+            return result;
 
         }
 
