@@ -28,6 +28,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using BookKeeper.Data.Services.EntityService;
 using SortOrder = System.Windows.Forms.SortOrder;
 
 namespace BookKeeper.UI
@@ -80,6 +81,8 @@ namespace BookKeeper.UI
             {
                 MessageBoxHelper.ShowWarningMessage(exception.Message, this);
             }
+
+            tabpage.SelectedTab = tbpMonthReport;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -612,7 +615,7 @@ namespace BookKeeper.UI
                     .Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date);
 
 
-                var paymentDocumentEntities = paymentDocuments.ToList();
+                var paymentDocumentEntities = paymentDocuments;
                 if (!paymentDocumentEntities.Any())
                     continue;
 
@@ -628,15 +631,24 @@ namespace BookKeeper.UI
 
                 foreach (var paymentDocumentEntity in paymentDocumentEntities)
                 {
+                    decimal rate;
                     using (var scope = _container.BeginLifetimeScope())
                     {
+                        var accountService = scope.Resolve<IAccountService>();
+                        var accountsCount = accountService.AccountsCount(account.Location);
                         var service = scope.Resolve<IRateService>();
-                        var rate = service.GetCurrentRate(account.Location, paymentDocumentEntity.PaymentDate);
-                        var columnIndex =
+                        rate = service.GetCurrentRate(accountsCount, account.Location, paymentDocumentEntity.PaymentDate);
+                    }
+
+                    var columnIndex =
                             lvlMonthReport.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
-                        if (columnIndex != -1)
-                            listViewItem.SubItems[columnIndex].Text =
-                               $@"{ paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture)} / {rate}";
+
+                    if (columnIndex != -1)
+                    {
+                        listViewItem.SubItems[columnIndex].Text =
+                            $@"{ paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture)}";
+
+                        listViewItem.SubItems[columnIndex + 1].Text = rate.ToString(CultureInfo.CurrentCulture);
                     }
                 }
 
@@ -671,6 +683,7 @@ namespace BookKeeper.UI
             do
             {
                 columns.Add(new ColumnHeader { Text = from.ToString("Y"), Tag = from.Month, Name = GetColumnKey(from) });
+                columns.Add(new ColumnHeader() { Text = "Тариф" });
                 if (from.Month == to.Month && from.Year == to.Year)
                 {
                     break;
@@ -1337,7 +1350,7 @@ namespace BookKeeper.UI
 
         private void btnCreateTotalReportAll_Click(object sender, EventArgs e)
         {
-            if (dateTotalReportFrom.Value.Date > dateTotalReportTo.Value.Date)
+            if (dateTotalReportAllFrom.Value.Date > dateTotalReportAllTo.Value.Date)
             {
                 MessageBoxHelper.ShowWarningMessage("Начальная дата не может быть больше", this);
                 return;
@@ -1349,7 +1362,7 @@ namespace BookKeeper.UI
             {
                 var calculateService = scope.Resolve<ICalculationService>();
                 var result =
-                    calculateService.CalculateTotalPrice(dateTotalReportFrom.Value.Date, dateTotalReportTo.Value.Date);
+                    calculateService.CalculateTotalPrice(dateTotalReportAllFrom.Value.Date, dateTotalReportAllTo.Value.Date);
 
                 if (result != null)
                 {
@@ -1377,6 +1390,27 @@ namespace BookKeeper.UI
         private void btnTotalReportAllClear_Click(object sender, EventArgs e)
         {
             lvlTotalReportAll.Items.Clear();
+        }
+
+        private void btnTotalReportExport_Click(object sender, EventArgs e)
+        {
+            if (lvlTotalReportAll.Items.Count == 0)
+            {
+                MessageBoxHelper.ShowWarningMessage("сначала сформируйте отчет", this);
+                return;
+            }
+
+            using (var dialog = new SaveFileDialog())
+            {
+                dialog.Filter = @"Excel files(*.xlsx)|*xlsx";
+                dialog.AddExtension = true;
+
+                if (dialog.ShowDialog(this) == DialogResult.OK)
+                {
+                    ExportService.ExportTotalReportAllForExcel(lvlTotalReportAll, dialog.FileName);
+                    MessageBoxHelper.ShowCompeteMessage("Успешно", this);
+                }
+            }
         }
     }
 }

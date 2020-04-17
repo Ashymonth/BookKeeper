@@ -4,7 +4,10 @@ using BookKeeper.Data.Data.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Autofac;
 using BookKeeper.Data.Data.Entities.Address;
+using BookKeeper.Data.Infrastructure;
+using BookKeeper.Data.Services.EntityService.Address;
 
 namespace BookKeeper.Data.Services.EntityService.Rate
 {
@@ -15,7 +18,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
         RateEntity AddRate(LocationEntity entity, string description, decimal price, DateTime fromDateTime,
             DateTime toDateTime);
 
-        decimal GetCurrentRate(LocationEntity entity, DateTime paymentDate);
+        decimal GetCurrentRate(int accountsCount,LocationEntity entity, DateTime paymentDate);
 
         RateEntity GetActiveRate(LocationEntity location);
 
@@ -26,8 +29,11 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 
     public class RateService : Service<RateEntity>, IRateService
     {
+        private readonly IContainer _container;
+
         public RateService(IRepository<RateEntity> repository, IUnitOfWork unitOfWork) : base(repository, unitOfWork)
         {
+            _container = AutofacConfiguration.ConfigureContainer();
         }
 
         public RateEntity AddRate(LocationEntity entity, string description, decimal price)
@@ -120,7 +126,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             return base.Add(changedRate);
         }
 
-        public decimal GetCurrentRate(LocationEntity entity, DateTime paymentDate)
+        public decimal GetCurrentRate(int accountsCount,LocationEntity entity, DateTime paymentDate)
         {
             var rate = base.GetWithInclude(x => x.IsDefault == false &&
                                                 x.IsDeleted == false &&
@@ -132,7 +138,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                 throw new ArgumentNullException(nameof(rate));
 
             if (!rate.Any())
-                return GetDefaultRate();
+                return GetDefaultRate() / accountsCount;
 
             var result = rate.FirstOrDefault(x => x.AssignedLocations.FirstOrDefault(z => z.IsDeleted == false &&
                                                                                           z.StreetId == entity.StreetId &&
@@ -141,7 +147,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                                                                                           z.BuildingNumber.Equals(entity.BuildingCorpus,
                                                                                                   StringComparison.OrdinalIgnoreCase)) != null);
 
-            return result?.Price ?? GetDefaultRate();
+            return result?.Price / accountsCount ?? GetDefaultRate();
         }
 
         public RateEntity GetActiveRate(LocationEntity location)

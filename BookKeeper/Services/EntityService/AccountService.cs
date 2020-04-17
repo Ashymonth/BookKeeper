@@ -1,4 +1,7 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
 using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
@@ -9,6 +12,8 @@ namespace BookKeeper.Data.Services.EntityService
     public interface IAccountService : IService<AccountEntity>
     {
         AccountEntity AddAccount(long account,LocationEntity entity);
+
+        int AccountsCount(LocationEntity entity);
     }
 
     public class AccountService : Service<AccountEntity>, IAccountService
@@ -27,6 +32,18 @@ namespace BookKeeper.Data.Services.EntityService
                 StreetId = entity.StreetId
             };
             return base.Add(newAccount);
+        }
+
+        public int AccountsCount(LocationEntity entity)
+        {
+            return base.GetWithInclude(x =>
+                       x.Location.HouseNumber.Equals(entity.HouseNumber,
+                           StringComparison.OrdinalIgnoreCase) &&
+                       x.Location.BuildingCorpus.Equals(entity.BuildingCorpus,
+                           StringComparison.OrdinalIgnoreCase) &&
+                       x.Location.ApartmentNumber.Equals(entity.ApartmentNumber,
+                           StringComparison.OrdinalIgnoreCase) &&
+                       x.IsDeleted == false, x => x.Location).ToList().Count;
         }
 
         private static AccountType ConvertAccountType(long code)

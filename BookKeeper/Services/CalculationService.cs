@@ -20,6 +20,8 @@ namespace BookKeeper.Data.Services
 
         TotalPayments CalculateTotalPrice(DateTime @from, DateTime to);
 
+        decimal Rate(int accountsCount, LocationEntity entity, DateTime paymentDate);
+
     }
 
     public class CalculationService : ICalculationService
@@ -34,20 +36,27 @@ namespace BookKeeper.Data.Services
 
         private readonly ISearchService _searchService;
 
+        private readonly ILocationService _locationService;
+
 
         public CalculationService(IRateService rateService, IDiscountDocumentService discountDocumentService,
-            IAccountService accountService, IStreetService streetService, ISearchService searchService)
+            IAccountService accountService, IStreetService streetService, ISearchService searchService, ILocationService locationService)
         {
             _rateService = rateService;
             _discountDocumentService = discountDocumentService;
             _accountService = accountService;
             _streetService = streetService;
             _searchService = searchService;
+            _locationService = locationService;
         }
 
         public decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime paymentDate)
         {
-            var rate = _rateService.GetCurrentRate(entity, paymentDate);
+            var accountsCount = _accountService.AccountsCount(entity);
+
+            var rate = _rateService.GetCurrentRate(accountsCount, entity, paymentDate);
+
+            rate /= accountsCount;
 
             var discounts = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate).ToList();
 
@@ -60,8 +69,7 @@ namespace BookKeeper.Data.Services
             if (rate == 0)
                 return 0;
 
-
-            var discountForAll = rate/discounts.Count;
+            var discountForAll = rate / discounts.Count;
             decimal result = 0;
             foreach (var discount in discounts)
             {
@@ -77,7 +85,6 @@ namespace BookKeeper.Data.Services
             result = Math.Round(result, 2);
 
             return result;
-
         }
 
         public List<TotalPayments> CalculateAllPrice(int streetId, string houseNumber, DateTime from, DateTime to)
@@ -101,7 +108,7 @@ namespace BookKeeper.Data.Services
                         x.IsDeleted == false &&
                         x.PaymentDate.Date >= from.Date && x.PaymentDate.Date <= to.Date))
                     {
-                        
+
                         switch (accountEntity.AccountType)
                         {
                             case AccountType.Municipal:
@@ -201,7 +208,7 @@ namespace BookKeeper.Data.Services
 
             foreach (var streetEntity in streets.Where(x => x.IsDeleted == false))
             {
-                foreach (var accountEntity in accounts.Where(x=>x.StreetId == streetEntity.Id))
+                foreach (var accountEntity in accounts.Where(x => x.StreetId == streetEntity.Id))
                 {
                     foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
                         x.IsDeleted == false &&
@@ -234,6 +241,13 @@ namespace BookKeeper.Data.Services
             }
 
             return totalPayment;
+        }
+
+        public decimal Rate(int accountsCount, LocationEntity entity, DateTime paymentDate)
+        {
+            var rate = _rateService.GetCurrentRate(accountsCount, entity, paymentDate);
+
+            return rate;
         }
     }
 
