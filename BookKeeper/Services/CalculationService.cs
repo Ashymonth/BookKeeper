@@ -12,7 +12,7 @@ namespace BookKeeper.Data.Services
 {
     public interface ICalculationService
     {
-        decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime currentDate);
+        decimal CalculatePrice(int accountsCount, int accountId, LocationEntity entity, decimal received, DateTime currentDate);
 
         List<TotalPayments> CalculateAllPrice(int streetId, string houseNumber, DateTime from, DateTime to);
 
@@ -36,27 +36,20 @@ namespace BookKeeper.Data.Services
 
         private readonly ISearchService _searchService;
 
-        private readonly ILocationService _locationService;
-
 
         public CalculationService(IRateService rateService, IDiscountDocumentService discountDocumentService,
-            IAccountService accountService, IStreetService streetService, ISearchService searchService, ILocationService locationService)
+            IAccountService accountService, IStreetService streetService, ISearchService searchService)
         {
             _rateService = rateService;
             _discountDocumentService = discountDocumentService;
             _accountService = accountService;
             _streetService = streetService;
             _searchService = searchService;
-            _locationService = locationService;
         }
 
-        public decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime paymentDate)
+        public decimal CalculatePrice(int accountsCount, int accountId, LocationEntity entity, decimal received, DateTime paymentDate)
         {
-            var accountsCount = _accountService.AccountsCount(entity);
-
             var rate = _rateService.GetCurrentRate(accountsCount, entity, paymentDate);
-
-            rate /= accountsCount;
 
             var discounts = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate).ToList();
 

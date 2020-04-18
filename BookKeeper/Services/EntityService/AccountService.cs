@@ -37,12 +37,9 @@ namespace BookKeeper.Data.Services.EntityService
         public int AccountsCount(LocationEntity entity)
         {
             return base.GetWithInclude(x =>
-                       x.Location.HouseNumber.Equals(entity.HouseNumber,
-                           StringComparison.OrdinalIgnoreCase) &&
-                       x.Location.BuildingCorpus.Equals(entity.BuildingCorpus,
-                           StringComparison.OrdinalIgnoreCase) &&
-                       x.Location.ApartmentNumber.Equals(entity.ApartmentNumber,
-                           StringComparison.OrdinalIgnoreCase) &&
+                       x.Location.HouseNumber.Equals(entity.HouseNumber, StringComparison.OrdinalIgnoreCase) &&
+                       x.Location.BuildingCorpus.Equals(entity.BuildingCorpus, StringComparison.OrdinalIgnoreCase) &&
+                       x.Location.ApartmentNumber.Equals(entity.ApartmentNumber, StringComparison.OrdinalIgnoreCase) &&
                        x.IsDeleted == false, x => x.Location).ToList().Count;
         }
 

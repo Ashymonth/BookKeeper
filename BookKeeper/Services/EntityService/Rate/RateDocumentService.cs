@@ -138,7 +138,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                 throw new ArgumentNullException(nameof(rate));
 
             if (!rate.Any())
-                return GetDefaultRate() / accountsCount;
+                return Math.Round(GetDefaultRate() / accountsCount,2);
 
             var result = rate.FirstOrDefault(x => x.AssignedLocations.FirstOrDefault(z => z.IsDeleted == false &&
                                                                                           z.StreetId == entity.StreetId &&

@@ -23,11 +23,14 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
+using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Windows.Forms;
+using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Services.EntityService;
 using SortOrder = System.Windows.Forms.SortOrder;
 
@@ -458,23 +461,22 @@ namespace BookKeeper.UI
             var debtorsCount = 0;
 
             ResetColors(lvlMonthReport);
-
-            foreach (ListViewItem listViewItem in lvlMonthReport.Items)
+            using (var scope = _container.BeginLifetimeScope())
             {
-                try
-                {
-                    using (var scope = _container.BeginLifetimeScope())
-                    {
-                        var calculateService = scope.Resolve<ICalculationService>();
+                var calculateService = scope.Resolve<ICalculationService>();
 
+                foreach (ListViewItem listViewItem in lvlMonthReport.Items)
+                {
+                    try
+                    {
                         decimal totalPayments = 0;
-                        if (!(listViewItem.Tag is AccountEntity account))
+                        if (!(listViewItem.Tag is DebtorModel account))
                             continue;
 
-                        foreach (var payment in account.PaymentDocuments.Where(x =>
+                        foreach (var payment in account.Account.PaymentDocuments.Where(x =>
                             x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date < dateTo.Value.Date))
                         {
-                            var result = calculateService.CalculatePrice(account.Id, account.Location,
+                            var result = calculateService.CalculatePrice(account.AccountsCount, account.Account.Id, account.Account.Location,
                                 payment.Received, payment.PaymentDate);
 
                             totalPayments += result;
@@ -486,13 +488,14 @@ namespace BookKeeper.UI
                         listViewItem.UseItemStyleForSubItems = false;
                         listViewItem.SubItems[0].BackColor = Color.LightCoral;
                         debtorsCount++;
+
                     }
-                }
-                catch (NullReferenceException)
-                {
-                    MessageBoxHelper.ShowWarningMessage(
-                        "Тариф по умолчанию был удален, дальнейшие рачеты невозможны. Перезапустите программу", this);
-                    return;
+                    catch (NullReferenceException)
+                    {
+                        MessageBoxHelper.ShowWarningMessage(
+                            "Тариф по умолчанию был удален, дальнейшие рачеты невозможны. Перезапустите программу", this);
+                        return;
+                    }
                 }
             }
 
@@ -568,6 +571,7 @@ namespace BookKeeper.UI
 
                 try
                 {
+
                     using (var scope = _container.BeginLifetimeScope())
                     {
                         var service = scope.Resolve<ISearchService>();
@@ -576,7 +580,7 @@ namespace BookKeeper.UI
                         if (searchResult != null && searchResult.Any())
                         {
                             backgroundWorker2.RunWorkerAsync(searchResult);
-                            LoadAccountsInfo(searchResult);
+                            LoadAccountsInfo(searchResult, scope);
                         }
                         else
                         {
@@ -605,20 +609,18 @@ namespace BookKeeper.UI
 
         #region Methods
 
-        private void LoadAccountsInfo(IEnumerable<AccountEntity> accountEntities)
+        private void LoadAccountsInfo(IEnumerable<AccountEntity> accountEntities, ILifetimeScope scope)
         {
             var tempList = new List<ListViewItem>();
 
-            foreach (var account in accountEntities.ToList())
+            foreach (var account in accountEntities)
             {
                 var paymentDocuments = account.PaymentDocuments
                     .Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date);
 
-
                 var paymentDocumentEntities = paymentDocuments;
                 if (!paymentDocumentEntities.Any())
                     continue;
-
 
                 var listViewItem = new ListViewItem(new[]
                 {
@@ -629,30 +631,24 @@ namespace BookKeeper.UI
 
                 listViewItem.SubItems.AddRange(Enumerable.Repeat("-", lvlMonthReport.Columns.Count - 1).ToArray());
 
+                var accountsCount = GetAccountsCount(accountEntities, account.Location);
+                var rateService = scope.Resolve<IRateService>();
+
                 foreach (var paymentDocumentEntity in paymentDocumentEntities)
                 {
-                    decimal rate;
-                    using (var scope = _container.BeginLifetimeScope())
-                    {
-                        var accountService = scope.Resolve<IAccountService>();
-                        var accountsCount = accountService.AccountsCount(account.Location);
-                        var service = scope.Resolve<IRateService>();
-                        rate = service.GetCurrentRate(accountsCount, account.Location, paymentDocumentEntity.PaymentDate);
-                    }
+                    var rate = rateService.GetCurrentRate(accountsCount, account.Location, paymentDocumentEntity.PaymentDate);
 
-                    var columnIndex =
-                            lvlMonthReport.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
+                    var columnIndex = lvlMonthReport.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
 
                     if (columnIndex != -1)
                     {
-                        listViewItem.SubItems[columnIndex].Text =
-                            $@"{ paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture)}";
+                        listViewItem.SubItems[columnIndex].Text = $@"{ paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture)}";
 
                         listViewItem.SubItems[columnIndex + 1].Text = rate.ToString(CultureInfo.CurrentCulture);
                     }
                 }
 
-                listViewItem.Tag = account;
+                listViewItem.Tag = new DebtorModel() { Account = account, AccountsCount = accountsCount };
                 tempList.Add(listViewItem);
             }
 
@@ -664,6 +660,14 @@ namespace BookKeeper.UI
 
             lblCounter.Text = tempList.Count.ToString();
             lvlMonthReport.Items.AddRange(tempList.ToArray());
+        }
+
+        public int GetAccountsCount(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation)
+        {
+            return accounts.Count(x =>
+                x.Location.HouseNumber.Equals(searchLocation.HouseNumber, StringComparison.OrdinalIgnoreCase) &&
+                x.Location.BuildingCorpus.Equals(searchLocation.BuildingCorpus, StringComparison.OrdinalIgnoreCase) &&
+                x.Location.ApartmentNumber.Equals(searchLocation.ApartmentNumber, StringComparison.OrdinalIgnoreCase));
         }
 
         private static AccountType Convert(int index)
@@ -1305,22 +1309,22 @@ namespace BookKeeper.UI
         {
             try
             {
-                if (lvlMonthReport.FocusedItem.Tag is AccountEntity account)
+                if (lvlMonthReport.FocusedItem.Tag is DebtorModel account)
                 {
                     using (var form = new AccountDetailsForm())
                     {
                         form.AccountDetailsModel = new AccountDetailsModel
                         {
-                            Account = account.Account.ToString(),
+                            Account = account.Account.Account.ToString(),
                             Street = cmbStreets.Text,
-                            House = account.Location.HouseNumber,
-                            Building = account.Location.BuildingCorpus,
-                            Apartment = account.Location.ApartmentNumber,
-                            Accrued = account.PaymentDocuments.FirstOrDefault()?.Accrued
+                            House = account.Account.Location.HouseNumber,
+                            Building = account.Account.Location.BuildingCorpus,
+                            Apartment = account.Account.Location.ApartmentNumber,
+                            Accrued = account.Account.PaymentDocuments.FirstOrDefault()?.Accrued
                                 .ToString(CultureInfo.CurrentCulture),
-                            Received = account.PaymentDocuments.FirstOrDefault()?.Received
+                            Received = account.Account.PaymentDocuments.FirstOrDefault()?.Received
                                 .ToString(CultureInfo.CurrentCulture),
-                            AccountType = account.AccountType == AccountType.Private ? "Частный" : "Муниципальный"
+                            AccountType = account.Account.AccountType == AccountType.Private ? "Частный" : "Муниципальный"
                         };
                         form.ShowDialog(this);
                     }
