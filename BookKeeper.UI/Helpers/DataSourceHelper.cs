@@ -99,7 +99,7 @@ namespace BookKeeper.UI.Helpers
             {
                 var service = scope.Resolve<IDiscountPercentService>();
 
-                var percents = service.GetItems(x => x.IsDeleted == false).ToList();
+                var percents = service.GetItems(x => x.IsDeleted == false).OrderBy(x => x.Percent).ToList();
                 percentBox.DataSource = percents;
                 percentBox.DisplayMember = "Percent";
                 percentBox.ValueMember = "Percent";

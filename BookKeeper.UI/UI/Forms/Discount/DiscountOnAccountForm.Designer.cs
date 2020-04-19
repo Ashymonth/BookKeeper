@@ -41,6 +41,10 @@
             this.dateFrom = new MetroFramework.Controls.MetroDateTime();
             this.metroLabel4 = new MetroFramework.Controls.MetroLabel();
             this.metroLabel5 = new MetroFramework.Controls.MetroLabel();
+            this.btnAddOccupant = new MetroFramework.Controls.MetroButton();
+            this.btnDelete = new MetroFramework.Controls.MetroButton();
+            this.btnAddOccupantWithDiscount = new MetroFramework.Controls.MetroButton();
+            this.lstOccupants = new System.Windows.Forms.ListBox();
             this.SuspendLayout();
             // 
             // txtAccount
@@ -90,7 +94,7 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(465, 232);
+            this.btnSave.Location = new System.Drawing.Point(420, 410);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(121, 23);
             this.btnSave.TabIndex = 2;
@@ -101,7 +105,7 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(23, 232);
+            this.btnCancel.Location = new System.Drawing.Point(23, 410);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(121, 23);
             this.btnCancel.TabIndex = 3;
@@ -150,26 +154,26 @@
             // 
             this.dateTo.CustomFormat = "MMMM yyyy";
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTo.Location = new System.Drawing.Point(386, 136);
+            this.dateTo.Location = new System.Drawing.Point(23, 308);
             this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTo.Name = "dateTo";
-            this.dateTo.Size = new System.Drawing.Size(200, 29);
+            this.dateTo.Size = new System.Drawing.Size(285, 29);
             this.dateTo.TabIndex = 22;
             // 
             // dateFrom
             // 
             this.dateFrom.CustomFormat = "MMMM yyyy";
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateFrom.Location = new System.Drawing.Point(386, 83);
+            this.dateFrom.Location = new System.Drawing.Point(23, 248);
             this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateFrom.Name = "dateFrom";
-            this.dateFrom.Size = new System.Drawing.Size(200, 29);
+            this.dateFrom.Size = new System.Drawing.Size(285, 29);
             this.dateFrom.TabIndex = 21;
             // 
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(326, 83);
+            this.metroLabel4.Location = new System.Drawing.Point(23, 226);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(54, 19);
             this.metroLabel4.TabIndex = 23;
@@ -178,11 +182,49 @@
             // metroLabel5
             // 
             this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(326, 136);
+            this.metroLabel5.Location = new System.Drawing.Point(23, 279);
             this.metroLabel5.Name = "metroLabel5";
             this.metroLabel5.Size = new System.Drawing.Size(47, 19);
             this.metroLabel5.TabIndex = 24;
             this.metroLabel5.Text = "Конец";
+            // 
+            // btnAddOccupant
+            // 
+            this.btnAddOccupant.Location = new System.Drawing.Point(349, 259);
+            this.btnAddOccupant.Name = "btnAddOccupant";
+            this.btnAddOccupant.Size = new System.Drawing.Size(192, 23);
+            this.btnAddOccupant.TabIndex = 36;
+            this.btnAddOccupant.Text = "Добавить проживающего";
+            this.btnAddOccupant.UseSelectable = true;
+            this.btnAddOccupant.Click += new System.EventHandler(this.btnAddOccupant_Click);
+            // 
+            // btnDelete
+            // 
+            this.btnDelete.Location = new System.Drawing.Point(349, 317);
+            this.btnDelete.Name = "btnDelete";
+            this.btnDelete.Size = new System.Drawing.Size(192, 23);
+            this.btnDelete.TabIndex = 35;
+            this.btnDelete.Text = "Удалить";
+            this.btnDelete.UseSelectable = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnAddOccupantWithDiscount
+            // 
+            this.btnAddOccupantWithDiscount.Location = new System.Drawing.Point(349, 288);
+            this.btnAddOccupantWithDiscount.Name = "btnAddOccupantWithDiscount";
+            this.btnAddOccupantWithDiscount.Size = new System.Drawing.Size(192, 23);
+            this.btnAddOccupantWithDiscount.TabIndex = 34;
+            this.btnAddOccupantWithDiscount.Text = "Добавить льготника";
+            this.btnAddOccupantWithDiscount.UseSelectable = true;
+            this.btnAddOccupantWithDiscount.Click += new System.EventHandler(this.btnAddOccupantWithDiscount_Click);
+            // 
+            // lstOccupants
+            // 
+            this.lstOccupants.FormattingEnabled = true;
+            this.lstOccupants.Location = new System.Drawing.Point(349, 83);
+            this.lstOccupants.Name = "lstOccupants";
+            this.lstOccupants.Size = new System.Drawing.Size(192, 173);
+            this.lstOccupants.TabIndex = 33;
             // 
             // DiscountAccountItemForm
             // 
@@ -190,7 +232,11 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(617, 274);
+            this.ClientSize = new System.Drawing.Size(600, 456);
+            this.Controls.Add(this.btnAddOccupant);
+            this.Controls.Add(this.btnDelete);
+            this.Controls.Add(this.btnAddOccupantWithDiscount);
+            this.Controls.Add(this.lstOccupants);
             this.Controls.Add(this.metroLabel5);
             this.Controls.Add(this.metroLabel4);
             this.Controls.Add(this.dateTo);
@@ -229,5 +275,9 @@
         private MetroFramework.Controls.MetroDateTime dateFrom;
         private MetroFramework.Controls.MetroLabel metroLabel4;
         private MetroFramework.Controls.MetroLabel metroLabel5;
+        private MetroFramework.Controls.MetroButton btnAddOccupant;
+        private MetroFramework.Controls.MetroButton btnDelete;
+        private MetroFramework.Controls.MetroButton btnAddOccupantWithDiscount;
+        private System.Windows.Forms.ListBox lstOccupants;
     }
 }

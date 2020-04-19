@@ -4,9 +4,7 @@ using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Payments;
 using BookKeeper.Data.Data.Entities.Rates;
 using System;
-using System.Configuration;
 using System.Data.Entity;
-using Configuration = BookKeeper.Data.Migrations.Configuration;
 
 namespace BookKeeper.Data.Data
 {
@@ -18,7 +16,7 @@ namespace BookKeeper.Data.Data
         }
         public ApplicationDbContext(string connectionString) : base(connectionString)
         {
-           
+
         }
         public virtual DbSet<DistrictEntity> Districts { get; set; }
 
@@ -30,9 +28,11 @@ namespace BookKeeper.Data.Data
 
         public virtual DbSet<PaymentDocumentEntity> PaymentDocuments { get; set; }
 
-        public virtual DbSet<DiscountEntity> DiscountDocuments { get; set; }
+        public virtual DbSet<DiscountEntity> Discounts { get; set; }
 
         public virtual DbSet<DiscountPercentEntity> DiscountPercents { get; set; }
+
+        public virtual DbSet<OccupantEntity> Occupants { get; set; }
 
         public virtual DbSet<DiscountDescriptionEntity> DiscountDescriptions { get; set; }
 

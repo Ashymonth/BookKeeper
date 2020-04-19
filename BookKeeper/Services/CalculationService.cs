@@ -12,9 +12,16 @@ namespace BookKeeper.Data.Services
 {
     public interface ICalculationService
     {
-        decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime currentDate);
+        decimal CalculatePrice(int accountsCount, int accountId, LocationEntity entity, decimal received, DateTime currentDate);
 
         List<TotalPayments> CalculateAllPrice(int streetId, string houseNumber, DateTime from, DateTime to);
+
+        List<TotalPayments> CalculateAllPrice(DateTime from, DateTime to);
+
+        TotalPayments CalculateTotalPrice(DateTime @from, DateTime to);
+
+        decimal Rate(int accountsCount, LocationEntity entity, DateTime paymentDate);
+
     }
 
     public class CalculationService : ICalculationService
@@ -40,25 +47,37 @@ namespace BookKeeper.Data.Services
             _searchService = searchService;
         }
 
-        public decimal CalculatePrice(int accountId, LocationEntity entity, decimal received, DateTime paymentDate)
+        public decimal CalculatePrice(int accountsCount, int accountId, LocationEntity entity, decimal received, DateTime paymentDate)
         {
-            var rate = _rateService.GetCurrentRate(entity, paymentDate);
+            var rate = _rateService.GetCurrentRate(accountsCount, entity, paymentDate);
 
-            var discount = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate);
+            var discounts = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate).ToList();
 
-            if (discount == null && received == 0)
+            if (discounts.Count == 0 && received == 0)
                 return -rate;
 
-            if (discount == null)
+            if (discounts.Count == 0)
                 return received - rate;
 
             if (rate == 0)
                 return 0;
 
-            if (discount.Percent == 100)
-                return 0;
+            var discountForAll = rate / discounts.Count;
+            decimal result = 0;
+            foreach (var discount in discounts)
+            {
+                if (discount.Percent == 0)
+                {
+                    result += discountForAll;
+                    continue;
+                }
 
-            return received - (((100 - discount.Percent) / 100) * rate);
+                result += discountForAll - discountForAll * (discount.Percent / 100);
+            }
+
+            result = Math.Round(result, 2);
+
+            return result;
         }
 
         public List<TotalPayments> CalculateAllPrice(int streetId, string houseNumber, DateTime from, DateTime to)
@@ -72,7 +91,7 @@ namespace BookKeeper.Data.Services
 
             var predicate = _searchService.FindAccounts(streetId, houseNumber);
 
-            foreach (var streetEntity in streets.Where(x=>x.Id == streetId))
+            foreach (var streetEntity in streets.Where(x => x.Id == streetId))
             {
                 var totalPayment = new TotalPayments { StreetName = streetEntity.StreetName };
 
@@ -82,7 +101,6 @@ namespace BookKeeper.Data.Services
                         x.IsDeleted == false &&
                         x.PaymentDate.Date >= from.Date && x.PaymentDate.Date <= to.Date))
                     {
-                        totalPayment.PaymentsDate.Add(paymentDocumentEntity.PaymentDate.ToString("Y"));
 
                         switch (accountEntity.AccountType)
                         {
@@ -112,6 +130,118 @@ namespace BookKeeper.Data.Services
 
             return total;
         }
+
+        public List<TotalPayments> CalculateAllPrice(DateTime @from, DateTime to)
+        {
+            var streets = _streetService.GetWithInclude(x => x.IsDeleted == false, x => x.Locations);
+
+            var accounts = _accountService.GetWithInclude(x => x.IsDeleted == false,
+                x => x.PaymentDocuments).ToList();
+
+            var total = new List<TotalPayments>();
+
+            foreach (var streetEntity in streets.Where(x => x.IsDeleted == false))
+            {
+                var totalPayment = new TotalPayments { StreetName = streetEntity.StreetName };
+
+                foreach (var entity in accounts.Where(x => x.StreetId == streetEntity.Id && x.IsDeleted == false).GroupBy(x => x.Location.HouseNumber))
+                {
+                    totalPayment.HouseNumber.Add(entity.Key);
+                    var address = new Address
+                    {
+                        HouseNumber = entity.Key
+                    };
+                    foreach (var accountEntity in entity)
+                    {
+                        foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
+                            x.IsDeleted == false &&
+                            x.PaymentDate.Date >= from.Date && x.PaymentDate.Date <= to.Date))
+                        {
+                            totalPayment.PaymentsDate.Add(paymentDocumentEntity.PaymentDate.ToString("Y"));
+
+                            switch (accountEntity.AccountType)
+                            {
+                                case AccountType.Municipal:
+                                    address.AccruedMunicipal += paymentDocumentEntity.Accrued;
+                                    address.ReceivedMunicipal += paymentDocumentEntity.Received;
+                                    break;
+                                case AccountType.Private:
+                                    address.AccruedPrivate += paymentDocumentEntity.Accrued;
+                                    address.ReceivedPrivate += paymentDocumentEntity.Received;
+                                    break;
+                                default:
+                                    throw new ArgumentOutOfRangeException();
+                            }
+                        }
+                    }
+
+                    address.TotalAccrued += address.AccruedMunicipal + address.AccruedPrivate;
+                    address.TotalReceived += address.ReceivedMunicipal + address.ReceivedPrivate;
+
+                    if (address.TotalAccrued == 0)
+                        continue;
+
+                    address.Percent = Math.Round(((address.TotalReceived / address.TotalAccrued) * 100), 2);
+                    totalPayment.Address.Add(address);
+                }
+                total.Add(totalPayment);
+            }
+
+            return total;
+        }
+
+        public TotalPayments CalculateTotalPrice(DateTime @from, DateTime to)
+        {
+            var streets = _streetService.GetWithInclude(x => x.IsDeleted == false, x => x.Locations);
+
+            var accounts = _accountService.GetWithInclude(x => x.IsDeleted == false,
+                x => x.PaymentDocuments).ToList();
+
+            var totalPayment = new TotalPayments();
+
+            foreach (var streetEntity in streets.Where(x => x.IsDeleted == false))
+            {
+                foreach (var accountEntity in accounts.Where(x => x.StreetId == streetEntity.Id))
+                {
+                    foreach (var paymentDocumentEntity in accountEntity.PaymentDocuments.Where(x =>
+                        x.IsDeleted == false &&
+                        x.PaymentDate.Date >= from.Date && x.PaymentDate.Date <= to.Date))
+                    {
+
+                        switch (accountEntity.AccountType)
+                        {
+                            case AccountType.Municipal:
+                                totalPayment.AccruedMunicipal += paymentDocumentEntity.Accrued;
+                                totalPayment.ReceivedMunicipal += paymentDocumentEntity.Received;
+                                break;
+                            case AccountType.Private:
+                                totalPayment.AccruedPrivate += paymentDocumentEntity.Accrued;
+                                totalPayment.ReceivedPrivate += paymentDocumentEntity.Received;
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
+                    }
+                }
+
+                totalPayment.TotalAccrued += totalPayment.AccruedMunicipal + totalPayment.AccruedPrivate;
+                totalPayment.TotalReceived += totalPayment.ReceivedMunicipal + totalPayment.ReceivedPrivate;
+
+                if (totalPayment.TotalAccrued == 0)
+                    continue;
+
+                totalPayment.Percent = Math.Round(((totalPayment.TotalReceived / totalPayment.TotalAccrued) * 100), 2);
+            }
+
+            return totalPayment;
+        }
+
+        public decimal Rate(int accountsCount, LocationEntity entity, DateTime paymentDate)
+        {
+            var rate = _rateService.GetCurrentRate(accountsCount, entity, paymentDate);
+
+            return rate;
+        }
     }
 
     public class TotalPayments
@@ -119,8 +249,15 @@ namespace BookKeeper.Data.Services
         public TotalPayments()
         {
             PaymentsDate = new List<string>();
+            HouseNumber = new List<string>();
+            Address = new List<Address>();
         }
+
+        public List<Address> Address { get; set; }
+
         public string StreetName { get; set; }
+
+        public List<string> HouseNumber { get; set; }
 
         public decimal AccruedMunicipal { get; set; }
 
@@ -137,5 +274,24 @@ namespace BookKeeper.Data.Services
         public decimal Percent { get; set; }
 
         public List<string> PaymentsDate { get; set; }
+    }
+
+    public class Address
+    {
+        public string HouseNumber { get; set; }
+
+        public decimal AccruedMunicipal { get; set; }
+
+        public decimal ReceivedMunicipal { get; set; }
+
+        public decimal AccruedPrivate { get; set; }
+
+        public decimal ReceivedPrivate { get; set; }
+
+        public decimal TotalAccrued { get; set; }
+
+        public decimal TotalReceived { get; set; }
+
+        public decimal Percent { get; set; }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
@@ -68,6 +69,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
             }
             LoadItems();
+            
         }
 
         private void LoadItems()
@@ -77,7 +79,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 var percentService = scope.Resolve<IDiscountPercentService>();
                 var percents = percentService.GetItems(x => x.IsDeleted == false);
 
-                lstPercent.DataSource = percents.ToList();
+                lstPercent.DataSource = percents.OrderBy(x=>x.Percent).ToList();
                 lstPercent.DisplayMember = "Percent";
                 lstPercent.ValueMember = "Id";
             }

@@ -186,7 +186,7 @@ namespace BookKeeperTest.Rates
                 var rateService = scope.Resolve<IRateService>();
                 var rate = rateService.AddRate(locationEntity, description, price);
 
-                var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
+                var actual = rateService.GetCurrentRate(1,locationEntity, paymentDate);
 
                 Assert.AreEqual(expected.Price, actual);
 
@@ -217,7 +217,7 @@ namespace BookKeeperTest.Rates
 
                 var rateService = scope.Resolve<IRateService>();
 
-                var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
+                var actual = rateService.GetCurrentRate(1,locationEntity, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -252,7 +252,7 @@ namespace BookKeeperTest.Rates
                 var rateService = scope.Resolve<IRateService>();
                 var rate = rateService.AddRate(locationEntity, description, price);
 
-                var actual = rateService.GetCurrentRate(locationEntity, paymentDate);
+                var actual = rateService.GetCurrentRate(1,locationEntity, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 

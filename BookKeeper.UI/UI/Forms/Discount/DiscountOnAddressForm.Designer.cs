@@ -53,6 +53,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.lblCounter = new System.Windows.Forms.ToolStripStatusLabel();
+            this.metroButton1 = new MetroFramework.Controls.MetroButton();
             this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -248,17 +249,17 @@
             // 
             // btnAdd
             // 
-            this.btnAdd.Location = new System.Drawing.Point(701, 306);
+            this.btnAdd.Location = new System.Drawing.Point(701, 335);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(192, 23);
             this.btnAdd.TabIndex = 29;
-            this.btnAdd.Text = "Добавить";
+            this.btnAdd.Text = "Добавить льготника";
             this.btnAdd.UseSelectable = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
             // btnDelete
             // 
-            this.btnDelete.Location = new System.Drawing.Point(701, 335);
+            this.btnDelete.Location = new System.Drawing.Point(701, 364);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(192, 23);
             this.btnDelete.TabIndex = 30;
@@ -282,8 +283,8 @@
             // 
             this.toolStripStatusLabel1.BackColor = System.Drawing.Color.Transparent;
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(158, 17);
-            this.toolStripStatusLabel1.Text = "Количество проживающих";
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(161, 17);
+            this.toolStripStatusLabel1.Text = "Количество проживающих:";
             // 
             // lblCounter
             // 
@@ -292,6 +293,16 @@
             this.lblCounter.Size = new System.Drawing.Size(13, 17);
             this.lblCounter.Text = "0";
             // 
+            // metroButton1
+            // 
+            this.metroButton1.Location = new System.Drawing.Point(701, 306);
+            this.metroButton1.Name = "metroButton1";
+            this.metroButton1.Size = new System.Drawing.Size(192, 23);
+            this.metroButton1.TabIndex = 32;
+            this.metroButton1.Text = "Добавить проживающего";
+            this.metroButton1.UseSelectable = true;
+            this.metroButton1.Click += new System.EventHandler(this.metroButton1_Click);
+            // 
             // DiscountOnAddressForm
             // 
             this.AcceptButton = this.btnSaveDiscount;
@@ -299,6 +310,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.dtnCancelDiscount;
             this.ClientSize = new System.Drawing.Size(916, 496);
+            this.Controls.Add(this.metroButton1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAdd);
@@ -360,5 +372,6 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
         private System.Windows.Forms.ToolStripStatusLabel lblCounter;
+        private MetroFramework.Controls.MetroButton metroButton1;
     }
 }

@@ -5,6 +5,7 @@ using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.UI.Helpers;
 using MetroFramework.Forms;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using IContainer = Autofac.IContainer;
@@ -14,6 +15,8 @@ namespace BookKeeper.UI.UI.Forms.Discount
     public partial class DiscountAccountItemForm : MetroForm
     {
         private readonly IContainer _container;
+
+        private List<Discount> _discounts = new List<Discount>();
 
         public DiscountAccountItemForm()
         {
@@ -54,6 +57,26 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 return;
             }
 
+            if (dateFrom.Value.Date == dateTo.Value.Date)
+            {
+                MessageBoxHelper.ShowWarningMessage("Даты должны различаться",this);
+                return;
+            }
+
+           
+            if (_discounts.Count == 0)
+            {
+                MessageBoxHelper.ShowWarningMessage("Должен быть хотя бы 1 проживающий в квартире",this);
+                return;
+            }
+
+            var occupants = _discounts.Select(x=>x.Price).FirstOrDefault(x => x != 0);
+            if (occupants == 0)
+            {
+                MessageBoxHelper.ShowWarningMessage("Должен быть хотя бы 1 льготник",this);
+                return;
+            }
+
             long account = 0;
             var description = string.Empty;
             try
@@ -82,15 +105,48 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 }
 
                 var discountService = scope.Resolve<IDiscountDocumentService>();
-                var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, percent, description,dateFrom.Value.Date,dateTo.Value.Date);
-                if (discountOnAccount == null)
+                var occupantService = scope.Resolve<IOccupantService>();
+                foreach (var discount in _discounts)
                 {
-                    MessageBoxHelper.ShowWarningMessage("Не удалось добавить", this);
-                    return;
+                    var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, discount.Price, discount.Description, dateFrom.Value.Date, dateTo.Value.Date);
+                    var occupant = occupantService.AddOccupant(discountOnAccount.Id, accountItem.Id,discount.Price);
                 }
 
                 DialogResult = DialogResult.OK;
             }
         }
+
+        private void btnAddOccupant_Click(object sender, EventArgs e)
+        {
+            lstOccupants.Items.Add("Жилец");
+            _discounts.Add(new Discount()
+            {
+                Price = 0,
+                Description = string.Empty
+            });
+        }
+
+        private void btnAddOccupantWithDiscount_Click(object sender, EventArgs e)
+        {
+            lstOccupants.Items.Add($"{cmbPercent.Text} - {cmbDescription.Text}");
+            _discounts.Add(new Discount
+            {
+                Price = Convert.ToDecimal(cmbPercent.Text),
+                Description = cmbDescription.Text
+            });
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            lstOccupants.Items.Remove(lstOccupants.SelectedItem);
+        }
     }
+
+    public class Discount
+    {
+        public decimal Price { get; set; }
+
+        public string Description { get; set; }
+    }
+
 }

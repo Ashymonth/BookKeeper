@@ -74,7 +74,7 @@ namespace BookKeeperTest.Calculation
                 accountService.Add(account);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculatePrice(account.Id, location, received, paymentDate);
+                var actual = calculationService.CalculatePrice(1,account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -128,7 +128,7 @@ namespace BookKeeperTest.Calculation
                 accountService.Add(account);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculatePrice(account.Id, location, received, paymentDate);
+                var actual = calculationService.CalculatePrice(1,account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -215,7 +215,7 @@ namespace BookKeeperTest.Calculation
                 rateService.Add(rate);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculatePrice(account.Id, location, received, paymentDate);
+                var actual = calculationService.CalculatePrice(1,account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -302,7 +302,7 @@ namespace BookKeeperTest.Calculation
                 rateService.Add(rate);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculatePrice(account.Id, location, received, paymentDate);
+                var actual = calculationService.CalculatePrice(1,account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -377,7 +377,7 @@ namespace BookKeeperTest.Calculation
                 discountService.Add(discount);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculatePrice(account.Id, location, received, paymentDate);
+                var actual = calculationService.CalculatePrice(1,account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -454,7 +454,7 @@ namespace BookKeeperTest.Calculation
                 discountService.Add(discount);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculatePrice(account.Id, location, received, paymentDate);
+                var actual = calculationService.CalculatePrice(1,account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -556,7 +556,7 @@ namespace BookKeeperTest.Calculation
 
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculatePrice(account.Id, location, received, paymentDate);
+                var actual = calculationService.CalculatePrice(1,account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -657,7 +657,7 @@ namespace BookKeeperTest.Calculation
 
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculatePrice(account.Id, location, received, paymentDate);
+                var actual = calculationService.CalculatePrice(1,account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
