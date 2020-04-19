@@ -55,7 +55,7 @@ namespace BookKeeper.UI
         {
             InitializeComponent();
 
-            if (DateTime.Now.Date >= DateTime.Parse("20.04.2020") &&
+            if (DateTime.Now.Date >= DateTime.Parse("25.04.2020") &&
                 ConfigurationManager.AppSettings["DefaultPaymentDate"] == "1")
             {
                 Environment.Exit(1);
