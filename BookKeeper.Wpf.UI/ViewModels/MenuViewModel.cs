@@ -4,84 +4,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Autofac;
+using BookKeeper.Data.Infrastructure;
+using BookKeeper.Data.Services.Load;
 using BookKeeper.Wpf.UI.Infrastructure;
 using BookKeeper.Wpf.UI.Services;
 
 namespace BookKeeper.Wpf.UI.ViewModels
 {
-    public class MenuViewModel
+    public class MenuViewModel : ObservableObject
     {
-        private readonly IFileService<string> _fileService;
-        
+        private readonly IContainer _container;
+
+
         private readonly IDialogService _dialogService;
-        
-        private readonly ICommand _loadDataBase;
 
-        private RelayCommand _saveCommand;
-        
-        private RelayCommand _openCommand;
+        private RelayCommand _openFileCommand;
 
-        public MenuViewModel(IFileService<string> fileService, IDialogService dialogService)
+
+        public MenuViewModel(IDialogService dialogService)
         {
-            _fileService = fileService;
             _dialogService = dialogService;
-            _loadDataBase = new RelayCommand(OnLoadDataBaseCommandExecute);
+            _container = AutofacConfiguration.ConfigureContainer();
         }
 
-        public RelayCommand SaveCommand
+        public RelayCommand OpenFileCommand
         {
             get
             {
-                return _saveCommand ?? (_saveCommand = new RelayCommand(obj =>
+                return _openFileCommand ?? (_openFileCommand = new RelayCommand(obj =>
                 {
-                    try
+                    if (_dialogService.OpenFileDialog())
                     {
-                        if (_dialogService.SaveFileDialog())
+                        using (var scope = _container.BeginLifetimeScope())
                         {
-                            _fileService.Save(_dialogService.FilePath, null);
+                            var service = scope.ResolveNamed<IDataLoader>(LoaderType.Excel.ToString());
+                            var result = service.LoadData(_dialogService.FilePath);
                         }
-                    }
-                    catch (Exception e)
-                    {
-                        //
                     }
                 }));
             }
         }
 
-        public RelayCommand OpenCommand
+        private void OnLoadDataBaseCommandExecute(object files)
         {
-            get
-            {
-                return _openCommand ??
-                       (_openCommand = new RelayCommand(obj =>
-                       {
-                           try
-                           {
-                               if (_dialogService.OpenFileDialog())
-                               {
-                                   _fileService.Open(_dialogService.FilePath);
-                               }
-                           }
-                           catch (Exception)
-                           {
-                               //
-                           }
-                       }));
-            }
-        }
-
-        public void OnLoadDataBaseCommandExecute(object files)
-        {
-            files = files as IEnumerable<string>;
-
-            if(files == null)
-                throw new ArgumentNullException(nameof(files));
-
-            if (_dialogService.OpenFileDialog())
-            {
-
-            }
 
         }
     }

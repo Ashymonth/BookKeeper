@@ -6,14 +6,17 @@ using System.Threading.Tasks;
 
 namespace BookKeeper.Wpf.UI.Services
 {
-    public interface IFileService<TFileType>
+    public interface IFileService
     {
-        List<TFileType> Open(string fileName);
+        void Open(string fileName);
 
-        bool Save(string fileName, List<TFileType> list);
     }
 
-    public class FileService
+    public class FileService : IFileService
     {
+        public void Open(string fileName)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

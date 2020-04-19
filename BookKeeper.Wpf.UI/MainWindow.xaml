@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BookKeeper.Wpf.UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="MainWindow" Height="450" Width="800" d:DataContext="{d:DesignData MenuViewModel}">
+        <StackPanel>
+                <DockPanel Dock="Top">
+                        <Menu>
+
+                                <MenuItem Grid.Column="0" Header="Импорт">
+                                        <MenuItem Header="Реестр" Command="{Binding OpenFileCommand}"/>
+                                </MenuItem>
+                        </Menu>
+                </DockPanel>
+        </StackPanel>
 </Window>

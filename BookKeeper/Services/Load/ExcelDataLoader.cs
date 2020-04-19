@@ -37,7 +37,6 @@ namespace BookKeeper.Data.Services.Load
 
         public ImportReportModel LoadData(string file)
         {
-
             var configuration = _configuration.Load();
 
             var import = _import.ImportDataRow(file);
