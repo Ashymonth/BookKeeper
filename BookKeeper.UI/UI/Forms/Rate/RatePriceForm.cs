@@ -12,6 +12,9 @@ namespace BookKeeper.UI.UI.Forms.Rate
             InitializeComponent();
         }
         public decimal Price { get; set; }
+
+        public DateTime DateTo { get; set; }
+
         private void btnChange_Click(object sender, System.EventArgs e)
         {
             DialogResult = DialogResult.None;
@@ -22,6 +25,9 @@ namespace BookKeeper.UI.UI.Forms.Rate
             try
             {
                 Price = Convert.ToDecimal(txtPrice.Text);
+
+                DateTo = dateTo.Value.Date;
+
                 if (Price <= 0)
                 {
                     MessageBoxHelper.ShowWarningMessage("Цена должна быть больше 0", this);

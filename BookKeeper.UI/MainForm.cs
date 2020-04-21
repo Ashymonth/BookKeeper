@@ -844,7 +844,7 @@ namespace BookKeeper.UI
                     using (var scope = _container.BeginLifetimeScope())
                     {
                         var service = scope.Resolve<IRateService>();
-                        var result = service.ChangeRatePrice(rate, form.Price);
+                        var result = service.ChangeRatePrice(rate, form.Price,form.DateTo);
                         if (result != null)
                         {
                             lvlRatesItem.Tag = result;

@@ -136,11 +136,10 @@ namespace BookKeeperTest.Rates
                 var locationService = scope.Resolve<ILocationService>();
                 var location = locationService.Add(locationEntity);
 
-
                 var rateService = scope.Resolve<IRateService>();
                 var rate = rateService.AddRate(locationEntity, description, price);
 
-                var actual = rateService.ChangeRatePrice(rate, newPrice);
+                var actual = rateService.ChangeRatePrice(rate, newPrice,endDate);
 
                 Assert.AreEqual(expected.Price, actual.Price);
                 Assert.AreEqual(expected.IsArchive, rate.IsArchive);

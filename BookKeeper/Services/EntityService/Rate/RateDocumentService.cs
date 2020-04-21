@@ -1,13 +1,12 @@
-﻿using BookKeeper.Data.Data;
+﻿using Autofac;
+using BookKeeper.Data.Data;
+using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Data.Repositories;
+using BookKeeper.Data.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Autofac;
-using BookKeeper.Data.Data.Entities.Address;
-using BookKeeper.Data.Infrastructure;
-using BookKeeper.Data.Services.EntityService.Address;
 
 namespace BookKeeper.Data.Services.EntityService.Rate
 {
@@ -18,13 +17,9 @@ namespace BookKeeper.Data.Services.EntityService.Rate
         RateEntity AddRate(LocationEntity entity, string description, decimal price, DateTime fromDateTime,
             DateTime toDateTime);
 
-        decimal GetCurrentRate(int accountsCount,LocationEntity entity, DateTime paymentDate);
+        decimal GetCurrentRate(int accountsCount, LocationEntity entity, DateTime paymentDate);
 
-        RateEntity GetActiveRate(LocationEntity location);
-
-        RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price);
-
-        decimal GetDefaultRate();
+        RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price,DateTime endDate);
     }
 
     public class RateService : Service<RateEntity>, IRateService
@@ -67,7 +62,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             return base.Add(result);
         }
 
-        public RateEntity AddRate(LocationEntity entity, string description, decimal price,DateTime fromDateTime, DateTime toDateTime)
+        public RateEntity AddRate(LocationEntity entity, string description, decimal price, DateTime fromDateTime, DateTime toDateTime)
         {
             var activeRate = GetActiveRate(entity);
 
@@ -98,7 +93,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             return base.Add(result);
         }
 
-        public RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price)
+        public RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price,DateTime endDate)
         {
             var rate = base.GetItemById(rateEntity.Id);
             if (rate == null)
@@ -108,6 +103,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             {
                 Price = price,
                 StartDate = DateTime.Now,
+                EndDate = endDate,
                 Description = rateEntity.Description,
             };
 
@@ -126,7 +122,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             return base.Add(changedRate);
         }
 
-        public decimal GetCurrentRate(int accountsCount,LocationEntity entity, DateTime paymentDate)
+        public decimal GetCurrentRate(int accountsCount, LocationEntity entity, DateTime paymentDate)
         {
             var rate = base.GetWithInclude(x => x.IsDefault == false &&
                                                 x.IsDeleted == false &&
@@ -138,7 +134,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                 throw new ArgumentNullException(nameof(rate));
 
             if (!rate.Any())
-                return Math.Round(GetDefaultRate() / accountsCount,2);
+                return Math.Round(GetDefaultRate() / accountsCount, 2);
 
             var result = rate.FirstOrDefault(x => x.AssignedLocations.FirstOrDefault(z => z.IsDeleted == false &&
                                                                                           z.StreetId == entity.StreetId &&
