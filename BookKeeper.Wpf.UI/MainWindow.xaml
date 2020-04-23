@@ -6,14 +6,42 @@
         xmlns:local="clr-namespace:BookKeeper.Wpf.UI"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" d:DataContext="{d:DesignData MenuViewModel}">
-        <StackPanel>
-                <DockPanel Dock="Top">
-                        <Menu>
+    <StackPanel>
+        <DockPanel Dock="Top">
+           <Grid>
+               <Grid.RowDefinitions>
+                   <RowDefinition Height="Auto"/>
+               </Grid.RowDefinitions>
+               <Menu>
 
-                                <MenuItem Grid.Column="0" Header="Импорт">
-                                        <MenuItem Header="Реестр" Command="{Binding OpenFileCommand}"/>
-                                </MenuItem>
-                        </Menu>
-                </DockPanel>
-        </StackPanel>
+                   <MenuItem Grid.Column="0" Header="Импорт">
+                       <MenuItem Header="Реестр" Command="{Binding OpenFileCommand}"/>
+                       <MenuItem Header="Платежи" Command="{Binding OpenFileCommand}"></MenuItem>
+                   </MenuItem>
+               </Menu>
+            </Grid>
+        </DockPanel>
+        <DockPanel Dock="Top">
+            <WrapPanel Margin="5 5">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0">
+                        <ComboBoxItem IsSelected="True">
+                            <TextBlock Text="Улица"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                    <ComboBox Grid.Column="1">
+                        <ComboBoxItem IsSelected="True">
+                            <TextBlock Text="Дом"/>
+                        </ComboBoxItem>
+                    </ComboBox>
+                </Grid>
+            </WrapPanel>
+        </DockPanel>
+    </StackPanel>
 </Window>
