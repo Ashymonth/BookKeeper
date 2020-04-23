@@ -24,7 +24,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
 
         RateEntity ChangeRatePrice(RateEntity rateEntity, decimal price);
 
-        decimal GetDefaultRate();
+        decimal GetDefaultRate(int accountsCount);
     }
 
     public class RateService : Service<RateEntity>, IRateService
@@ -138,7 +138,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                 throw new ArgumentNullException(nameof(rate));
 
             if (!rate.Any())
-                return Math.Round(GetDefaultRate() / accountsCount,2);
+                return GetDefaultRate(accountsCount);
 
             var result = rate.FirstOrDefault(x => x.AssignedLocations.FirstOrDefault(z => z.IsDeleted == false &&
                                                                                           z.StreetId == entity.StreetId &&
@@ -147,7 +147,7 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                                                                                           z.BuildingNumber.Equals(entity.BuildingCorpus,
                                                                                                   StringComparison.OrdinalIgnoreCase)) != null);
 
-            return result?.Price / accountsCount ?? GetDefaultRate();
+            return result?.Price / accountsCount ?? GetDefaultRate(accountsCount);
         }
 
         public RateEntity GetActiveRate(LocationEntity location)
@@ -181,9 +181,9 @@ namespace BookKeeper.Data.Services.EntityService.Rate
             return updaterRate;
         }
 
-        public decimal GetDefaultRate()
+        public decimal GetDefaultRate(int accountsCount)
         {
-            return GetItem(x => x.IsDefault).Price;
+            return Math.Round(GetItem(x => x.IsDefault).Price / accountsCount,2);
         }
     }
 }

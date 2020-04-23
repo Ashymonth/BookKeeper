@@ -76,6 +76,7 @@
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Account\AccountDetailsModel.cs" />
+    <Compile Include="Models\Account\AccountTotalPayments.cs" />
     <Compile Include="Models\Account\DebtorModel.cs" />
     <Compile Include="Models\Discount\DiscountModel.cs" />
     <Compile Include="Models\Rate\RateModel.cs" />

@@ -133,6 +133,7 @@
             this.dateTotalReportAllTo = new MetroFramework.Controls.MetroDateTime();
             this.btnCreateTotalReportAll = new MetroFramework.Controls.MetroButton();
             this.btnTotalReportAllClear = new MetroFramework.Controls.MetroButton();
+            this.btnTotalReportExport = new MetroFramework.Controls.MetroButton();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.cntDatabase = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnCreateBackup = new System.Windows.Forms.ToolStripMenuItem();
@@ -155,7 +156,9 @@
             this.cntHouses = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnAddHouse = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteHouse = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnTotalReportExport = new MetroFramework.Controls.MetroButton();
+            this.cmbTotalReportBuilding = new MetroFramework.Controls.MetroComboBox();
+            this.columnHeader34 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader35 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanel1.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
             this.tbpDiscounts.SuspendLayout();
@@ -885,7 +888,7 @@
             this.tabpage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabpage.Location = new System.Drawing.Point(20, 116);
             this.tabpage.Name = "tabpage";
-            this.tabpage.SelectedIndex = 0;
+            this.tabpage.SelectedIndex = 3;
             this.tabpage.Size = new System.Drawing.Size(1415, 721);
             this.tabpage.TabIndex = 0;
             this.tabpage.UseSelectable = true;
@@ -911,6 +914,8 @@
             // 
             this.lvlTotalReport.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader11,
+            this.columnHeader34,
+            this.columnHeader35,
             this.columnHeader12,
             this.columnHeader13,
             this.columnHeader14,
@@ -933,23 +938,23 @@
             // 
             // columnHeader11
             // 
-            this.columnHeader11.Text = "Адрес";
+            this.columnHeader11.Text = "Улица";
             this.columnHeader11.Width = 192;
             // 
             // columnHeader12
             // 
             this.columnHeader12.Text = "Начислено муниц";
-            this.columnHeader12.Width = 181;
+            this.columnHeader12.Width = 170;
             // 
             // columnHeader13
             // 
             this.columnHeader13.Text = "Начислено част";
-            this.columnHeader13.Width = 170;
+            this.columnHeader13.Width = 120;
             // 
             // columnHeader14
             // 
             this.columnHeader14.Text = "поступ муниц";
-            this.columnHeader14.Width = 159;
+            this.columnHeader14.Width = 140;
             // 
             // columnHeader15
             // 
@@ -964,7 +969,7 @@
             // columnHeader17
             // 
             this.columnHeader17.Text = "Всего начисл";
-            this.columnHeader17.Width = 145;
+            this.columnHeader17.Width = 146;
             // 
             // columnHeader18
             // 
@@ -975,6 +980,7 @@
             // 
             this.flowLayoutPanel4.Controls.Add(this.cmbTotalReportStreets);
             this.flowLayoutPanel4.Controls.Add(this.cmbTotalReportHouses);
+            this.flowLayoutPanel4.Controls.Add(this.cmbTotalReportBuilding);
             this.flowLayoutPanel4.Controls.Add(this.metroLabel1);
             this.flowLayoutPanel4.Controls.Add(this.dateTotalReportFrom);
             this.flowLayoutPanel4.Controls.Add(this.metroLabel3);
@@ -1016,6 +1022,7 @@
             this.cmbTotalReportHouses.Theme = MetroFramework.MetroThemeStyle.Light;
             this.cmbTotalReportHouses.UseSelectable = true;
             this.cmbTotalReportHouses.DropDown += new System.EventHandler(this.cmbTotalReportHouses_DropDown);
+            this.cmbTotalReportHouses.SelectionChangeCommitted += new System.EventHandler(this.cmbTotalReportHouses_SelectionChangeCommitted);
             // 
             // metroLabel1
             // 
@@ -1023,7 +1030,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.metroLabel1.AutoSize = true;
             this.metroLabel1.BackColor = System.Drawing.Color.Transparent;
-            this.metroLabel1.Location = new System.Drawing.Point(408, 0);
+            this.metroLabel1.Location = new System.Drawing.Point(537, 0);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(54, 35);
             this.metroLabel1.TabIndex = 3;
@@ -1036,7 +1043,7 @@
             // 
             this.dateTotalReportFrom.CustomFormat = "MMMM yyyy";
             this.dateTotalReportFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTotalReportFrom.Location = new System.Drawing.Point(467, 2);
+            this.dateTotalReportFrom.Location = new System.Drawing.Point(596, 2);
             this.dateTotalReportFrom.Margin = new System.Windows.Forms.Padding(2);
             this.dateTotalReportFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTotalReportFrom.Name = "dateTotalReportFrom";
@@ -1050,7 +1057,7 @@
             | System.Windows.Forms.AnchorStyles.Left)));
             this.metroLabel3.AutoSize = true;
             this.metroLabel3.BackColor = System.Drawing.Color.Transparent;
-            this.metroLabel3.Location = new System.Drawing.Point(623, 0);
+            this.metroLabel3.Location = new System.Drawing.Point(752, 0);
             this.metroLabel3.Margin = new System.Windows.Forms.Padding(3, 0, 10, 0);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(47, 35);
@@ -1064,7 +1071,7 @@
             // 
             this.dateTotalReportTo.CustomFormat = "MMMM yyyy";
             this.dateTotalReportTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTotalReportTo.Location = new System.Drawing.Point(682, 2);
+            this.dateTotalReportTo.Location = new System.Drawing.Point(811, 2);
             this.dateTotalReportTo.Margin = new System.Windows.Forms.Padding(2);
             this.dateTotalReportTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTotalReportTo.Name = "dateTotalReportTo";
@@ -1074,10 +1081,10 @@
             // 
             // btnTotalReport
             // 
-            this.btnTotalReport.Location = new System.Drawing.Point(837, 2);
+            this.btnTotalReport.Location = new System.Drawing.Point(966, 2);
             this.btnTotalReport.Margin = new System.Windows.Forms.Padding(2);
             this.btnTotalReport.Name = "btnTotalReport";
-            this.btnTotalReport.Size = new System.Drawing.Size(211, 29);
+            this.btnTotalReport.Size = new System.Drawing.Size(170, 29);
             this.btnTotalReport.TabIndex = 9;
             this.btnTotalReport.Text = "Сформировать общий отчет";
             this.btnTotalReport.UseSelectable = true;
@@ -1085,10 +1092,10 @@
             // 
             // btnCreateTotalReport
             // 
-            this.btnCreateTotalReport.Location = new System.Drawing.Point(1052, 2);
+            this.btnCreateTotalReport.Location = new System.Drawing.Point(1140, 2);
             this.btnCreateTotalReport.Margin = new System.Windows.Forms.Padding(2);
             this.btnCreateTotalReport.Name = "btnCreateTotalReport";
-            this.btnCreateTotalReport.Size = new System.Drawing.Size(156, 29);
+            this.btnCreateTotalReport.Size = new System.Drawing.Size(137, 29);
             this.btnCreateTotalReport.TabIndex = 0;
             this.btnCreateTotalReport.Text = "Сформировать отчет";
             this.btnCreateTotalReport.UseSelectable = true;
@@ -1096,10 +1103,10 @@
             // 
             // btnExportToExcel
             // 
-            this.btnExportToExcel.Location = new System.Drawing.Point(1212, 2);
+            this.btnExportToExcel.Location = new System.Drawing.Point(1281, 2);
             this.btnExportToExcel.Margin = new System.Windows.Forms.Padding(2);
             this.btnExportToExcel.Name = "btnExportToExcel";
-            this.btnExportToExcel.Size = new System.Drawing.Size(156, 29);
+            this.btnExportToExcel.Size = new System.Drawing.Size(108, 29);
             this.btnExportToExcel.TabIndex = 6;
             this.btnExportToExcel.Text = "Экспорт в эксель";
             this.btnExportToExcel.UseSelectable = true;
@@ -1216,7 +1223,7 @@
             this.dateTotalReportAllFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportAllFrom.Location = new System.Drawing.Point(62, 2);
             this.dateTotalReportAllFrom.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTotalReportAllFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTotalReportAllFrom.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTotalReportAllFrom.Name = "dateTotalReportAllFrom";
             this.dateTotalReportAllFrom.Size = new System.Drawing.Size(151, 29);
             this.dateTotalReportAllFrom.TabIndex = 2;
@@ -1244,7 +1251,7 @@
             this.dateTotalReportAllTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTotalReportAllTo.Location = new System.Drawing.Point(277, 2);
             this.dateTotalReportAllTo.Margin = new System.Windows.Forms.Padding(2);
-            this.dateTotalReportAllTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTotalReportAllTo.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTotalReportAllTo.Name = "dateTotalReportAllTo";
             this.dateTotalReportAllTo.Size = new System.Drawing.Size(151, 29);
             this.dateTotalReportAllTo.TabIndex = 1;
@@ -1271,6 +1278,17 @@
             this.btnTotalReportAllClear.Text = "Очистить";
             this.btnTotalReportAllClear.UseSelectable = true;
             this.btnTotalReportAllClear.Click += new System.EventHandler(this.btnTotalReportAllClear_Click);
+            // 
+            // btnTotalReportExport
+            // 
+            this.btnTotalReportExport.Location = new System.Drawing.Point(752, 2);
+            this.btnTotalReportExport.Margin = new System.Windows.Forms.Padding(2);
+            this.btnTotalReportExport.Name = "btnTotalReportExport";
+            this.btnTotalReportExport.Size = new System.Drawing.Size(156, 29);
+            this.btnTotalReportExport.TabIndex = 7;
+            this.btnTotalReportExport.Text = "Экспорт в эксель";
+            this.btnTotalReportExport.UseSelectable = true;
+            this.btnTotalReportExport.Click += new System.EventHandler(this.btnTotalReportExport_Click);
             // 
             // backgroundWorker1
             // 
@@ -1427,16 +1445,30 @@
             this.btnDeleteHouse.Text = "Удалить";
             this.btnDeleteHouse.Click += new System.EventHandler(this.btnDeleteHouse_Click);
             // 
-            // btnTotalReportExport
+            // cmbTotalReportBuilding
             // 
-            this.btnTotalReportExport.Location = new System.Drawing.Point(752, 2);
-            this.btnTotalReportExport.Margin = new System.Windows.Forms.Padding(2);
-            this.btnTotalReportExport.Name = "btnTotalReportExport";
-            this.btnTotalReportExport.Size = new System.Drawing.Size(156, 29);
-            this.btnTotalReportExport.TabIndex = 7;
-            this.btnTotalReportExport.Text = "Экспорт в эксель";
-            this.btnTotalReportExport.UseSelectable = true;
-            this.btnTotalReportExport.Click += new System.EventHandler(this.btnTotalReportExport_Click);
+            this.cmbTotalReportBuilding.ItemHeight = 23;
+            this.cmbTotalReportBuilding.Items.AddRange(new object[] {
+            "Дом"});
+            this.cmbTotalReportBuilding.Location = new System.Drawing.Point(408, 3);
+            this.cmbTotalReportBuilding.MaxLength = 32767;
+            this.cmbTotalReportBuilding.Name = "cmbTotalReportBuilding";
+            this.cmbTotalReportBuilding.PromptText = "Корпус";
+            this.cmbTotalReportBuilding.Size = new System.Drawing.Size(123, 29);
+            this.cmbTotalReportBuilding.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cmbTotalReportBuilding.TabIndex = 10;
+            this.cmbTotalReportBuilding.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.cmbTotalReportBuilding.UseSelectable = true;
+            // 
+            // columnHeader34
+            // 
+            this.columnHeader34.Text = "Дом";
+            this.columnHeader34.Width = 66;
+            // 
+            // columnHeader35
+            // 
+            this.columnHeader35.Text = "Корпус";
+            this.columnHeader35.Width = 82;
             // 
             // MainForm
             // 
@@ -1612,6 +1644,9 @@
         private System.Windows.Forms.ColumnHeader columnHeader5;
         private MetroFramework.Controls.MetroButton btnTotalReportAllClear;
         private MetroFramework.Controls.MetroButton btnTotalReportExport;
+        private MetroFramework.Controls.MetroComboBox cmbTotalReportBuilding;
+        private System.Windows.Forms.ColumnHeader columnHeader34;
+        private System.Windows.Forms.ColumnHeader columnHeader35;
     }
 }
 

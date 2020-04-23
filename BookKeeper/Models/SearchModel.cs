@@ -21,8 +21,6 @@ namespace BookKeeper.Data.Models
 
         public bool IsNoneBuilding { get; set; }
 
-        public bool IsNotPayed { get; set; }
-
         public DateTime From { get; set; }
 
         public DateTime To { get; set; }

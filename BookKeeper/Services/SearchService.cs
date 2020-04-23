@@ -5,15 +5,24 @@ using LinqKit;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using BookKeeper.Data.Data.Entities.Address;
 using static System.String;
 
 namespace BookKeeper.Data.Services
 {
+    public enum TotalReportType
+    {
+        All,
+        WithParameters
+    }
+
     public interface ISearchService
     {
         IEnumerable<AccountEntity> FindAccounts(SearchModel model);
 
-        ExpressionStarter<AccountEntity> FindAccounts(int streetId, string houseNumber);
+        ExpressionStarter<AccountEntity> FindAccounts(int streetId, string houseNumber, string buildingNumber);
+
+        ExpressionStarter<LocationEntity> FindLocation(int streetId, string houseNumber, string buildingNumber);
     }
 
     public class SearchService : ISearchService
@@ -28,15 +37,15 @@ namespace BookKeeper.Data.Services
         public IEnumerable<AccountEntity> FindAccounts(SearchModel model)
         {
             var account = PredicateBuilder.New<AccountEntity>();
-            
+
             Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
-                entity.StreetId == model.StreetId && entity.IsDeleted == false;
+                entity.StreetId == model.StreetId && entity.IsDeleted == false && entity.IsArchive == model.IsArchive;
 
             Expression<Func<AccountEntity, bool>> accountPredicate =
                 entity => entity.Account == Convert.ToInt64(model.Account) && entity.IsDeleted == false;
 
-            Expression<Func<AccountEntity,bool>> accountTypePredicate = entity =>
-                entity.AccountType == model.AccountType && entity.IsArchive == model.IsArchive;
+            Expression<Func<AccountEntity, bool>> accountTypePredicate = entity =>
+                 entity.AccountType == model.AccountType;
 
             Expression<Func<AccountEntity, bool>> housePredicate =
                 house => string.Equals(house.Location.HouseNumber, model.HouseNumber,
@@ -47,7 +56,7 @@ namespace BookKeeper.Data.Services
                     StringComparison.CurrentCultureIgnoreCase) && building.IsDeleted == false;
 
             Expression<Func<AccountEntity, bool>> emptyBuildingPredicate =
-                emptyBuilding => string.Equals(emptyBuilding.Location.BuildingCorpus, string.Empty) 
+                emptyBuilding => string.Equals(emptyBuilding.Location.BuildingCorpus, string.Empty)
                                  && emptyBuilding.IsDeleted == false;
 
             Expression<Func<AccountEntity, bool>> apartmentPredicate =
@@ -83,28 +92,57 @@ namespace BookKeeper.Data.Services
                 x => x.Location.Street.Rates);
         }
 
-        public ExpressionStarter<AccountEntity> FindAccounts(int streetId, string houseNumber)
+        public ExpressionStarter<AccountEntity> FindAccounts(int streetId, string houseNumber, string buildingNumber)
         {
             var account = PredicateBuilder.New<AccountEntity>();
 
             Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
                 entity.StreetId == streetId && entity.IsDeleted == false;
 
-
             Expression<Func<AccountEntity, bool>> housePredicate = entity =>
-                entity.StreetId == streetId 
-                && entity.Location.HouseNumber.Equals(houseNumber,StringComparison.OrdinalIgnoreCase)
-                &&  entity.IsDeleted == false;
+                string.Equals(entity.Location.HouseNumber, houseNumber, StringComparison.OrdinalIgnoreCase) &&
+                entity.IsDeleted == false;
 
-            if (IsNullOrWhiteSpace(houseNumber))
-            {
-                account.And(defaultPredicate);
-                return account;
-            }
+            Expression<Func<AccountEntity, bool>> buildingPredicate = entity =>
+                entity.StreetId == streetId &&
+                string.Equals(entity.Location.BuildingCorpus, buildingNumber, StringComparison.OrdinalIgnoreCase) &&
+                entity.IsDeleted == false;
 
-            account.And(housePredicate);
+            account.And(defaultPredicate);
+
+            if (IsNullOrWhiteSpace(houseNumber) == false)
+                account.And(housePredicate);
+
+            if (IsNullOrWhiteSpace(buildingNumber) == false)
+                account.And(buildingPredicate);
 
             return account;
+        }
+
+        public ExpressionStarter<LocationEntity> FindLocation(int streetId, string houseNumber, string buildingNumber)
+        {
+            var location = PredicateBuilder.New<LocationEntity>();
+
+            Expression<Func<LocationEntity, bool>> defaultPredicate = entity =>
+                entity.StreetId == streetId && entity.IsDeleted == false;
+
+            Expression<Func<LocationEntity, bool>> housePredicate = entity =>
+                string.Equals(entity.HouseNumber, houseNumber, StringComparison.OrdinalIgnoreCase) &&
+                entity.IsDeleted == false;
+
+            Expression<Func<LocationEntity, bool>> buildingPredicate = entity =>
+                string.Equals(entity.BuildingCorpus, buildingNumber,StringComparison.OrdinalIgnoreCase) && 
+                entity.IsDeleted == false;
+
+            location.And(defaultPredicate);
+
+            if (IsNullOrWhiteSpace(houseNumber) == false)
+                location.And(housePredicate);
+
+            if (IsNullOrWhiteSpace(buildingNumber) == false)
+                location.And(buildingPredicate);
+
+            return location;
         }
     }
 }

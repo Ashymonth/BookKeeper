@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using BookKeeper.Data.Data.Entities;
+using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Infrastructure;
@@ -23,15 +24,11 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
-using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
-using BookKeeper.Data.Data.Entities.Address;
-using BookKeeper.Data.Services.EntityService;
 using SortOrder = System.Windows.Forms.SortOrder;
 
 namespace BookKeeper.UI
@@ -55,7 +52,7 @@ namespace BookKeeper.UI
         {
             InitializeComponent();
 
-            if (DateTime.Now.Date >= DateTime.Parse("25.04.2020") &&
+            if (DateTime.Now.Date >= DateTime.Parse("29.04.2020") &&
                 ConfigurationManager.AppSettings["DefaultPaymentDate"] == "1")
             {
                 Environment.Exit(1);
@@ -461,6 +458,7 @@ namespace BookKeeper.UI
             var debtorsCount = 0;
 
             ResetColors(lvlMonthReport);
+            var columnIndex = lvlMonthReport.Columns.Add(new ColumnHeader() { Text = "Всего", Width = 100 });
             using (var scope = _container.BeginLifetimeScope())
             {
                 var calculateService = scope.Resolve<ICalculationService>();
@@ -470,17 +468,23 @@ namespace BookKeeper.UI
                     try
                     {
                         decimal totalPayments = 0;
+                        decimal received = 0;
                         if (!(listViewItem.Tag is DebtorModel account))
                             continue;
 
                         foreach (var payment in account.Account.PaymentDocuments.Where(x =>
                             x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date < dateTo.Value.Date))
                         {
-                            var result = calculateService.CalculatePrice(account.AccountsCount, account.Account.Id, account.Account.Location,
+                            received += payment.Received;
+
+                            var result = calculateService.CalculateDebt(account.AccountsCount, account.Account.Id, account.Account.Location,
                                 payment.Received, payment.PaymentDate);
 
                             totalPayments += result;
                         }
+
+                        if (columnIndex != -1)
+                            listViewItem.SubItems[columnIndex].Text = (received.ToString(CultureInfo.CurrentCulture));
 
                         if (totalPayments >= 0)
                             continue;
@@ -490,6 +494,7 @@ namespace BookKeeper.UI
                         debtorsCount++;
 
                     }
+
                     catch (NullReferenceException)
                     {
                         MessageBoxHelper.ShowWarningMessage(
@@ -498,7 +503,6 @@ namespace BookKeeper.UI
                     }
                 }
             }
-
             if (debtorsCount == 0)
             {
                 MessageBoxHelper.ShowCompeteMessage("Счетов с задолжностями нет", this);
@@ -571,7 +575,6 @@ namespace BookKeeper.UI
 
                 try
                 {
-
                     using (var scope = _container.BeginLifetimeScope())
                     {
                         var service = scope.Resolve<ISearchService>();
@@ -579,7 +582,6 @@ namespace BookKeeper.UI
 
                         if (searchResult != null && searchResult.Any())
                         {
-                            backgroundWorker2.RunWorkerAsync(searchResult);
                             LoadAccountsInfo(searchResult, scope);
                         }
                         else
@@ -613,8 +615,11 @@ namespace BookKeeper.UI
         {
             var tempList = new List<ListViewItem>();
 
-            foreach (var account in accountEntities)
+            var rateService = scope.Resolve<IRateService>();
+
+            foreach (var account in accountEntities.Where(x => x.IsArchive == false))
             {
+                var total = new AccountTotalPayments();
                 var paymentDocuments = account.PaymentDocuments
                     .Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date);
 
@@ -632,7 +637,6 @@ namespace BookKeeper.UI
                 listViewItem.SubItems.AddRange(Enumerable.Repeat("-", lvlMonthReport.Columns.Count - 1).ToArray());
 
                 var accountsCount = GetAccountsCount(accountEntities, account.Location);
-                var rateService = scope.Resolve<IRateService>();
 
                 foreach (var paymentDocumentEntity in paymentDocumentEntities)
                 {
@@ -662,12 +666,14 @@ namespace BookKeeper.UI
             lvlMonthReport.Items.AddRange(tempList.ToArray());
         }
 
-        public int GetAccountsCount(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation)
+        private int GetAccountsCount(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation)
         {
             return accounts.Count(x =>
                 x.Location.HouseNumber.Equals(searchLocation.HouseNumber, StringComparison.OrdinalIgnoreCase) &&
                 x.Location.BuildingCorpus.Equals(searchLocation.BuildingCorpus, StringComparison.OrdinalIgnoreCase) &&
-                x.Location.ApartmentNumber.Equals(searchLocation.ApartmentNumber, StringComparison.OrdinalIgnoreCase));
+                x.Location.ApartmentNumber.Equals(searchLocation.ApartmentNumber, StringComparison.OrdinalIgnoreCase) &&
+                x.IsDeleted == false
+                && x.IsArchive == false);
         }
 
         private static AccountType Convert(int index)
@@ -706,6 +712,7 @@ namespace BookKeeper.UI
             lvlMonthReport.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
             lvlMonthReport.Columns[0].Width = 150;
             lvlMonthReport.Columns[4].Width = 100;
+            lvlMonthReport.Columns[lvlMonthReport.Columns.Count - 1].Width = 50;
         }
 
         private static string GetColumnKey(DateTime @from)
@@ -1069,39 +1076,14 @@ namespace BookKeeper.UI
 
             using (var scope = _container.BeginLifetimeScope())
             {
-                var service = scope.Resolve<ICalculationService>();
-                try
-                {
-                    var result = service.CalculateAllPrice(streetId, cmbTotalReportHouses.SelectedIndex == 0 ? string.Empty : cmbTotalReportHouses.Text, dateTotalReportFrom.Value, dateTotalReportTo.Value);
-                    if (result != null && result.Count != 0)
-                    {
-                        lvlTotalReport.Items
-                            .AddRange(result
-                                .Select(payments =>
-                                    new ListViewItem(new[]
-                                    {
-                                        payments.StreetName,
-                                        payments.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
-                                        payments.AccruedPrivate.ToString(CultureInfo.CurrentCulture),
-                                        payments.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
-                                        payments.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
-                                        payments.TotalReceived.ToString(CultureInfo.CurrentCulture),
-                                        payments.TotalAccrued.ToString(CultureInfo.CurrentCulture),
-                                        $"{payments.Percent.ToString(CultureInfo.CurrentCulture)}%"
-                                    }))
-                                .ToArray());
-
-                    }
-                    else
-                    {
-                        MessageBoxHelper.ShowWarningMessage("Записи не найдены", this);
-                    }
-                }
-                catch (DivideByZeroException)
-                {
-                    MessageBoxHelper.ShowWarningMessage("Была предпринята попытка деления на ноль. Проверьте данные", this);
-                }
+                var calculateService = scope.Resolve<ICalculationService>();
+                var addresses =
+                    calculateService.CalculateIncomeWithParameters(streetId, cmbTotalReportHouses.SelectedIndex == 0 ? string.Empty : cmbTotalReportHouses.Text,
+                        cmbTotalReportBuilding.SelectedIndex == 0 ? string.Empty : cmbTotalReportBuilding.Text,
+                        dateTotalReportFrom.Value, dateTotalReportTo.Value);
+                CreateReport(addresses);
             }
+
         }
 
         private void btnTotalReport_Click(object sender, EventArgs e)
@@ -1114,43 +1096,51 @@ namespace BookKeeper.UI
 
             lvlTotalReport.Items.Clear();
 
-
             using (var scope = _container.BeginLifetimeScope())
             {
                 var calculateService = scope.Resolve<ICalculationService>();
-                var result =
-                    calculateService.CalculateAllPrice(dateTotalReportFrom.Value.Date, dateTotalReportTo.Value.Date);
+                var addresses =
+                    calculateService.CalculateIncome(dateTotalReportFrom.Value.Date, dateTotalReportTo.Value.Date);
+                CreateReport(addresses);
+            }
+        }
 
-                if (result != null && result.Count != 0)
+        private void CreateReport(IReadOnlyCollection<Address> incomeReport)
+        {
+            if (incomeReport != null && incomeReport.Count != 0)
+            {
+                var listViewItems = new List<ListViewItem>();
+
+                foreach (var payments in incomeReport)
                 {
-                    var listViewItems = new List<ListViewItem>();
-
-                    foreach (var payments in result)
+                    foreach (var houses in payments.Houses)
                     {
-                        foreach (var address in payments.Address)
+                        foreach (var building in houses.Buildings.OrderBy(x => x.BuildingNumber))
                         {
                             var item = new ListViewItem(new[]
                             {
-                                $"{payments.StreetName} Дом {address.HouseNumber}",
-                                address.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
-                                address.AccruedPrivate.ToString(CultureInfo.CurrentCulture),
-                                address.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
-                                address.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
-                                address.TotalReceived.ToString(CultureInfo.CurrentCulture),
-                                address.TotalAccrued.ToString(CultureInfo.CurrentCulture),
-                                $"{address.Percent.ToString(CultureInfo.CurrentCulture)}%"
-                            });
+                                    payments.StreetName,
+                                    houses.HouseNumber,
+                                    building.BuildingNumber,
+                                    building.AccruedMunicipal.ToString(CultureInfo.CurrentCulture),
+                                    building.AccruedPrivate.ToString(CultureInfo.CurrentCulture),
+                                    building.ReceivedMunicipal.ToString(CultureInfo.CurrentCulture),
+                                    building.ReceivedPrivate.ToString(CultureInfo.CurrentCulture),
+                                    building.TotalReceived.ToString(CultureInfo.CurrentCulture),
+                                    building.TotalAccrued.ToString(CultureInfo.CurrentCulture),
+                                    $"{building.Percent.ToString(CultureInfo.CurrentCulture)}%"
+                                });
                             listViewItems.Add(item);
                         }
                     }
+                }
 
-                    lvlTotalReport.Items.AddRange(listViewItems.ToArray());
-                }
-                else
-                {
-                    MessageBoxHelper.ShowWarningMessage("Платежей не найдено", this);
-                    return;
-                }
+                lvlTotalReport.Items.AddRange(listViewItems.ToArray());
+            }
+            else
+            {
+                MessageBoxHelper.ShowWarningMessage("Платежей не найдено", this);
+                return;
             }
         }
 
@@ -1196,12 +1186,19 @@ namespace BookKeeper.UI
         private void cmbTotalReportStreets_SelectionChangeCommitted(object sender, EventArgs e)
         {
             _dataSourceHelper.StreetIndexChanged(cmbTotalReportStreets, cmbTotalReportHouses, x => x.HouseNumber);
+            cmbTotalReportBuilding.DataSource = null;
         }
 
         private void cmbTotalReportHouses_DropDown(object sender, EventArgs e)
         {
             _dataSourceHelper.StreetIndexChanged
                 (cmbTotalReportStreets, cmbTotalReportHouses, x => x.HouseNumber);
+        }
+
+        private void cmbTotalReportHouses_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            _dataSourceHelper.HouseIndexChanged
+                (cmbTotalReportStreets, cmbTotalReportHouses, cmbTotalReportBuilding, x => x.BuildingCorpus);
         }
 
         #endregion
@@ -1366,7 +1363,7 @@ namespace BookKeeper.UI
             {
                 var calculateService = scope.Resolve<ICalculationService>();
                 var result =
-                    calculateService.CalculateTotalPrice(dateTotalReportAllFrom.Value.Date, dateTotalReportAllTo.Value.Date);
+                    calculateService.CalculateTotalIncome(dateTotalReportAllFrom.Value.Date, dateTotalReportAllTo.Value.Date);
 
                 if (result != null)
                 {

@@ -27,7 +27,7 @@ namespace BookKeeper.UI.Helpers
 
             houseBox.DataSource = selectedStreet.Locations
                 .Where(x => x.IsDeleted == false)
-                .Prepend(new LocationEntity(){HouseNumber = houseBox.PromptText})
+                .Prepend(new LocationEntity() { HouseNumber = houseBox.PromptText })
                 .Select(selectedItem)
                 .Distinct()
                 .ToList();
