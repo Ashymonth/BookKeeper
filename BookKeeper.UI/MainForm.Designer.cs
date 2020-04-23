@@ -100,6 +100,8 @@
             this.tbpTotalReportAll = new MetroFramework.Controls.MetroTabPage();
             this.lvlTotalReport = new MetroFramework.Controls.MetroListView();
             this.columnHeader11 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader34 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader35 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader12 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader13 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader14 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -110,6 +112,7 @@
             this.flowLayoutPanel4 = new System.Windows.Forms.FlowLayoutPanel();
             this.cmbTotalReportStreets = new MetroFramework.Controls.MetroComboBox();
             this.cmbTotalReportHouses = new MetroFramework.Controls.MetroComboBox();
+            this.cmbTotalReportBuilding = new MetroFramework.Controls.MetroComboBox();
             this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
             this.dateTotalReportFrom = new MetroFramework.Controls.MetroDateTime();
             this.metroLabel3 = new MetroFramework.Controls.MetroLabel();
@@ -156,9 +159,6 @@
             this.cntHouses = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnAddHouse = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteHouse = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmbTotalReportBuilding = new MetroFramework.Controls.MetroComboBox();
-            this.columnHeader34 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader35 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.flowLayoutPanel1.SuspendLayout();
             this.cntFilesMenu.SuspendLayout();
             this.tbpDiscounts.SuspendLayout();
@@ -804,7 +804,7 @@
             this.dateFrom.CustomFormat = "MMMM yyyy";
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFrom.Location = new System.Drawing.Point(971, 3);
-            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(120, 29);
             this.dateFrom.TabIndex = 7;
@@ -815,7 +815,7 @@
             this.dateTo.CustomFormat = "MMMM yyyy";
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTo.Location = new System.Drawing.Point(1097, 3);
-            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
+            this.dateTo.MinimumSize = new System.Drawing.Size(4, 29);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(118, 29);
             this.dateTo.TabIndex = 6;
@@ -941,6 +941,16 @@
             this.columnHeader11.Text = "Улица";
             this.columnHeader11.Width = 192;
             // 
+            // columnHeader34
+            // 
+            this.columnHeader34.Text = "Дом";
+            this.columnHeader34.Width = 66;
+            // 
+            // columnHeader35
+            // 
+            this.columnHeader35.Text = "Корпус";
+            this.columnHeader35.Width = 82;
+            // 
             // columnHeader12
             // 
             this.columnHeader12.Text = "Начислено муниц";
@@ -1023,6 +1033,21 @@
             this.cmbTotalReportHouses.UseSelectable = true;
             this.cmbTotalReportHouses.DropDown += new System.EventHandler(this.cmbTotalReportHouses_DropDown);
             this.cmbTotalReportHouses.SelectionChangeCommitted += new System.EventHandler(this.cmbTotalReportHouses_SelectionChangeCommitted);
+            // 
+            // cmbTotalReportBuilding
+            // 
+            this.cmbTotalReportBuilding.ItemHeight = 23;
+            this.cmbTotalReportBuilding.Items.AddRange(new object[] {
+            "Корпус"});
+            this.cmbTotalReportBuilding.Location = new System.Drawing.Point(408, 3);
+            this.cmbTotalReportBuilding.MaxLength = 32767;
+            this.cmbTotalReportBuilding.Name = "cmbTotalReportBuilding";
+            this.cmbTotalReportBuilding.PromptText = "Корпус";
+            this.cmbTotalReportBuilding.Size = new System.Drawing.Size(123, 29);
+            this.cmbTotalReportBuilding.Style = MetroFramework.MetroColorStyle.Blue;
+            this.cmbTotalReportBuilding.TabIndex = 10;
+            this.cmbTotalReportBuilding.Theme = MetroFramework.MetroThemeStyle.Light;
+            this.cmbTotalReportBuilding.UseSelectable = true;
             // 
             // metroLabel1
             // 
@@ -1444,31 +1469,6 @@
             this.btnDeleteHouse.Size = new System.Drawing.Size(126, 22);
             this.btnDeleteHouse.Text = "Удалить";
             this.btnDeleteHouse.Click += new System.EventHandler(this.btnDeleteHouse_Click);
-            // 
-            // cmbTotalReportBuilding
-            // 
-            this.cmbTotalReportBuilding.ItemHeight = 23;
-            this.cmbTotalReportBuilding.Items.AddRange(new object[] {
-            "Дом"});
-            this.cmbTotalReportBuilding.Location = new System.Drawing.Point(408, 3);
-            this.cmbTotalReportBuilding.MaxLength = 32767;
-            this.cmbTotalReportBuilding.Name = "cmbTotalReportBuilding";
-            this.cmbTotalReportBuilding.PromptText = "Корпус";
-            this.cmbTotalReportBuilding.Size = new System.Drawing.Size(123, 29);
-            this.cmbTotalReportBuilding.Style = MetroFramework.MetroColorStyle.Blue;
-            this.cmbTotalReportBuilding.TabIndex = 10;
-            this.cmbTotalReportBuilding.Theme = MetroFramework.MetroThemeStyle.Light;
-            this.cmbTotalReportBuilding.UseSelectable = true;
-            // 
-            // columnHeader34
-            // 
-            this.columnHeader34.Text = "Дом";
-            this.columnHeader34.Width = 66;
-            // 
-            // columnHeader35
-            // 
-            this.columnHeader35.Text = "Корпус";
-            this.columnHeader35.Width = 82;
             // 
             // MainForm
             // 

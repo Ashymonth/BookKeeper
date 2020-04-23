@@ -40,6 +40,8 @@ namespace BookKeeper.UI
         private readonly IContainer _container;
         private ProgressForm _form;
         private string[] _files;
+        private int _columnTotalIndex;
+        private bool _isColumnCreate = false;
 
         private static readonly int PersonalAccountLength =
             System.Convert.ToInt32(ConfigurationManager.AppSettings["AccountLenght"]);
@@ -457,8 +459,12 @@ namespace BookKeeper.UI
         {
             var debtorsCount = 0;
 
+
             ResetColors(lvlMonthReport);
-            var columnIndex = lvlMonthReport.Columns.Add(new ColumnHeader() { Text = "Всего", Width = 100 });
+            if (_isColumnCreate == false)
+                _columnTotalIndex = lvlMonthReport.Columns.Add(new ColumnHeader() { Text = "Всего", Width = 100 });
+            _isColumnCreate = true;
+
             using (var scope = _container.BeginLifetimeScope())
             {
                 var calculateService = scope.Resolve<ICalculationService>();
@@ -483,8 +489,8 @@ namespace BookKeeper.UI
                             totalPayments += result;
                         }
 
-                        if (columnIndex != -1)
-                            listViewItem.SubItems[columnIndex].Text = (received.ToString(CultureInfo.CurrentCulture));
+                        if (_columnTotalIndex != -1)
+                            listViewItem.SubItems[_columnTotalIndex].Text = (received.ToString(CultureInfo.CurrentCulture));
 
                         if (totalPayments >= 0)
                             continue;
@@ -570,6 +576,8 @@ namespace BookKeeper.UI
                     From = dateFrom.Value,
                     To = dateTo.Value
                 };
+
+                _isColumnCreate = false;
 
                 CreateColumns(dateFrom.Value.Date, dateTo.Value.Date);
 
@@ -851,7 +859,7 @@ namespace BookKeeper.UI
                     using (var scope = _container.BeginLifetimeScope())
                     {
                         var service = scope.Resolve<IRateService>();
-                        var result = service.ChangeRatePrice(rate, form.Price,form.DateTo);
+                        var result = service.ChangeRatePrice(rate, form.Price, form.DateTo);
                         if (result != null)
                         {
                             lvlRatesItem.Tag = result;

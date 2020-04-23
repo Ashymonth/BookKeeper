@@ -7,7 +7,6 @@ using BookKeeper.Data.Services.EntityService.Rate;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BookKeeper.Data.Models;
 
 namespace BookKeeper.Data.Services
 {
@@ -207,8 +206,6 @@ namespace BookKeeper.Data.Services
 
         public TotalPayments CalculateTotalIncome(DateTime @from, DateTime to)
         {
-            var streets = _streetService.GetWithInclude(x => x.IsDeleted == false, x => x.Locations);
-
             var accounts = _accountService.GetWithInclude(x => x.IsDeleted == false,
                 x => x.PaymentDocuments).ToList();
 
@@ -248,21 +245,6 @@ namespace BookKeeper.Data.Services
 
     public class TotalPayments
     {
-        public TotalPayments()
-        {
-            PaymentsDate = new List<string>();
-            HouseNumber = new List<string>();
-            Address = new List<Address>();
-            BuildingNumber = new List<string>();
-        }
-
-        public List<Address> Address { get; set; }
-
-        public string StreetName { get; set; }
-
-        public List<string> HouseNumber { get; set; }
-
-        public List<string> BuildingNumber { get; set; }
 
         public decimal AccruedMunicipal { get; set; }
 
@@ -277,8 +259,6 @@ namespace BookKeeper.Data.Services
         public decimal TotalReceived { get; set; }
 
         public decimal Percent { get; set; }
-
-        public List<string> PaymentsDate { get; set; }
     }
 
     public class Address
