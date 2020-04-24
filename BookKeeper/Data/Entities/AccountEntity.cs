@@ -1,5 +1,4 @@
 ﻿using BookKeeper.Data.Data.Entities.Address;
-using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Payments;
 using System;
 using System.Collections.Generic;
@@ -32,6 +31,9 @@ namespace BookKeeper.Data.Data.Entities
 
         public bool IsEmpty { get; set; }
 
+        /// <summary>
+        /// Если код поставщика услуги  в экселе отсутсвовал 3 месяца, то счет переводится в архив
+        /// </summary>
         public bool IsArchive { get; set; }
 
         public bool IsEmptyAgain { get; set; }

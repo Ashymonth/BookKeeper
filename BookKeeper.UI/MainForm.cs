@@ -459,7 +459,6 @@ namespace BookKeeper.UI
         {
             var debtorsCount = 0;
 
-
             ResetColors(lvlMonthReport);
             if (_isColumnCreate == false)
                 _columnTotalIndex = lvlMonthReport.Columns.Add(new ColumnHeader() { Text = "Всего", Width = 100 });
@@ -479,7 +478,7 @@ namespace BookKeeper.UI
                             continue;
 
                         foreach (var payment in account.Account.PaymentDocuments.Where(x =>
-                            x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date < dateTo.Value.Date))
+                            x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date))
                         {
                             received += payment.Received;
 
