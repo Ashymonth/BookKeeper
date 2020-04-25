@@ -78,8 +78,6 @@
     <Compile Include="Models\Account\AccountDetailsModel.cs" />
     <Compile Include="Models\Account\AccountTotalPayments.cs" />
     <Compile Include="Models\Account\DebtorModel.cs" />
-    <Compile Include="Models\Discount\DiscountModel.cs" />
-    <Compile Include="Models\Rate\RateModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UI\Forms\Account\AccountDetailsForm.cs">

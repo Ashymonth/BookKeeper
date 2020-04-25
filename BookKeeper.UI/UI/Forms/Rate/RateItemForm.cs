@@ -1,16 +1,11 @@
-﻿using System;
-using System.Globalization;
-using System.Linq;
-using System.Windows.Forms;
-using Autofac;
-using BookKeeper.Data.Data.Entities.Address;
+﻿using Autofac;
 using BookKeeper.Data.Infrastructure;
-using BookKeeper.Data.Models;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Rate;
 using BookKeeper.UI.Helpers;
-using BookKeeper.UI.Models.Rate;
 using MetroFramework.Forms;
+using System;
+using System.Windows.Forms;
 
 namespace BookKeeper.UI.UI.Forms.Rate
 {
@@ -56,7 +51,7 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
                     var service = scope.Resolve<IRateService>();
 
-                    var result = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text),dateFrom.Value.Date,dateTo.Value.Date);
+                    var result = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text), dateFrom.Value.Date, dateTo.Value.Date);
 
 
                     //if (result == null)

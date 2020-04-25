@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace BookKeeper.UI.Helpers
 {
-    public class MessageBoxHelper
+    public static class MessageBoxHelper
     {
         public static void ShowWarningMessage(string message, MetroForm form)
         {

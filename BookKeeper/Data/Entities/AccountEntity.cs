@@ -38,9 +38,12 @@ namespace BookKeeper.Data.Data.Entities
 
         public bool IsEmptyAgain { get; set; }
 
+        /// <summary>
+        /// Если счет был впервые занесен в базу
+        /// </summary>
+
         public bool IsNew { get; set; }
 
         public virtual ICollection<PaymentDocumentEntity> PaymentDocuments { get; set; }
-
     }
 }

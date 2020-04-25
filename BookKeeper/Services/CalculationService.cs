@@ -33,8 +33,6 @@ namespace BookKeeper.Data.Services
 
         private readonly ISearchService _searchService;
 
-
-
         public CalculationService(IRateService rateService, IDiscountDocumentService discountDocumentService,
             IAccountService accountService, IStreetService streetService, ISearchService searchService)
         {
@@ -51,11 +49,13 @@ namespace BookKeeper.Data.Services
 
             var discounts = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate).ToList();
 
-            if (discounts.Count == 0 && received == 0)
-                return -rate;
-
-            if (discounts.Count == 0)
-                return received - rate;
+            switch (discounts.Count)
+            {
+                case 0 when received == 0:
+                    return -rate;
+                case 0:
+                    return received - rate;
+            }
 
             if (rate == 0)
                 return 0;

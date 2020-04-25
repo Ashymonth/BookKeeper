@@ -149,12 +149,12 @@ namespace BookKeeper.Data.Services.Load
             });
         }
 
-        private DateTime ConvertAccrualMonth(string date)
+        private static DateTime ConvertAccrualMonth(string date)
         {
             return DateTime.Parse($"01.{date}");
         }
 
-        private AccountType ConvertAccountType(int code, string municipalMark)
+        private static AccountType ConvertAccountType(int code, string municipalMark)
         {
             return code.ToString().StartsWith(municipalMark) ? AccountType.Municipal : AccountType.Private;
         }

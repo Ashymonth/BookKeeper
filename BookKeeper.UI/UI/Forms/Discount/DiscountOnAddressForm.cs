@@ -1,6 +1,4 @@
 ﻿using Autofac;
-using BookKeeper.Data.Data.Entities;
-using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Infrastructure;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Address;
@@ -9,15 +7,8 @@ using BookKeeper.UI.Helpers;
 using MetroFramework.Forms;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using System.Windows.Forms;
-using BookKeeper.Data.Services;
-using BookKeeper.UI.Models.Discount;
-using MetroFramework.Controls;
 using IContainer = Autofac.IContainer;
-using System.Windows.Controls;
-using ListBox = System.Windows.Forms.ListBox;
 
 namespace BookKeeper.UI.UI.Forms.Discount
 {

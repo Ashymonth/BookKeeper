@@ -65,6 +65,13 @@ namespace BookKeeper.Data.Services.Export
                 throw new ArgumentException(nameof(listView));
 
 
+            //Создать общий метод для экспорта
+            var d = new DataTable();
+            foreach (ColumnHeader headers in listView.Columns)
+            {
+                d.Columns.Add(new DataColumn(headers.Text, typeof(string)));
+            }
+
             var dt = new DataTable();
             dt.Columns.AddRange(new[]
             {
