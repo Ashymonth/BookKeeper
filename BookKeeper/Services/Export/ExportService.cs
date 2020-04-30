@@ -8,9 +8,14 @@ using System.Windows.Forms;
 
 namespace BookKeeper.Data.Services.Export
 {
-    public class ExportService
+    public interface IExportService
     {
-        public static void ExportTotalReportToExcel(ListView listView, string file)
+        void ExportReport(ListView listView, string file);
+    }
+
+    public class ExportService : IExportService
+    {
+        public void ExportReport(ListView listView, string file)
         {
             if (file == null)
                 throw new ArgumentNullException(nameof(file));
@@ -23,67 +28,10 @@ namespace BookKeeper.Data.Services.Export
 
 
             var dt = new DataTable();
-            dt.Columns.AddRange(new[]
-              { new DataColumn("Адрес", typeof(string)),
-                new DataColumn("Начислено муниципально", typeof(string)),
-                new DataColumn("Начислено част",typeof(string)),
-                new DataColumn("Поступило муниципально",typeof(string)),
-                new DataColumn("Поступило част",typeof(string)),
-                new DataColumn("Всего поступило",typeof(string)),
-                new DataColumn("Всего начислено",typeof(string)),
-                new DataColumn("%",typeof(string)),
-              });
-
-            foreach (ListViewItem listViewItem in listView.Items)
-            {
-                var list = new List<string>();
-                foreach (ListViewItem.ListViewSubItem listViewSubItem in listViewItem.SubItems)
-                {
-                    list.Add(listViewSubItem.Text);
-                }
-
-                dt.Rows.Add(list.ToArray());
-                
-            }
-
-            using (var workBook = new XLWorkbook())
-            {
-                workBook.Worksheets.Add(dt, "Отчет");
-                workBook.SaveAs($"{file}.xlsx");
-            }
-        }
-
-        public static void ExportTotalReportAllForExcel(ListView listView, string file)
-        {
-            if (file == null)
-                throw new ArgumentNullException(nameof(file));
-
-            if (string.IsNullOrWhiteSpace(file))
-                throw new FileNotFoundException(nameof(file));
-
-            if (listView == null)
-                throw new ArgumentException(nameof(listView));
-
-
-            //Создать общий метод для экспорта
-            var d = new DataTable();
             foreach (ColumnHeader headers in listView.Columns)
             {
-                d.Columns.Add(new DataColumn(headers.Text, typeof(string)));
+                dt.Columns.Add(new DataColumn(headers.Text, typeof(string)));
             }
-
-            var dt = new DataTable();
-            dt.Columns.AddRange(new[]
-            {
-                new DataColumn("Начислено муниципально", typeof(string)),
-                new DataColumn("Начислено част",typeof(string)),
-                new DataColumn("Поступило муниципально",typeof(string)),
-                new DataColumn("Поступило част",typeof(string)),
-                new DataColumn("Всего поступило",typeof(string)),
-                new DataColumn("Всего начислено",typeof(string)),
-                new DataColumn("%",typeof(string)),
-            });
-
             foreach (ListViewItem listViewItem in listView.Items)
             {
                 var list = new List<string>();
@@ -99,7 +47,8 @@ namespace BookKeeper.Data.Services.Export
             using (var workBook = new XLWorkbook())
             {
                 workBook.Worksheets.Add(dt, "Отчет");
-                workBook.SaveAs($"{file}.xlsx");
+                var extension = Path.GetExtension(file);
+                workBook.SaveAs(string.IsNullOrEmpty(extension) ? $"{file}.xlsx" : file);
             }
         }
     }

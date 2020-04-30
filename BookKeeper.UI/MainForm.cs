@@ -54,7 +54,7 @@ namespace BookKeeper.UI
         {
             InitializeComponent();
 
-            if (DateTime.Now.Date >= DateTime.Parse("29.04.2020") &&
+            if (DateTime.Now.Date >= DateTime.Parse("05.05.2020") &&
                 ConfigurationManager.AppSettings["DefaultPaymentDate"] == "1")
             {
                 Environment.Exit(1);
@@ -1153,41 +1153,7 @@ namespace BookKeeper.UI
 
         private void btnExportToExcel_Click(object sender, EventArgs e)
         {
-            if (lvlTotalReport.Items.Count == 0)
-            {
-                MessageBoxHelper.ShowWarningMessage("Сначала сформируйте отчте", this);
-                return;
-            }
-
-            using (var saveFileDialog = new SaveFileDialog())
-            {
-                saveFileDialog.Filter = @"Excel files(*.xlsx)|*xlsx";
-                saveFileDialog.AddExtension = true;
-
-                if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
-                {
-                    try
-                    {
-                        ExportService.ExportTotalReportToExcel(lvlTotalReport, saveFileDialog.FileName);
-                        MessageBoxHelper.ShowCompeteMessage("Успешно", this);
-                    }
-
-                    catch (FileNotFoundException)
-                    {
-                        MessageBoxHelper.ShowWarningMessage("Файл не найден", this);
-                    }
-
-                    catch (IOException)
-                    {
-                        MessageBoxHelper.ShowWarningMessage("Файл уже открыт, или нет доступа для записи", this);
-                    }
-
-                    catch (ArgumentNullException)
-                    {
-                        MessageBoxHelper.ShowWarningMessage("Файл поврежден", this);
-                    }
-                }
-            }
+            Export(lvlTotalReport);
         }
 
         private void cmbTotalReportStreets_SelectionChangeCommitted(object sender, EventArgs e)
@@ -1402,23 +1368,52 @@ namespace BookKeeper.UI
 
         private void btnTotalReportExport_Click(object sender, EventArgs e)
         {
-            if (lvlTotalReportAll.Items.Count == 0)
+            Export(lvlTotalReportAll);
+        }
+
+        private void Export(ListView listView)
+        {
+            if (listView.Items.Count == 0)
             {
-                MessageBoxHelper.ShowWarningMessage("сначала сформируйте отчет", this);
+                MessageBoxHelper.ShowWarningMessage("Сначала сформируйте отчет", this);
                 return;
             }
 
-            using (var dialog = new SaveFileDialog())
+            using (var saveFileDialog = new SaveFileDialog())
             {
-                dialog.Filter = @"Excel files(*.xlsx)|*xlsx";
-                dialog.AddExtension = true;
+                saveFileDialog.Filter = @"Excel files(*.xlsx)|*xlsx";
+                saveFileDialog.AddExtension = true;
 
-                if (dialog.ShowDialog(this) == DialogResult.OK)
+                if (saveFileDialog.ShowDialog(this) == DialogResult.OK)
                 {
-                    ExportService.ExportTotalReportAllForExcel(lvlTotalReportAll, dialog.FileName);
-                    MessageBoxHelper.ShowCompeteMessage("Успешно", this);
+                    try
+                    {
+                        using (var scope = _container.BeginLifetimeScope())
+                        {
+                            var exportService = scope.Resolve<IExportService>();
+                            exportService.ExportReport(lvlTotalReport, saveFileDialog.FileName);
+                        }
+
+                        MessageBoxHelper.ShowCompeteMessage("Успешно", this);
+                    }
+
+                    catch (FileNotFoundException)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Файл не найден", this);
+                    }
+
+                    catch (IOException)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Файл уже открыт, или нет доступа для записи", this);
+                    }
+
+                    catch (ArgumentNullException)
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Файл поврежден", this);
+                    }
                 }
             }
+
         }
     }
 }

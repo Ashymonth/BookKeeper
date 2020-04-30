@@ -14,6 +14,7 @@ using BookKeeper.Data.Infrastructure.Reports;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
+using BookKeeper.Data.Services.Export;
 
 namespace BookKeeper.Data.Infrastructure
 {
@@ -100,6 +101,10 @@ namespace BookKeeper.Data.Infrastructure
 
             container.RegisterType(typeof(HtmlImportService))
                 .As<IImportService<List<PaymentDocumentImport>>>()
+                .InstancePerLifetimeScope();
+
+            container.RegisterType(typeof(ExportService))
+                .As<IExportService>()
                 .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(SearchService))

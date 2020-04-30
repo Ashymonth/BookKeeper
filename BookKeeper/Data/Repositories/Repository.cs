@@ -121,6 +121,7 @@ namespace BookKeeper.Data.Data.Repositories
                 throw new ArgumentNullException(nameof(entity));
 
             _entities.Attach(entity);
+
             _entities.Remove(entity);
         }
 
