@@ -166,12 +166,12 @@ namespace BookKeeperTest.Rates
             const int price = 200;
             const string description = "Test";
             var paymentDate = DateTime.Parse("01.01.2020");
-            var starDate = DateTime.Parse("01.01.2020");
+            var startDate = DateTime.Parse("01.01.2020");
             var endDate = DateTime.Parse("01.02.2020");
 
             var expected = new RateEntity
             {
-                StartDate = starDate,
+                StartDate = startDate,
                 EndDate = endDate,
                 Description = description,
                 Price = price,
@@ -185,7 +185,7 @@ namespace BookKeeperTest.Rates
 
 
                 var rateService = scope.Resolve<IRateService>();
-                var rate = rateService.AddRate(locationEntity, description, price,starDate,endDate);
+                var rate = rateService.AddRate(locationEntity, description, price,startDate,endDate);
 
                 var actual = rateService.GetCurrentRate(occupants, locationEntity, paymentDate);
 

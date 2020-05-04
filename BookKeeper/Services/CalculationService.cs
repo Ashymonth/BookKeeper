@@ -75,7 +75,10 @@ namespace BookKeeper.Data.Services
 
             result = Math.Round(result, 2);
 
-            return result;
+            if (received == 0)
+                return -result;
+
+            return received - result;
         }
 
         public List<Address> CalculateIncomeWithParameters(int streetId, string houseNumber, string buildingNumber, DateTime from, DateTime to)

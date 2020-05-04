@@ -63,9 +63,9 @@
     <Compile Include="Infrastructure\Formats\ExcelExtensionConverter.cs" />
     <Compile Include="Infrastructure\Formats\FileManager.cs" />
     <Compile Include="Infrastructure\Reports\BrokenRecordsReport.cs" />
-    <Compile Include="Migrations\202005020949270_Final.cs" />
-    <Compile Include="Migrations\202005020949270_Final.designer.cs">
-      <DependentUpon>202005020949270_Final.cs</DependentUpon>
+    <Compile Include="Migrations\202005041411096_Initial.cs" />
+    <Compile Include="Migrations\202005041411096_Initial.designer.cs">
+      <DependentUpon>202005041411096_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />
@@ -151,8 +151,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202005020949270_Final.resx">
-      <DependentUpon>202005020949270_Final.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202005041411096_Initial.resx">
+      <DependentUpon>202005041411096_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

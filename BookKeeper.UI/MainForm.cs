@@ -41,12 +41,11 @@ namespace BookKeeper.UI
         private ProgressForm _form;
         private string[] _files;
         private int _columnTotalIndex;
-        private bool _isColumnCreate = false;
+        private bool _isColumnCreate;
 
         private static readonly int PersonalAccountLength =
             System.Convert.ToInt32(ConfigurationManager.AppSettings["AccountLenght"]);
 
-        private const string AddressTemplate = "{0} Дом: {1} Корпус: {2} Квартира: {3}";
         private readonly DataSourceHelper _dataSourceHelper;
         private readonly AutoCompleteSourceHelper _sourceHelper;
 
@@ -82,6 +81,7 @@ namespace BookKeeper.UI
             catch (Exception exception)
             {
                 MessageBoxHelper.ShowWarningMessage(exception.Message, this);
+                return;
             }
 
             tabpage.SelectedTab = tbpMonthReport;
@@ -462,6 +462,7 @@ namespace BookKeeper.UI
             ResetColors(lvlMonthReport);
             if (_isColumnCreate == false)
                 _columnTotalIndex = lvlMonthReport.Columns.Add(new ColumnHeader() { Text = "Всего", Width = 100 });
+
             _isColumnCreate = true;
 
             using (var scope = _container.BeginLifetimeScope())
@@ -474,40 +475,34 @@ namespace BookKeeper.UI
                     {
                         decimal totalPayments = 0;
                         decimal received = 0;
-                        if (!(listViewItem.Tag is DebtorModel account))
-                            continue;
+                        if (!(listViewItem.Tag is DebtorModel account)) continue;
 
-                        foreach (var payment in account.Account.PaymentDocuments.Where(x =>
-                            x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date))
+                        foreach (var payment in account.Account.PaymentDocuments.Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date))
                         {
                             received += payment.Received;
 
-                            var result = calculateService.CalculateDebt(account.AccountsCount, account.Account.Id, account.Account.Location,
-                                payment.Received, payment.PaymentDate);
+                            var result = calculateService.CalculateDebt(account.AccountsCount, account.Account.Id, account.Account.Location, payment.Received, payment.PaymentDate);
 
                             totalPayments += result;
                         }
 
-                        if (_columnTotalIndex != -1)
-                            listViewItem.SubItems[_columnTotalIndex].Text = (received.ToString(CultureInfo.CurrentCulture));
+                        if (_columnTotalIndex != -1) listViewItem.SubItems[_columnTotalIndex].Text = (received.ToString(CultureInfo.CurrentCulture));
 
-                        if (totalPayments >= 0)
-                            continue;
+                        if (totalPayments >= 0) continue;
 
                         listViewItem.UseItemStyleForSubItems = false;
                         listViewItem.SubItems[0].BackColor = Color.LightCoral;
                         debtorsCount++;
-
                     }
 
                     catch (NullReferenceException)
                     {
-                        MessageBoxHelper.ShowWarningMessage(
-                            "Тариф по умолчанию был удален, дальнейшие рачеты невозможны. Перезапустите программу", this);
+                        MessageBoxHelper.ShowWarningMessage("Тариф по умолчанию был удален, дальнейшие рачеты невозможны. Перезапустите программу", this);
                         return;
                     }
                 }
             }
+
             if (debtorsCount == 0)
             {
                 MessageBoxHelper.ShowCompeteMessage("Счетов с задолжностями нет", this);
@@ -578,41 +573,44 @@ namespace BookKeeper.UI
 
                 _isColumnCreate = false;
 
-                CreateColumns(dateFrom.Value.Date, dateTo.Value.Date);
-
-                try
+                if (backgroundWorker2.IsBusy == false)
                 {
-                    using (var scope = _container.BeginLifetimeScope())
-                    {
-                        var service = scope.Resolve<ISearchService>();
-                        var searchResult = service.FindAccounts(searchModel);
+                    CreateColumns(dateFrom.Value.Date, dateTo.Value.Date);
+                    backgroundWorker2.RunWorkerAsync(searchModel);
+                }
 
-                        if (searchResult != null && searchResult.Any())
-                        {
-                            LoadAccountsInfo(searchResult, scope);
-                        }
-                        else
-                        {
-                            MessageBoxHelper.ShowWarningMessage("Ничего не найдено", this);
-                            lblCounter.Text = @"0";
-                        }
+                _form = new ProgressForm();
+                _form.ShowDialog(this);
+            }
+            if (lvlMonthReport.Items.Count == 0)
+                lblCounter.Text = @"0";
+        }
+        private void backgroundWorker2_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            try
+            {
+                using (var scope = _container.BeginLifetimeScope())
+                {
+                    var service = scope.Resolve<ISearchService>();
+                    var searchResult = service.FindAccounts(e.Argument as SearchModel);
+
+                    if (searchResult != null && searchResult.Any())
+                    {
+                        LoadAccountsInfo(searchResult, scope);
+                    }
+                    else
+                    {
+                        MessageBoxHelper.ShowWarningMessage("Ничего не найдено", this);
                     }
                 }
-                catch (IOException)
-                {
-                    MessageBoxHelper.ShowWarningMessage("База была повреждена или удалена", this);
-                    return;
-                }
-                catch (Exception)
-                {
-                    //ignore
-                }
             }
-            else
+            catch (IOException)
             {
-                MessageBoxHelper.ShowWarningMessage("Ничего не найдено", this);
+                MessageBoxHelper.ShowWarningMessage("База была повреждена или удалена", this);
+                return;
             }
         }
+
 
         #endregion
 
@@ -624,7 +622,7 @@ namespace BookKeeper.UI
 
             var rateService = scope.Resolve<IRateService>();
 
-            foreach (var account in accountEntities.Where(x => x.IsArchive == false))
+            foreach (var account in accountEntities.Where(x => x.IsArchive == false).ToList())
             {
                 var total = new AccountTotalPayments();
                 var paymentDocuments = account.PaymentDocuments
@@ -669,8 +667,13 @@ namespace BookKeeper.UI
                 return;
             }
 
-            lblCounter.Text = tempList.Count.ToString();
-            lvlMonthReport.Items.AddRange(tempList.ToArray());
+            void Action()
+            {
+                lblCounter.Text = tempList.Count.ToString();
+                lvlMonthReport.Items.AddRange(tempList.ToArray());
+            }
+
+            Invoke((Action)Action);
         }
 
         private int GetAccountsCount(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation)
@@ -679,8 +682,8 @@ namespace BookKeeper.UI
                 x.Location.HouseNumber.Equals(searchLocation.HouseNumber, StringComparison.OrdinalIgnoreCase) &&
                 x.Location.BuildingCorpus.Equals(searchLocation.BuildingCorpus, StringComparison.OrdinalIgnoreCase) &&
                 x.Location.ApartmentNumber.Equals(searchLocation.ApartmentNumber, StringComparison.OrdinalIgnoreCase) &&
-                x.IsDeleted == false
-                && x.IsArchive == false);
+                x.IsDeleted == false &&
+                x.IsArchive == false);
         }
 
         private static AccountType Convert(int index)
@@ -1242,6 +1245,11 @@ namespace BookKeeper.UI
             _form.Close();
         }
 
+        private void backgroundWorker2_RunWorkerCompleted(object sender, System.ComponentModel.RunWorkerCompletedEventArgs e)
+        {
+            _form.Close();
+        }
+
         #endregion
 
         #region Help buttons
@@ -1423,6 +1431,8 @@ namespace BookKeeper.UI
             }
 
         }
+
+
         #endregion
     }
 }

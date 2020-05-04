@@ -155,7 +155,6 @@
             this.cntRateArchive = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnShowArchiveRates = new System.Windows.Forms.ToolStripMenuItem();
             this.btnHideArchvieRates = new System.Windows.Forms.ToolStripMenuItem();
-            this.backgroundWorker3 = new System.ComponentModel.BackgroundWorker();
             this.cntHouses = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnAddHouse = new System.Windows.Forms.ToolStripMenuItem();
             this.btnDeleteHouse = new System.Windows.Forms.ToolStripMenuItem();
@@ -1343,6 +1342,12 @@
             this.btnLoadFromBackup.Text = "Восстановить";
             this.btnLoadFromBackup.Click += new System.EventHandler(this.btnLoadFromBackup_Click);
             // 
+            // backgroundWorker2
+            // 
+            this.backgroundWorker2.WorkerSupportsCancellation = true;
+            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
+            // 
             // cntAccounts
             // 
             this.cntAccounts.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1442,10 +1447,6 @@
             this.btnHideArchvieRates.Size = new System.Drawing.Size(227, 22);
             this.btnHideArchvieRates.Text = "Скрыть";
             this.btnHideArchvieRates.Click += new System.EventHandler(this.btnHideArchiveRates_Click);
-            // 
-            // backgroundWorker3
-            // 
-            this.backgroundWorker3.WorkerSupportsCancellation = true;
             // 
             // cntHouses
             // 
@@ -1613,7 +1614,6 @@
         private MetroFramework.Controls.MetroContextMenu cntRateArchive;
         private System.Windows.Forms.ToolStripMenuItem btnShowArchiveRates;
         private System.Windows.Forms.ToolStripMenuItem btnHideArchvieRates;
-        private System.ComponentModel.BackgroundWorker backgroundWorker3;
         private System.Windows.Forms.ColumnHeader columnHeader29;
         private System.Windows.Forms.ColumnHeader columnHeader30;
         private System.Windows.Forms.ColumnHeader columnHeader31;
