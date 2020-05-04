@@ -44,7 +44,7 @@ namespace BookKeeper.UI
         private bool _isColumnCreate;
 
         private static readonly int PersonalAccountLength =
-            System.Convert.ToInt32(ConfigurationManager.AppSettings["AccountLenght"]);
+            System.Convert.ToInt32(ConfigurationManager.AppSettings["AccountLength"]);
 
         private readonly DataSourceHelper _dataSourceHelper;
         private readonly AutoCompleteSourceHelper _sourceHelper;
@@ -53,7 +53,7 @@ namespace BookKeeper.UI
         {
             InitializeComponent();
 
-            if (DateTime.Now.Date >= DateTime.Parse("05.05.2020") &&
+            if (DateTime.Now.Date >= DateTime.Parse("20.05.2020") &&
                 ConfigurationManager.AppSettings["DefaultPaymentDate"] == "1")
             {
                 Environment.Exit(1);

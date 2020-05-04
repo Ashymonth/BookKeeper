@@ -36,6 +36,34 @@ namespace BookKeeper.UI.UI.Forms.Rate
         {
             DialogResult = DialogResult.None;
 
+            if (string.IsNullOrWhiteSpace(txtPrice.Text))
+            {
+                MessageBoxHelper.ShowWarningMessage("Укажите цену", this);
+                return;
+            }
+
+            if (dateFrom.Value.Date == dateTo.Value.Date)
+            {
+                MessageBoxHelper.ShowWarningMessage("Даты должны различаться", this);
+                return;
+            }
+
+            decimal price;
+            try
+            {
+                price = Convert.ToDecimal(txtPrice.Text);
+            }
+            catch (FormatException exception)
+            {
+                MessageBox.Show(exception.Message);
+                return;
+            }
+            catch (OverflowException exception)
+            {
+                MessageBox.Show(exception.Message);
+                return;
+            }
+
             if (cmbStreet.SelectedValue is int streetId)
             {
                 using (var scope = _container.BeginLifetimeScope())
@@ -51,15 +79,7 @@ namespace BookKeeper.UI.UI.Forms.Rate
 
                     var service = scope.Resolve<IRateService>();
 
-                    var result = service.AddRate(location, txtDescription.Text, Convert.ToDecimal(txtPrice.Text), dateFrom.Value.Date, dateTo.Value.Date);
-
-
-                    //if (result == null)
-                    //{
-                    //    MessageBoxHelper.ShowWarningMessage("Действующий тариф уже создан. Добавление 2 тарифов на 1 адрес в 1 день невозможно. Удалите действующий тариф и попробуйте снова", this);
-                    //    return;
-                    //}
-
+                    service.AddRate(location, txtDescription.Text, price, dateFrom.Value.Date, dateTo.Value.Date);
 
                 }
                 DialogResult = DialogResult.OK;
