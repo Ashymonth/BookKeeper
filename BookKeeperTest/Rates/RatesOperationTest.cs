@@ -34,8 +34,9 @@ namespace BookKeeperTest.Rates
 
             const int price = 200;
             const string description = "Test";
-            var starDate = DateTime.Now;
-            var endDate = DateTime.MaxValue;
+            var starDate = DateTime.Parse("01.01.2020");
+            var endDate = DateTime.Parse("01.02.2020");
+
 
             var expected = new RateEntity
             {
@@ -139,7 +140,7 @@ namespace BookKeeperTest.Rates
                 var rateService = scope.Resolve<IRateService>();
                 var rate = rateService.AddRate(locationEntity, description, price);
 
-                var actual = rateService.ChangeRatePrice(rate, newPrice,endDate);
+                var actual = rateService.ChangeRatePrice(rate, newPrice, endDate);
 
                 Assert.AreEqual(expected.Price, actual.Price);
                 Assert.AreEqual(expected.IsArchive, rate.IsArchive);
@@ -185,7 +186,7 @@ namespace BookKeeperTest.Rates
                 var rateService = scope.Resolve<IRateService>();
                 var rate = rateService.AddRate(locationEntity, description, price);
 
-                var actual = rateService.GetCurrentRate(1,locationEntity, paymentDate);
+                var actual = rateService.GetCurrentRate(1, locationEntity, paymentDate);
 
                 Assert.AreEqual(expected.Price, actual);
 
@@ -216,7 +217,7 @@ namespace BookKeeperTest.Rates
 
                 var rateService = scope.Resolve<IRateService>();
 
-                var actual = rateService.GetCurrentRate(1,locationEntity, paymentDate);
+                var actual = rateService.GetCurrentRate(1, locationEntity, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -251,7 +252,7 @@ namespace BookKeeperTest.Rates
                 var rateService = scope.Resolve<IRateService>();
                 var rate = rateService.AddRate(locationEntity, description, price);
 
-                var actual = rateService.GetCurrentRate(1,locationEntity, paymentDate);
+                var actual = rateService.GetCurrentRate(1, locationEntity, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 

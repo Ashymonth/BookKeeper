@@ -27,7 +27,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
             if (string.IsNullOrWhiteSpace(txtDescription.Text))
             {
-                MessageBoxHelper.ShowWarningMessage("Описание не может быть пустм",this);
+                MessageBoxHelper.ShowWarningMessage("Описание не может быть пустым",this);
             }
 
             using (var scope = _container.BeginLifetimeScope())

@@ -15,7 +15,9 @@ namespace BookKeeper.UI.Helpers
         {
             _container = AutofacConfiguration.ConfigureContainer();
         }
-
+        /// <summary>
+        /// Проверка наличия тарифа по умолчнию и изменение, если в файле конфига изменена цена
+        /// </summary>
         public void LoadAndCheckDefaultRate()
         {
             using (var scope = _container.BeginLifetimeScope())

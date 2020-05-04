@@ -1244,7 +1244,7 @@ namespace BookKeeper.UI
 
         #endregion
 
-        #region Help button
+        #region Help buttons
 
         private void btnClear_Click(object sender, EventArgs e)
         {
@@ -1306,6 +1306,12 @@ namespace BookKeeper.UI
             }
         }
 
+
+        /// <summary>
+        /// Специально для сис админа 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_KeyDown(object sender, KeyEventArgs e)
         {
             switch (e.KeyData)
@@ -1321,6 +1327,8 @@ namespace BookKeeper.UI
 
 
         #endregion
+
+        #region TotalReportAllListView
 
         private void btnCreateTotalReportAll_Click(object sender, EventArgs e)
         {
@@ -1415,5 +1423,6 @@ namespace BookKeeper.UI
             }
 
         }
+        #endregion
     }
 }

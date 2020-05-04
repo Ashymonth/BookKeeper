@@ -45,7 +45,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 return;
             }
 
-            if (!(cmbPercent.SelectedValue is decimal percent))
+            if (!(cmbPercent.SelectedValue is decimal))
             {
                 MessageBoxHelper.ShowWarningMessage("Выберите  скидку", this);
                 return;
@@ -77,27 +77,10 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 return;
             }
 
-            long account = 0;
-            var description = string.Empty;
-            try
-            {
-                percent = Convert.ToDecimal(cmbPercent.Text);
-                account = Convert.ToInt64(txtAccount.Text);
-                description = cmbDescription.SelectedValue as string;
-            }
-            catch (FormatException)
-            {
-                MessageBoxHelper.ShowWarningMessage("Допустимы только цифры", this);
-            }
-            catch (InvalidCastException)
-            {
-                MessageBoxHelper.ShowWarningMessage("Значение слишком большое", this);
-            }
-
             using (var scope = _container.BeginLifetimeScope())
             {
                 var accountService = scope.Resolve<IAccountService>();
-                var accountItem = accountService.GetItem(x => x.Account == account);
+                var accountItem = accountService.GetItem(x => x.Account == Convert.ToInt64(txtAccount.Text));
                 if (accountItem == null)
                 {
                     MessageBoxHelper.ShowWarningMessage("Такого счета не существует", this);
@@ -109,7 +92,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 foreach (var discount in _discounts)
                 {
                     var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, discount.Price, discount.Description, dateFrom.Value.Date, dateTo.Value.Date);
-                    var occupant = occupantService.AddOccupant(discountOnAccount.Id, accountItem.Id,discount.Price);
+                    occupantService.AddOccupant(discountOnAccount.Id, accountItem.Id,discount.Price);
                 }
 
                 DialogResult = DialogResult.OK;
@@ -148,5 +131,4 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
         public string Description { get; set; }
     }
-
 }
