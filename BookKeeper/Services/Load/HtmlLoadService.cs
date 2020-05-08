@@ -139,7 +139,7 @@ namespace BookKeeper.Data.Services.Load
         }
         private DateTime ValidDateTime(string documentDate)
         {
-            var result = Regex.Replace(documentDate, @"<[^>]+>|&nbsp;", "").Trim().ToLower().Split();
+            var result = Regex.Replace(documentDate, @"(?=&|;)(.*;)", "").Trim().ToLower().Split();
 
             return DateTime.Parse($"01.{_monthDictionary[result[0]]}.{result[1]}");
         }

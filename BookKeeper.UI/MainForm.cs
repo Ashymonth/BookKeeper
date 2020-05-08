@@ -67,11 +67,13 @@ namespace BookKeeper.UI
 
             cmbPersonalAccountType.SelectedIndex = 0;
 
-            var loader = new DefaultRateLoader();
-
             try
             {
-                loader.LoadAndCheckDefaultRate();
+                using (var scope = _container.BeginLifetimeScope())
+                {
+                    var defaultRateService = scope.Resolve<IDefaultRateService>();
+                    defaultRateService.LoadAndCheckDefaultRate();
+                }
             }
             catch (FormatException)
             {
@@ -310,7 +312,7 @@ namespace BookKeeper.UI
         {
             using (var dialog = new OpenFileDialog())
             {
-                dialog.Filter = @"Excel files(*.xls;*.xls)|*.xlsx;*xlsx|All files(*.*)|*.*";
+                dialog.Filter = @"Excel files(*.xls;*.xlsx)|*.xls;*xlsx|All files(*.*)|*.*";
                 dialog.Multiselect = true;
 
                 if (dialog.ShowDialog() == DialogResult.Cancel)
@@ -622,9 +624,8 @@ namespace BookKeeper.UI
 
             var rateService = scope.Resolve<IRateService>();
 
-            foreach (var account in accountEntities.Where(x => x.IsArchive == false).ToList())
+            foreach (var account in accountEntities.Where(x => x.IsArchive == chkIsArchive.Checked).ToList())
             {
-                var total = new AccountTotalPayments();
                 var paymentDocuments = account.PaymentDocuments
                     .Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date);
 
@@ -683,7 +684,8 @@ namespace BookKeeper.UI
                 x.Location.BuildingCorpus.Equals(searchLocation.BuildingCorpus, StringComparison.OrdinalIgnoreCase) &&
                 x.Location.ApartmentNumber.Equals(searchLocation.ApartmentNumber, StringComparison.OrdinalIgnoreCase) &&
                 x.IsDeleted == false &&
-                x.IsArchive == false);
+                x.PaymentDocuments.Count > 0 &&
+                x.IsArchive == chkIsArchive.Checked);
         }
 
         private static AccountType Convert(int index)

@@ -91,6 +91,7 @@
     <Compile Include="Services\EntityService\Discount\DiscountPercentService.cs" />
     <Compile Include="Services\EntityService\Discount\OccupantService.cs" />
     <Compile Include="Services\EntityService\PaymentDocumentService.cs" />
+    <Compile Include="Services\EntityService\Rate\DefaultRateService.cs" />
     <Compile Include="Services\EntityService\Rate\RateDocumentService.cs" />
     <Compile Include="Services\Export\ExportService.cs" />
     <Compile Include="Services\ImportReportService.cs" />

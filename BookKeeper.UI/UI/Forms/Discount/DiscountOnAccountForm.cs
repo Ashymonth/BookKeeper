@@ -39,6 +39,8 @@ namespace BookKeeper.UI.UI.Forms.Discount
         {
             DialogResult = DialogResult.None;
 
+            var endDate = chkUnlimitedLastDate.Checked ? DateTime.MaxValue : dateTo.Value.Date;
+
             if (string.IsNullOrWhiteSpace(txtAccount.Text))
             {
                 MessageBoxHelper.ShowWarningMessage("Аккаунт не может быть пустым", this);
@@ -59,21 +61,21 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
             if (dateFrom.Value.Date == dateTo.Value.Date)
             {
-                MessageBoxHelper.ShowWarningMessage("Даты должны различаться",this);
+                MessageBoxHelper.ShowWarningMessage("Даты должны различаться", this);
                 return;
             }
 
-           
+
             if (_discounts.Count == 0)
             {
-                MessageBoxHelper.ShowWarningMessage("Должен быть хотя бы 1 проживающий в квартире",this);
+                MessageBoxHelper.ShowWarningMessage("Должен быть хотя бы 1 проживающий в квартире", this);
                 return;
             }
 
-            var occupants = _discounts.Select(x=>x.Price).FirstOrDefault(x => x != 0);
+            var occupants = _discounts.Select(x => x.Price).FirstOrDefault(x => x != 0);
             if (occupants == 0)
             {
-                MessageBoxHelper.ShowWarningMessage("Должен быть хотя бы 1 льготник",this);
+                MessageBoxHelper.ShowWarningMessage("Должен быть хотя бы 1 льготник", this);
                 return;
             }
 
@@ -89,10 +91,11 @@ namespace BookKeeper.UI.UI.Forms.Discount
 
                 var discountService = scope.Resolve<IDiscountDocumentService>();
                 var occupantService = scope.Resolve<IOccupantService>();
+
                 foreach (var discount in _discounts)
                 {
-                    var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, discount.Price, discount.Description, dateFrom.Value.Date, dateTo.Value.Date);
-                    occupantService.AddOccupant(discountOnAccount.Id, accountItem.Id,discount.Price);
+                    var discountOnAccount = discountService.AddDiscountOnAccount(accountItem.Id, discount.Price, discount.Description, dateFrom.Value.Date, endDate);
+                    occupantService.AddOccupant(discountOnAccount.Id, accountItem.Id, discount.Price);
                 }
 
                 DialogResult = DialogResult.OK;

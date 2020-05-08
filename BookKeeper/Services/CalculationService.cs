@@ -244,6 +244,7 @@ namespace BookKeeper.Data.Services
             totalPayment.Percent = Math.Round(((totalPayment.TotalReceived / totalPayment.TotalAccrued) * 100), 2);
             return totalPayment;
         }
+
     }
 
     public class TotalPayments

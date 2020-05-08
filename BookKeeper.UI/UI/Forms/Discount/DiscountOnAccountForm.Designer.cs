@@ -45,6 +45,8 @@
             this.btnDelete = new MetroFramework.Controls.MetroButton();
             this.btnAddOccupantWithDiscount = new MetroFramework.Controls.MetroButton();
             this.lstOccupants = new System.Windows.Forms.ListBox();
+            this.metroCheckBox1 = new MetroFramework.Controls.MetroCheckBox();
+            this.chkUnlimitedLastDate = new MetroFramework.Controls.MetroCheckBox();
             this.SuspendLayout();
             // 
             // txtAccount
@@ -226,6 +228,26 @@
             this.lstOccupants.Size = new System.Drawing.Size(192, 173);
             this.lstOccupants.TabIndex = 33;
             // 
+            // metroCheckBox1
+            // 
+            this.metroCheckBox1.AutoSize = true;
+            this.metroCheckBox1.Location = new System.Drawing.Point(0, 0);
+            this.metroCheckBox1.Name = "metroCheckBox1";
+            this.metroCheckBox1.Size = new System.Drawing.Size(114, 15);
+            this.metroCheckBox1.TabIndex = 37;
+            this.metroCheckBox1.Text = "metroCheckBox1";
+            this.metroCheckBox1.UseSelectable = true;
+            // 
+            // chkUnlimitedLastDate
+            // 
+            this.chkUnlimitedLastDate.AutoSize = true;
+            this.chkUnlimitedLastDate.Location = new System.Drawing.Point(23, 354);
+            this.chkUnlimitedLastDate.Name = "chkUnlimitedLastDate";
+            this.chkUnlimitedLastDate.Size = new System.Drawing.Size(83, 15);
+            this.chkUnlimitedLastDate.TabIndex = 38;
+            this.chkUnlimitedLastDate.Text = "Бессрочно";
+            this.chkUnlimitedLastDate.UseSelectable = true;
+            // 
             // DiscountAccountItemForm
             // 
             this.AcceptButton = this.btnSave;
@@ -233,6 +255,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(600, 456);
+            this.Controls.Add(this.chkUnlimitedLastDate);
+            this.Controls.Add(this.metroCheckBox1);
             this.Controls.Add(this.btnAddOccupant);
             this.Controls.Add(this.btnDelete);
             this.Controls.Add(this.btnAddOccupantWithDiscount);
@@ -279,5 +303,7 @@
         private MetroFramework.Controls.MetroButton btnDelete;
         private MetroFramework.Controls.MetroButton btnAddOccupantWithDiscount;
         private System.Windows.Forms.ListBox lstOccupants;
+        private MetroFramework.Controls.MetroCheckBox metroCheckBox1;
+        private MetroFramework.Controls.MetroCheckBox chkUnlimitedLastDate;
     }
 }

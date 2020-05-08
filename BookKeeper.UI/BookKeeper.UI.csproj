@@ -64,7 +64,6 @@
   <PropertyGroup />
   <ItemGroup>
     <Compile Include="Helpers\AutoCompleteSourceHelper.cs" />
-    <Compile Include="Helpers\DefaultRateLoader.cs" />
     <Compile Include="Helpers\DataSourceHelper.cs" />
     <Compile Include="Helpers\DoubleBufferExtension.cs" />
     <Compile Include="Helpers\ListViewStringComparer.cs" />
