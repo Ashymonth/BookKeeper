@@ -143,7 +143,9 @@ namespace BookKeeper.Data.Services.EntityService.Rate
                                                                                           z.BuildingNumber.Equals(entity.BuildingCorpus,
                                                                                                   StringComparison.OrdinalIgnoreCase)) != null);
 
-            return result?.Price / accountsCount ?? GetDefaultRate() / accountsCount;
+           decimal res = result?.Price / accountsCount ?? Math.Round(GetDefaultRate() / accountsCount, 2);
+
+           return Math.Round(res, 2);
         }
 
         public RateEntity GetActiveRate(LocationEntity location)
