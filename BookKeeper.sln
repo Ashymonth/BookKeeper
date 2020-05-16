@@ -13,14 +13,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookKeeperTest", "BookKeepe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{F3857F9B-0631-4352-85C7-8077CE1D930D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backup", "Backup", "{64DBDF6D-F3A0-4EC2-8A91-A36007EADBF4}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resource", "Resource", "{D6A9A1A3-16F9-40AB-A8AD-136FC13EA17F}"
 	ProjectSection(SolutionItems) = preProject
 		..\..\..\Documents\homestuck-wallpaper-SBURB-i9-800.jpg = ..\..\..\Documents\homestuck-wallpaper-SBURB-i9-800.jpg
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookKeeper.Wpf.UI", "BookKeeper.Wpf.UI\BookKeeper.Wpf.UI.csproj", "{DA607DD0-5002-4842-9C1E-0C7600BFDFCE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -40,10 +36,6 @@ Global
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DA607DD0-5002-4842-9C1E-0C7600BFDFCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA607DD0-5002-4842-9C1E-0C7600BFDFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA607DD0-5002-4842-9C1E-0C7600BFDFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA607DD0-5002-4842-9C1E-0C7600BFDFCE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,7 +44,6 @@ Global
 		{C4C01520-390D-4FFA-B101-3A255011E1AA} = {3CA151BF-919B-48B9-90A5-ACF4E7336FDB}
 		{08BF7D35-F60A-4924-B2A4-A0079D30A090} = {3CA151BF-919B-48B9-90A5-ACF4E7336FDB}
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D} = {F3857F9B-0631-4352-85C7-8077CE1D930D}
-		{DA607DD0-5002-4842-9C1E-0C7600BFDFCE} = {3CA151BF-919B-48B9-90A5-ACF4E7336FDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E9197F7-DED3-4499-8B83-F6550C131BEA}

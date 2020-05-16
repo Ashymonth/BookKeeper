@@ -45,6 +45,16 @@ namespace BookKeeper.Data.Services
             _searchService = searchService;
         }
 
+        /// <summary>
+        /// Рассчет идет по формуле (тариф/кол-во проживаюих) - процент скидки
+        /// </summary>
+        /// <param name="accountsCount"></param>
+        /// <param name="accountId"></param>
+        /// <param name="entity"></param>
+        /// <param name="received"></param>
+        /// <param name="paymentDate"></param>
+        /// <returns></returns>
+
         public decimal CalculateDebt(int accountsCount, int accountId, LocationEntity entity, decimal received, DateTime paymentDate)
         {
             var rate = _rateService.GetCurrentRate(accountsCount, entity, paymentDate);
@@ -245,6 +255,15 @@ namespace BookKeeper.Data.Services
             return totalPayment;
         }
 
+
+        /// <summary>
+        /// Расчет тарифа с учетом льготы 
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <param name="accountsCount"></param>
+        /// <param name="locationEntity"></param>
+        /// <param name="paymentDate"></param>
+        /// <returns></returns>
         public decimal CalculateCurrentRate(int accountId, int accountsCount, LocationEntity locationEntity, DateTime paymentDate)
         {
             var rate = _rateService.GetCurrentRate(accountsCount, locationEntity, paymentDate);

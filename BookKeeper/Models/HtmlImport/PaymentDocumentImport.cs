@@ -13,6 +13,7 @@ namespace BookKeeper.Data.Models.HtmlImport
         public string DocumentData { get; set; }
 
         public string Address { get; set; }
-        public List<PaymentDetailsImport> PaymentDetailsImports { get; set; }
+
+        public List<PaymentDetailsImport> PaymentDetailsImports { get; }
     }
 }

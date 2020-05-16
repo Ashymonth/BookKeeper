@@ -1,6 +1,8 @@
 ﻿using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Infrastructure.Configuration;
+using BookKeeper.Data.Infrastructure.Reports;
+using BookKeeper.Data.Models;
 using BookKeeper.Data.Models.ExcelImport;
 using BookKeeper.Data.Services.EntityService;
 using BookKeeper.Data.Services.EntityService.Address;
@@ -8,9 +10,6 @@ using BookKeeper.Data.Services.Import;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using BookKeeper.Data.Infrastructure.Reports;
-using BookKeeper.Data.Models;
-using BookKeeper.Data.Services.EntityService.Rate;
 
 namespace BookKeeper.Data.Services.Load
 {
@@ -111,7 +110,6 @@ namespace BookKeeper.Data.Services.Load
                         catch (Exception e)
                         {
                             _brokenRecordsReport.WriteException(e.Message,FileType.Excel);
-                            continue;
                         }
                        
                     }

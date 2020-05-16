@@ -10,6 +10,9 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using IContainer = Autofac.IContainer;
 
+//TODO Заказчик так и не ответил, нужно использовать такуб версию, или нет. После ответа ее нужно будет либо удалить, либо переделать.
+
+
 namespace BookKeeper.UI.UI.Forms.Discount
 {
     public partial class DiscountOnAddressForm : MetroForm
