@@ -18,11 +18,11 @@ Main functionality - combining accounts info from excel files with payments from
 ### Houses:
 
 * Add - adding a house to the database.
-* Delete - deleting house from the database.
+* Delete - deleting a house from the database.
 
 ### Accounts:
 
-* Highlight unpaid accounts - highlights red accounts that have arrears for the selected periud. 
+* Highlight unpaid accounts - highlights in red accounts that have arrears for the selected periud. 
 * Highlight new - highlights in green the accounts that were first added to the database. 
 * Reset - set the default colors.
 
