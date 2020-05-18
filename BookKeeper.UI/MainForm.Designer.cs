@@ -137,11 +137,11 @@
             this.btnCreateTotalReportAll = new MetroFramework.Controls.MetroButton();
             this.btnTotalReportAllClear = new MetroFramework.Controls.MetroButton();
             this.btnTotalReportExport = new MetroFramework.Controls.MetroButton();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.bgwFilesLoad = new System.ComponentModel.BackgroundWorker();
             this.cntDatabase = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnCreateBackup = new System.Windows.Forms.ToolStripMenuItem();
             this.btnLoadFromBackup = new System.Windows.Forms.ToolStripMenuItem();
-            this.backgroundWorker2 = new System.ComponentModel.BackgroundWorker();
+            this.bgwSearch = new System.ComponentModel.BackgroundWorker();
             this.cntAccounts = new MetroFramework.Controls.MetroContextMenu(this.components);
             this.btnShowDebterInDateRange = new System.Windows.Forms.ToolStripMenuItem();
             this.btnShowNewAccountsinRange = new System.Windows.Forms.ToolStripMenuItem();
@@ -356,33 +356,33 @@
             this.btnDeleteDiscounts});
             this.cntDiscounts.Name = "metroContextMenu1";
             this.cntDiscounts.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.cntDiscounts.Size = new System.Drawing.Size(180, 92);
+            this.cntDiscounts.Size = new System.Drawing.Size(181, 114);
             // 
             // btnDiscountOnAccount
             // 
             this.btnDiscountOnAccount.Name = "btnDiscountOnAccount";
-            this.btnDiscountOnAccount.Size = new System.Drawing.Size(179, 22);
+            this.btnDiscountOnAccount.Size = new System.Drawing.Size(180, 22);
             this.btnDiscountOnAccount.Text = "Добавить счет";
             this.btnDiscountOnAccount.Click += new System.EventHandler(this.btnDiscountOnAccount_Click_1);
             // 
             // btnDiscountOnAddress
             // 
             this.btnDiscountOnAddress.Name = "btnDiscountOnAddress";
-            this.btnDiscountOnAddress.Size = new System.Drawing.Size(179, 22);
+            this.btnDiscountOnAddress.Size = new System.Drawing.Size(180, 22);
             this.btnDiscountOnAddress.Text = "Добавить квартиру";
             this.btnDiscountOnAddress.Click += new System.EventHandler(this.btnDiscountOnAddress_Click);
             // 
             // btnSendDiscountToArchive
             // 
             this.btnSendDiscountToArchive.Name = "btnSendDiscountToArchive";
-            this.btnSendDiscountToArchive.Size = new System.Drawing.Size(179, 22);
+            this.btnSendDiscountToArchive.Size = new System.Drawing.Size(180, 22);
             this.btnSendDiscountToArchive.Text = "Отправить в архив";
             this.btnSendDiscountToArchive.Click += new System.EventHandler(this.btnSendDiscountToArchive_Click);
             // 
             // btnDeleteDiscounts
             // 
             this.btnDeleteDiscounts.Name = "btnDeleteDiscounts";
-            this.btnDeleteDiscounts.Size = new System.Drawing.Size(179, 22);
+            this.btnDeleteDiscounts.Size = new System.Drawing.Size(180, 22);
             this.btnDeleteDiscounts.Text = "Удалить";
             this.btnDeleteDiscounts.Click += new System.EventHandler(this.btnDeleteDiscounts_Click);
             // 
@@ -803,7 +803,7 @@
             this.dateFrom.CustomFormat = "MMMM yyyy";
             this.dateFrom.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateFrom.Location = new System.Drawing.Point(971, 3);
-            this.dateFrom.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateFrom.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateFrom.Name = "dateFrom";
             this.dateFrom.Size = new System.Drawing.Size(120, 29);
             this.dateFrom.TabIndex = 7;
@@ -814,7 +814,7 @@
             this.dateTo.CustomFormat = "MMMM yyyy";
             this.dateTo.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.dateTo.Location = new System.Drawing.Point(1097, 3);
-            this.dateTo.MinimumSize = new System.Drawing.Size(4, 29);
+            this.dateTo.MinimumSize = new System.Drawing.Size(0, 29);
             this.dateTo.Name = "dateTo";
             this.dateTo.Size = new System.Drawing.Size(118, 29);
             this.dateTo.TabIndex = 6;
@@ -887,7 +887,7 @@
             this.tabpage.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabpage.Location = new System.Drawing.Point(20, 116);
             this.tabpage.Name = "tabpage";
-            this.tabpage.SelectedIndex = 3;
+            this.tabpage.SelectedIndex = 2;
             this.tabpage.Size = new System.Drawing.Size(1415, 721);
             this.tabpage.TabIndex = 0;
             this.tabpage.UseSelectable = true;
@@ -1314,10 +1314,10 @@
             this.btnTotalReportExport.UseSelectable = true;
             this.btnTotalReportExport.Click += new System.EventHandler(this.btnTotalReportExport_Click);
             // 
-            // backgroundWorker1
+            // bgwFilesLoad
             // 
-            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork_1);
-            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            this.bgwFilesLoad.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork_1);
+            this.bgwFilesLoad.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // cntDatabase
             // 
@@ -1342,11 +1342,11 @@
             this.btnLoadFromBackup.Text = "Восстановить";
             this.btnLoadFromBackup.Click += new System.EventHandler(this.btnLoadFromBackup_Click);
             // 
-            // backgroundWorker2
+            // bgwSearch
             // 
-            this.backgroundWorker2.WorkerSupportsCancellation = true;
-            this.backgroundWorker2.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
-            this.backgroundWorker2.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
+            this.bgwSearch.WorkerSupportsCancellation = true;
+            this.bgwSearch.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker2_DoWork);
+            this.bgwSearch.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker2_RunWorkerCompleted);
             // 
             // cntAccounts
             // 
@@ -1539,7 +1539,7 @@
         private MetroFramework.Controls.MetroDateTime dateTo;
         private MetroFramework.Controls.MetroCheckBox chkIsArchive;
         private MetroFramework.Controls.MetroTabControl tabpage;
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.ComponentModel.BackgroundWorker bgwFilesLoad;
         private MetroFramework.Controls.MetroCheckBox chkIsBuilding;
         private MetroFramework.Controls.MetroButton btnClear;
         private MetroFramework.Controls.MetroButton btnFind;
@@ -1594,7 +1594,7 @@
         private System.Windows.Forms.ColumnHeader columnHeader21;
         private System.Windows.Forms.ColumnHeader columnHeader22;
         private System.Windows.Forms.ListView lvlMonthReport;
-        private System.ComponentModel.BackgroundWorker backgroundWorker2;
+        private System.ComponentModel.BackgroundWorker bgwSearch;
         private System.Windows.Forms.ToolStripMenuItem btnDeleteDiscounts;
         private MetroFramework.Controls.MetroButton btnAccounts;
         private MetroFramework.Controls.MetroContextMenu cntAccounts;

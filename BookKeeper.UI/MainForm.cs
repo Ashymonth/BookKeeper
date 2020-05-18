@@ -53,12 +53,6 @@ namespace BookKeeper.UI
         {
             InitializeComponent();
 
-            if (DateTime.Now.Date >= DateTime.Parse("30.05.2020") &&
-                ConfigurationManager.AppSettings["DefaultPaymentDate"] == "1")
-            {
-                Environment.Exit(1);
-            }
-
             _container = AutofacConfiguration.ConfigureContainer();
 
             _dataSourceHelper = new DataSourceHelper();
@@ -322,9 +316,9 @@ namespace BookKeeper.UI
 
             }
 
-            if (backgroundWorker1.IsBusy == false)
+            if (bgwFilesLoad.IsBusy == false)
             {
-                backgroundWorker1.RunWorkerAsync(LoaderType.Excel);
+                bgwFilesLoad.RunWorkerAsync(LoaderType.Excel);
             }
 
             _form = new ProgressForm();
@@ -346,9 +340,9 @@ namespace BookKeeper.UI
                 _files = dialog.FileNames;
             }
 
-            if (backgroundWorker1.IsBusy == false)
+            if (bgwFilesLoad.IsBusy == false)
             {
-                backgroundWorker1.RunWorkerAsync(LoaderType.Html);
+                bgwFilesLoad.RunWorkerAsync(LoaderType.Html);
 
                 _form = new ProgressForm();
                 _form.ShowDialog(this);
@@ -575,10 +569,10 @@ namespace BookKeeper.UI
 
                 _isColumnCreate = false;
 
-                if (backgroundWorker2.IsBusy == false)
+                if (bgwSearch.IsBusy == false)
                 {
                     CreateColumns(dateFrom.Value.Date, dateTo.Value.Date);
-                    backgroundWorker2.RunWorkerAsync(searchModel);
+                    bgwSearch.RunWorkerAsync(searchModel);
                 }
 
                 _form = new ProgressForm();
