@@ -3,7 +3,7 @@
 Основной функционал - совмещение счетов из excel файлов с платежами из html, возможность создавать тарифы и льготы для домов/счетов.
 
 ## Технологии:
-* Интерфес - WindowsFroms + MetroUI.
+* Интерфейс - WindowsFroms + MetroUI.
 * База данных - Localdb, EntityFramework6 + EntityFrameworkPlus.
 * Взаимодействие с Excel - ClosedXML + Spire.xls.
 * Взаимодействие с Html - Html agility pack.
