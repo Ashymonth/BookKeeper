@@ -1,78 +1,78 @@
 # BookKeeper
-Программа для ведения учета.
-Основной функционал - совмещение счетов из excel файлов с платежами из html, возможность создавать тарифы и льготы для домов/счетов.
+Accounting software.
+Main functionality - combining accounts info from excel files with payments from html.
 
-## Технологии:
-* Интерфейс - WindowsFroms + MetroUI.
-* База данных - Localdb, EntityFramework6 + EntityFrameworkPlus.
-* Взаимодействие с Excel - ClosedXML + Spire.xls.
-* Взаимодействие с Html - Html agility pack.
+## Technologies:
+* Interface - WindowsFroms + MetroUI.
+* Database - Localdb, EntityFramework6 + EntityFrameworkPlus.
+* Interaction with Excel - ClosedXML + Spire.xls.
+* Interaction with Html - Html agility pack.
 
-## Интерфейс тулбара:
+## Toolbar interface:
 
-### Импорт:
+### Import:
 
-* Реестр  - загрузка реестра из excel файлов.
-* Платежи - загрузка платежей из html/htm файлов.
+* Registry  - loading registry from excel files.
+* Registry - loading payments from html/htm files.
 
-### Дома:
+### Houses:
 
-* Добавить - Добавление дома в базу.
-* Удалить - Удаление дома из базы.
+* Add - adding a house to the database.
+* Delete - deleting house from the database.
 
-### Счета:
+### Accounts:
 
-* Выделить не оплаченные - выделяет красным цветам счета, у которых есть задолжности за выбранный периуд. 
-* Выделить новые - выделяет зеленым цветом счета, которые были впервые добавлены в базу. 
-* Сбросить - устанавливает цвет по умолчанию.
+* Highlight unpaid accounts - highlights red accounts that have arrears for the selected periud. 
+* Highlight new - highlights in green the accounts that were first added to the database. 
+* Reset - set the default colors.
 
-### База данных:
+### Database:
 
-* Бэкап - создает экземпляр текущей базы данных.
-* Восстановить - загружает базу данных из сохраненного экземпляра.
+* Backup - creates an instance of the current database.
+* Recover - loads the database from a save instance.
 
-## Отчет по месяцам: 
+## Monthly Report: 
 
-Отображает данные по счетам за выбранный периуд времени без учета архивных счетов.
+Displays account information for a selected time period, excluding archived accounts.
 
-* Архив - отображает счета занесенные в архив.
+* Archive - displays the accounts includined in the archive.
 
-## Тарифы:
-Отображает все установленные тарифы на дома. По умолчанию, для каждого дома установлен тарифы в 166 рублей. Выбор нескольких тарифов осуществляется путем установки флага в чекбоксе.
+## Rates:
+Displays all set home rates. By default ,rates are set at 166 rubles for each house. Selecting multiple rates by setting a flag in the checkbox.
 
-* Добавить - добавляет тариф на выбранный дом.
-* Изменить цену - изменение цены на выбранные тарифы.
-* Отправить в архив - тариф будет перемещён в архив.
-* Удалить - безвозвратное удаление выбранных тарифов.
+* Add - add the rate for the selected house.
+* Change price - change price for the selected rates.
+* Send to acrive - the rate will be move to archive.
+* Delete - permamently deletes the selected rates.
 
-### Архив:
+### Archive:
 
-* Показать архивные тарифы - отоброжает тарифы, помеченные как архивные.
-* Скрыть - скрывает отображение архивных тарифов.
+* Show archive rates - shows rates marked as archived.
+* Hide - hides displaing of archived rates.
 
-## Льготы:
+## Discounts:
 
-* Добавить счет - добавляет льготу на выбранный счет. При установки льготы, нужно указать, сколько людей проживает в квартире и сколько из них льготников. Льгота рассчитывается по формуле: (тариф / кол-во проживающих) - процент льготы. 
-* Добавить квартиру - так и не ясно, нужна ли будет эта функция. Пока что она не используется в программе.
-* Отправить в архив - льгота будет перемещён в архив.
-* Удалить - безвозвратное удаление выбранных льгот.
+* Add account - adds a discount to the selected account. When installing the discounts, need to point how many people live in apartment and how many of them are have discount. Discount calculated according by the formula (rate / number of occupants) - percentage of discount.
+* Add an apartment - it is not clear whether this function will be needed. It is not currently used in the program.
+* Send to the archive - discount will be moved to the archive.
+* Delete - permamently deletes the selected discounts.
 
-### Архив:
+### Archive:
 
-* Показать архивные тарифы - отоброжает льготы, помеченные как архивные.
-* Скрыть - скрывает отображение архивных льгот.
+* Show archive rates - shows discounts marked as archived.
+* Hide - hides displaing of archived discounts.
 
-### Проценты и описание:
+### Percentage and description:
 
-* Добавить процентную ставку - добавляет новую процентную ставку по льготам.
-* Добавить описание - добавляет новое описание для льгот.
+* Add an interest rate - adds a new interest rate for discounters.
+* Add a description - adds a new description for discounts.
 
-## Общий отчет: 
-Отображает сумму поступлений и начислений за выбранный периуд времени. Проценты - отображает процентное соотношение поступлений и начислений.
+## Total report: 
+Displays the amount received and accrued for a selected tiem period. Percentage - displays the percentage of income and accruals.
 
-* Сформировать общий отчет - формирует отчет по всем домам выбранной улицы.
-* Сформировать отчет - формирует отчет по выбранной улице/дому/корпусу.
-* Экспорт в эксель - сохраняет сформированный отчет в excel таблицу.
+* Create total report - creates a report for all houses on the selected street.
+* Create report - creates a report on the selected street/house/building.
+* Export to excel- save the created report to an excel table.
 
-## Отчет по всем счетам: 
-Формирует отчет по всем счетам за выбранный периуд времени.
+## Report to on all accounts: 
+Create a report on all accounts for the selected time periud.
