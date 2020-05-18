@@ -18,6 +18,30 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Resource", "Resource", "{D6
 		..\..\..\Documents\homestuck-wallpaper-SBURB-i9-800.jpg = ..\..\..\Documents\homestuck-wallpaper-SBURB-i9-800.jpg
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestData", "TestData", "{440F7A6E-D945-43D7-911C-610D9B6A76D7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Register", "Register", "{67F9B957-4E6A-44DF-A7DF-3D43476F356D}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Documents\Материалы\VSE\VU_81_440003_1019_01.xlsx = ..\..\..\Documents\Материалы\VSE\VU_81_440003_1019_01.xlsx
+		..\..\..\Documents\Материалы\VSE\VU_81_440003_1119_01.xlsx = ..\..\..\Documents\Материалы\VSE\VU_81_440003_1119_01.xlsx
+		..\..\..\Documents\Материалы\VSE\VU_81_440003_1218_01 (7).xls = ..\..\..\Documents\Материалы\VSE\VU_81_440003_1218_01 (7).xls
+		..\..\..\Documents\Материалы\VSE\VU_81_440003_1219_01 (4).xlsx = ..\..\..\Documents\Материалы\VSE\VU_81_440003_1219_01 (4).xlsx
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{29E63381-12AD-4709-AA49-6297D549A027}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10060120.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10060120.htm
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10060220.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10060220.htm
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10061019.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10061019.htm
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10061119.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10061119.htm
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10061219.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10061219.htm
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10090120.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10090120.htm
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10090220.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10090220.htm
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10091019.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10091019.htm
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10091119.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10091119.htm
+		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10091219.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10091219.htm
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +68,9 @@ Global
 		{C4C01520-390D-4FFA-B101-3A255011E1AA} = {3CA151BF-919B-48B9-90A5-ACF4E7336FDB}
 		{08BF7D35-F60A-4924-B2A4-A0079D30A090} = {3CA151BF-919B-48B9-90A5-ACF4E7336FDB}
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D} = {F3857F9B-0631-4352-85C7-8077CE1D930D}
+		{440F7A6E-D945-43D7-911C-610D9B6A76D7} = {F3857F9B-0631-4352-85C7-8077CE1D930D}
+		{67F9B957-4E6A-44DF-A7DF-3D43476F356D} = {440F7A6E-D945-43D7-911C-610D9B6A76D7}
+		{29E63381-12AD-4709-AA49-6297D549A027} = {440F7A6E-D945-43D7-911C-610D9B6A76D7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0E9197F7-DED3-4499-8B83-F6550C131BEA}
