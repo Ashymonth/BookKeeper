@@ -200,13 +200,13 @@ namespace BookKeeper.UI
                             continue;
 
                         var percents = discounts.Where(x => x.AccountId == discount.AccountId)
-                            .Select(x => x.Percent.ToString(CultureInfo.CurrentCulture).Replace(",00", " ")).ToArray();
+                            .OrderBy(x => x.Percent)
+                            .Select(x => x.Percent.ToString(CultureInfo.CurrentCulture).Replace(",00", $"% ")).ToArray();
 
                         var descriptions = discounts.Where(x => x.AccountId == discount.AccountId)
                             .Select(x => x.Description).Distinct();
 
                         var newDescription = descriptions.Select(description => description + " ").ToArray();
-
 
                         if (discount.IsArchive && dontShowArchive)
                             continue;
@@ -227,15 +227,14 @@ namespace BookKeeper.UI
                         var listView = new ListViewItem(new[]
                         {
                             discountType, addressAndAccount,
-                            $" Колличество жителей - {percents.Count()} " +
+                            $" Количество проживающих- {percents.Count()} / " +
                             $" {string.Join("",percents)}",
                             $"{string.Join("",newDescription)}",
                             discount.StartDate.ToShortDateString(),
                             discount.EndDate.ToShortDateString()
                         })
-                        {
-                            Tag = discount
-                        };
+                        { Tag = discount };
+
                         if (discount.IsArchive)
                         {
                             listView.SubItems.Add(discount.EndDate.ToShortDateString());
@@ -616,7 +615,7 @@ namespace BookKeeper.UI
         {
             var tempList = new List<ListViewItem>();
 
-            var rateService = scope.Resolve<IRateService>();
+            var calculateService = scope.Resolve<ICalculationService>();
 
             foreach (var account in accountEntities.Where(x => x.IsArchive == chkIsArchive.Checked).ToList())
             {
@@ -640,15 +639,13 @@ namespace BookKeeper.UI
 
                 foreach (var paymentDocumentEntity in paymentDocumentEntities)
                 {
-                    var rate = rateService.GetCurrentRate(accountsCount, account.Location, paymentDocumentEntity.PaymentDate);
-
                     var columnIndex = lvlMonthReport.Columns.IndexOfKey(GetColumnKey(paymentDocumentEntity.PaymentDate.Date));
 
                     if (columnIndex != -1)
                     {
                         listViewItem.SubItems[columnIndex].Text = $@"{ paymentDocumentEntity.Received.ToString(CultureInfo.CurrentCulture)}";
 
-                        listViewItem.SubItems[columnIndex + 1].Text = rate.ToString(CultureInfo.CurrentCulture);
+                        listViewItem.SubItems[columnIndex + 1].Text = calculateService.CalculateCurrentRate(account.Id, accountsCount, account.Location, paymentDocumentEntity.PaymentDate).ToString(CultureInfo.CurrentCulture);
                     }
                 }
 

@@ -73,7 +73,8 @@ namespace BookKeeperTest.Calculation
                 accountService.Add(account);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculateDebt(SingleOccupant, account.Id, location, received, paymentDate);
+                var actual =
+                    calculationService.CalculateDebt(SingleOccupant, account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
             }
@@ -124,7 +125,8 @@ namespace BookKeeperTest.Calculation
                 accountService.Add(account);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculateDebt(TwoOccupants, account.Id, location, received, paymentDate);
+                var actual =
+                    calculationService.CalculateDebt(TwoOccupants, account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
             }
@@ -347,7 +349,8 @@ namespace BookKeeperTest.Calculation
                 rateService.Add(rate);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculateDebt(TwoOccupants, account.Id, location, received, paymentDate);
+                var actual =
+                    calculationService.CalculateDebt(TwoOccupants, account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -507,7 +510,8 @@ namespace BookKeeperTest.Calculation
                 discountService.Add(discount);
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculateDebt(SingleOccupant, account.Id, location, received, paymentDate);
+                var actual =
+                    calculationService.CalculateDebt(SingleOccupant, account.Id, location, received, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 
@@ -782,7 +786,107 @@ namespace BookKeeperTest.Calculation
 
 
                 var calculationService = scope.Resolve<ICalculationService>();
-                var actual = calculationService.CalculateDebt(SingleOccupant, account.Id, location, received, paymentDate);
+                var actual =
+                    calculationService.CalculateDebt(SingleOccupant, account.Id, location, received, paymentDate);
+
+                Assert.AreEqual(expected, actual);
+
+            }
+        }
+
+        [TestMethod]
+        public void CalculateCurrentRate()
+        {
+            const string houseNumber = "105";
+            const string buildingNumber = "2в";
+            const string apartmentNumber = "100";
+
+            const int accrued = 150;
+            var paymentDate = DateTime.Now;
+
+            var startDate = DateTime.Now;
+            var endDate = DateTime.MaxValue;
+            const decimal percent = 25;
+            const string description = "test";
+
+            const decimal price = 150;
+
+            const decimal expected = 112.5M;
+
+            var location = new LocationEntity
+            {
+                StreetId = 1,
+                HouseNumber = houseNumber,
+                BuildingCorpus = buildingNumber,
+                ApartmentNumber = apartmentNumber
+            };
+
+            var account = new AccountEntity()
+            {
+                StreetId = 1,
+                Account = 9999,
+                LocationId = location.Id,
+                IsDeleted = false,
+                Location = new LocationEntity
+                {
+                    StreetId = 1,
+                    HouseNumber = "105",
+                    ApartmentNumber = "100"
+                },
+                PaymentDocuments = new List<PaymentDocumentEntity>
+                {
+                    new PaymentDocumentEntity
+                    {
+                        IsDeleted = false,
+                        PaymentDate = paymentDate,
+                        Accrued = accrued
+                    }
+                }
+            };
+
+            var discount = new DiscountEntity
+            {
+                Account = account,
+                StartDate = startDate,
+                EndDate = endDate,
+                Percent = percent,
+                Description = description
+            };
+
+            var rate = new RateEntity
+            {
+                StartDate = startDate,
+                EndDate = endDate,
+                Price = price,
+                Description = "Test",
+
+                AssignedLocations = new List<RateDetailsEntity>()
+                {
+                    new RateDetailsEntity
+                    {
+                        StreetId = 1,
+                        HouseNumber = houseNumber,
+                        BuildingNumber = buildingNumber,
+                        Location = location
+                    }
+                }
+            };
+
+            using (var scope = _container.BeginLifetimeScope())
+            {
+
+                var accountService = scope.Resolve<IAccountService>();
+                accountService.Add(account);
+
+                var rateService = scope.Resolve<IRateService>();
+                rateService.Add(rate);
+
+                var discountService = scope.Resolve<IDiscountDocumentService>();
+                discountService.Add(discount);
+
+
+                var calculationService = scope.Resolve<ICalculationService>();
+                var actual = calculationService.CalculateCurrentRate(account.Id, SingleOccupant, location, paymentDate);
 
                 Assert.AreEqual(expected, actual);
 

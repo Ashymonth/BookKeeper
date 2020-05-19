@@ -59,7 +59,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
                 return;
             }
 
-            if (dateFrom.Value.Date == dateTo.Value.Date)
+            if (dateFrom.Value.Date == dateTo.Value.Date && chkUnlimitedLastDate.Checked == false)
             {
                 MessageBoxHelper.ShowWarningMessage("Даты должны различаться", this);
                 return;
