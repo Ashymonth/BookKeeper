@@ -13,7 +13,7 @@ Main functionality - combining accounts info from excel files with payments from
 ### Import:
 
 * Registry  - loading registry from excel files.
-* Registry - loading payments from html/htm files.
+* Payments - loading payments from html/htm files.
 
 ### Houses:
 
@@ -38,12 +38,12 @@ Displays account information for a selected time period, excluding archived acco
 * Archive - displays the accounts includined in the archive.
 
 ## Rates:
-Displays all set home rates. By default ,rates are set at 166 rubles for each house. Selecting multiple rates by setting a flag in the checkbox.
+Displays all set rates for homes. By default ,rates are set at 166 rubles for each house. Selecting multiple rates by setting a flag in the checkbox.
 
 * Add - add the rate for the selected house.
 * Change price - change price for the selected rates.
 * Send to acrive - the rate will be move to archive.
-* Delete - permamently deletes the selected rates.
+* Delete - permanently deletes the selected rates.
 
 ### Archive:
 
