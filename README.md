@@ -13,7 +13,7 @@ Main functionality - combining accounts info from excel files with payments from
 ### Import:
 
 * Registry  - loading registry from excel files.
-* Registry - loading payments from html/htm files.
+* Payments - loading payments from html/htm files.
 
 ### Houses:
 
