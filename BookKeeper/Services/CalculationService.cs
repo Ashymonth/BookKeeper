@@ -18,7 +18,7 @@ namespace BookKeeper.Data.Services
 
         List<Address> CalculateIncome(DateTime from, DateTime to);
 
-        TotalPayments CalculateTotalIncome(DateTime @from, DateTime to);
+        TotalPayments CalculateTotalIncome(DateTime from, DateTime to);
 
         decimal CalculateCurrentRate(int accountId, int accountsCount, LocationEntity locationEntity, DateTime paymentDate);
     }
@@ -101,7 +101,7 @@ namespace BookKeeper.Data.Services
 
             var predicate = _searchService.FindLocation(streetId, houseNumber, buildingNumber);
 
-            var accounts = _accountService.GetWithInclude(x=>x.StreetId == streetId,
+            var accounts = _accountService.GetWithInclude(x => x.StreetId == streetId,
                 x => x.PaymentDocuments).ToList();
 
             foreach (var streetEntity in streets.Where(x => x.IsDeleted == false && x.Id == streetId))
@@ -130,7 +130,7 @@ namespace BookKeeper.Data.Services
                                             building.ReceivedMunicipal += paymentDocument.Received;
                                             break;
                                         case AccountType.Private:
-                                            building.AccruedPrivate += CalculateCurrentRate(accountEntity.Id, GetAccountsCount(accounts, accountEntity.Location, AccountType.Private), buildingsEntity, paymentDocument.PaymentDate); 
+                                            building.AccruedPrivate += CalculateCurrentRate(accountEntity.Id, GetAccountsCount(accounts, accountEntity.Location, AccountType.Private), buildingsEntity, paymentDocument.PaymentDate);
                                             building.ReceivedPrivate += paymentDocument.Received;
                                             break;
                                         case AccountType.All:
@@ -155,7 +155,7 @@ namespace BookKeeper.Data.Services
             return totalPayments;
         }
 
-        public List<Address> CalculateIncome(DateTime @from, DateTime to)
+        public List<Address> CalculateIncome(DateTime from, DateTime to)
         {
             var streets = _streetService.GetWithInclude(x => x.IsDeleted == false, x => x.Locations);
 
@@ -217,7 +217,7 @@ namespace BookKeeper.Data.Services
             return totalPayments;
         }
 
-        public TotalPayments CalculateTotalIncome(DateTime @from, DateTime to)
+        public TotalPayments CalculateTotalIncome(DateTime from, DateTime to)
         {
             var accounts = _accountService.GetWithInclude(x => x.IsDeleted == false,
                 x => x.PaymentDocuments).ToList();
@@ -255,7 +255,6 @@ namespace BookKeeper.Data.Services
             return totalPayment;
         }
 
-
         /// <summary>
         /// Расчет тарифа с учетом льготы 
         /// </summary>
@@ -267,12 +266,17 @@ namespace BookKeeper.Data.Services
         public decimal CalculateCurrentRate(int accountId, int accountsCount, LocationEntity locationEntity, DateTime paymentDate)
         {
             var rate = _rateService.GetCurrentRate(accountsCount, locationEntity, paymentDate);
-            var discount = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate).FirstOrDefault(x => x.Percent != 0);
+            var discount = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate).ToList();
 
-            return discount == null || discount.Percent == 0 ? Math.Round(rate, 2) : Math.Round(rate * (100 - discount.Percent) / 100, 2);
+            if (discount.Count == 0)
+                return rate;
+
+            var price = rate / discount.Count();
+            
+            return Math.Round(discount.Where(x => x.Percent > 0 && x.Percent < 100).Select(x => (100 - x.Percent) / 100 * price).Sum() + price, 2);
         }
 
-        private static int GetAccountsCount(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation, AccountType  accountType)
+        private static int GetAccountsCount(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation, AccountType accountType)
         {
             return accounts.Count(x =>
                 x.Location.HouseNumber.Equals(searchLocation.HouseNumber, StringComparison.OrdinalIgnoreCase) &&
