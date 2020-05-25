@@ -20,9 +20,9 @@ namespace BookKeeper.Data.Services
     {
         IEnumerable<AccountEntity> FindAccounts(SearchModel model);
 
-        ExpressionStarter<AccountEntity> FindAccounts(int streetId, string houseNumber, string buildingNumber);
-
         ExpressionStarter<LocationEntity> FindLocation(int streetId, string houseNumber, string buildingNumber);
+
+        ExpressionStarter<AccountEntity> GetAccountType(AccountType accountType);
     }
 
     public class SearchService : ISearchService
@@ -44,8 +44,7 @@ namespace BookKeeper.Data.Services
             Expression<Func<AccountEntity, bool>> accountPredicate =
                 entity => entity.Account == Convert.ToInt64(model.Account) && entity.IsDeleted == false;
 
-            Expression<Func<AccountEntity, bool>> accountTypePredicate = entity =>
-                 entity.AccountType == model.AccountType;
+           
 
             Expression<Func<AccountEntity, bool>> housePredicate =
                 house => string.Equals(house.Location.HouseNumber, model.HouseNumber,
@@ -71,9 +70,6 @@ namespace BookKeeper.Data.Services
 
             account.And(defaultPredicate);
 
-            if (model.AccountType != AccountType.All)
-                account.And(accountTypePredicate);
-
             if (IsNullOrWhiteSpace(model.HouseNumber) == false)
                 account.And(housePredicate);
 
@@ -90,33 +86,6 @@ namespace BookKeeper.Data.Services
                 x => x.Location,
                 x => x.Location.Street,
                 x => x.Location.Street.Rates);
-        }
-
-        public ExpressionStarter<AccountEntity> FindAccounts(int streetId, string houseNumber, string buildingNumber)
-        {
-            var account = PredicateBuilder.New<AccountEntity>();
-
-            Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
-                entity.StreetId == streetId && entity.IsDeleted == false;
-
-            Expression<Func<AccountEntity, bool>> housePredicate = entity =>
-                string.Equals(entity.Location.HouseNumber, houseNumber, StringComparison.OrdinalIgnoreCase) &&
-                entity.IsDeleted == false;
-
-            Expression<Func<AccountEntity, bool>> buildingPredicate = entity =>
-                entity.StreetId == streetId &&
-                string.Equals(entity.Location.BuildingCorpus, buildingNumber, StringComparison.OrdinalIgnoreCase) &&
-                entity.IsDeleted == false;
-
-            account.And(defaultPredicate);
-
-            if (IsNullOrWhiteSpace(houseNumber) == false)
-                account.And(housePredicate);
-
-            if (IsNullOrWhiteSpace(buildingNumber) == false)
-                account.And(buildingPredicate);
-
-            return account;
         }
 
         public ExpressionStarter<LocationEntity> FindLocation(int streetId, string houseNumber, string buildingNumber)
@@ -143,6 +112,19 @@ namespace BookKeeper.Data.Services
                 location.And(buildingPredicate);
 
             return location;
+        }
+
+        public ExpressionStarter<AccountEntity> GetAccountType(AccountType accountType)
+        {
+            var account = PredicateBuilder.New<AccountEntity>();
+
+            Expression<Func<AccountEntity, bool>> defaultPredicate = entity =>
+                entity.IsDeleted == false;
+
+            Expression<Func<AccountEntity, bool>> accountTypePredicate = entity =>
+                entity.AccountType == accountType;
+
+            return account.And(accountType != AccountType.All ? accountTypePredicate : defaultPredicate);
         }
     }
 }

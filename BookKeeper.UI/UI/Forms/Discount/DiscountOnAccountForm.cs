@@ -125,6 +125,7 @@ namespace BookKeeper.UI.UI.Forms.Discount
         private void btnDelete_Click(object sender, EventArgs e)
         {
             lstOccupants.Items.Remove(lstOccupants.SelectedItem);
+            _discounts.RemoveAt(lstOccupants.SelectedIndex + 1);
         }
     }
 

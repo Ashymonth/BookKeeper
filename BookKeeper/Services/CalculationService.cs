@@ -266,14 +266,14 @@ namespace BookKeeper.Data.Services
         public decimal CalculateCurrentRate(int accountId, int accountsCount, LocationEntity locationEntity, DateTime paymentDate)
         {
             var rate = _rateService.GetCurrentRate(accountsCount, locationEntity, paymentDate);
-            var discount = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate).ToList();
+            var discounts = _discountDocumentService.GetCurrentDiscount(accountId, paymentDate).ToList();
 
-            if (discount.Count == 0)
+            if (discounts.Count == 0)
                 return rate;
 
-            var price = rate / discount.Count();
+            var price = rate / discounts.Count;
             
-            return Math.Round(discount.Where(x => x.Percent > 0 && x.Percent < 100).Select(x => (100 - x.Percent) / 100 * price).Sum() + price, 2);
+           return Math.Round(discounts.Sum(discount => price - (price * (discount.Percent / 100))),2);
         }
 
         private static int GetAccountsCount(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation, AccountType accountType)

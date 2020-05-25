@@ -587,11 +587,13 @@ namespace BookKeeper.UI
                 using (var scope = _container.BeginLifetimeScope())
                 {
                     var service = scope.Resolve<ISearchService>();
-                    var searchResult = service.FindAccounts(e.Argument as SearchModel);
+                    var searchModel = e.Argument as SearchModel;
+                    var searchResult = service.FindAccounts(searchModel);
 
                     if (searchResult != null && searchResult.Any())
                     {
-                        LoadAccountsInfo(searchResult, scope);
+                        if (searchModel != null)
+                            LoadAccountsInfo(searchResult, scope, searchModel.AccountType);
                     }
                     else
                     {
@@ -611,13 +613,17 @@ namespace BookKeeper.UI
 
         #region Methods
 
-        private void LoadAccountsInfo(IEnumerable<AccountEntity> accountEntities, ILifetimeScope scope)
+        private void LoadAccountsInfo(IEnumerable<AccountEntity> accountEntities, ILifetimeScope scope, AccountType accountType)
         {
             var tempList = new List<ListViewItem>();
 
             var calculateService = scope.Resolve<ICalculationService>();
 
-            foreach (var account in accountEntities.Where(x => x.IsArchive == chkIsArchive.Checked).ToList())
+            var searchService = scope.Resolve<ISearchService>();
+
+            var predicate = searchService.GetAccountType(accountType);
+
+            foreach (var account in accountEntities.Where(predicate).ToList())
             {
                 var paymentDocuments = account.PaymentDocuments
                     .Where(x => x.PaymentDate.Date >= dateFrom.Value.Date && x.PaymentDate.Date <= dateTo.Value.Date);
