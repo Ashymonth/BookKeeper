@@ -1,17 +1,18 @@
 ﻿using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
+using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Payments;
 using BookKeeper.Data.Data.Entities.Rates;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 
 namespace BookKeeperTest
 {
-    public  class Seed
+    public static class Seed
     {
-        public static DataHandler SeedData(decimal accrued = 200, decimal received = 100, decimal percent = 25, DateTime startDate = default,
-            DateTime endDate = default)
+        public static DataHandler SeedData(decimal accrued = 200, decimal received = 100, decimal percent = 25, decimal rate = 166)
         {
             var district = new DistrictEntity()
             {
@@ -49,7 +50,7 @@ namespace BookKeeperTest
                 Account = account,
                 Accrued = accrued,
                 Received = received,
-                PaymentDate = DateTime.Parse("01.01.2020")
+                PaymentDate = DateTime.Now
             };
 
             var defaultRate = new RateEntity()
@@ -78,8 +79,43 @@ namespace BookKeeperTest
             return new DataHandler()
             {
                 AccountEntity = account,
+                StreetEntity = street,
                 LocationEntity = location
             };
+        }
+
+        public static DiscountEntity CreateDiscount(int accountId, DateTime startDate,DateTime endDate,decimal percent)
+        {
+            var discount = new DiscountEntity
+            {
+                AccountId = accountId,
+                StartDate = startDate,
+                EndDate = endDate,
+                Percent = percent,
+            };
+            return discount;
+        }
+
+        public static RateEntity CreateRate(DateTime startDate, DateTime endDate, decimal price, LocationEntity location)
+        {
+            var rate = new RateEntity
+            {
+                StartDate = startDate,
+                EndDate = endDate,
+                Price = price,
+
+                AssignedLocations = new List<RateDetailsEntity>()
+                {
+                    new RateDetailsEntity
+                    {
+                        StreetId = location.StreetId,
+                        HouseNumber = location.HouseNumber,
+                        BuildingNumber = location.BuildingCorpus,
+                        LocationRefId = location.Id
+                    }
+                }
+            };
+            return rate;
         }
     }
 }
