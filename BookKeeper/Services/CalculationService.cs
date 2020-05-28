@@ -21,6 +21,8 @@ namespace BookKeeper.Data.Services
         TotalPayments CalculateTotalIncome(DateTime from, DateTime to);
 
         decimal CalculateCurrentRate(int accountId, int accountsCount, LocationEntity locationEntity, DateTime paymentDate);
+
+        int GetNumberOfOccupantsInApartments(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation);
     }
 
     public class CalculationService : ICalculationService
@@ -126,11 +128,11 @@ namespace BookKeeper.Data.Services
                                     switch (accountEntity.AccountType)
                                     {
                                         case AccountType.Municipal:
-                                            building.AccruedMunicipal += CalculateCurrentRate(accountEntity.Id, GetAccountsCount(accounts, accountEntity.Location), buildingsEntity, paymentDocument.PaymentDate);
+                                            building.AccruedMunicipal += CalculateCurrentRate(accountEntity.Id, GetNumberOfOccupantsInApartments(accounts, accountEntity.Location), buildingsEntity, paymentDocument.PaymentDate);
                                             building.ReceivedMunicipal += paymentDocument.Received;
                                             break;
                                         case AccountType.Private:
-                                            building.AccruedPrivate += CalculateCurrentRate(accountEntity.Id, GetAccountsCount(accounts, accountEntity.Location), buildingsEntity, paymentDocument.PaymentDate);
+                                            building.AccruedPrivate += CalculateCurrentRate(accountEntity.Id, GetNumberOfOccupantsInApartments(accounts, accountEntity.Location), buildingsEntity, paymentDocument.PaymentDate);
                                             building.ReceivedPrivate += paymentDocument.Received;
                                             break;
                                         case AccountType.All:
@@ -186,11 +188,11 @@ namespace BookKeeper.Data.Services
                                     switch (accountEntity.AccountType)
                                     {
                                         case AccountType.Municipal:
-                                            building.AccruedMunicipal += CalculateCurrentRate(accountEntity.Id, GetAccountsCount(accounts, accountEntity.Location), locationEntity, paymentDocument.PaymentDate); ;
+                                            building.AccruedMunicipal += CalculateCurrentRate(accountEntity.Id, GetNumberOfOccupantsInApartments(accounts, accountEntity.Location), locationEntity, paymentDocument.PaymentDate); ;
                                             building.ReceivedMunicipal += paymentDocument.Received;
                                             break;
                                         case AccountType.Private:
-                                            building.AccruedPrivate += CalculateCurrentRate(accountEntity.Id, GetAccountsCount(accounts, accountEntity.Location), locationEntity, paymentDocument.PaymentDate); ;
+                                            building.AccruedPrivate += CalculateCurrentRate(accountEntity.Id, GetNumberOfOccupantsInApartments(accounts, accountEntity.Location), locationEntity, paymentDocument.PaymentDate); ;
                                             building.ReceivedPrivate += paymentDocument.Received;
                                             break;
                                         case AccountType.All:
@@ -235,11 +237,11 @@ namespace BookKeeper.Data.Services
                     switch (accountEntity.AccountType)
                     {
                         case AccountType.Municipal:
-                            totalPayment.AccruedMunicipal += CalculateCurrentRate(accountEntity.Id, GetAccountsCount(accounts, accountEntity.Location), accountEntity.Location, paymentDocumentEntity.PaymentDate); ;
+                            totalPayment.AccruedMunicipal += CalculateCurrentRate(accountEntity.Id, GetNumberOfOccupantsInApartments(accounts, accountEntity.Location), accountEntity.Location, paymentDocumentEntity.PaymentDate); ;
                             totalPayment.ReceivedMunicipal += paymentDocumentEntity.Received;
                             break;
                         case AccountType.Private:
-                            totalPayment.AccruedPrivate += CalculateCurrentRate(accountEntity.Id, GetAccountsCount(accounts, accountEntity.Location), accountEntity.Location, paymentDocumentEntity.PaymentDate); ;
+                            totalPayment.AccruedPrivate += CalculateCurrentRate(accountEntity.Id, GetNumberOfOccupantsInApartments(accounts, accountEntity.Location), accountEntity.Location, paymentDocumentEntity.PaymentDate); ;
                             totalPayment.ReceivedPrivate += paymentDocumentEntity.Received;
                             break;
                         default:
@@ -272,11 +274,11 @@ namespace BookKeeper.Data.Services
                 return rate;
 
             var price = rate / discounts.Count;
-            
-           return Math.Round(discounts.Sum(discount => price - (price * (discount.Percent / 100))),2);
+
+            return Math.Round(discounts.Sum(discount => price - (price * (discount.Percent / 100))), 2);
         }
 
-        private static int GetAccountsCount(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation)
+        public int GetNumberOfOccupantsInApartments(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation)
         {
             return accounts.Count(x =>
                 x.Location.HouseNumber.Equals(searchLocation.HouseNumber, StringComparison.OrdinalIgnoreCase) &&

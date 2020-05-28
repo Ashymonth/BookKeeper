@@ -641,7 +641,7 @@ namespace BookKeeper.UI
 
                 listViewItem.SubItems.AddRange(Enumerable.Repeat("-", lvlMonthReport.Columns.Count - 1).ToArray());
 
-                var accountsCount = GetAccountsCount(accountEntities, account.Location);
+                var accountsCount = calculateService.GetNumberOfOccupantsInApartments(accountEntities, account.Location);
 
                 foreach (var paymentDocumentEntity in paymentDocumentEntities)
                 {
@@ -672,17 +672,6 @@ namespace BookKeeper.UI
             }
 
             Invoke((Action)Action);
-        }
-
-        private int GetAccountsCount(IEnumerable<AccountEntity> accounts, LocationEntity searchLocation)
-        {
-            return accounts.Count(x =>
-                x.Location.HouseNumber.Equals(searchLocation.HouseNumber, StringComparison.OrdinalIgnoreCase) &&
-                x.Location.BuildingCorpus.Equals(searchLocation.BuildingCorpus, StringComparison.OrdinalIgnoreCase) &&
-                x.Location.ApartmentNumber.Equals(searchLocation.ApartmentNumber, StringComparison.OrdinalIgnoreCase) &&
-                x.IsDeleted == false &&
-                x.PaymentDocuments.Count > 0 &&
-                x.IsArchive == chkIsArchive.Checked);
         }
 
         private static AccountType Convert(int index)
