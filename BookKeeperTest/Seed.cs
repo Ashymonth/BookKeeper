@@ -84,7 +84,7 @@ namespace BookKeeperTest
             };
         }
 
-        public static DiscountEntity CreateDiscount(int accountId, DateTime startDate,DateTime endDate,decimal percent)
+        public static DiscountEntity CreateDiscount(int accountId, DateTime startDate, DateTime endDate, decimal percent, string description = null, DiscountType discountType = DiscountType.PersonalAccount)
         {
             var discount = new DiscountEntity
             {
@@ -92,17 +92,21 @@ namespace BookKeeperTest
                 StartDate = startDate,
                 EndDate = endDate,
                 Percent = percent,
+                Description = description,
+                Type = DiscountType.PersonalAccount
             };
             return discount;
         }
 
-        public static RateEntity CreateRate(DateTime startDate, DateTime endDate, decimal price, LocationEntity location)
+        public static RateEntity CreateRate(DateTime startDate, DateTime endDate, decimal price, LocationEntity location,string description = null,bool isArchive = false)
         {
             var rate = new RateEntity
             {
                 StartDate = startDate,
                 EndDate = endDate,
                 Price = price,
+                Description = description,
+                IsArchive = isArchive,
 
                 AssignedLocations = new List<RateDetailsEntity>()
                 {
@@ -116,6 +120,16 @@ namespace BookKeeperTest
                 }
             };
             return rate;
+        }
+
+        public static PaymentDocumentEntity CreatePaymentDocument(int accountId, DateTime paymentDate)
+        {
+            return new PaymentDocumentEntity
+            {
+                AccountId = accountId,
+                PaymentDate = paymentDate,
+                IsDeleted = false,
+            };
         }
     }
 }

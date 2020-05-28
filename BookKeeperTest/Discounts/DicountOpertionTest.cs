@@ -32,16 +32,7 @@ namespace BookKeeperTest.Discounts
             var endDate = DateTime.Parse("01.02.2020");
             const string description = "Test";
 
-            var expected = new DiscountEntity()
-            {
-                AccountId = accountId,
-                StartDate = startDate,
-                EndDate = endDate,
-                IsDeleted = false,
-                Type = DiscountType.PersonalAccount,
-                Description = description,
-                Percent = percent,
-            };
+            var expected = Seed.CreateDiscount(accountId, startDate, endDate, percent,description);
             var comparer = new DiscountComparer();
 
             using (var scope = _container.BeginLifetimeScope())
@@ -59,7 +50,7 @@ namespace BookKeeperTest.Discounts
         {
             var account = Seed.SeedData().AccountEntity;
 
-            var discountToAdd = new DiscountEntity()
+            var discount = new DiscountEntity()
             {
                 AccountId = account.Id,
                 IsArchive = false
@@ -70,9 +61,9 @@ namespace BookKeeperTest.Discounts
             using (var scope = _container.BeginLifetimeScope())
             {
                 var discountService = scope.Resolve<IDiscountDocumentService>();
-                discountService.Add(discountToAdd);
-                discountService.SendToArchive(discountToAdd);
-                var actual = discountService.GetItemById(discountToAdd.Id);
+                discountService.Add(discount);
+                discountService.SendToArchive(discount);
+                var actual = discountService.GetItemById(discount.Id);
 
                 Assert.AreEqual(expected, actual.IsArchive);
             }
@@ -91,15 +82,7 @@ namespace BookKeeperTest.Discounts
             var endDate = DateTime.Parse("01.02.2020");
             var comparer = new CurrentDiscountComparer();
 
-            var expected = new DiscountEntity
-            {
-                AccountId = accountId,
-                StartDate = startDate,
-                EndDate = endDate,
-                IsDeleted = false,
-                Percent = percent,
-                Description = description,
-            };
+            var expected = Seed.CreateDiscount(accountId, startDate, endDate, percent,description);
 
             using (var scope = _container.BeginLifetimeScope())
             {
@@ -118,7 +101,7 @@ namespace BookKeeperTest.Discounts
         {
             var account = Seed.SeedData().AccountEntity;
 
-            const int accountId = 1;
+            var accountId = account.Id;
             const decimal percent = 25;
             const string description = "Test";
 
@@ -127,26 +110,14 @@ namespace BookKeeperTest.Discounts
             var endDate = DateTime.Parse("01.02.2020");
             var comparer = new CurrentDiscountComparer();
 
-            var expected = new DiscountEntity
-            {
-                AccountId = accountId,
-                StartDate = startDate,
-                EndDate = endDate,
-                IsDeleted = false,
-                Percent = percent,
-                Description = description,
-            };
+            var expected = Seed.CreateDiscount(accountId, startDate, endDate, percent,description);
 
             using (var scope = _container.BeginLifetimeScope())
             {
                 var discountService = scope.Resolve<IDiscountDocumentService>();
                 var documentService = scope.Resolve<IPaymentDocumentService>();
-                documentService.Add(new PaymentDocumentEntity
-                {
-                    AccountId = accountId,
-                    PaymentDate = paymentDate,
-                    IsDeleted = false,
-                });
+
+                documentService.Add(Seed.CreatePaymentDocument(accountId, paymentDate));
 
                 discountService.AddDiscountOnAccount(accountId, percent, description,startDate,endDate);
 
@@ -161,24 +132,18 @@ namespace BookKeeperTest.Discounts
         {
             var account = Seed.SeedData().AccountEntity;
 
-            const int accountId = 1;
+            var accountId = account.Id;
             const decimal percent = 25;
             const string description = "Test";
             var paymentDate = DateTime.Parse("01.04.2020");
             var startDate = DateTime.Parse("01.01.2020");
             var endDate = DateTime.Parse("01.02.2020");
-            var comparer = new CurrentDiscountComparer();
 
             using (var scope = _container.BeginLifetimeScope())
             {
                 var discountService = scope.Resolve<IDiscountDocumentService>();
                 var documentService = scope.Resolve<IPaymentDocumentService>();
-                documentService.Add(new PaymentDocumentEntity
-                {
-                    AccountId = accountId,
-                    PaymentDate = paymentDate,
-                    IsDeleted = false,
-                });
+                documentService.Add(Seed.CreatePaymentDocument(accountId,paymentDate));
 
                 discountService.AddDiscountOnAccount(accountId, percent, description,startDate,endDate);
 

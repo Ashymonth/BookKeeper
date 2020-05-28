@@ -28,15 +28,9 @@ namespace BookKeeperTest.Rates
             const string description = "Test";
             var starDate = DateTime.Parse("01.01.2020");
             var endDate = DateTime.Parse("01.02.2020");
+            const bool isArchive = true;
 
-            var expected = new RateEntity
-            {
-                StartDate = starDate,
-                EndDate = endDate,
-                Description = description,
-                Price = price,
-                IsArchive = true
-            };
+            var expected = Seed.CreateRate(starDate, endDate, price, location, description, isArchive);
 
             using (var scope = _container.BeginLifetimeScope())
             {
