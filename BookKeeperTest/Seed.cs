@@ -1,16 +1,17 @@
-﻿using BookKeeper.Data.Data.Entities;
+﻿using BookKeeper.Data.Data;
+using BookKeeper.Data.Data.Entities;
 using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Entities.Payments;
+using BookKeeper.Data.Data.Entities.Rates;
 using System;
 using System.Configuration;
-using BookKeeper.Data.Data;
-using BookKeeper.Data.Data.Entities.Rates;
 
 namespace BookKeeperTest
 {
-    public static class Seed
+    public  class Seed
     {
-        public static LocationEntity SeedData(decimal accrued = 200, decimal received = 100)
+        public static DataHandler SeedData(decimal accrued = 200, decimal received = 100, decimal percent = 25, DateTime startDate = default,
+            DateTime endDate = default)
         {
             var district = new DistrictEntity()
             {
@@ -50,7 +51,7 @@ namespace BookKeeperTest
                 Received = received,
                 PaymentDate = DateTime.Parse("01.01.2020")
             };
-           
+
             var defaultRate = new RateEntity()
             {
                 Price = Convert.ToDecimal(ConfigurationManager.AppSettings["DefaultPrice"]),
@@ -74,7 +75,11 @@ namespace BookKeeperTest
                 dataBase.SaveChanges();
             }
 
-            return location;
+            return new DataHandler()
+            {
+                AccountEntity = account,
+                LocationEntity = location
+            };
         }
     }
 }

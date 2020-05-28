@@ -12,7 +12,6 @@ namespace BookKeeperTest.Rates
     {
         private readonly IContainer _container;
 
-
         public RatesOperationTest()
         {
             _container = AutofacConfiguration.ConfigureContainer();
@@ -21,7 +20,7 @@ namespace BookKeeperTest.Rates
         [TestMethod]
         public void AddRate_WhenNotArchiveRateExist()
         {
-            var location = Seed.SeedData();
+            var location = Seed.SeedData().LocationEntity;
 
             var comparer = new RateComparer();
 
@@ -54,7 +53,7 @@ namespace BookKeeperTest.Rates
         [TestMethod]
         public void ChangeRatePriceTest()
         {
-            var location = Seed.SeedData();
+            var location = Seed.SeedData().LocationEntity;
 
             const int price = 200;
             const string description = "Test";
@@ -86,7 +85,7 @@ namespace BookKeeperTest.Rates
         [TestMethod]
         public void GetCurrentRateTest()
         {
-            var location = Seed.SeedData();
+            var location = Seed.SeedData().LocationEntity;
 
             const int occupants = 1;
             const int price = 200;
@@ -119,7 +118,7 @@ namespace BookKeeperTest.Rates
         [TestMethod]
         public void GetCurrentRateTest_GetDefaultRateWhenUserNotHaveAnyDateRangeRate()
         {
-            var location = Seed.SeedData();
+            var location = Seed.SeedData().LocationEntity;
 
             var paymentDate = DateTime.Parse("01.01.2020");
 
@@ -139,7 +138,7 @@ namespace BookKeeperTest.Rates
         [TestMethod]
         public void GetCurrentRateTest_GetDefaultRateWithUserOutPaymentRange()
         {
-            var location = Seed.SeedData();
+            var location = Seed.SeedData().LocationEntity;
 
             const int occupants = 1;
             const int price = 166;
@@ -164,7 +163,7 @@ namespace BookKeeperTest.Rates
         [TestMethod]
         public void GetCurrentRateTest_GetDefaultRateWithUserOutPaymentRangeWith2Occupants()
         {
-            var location = Seed.SeedData();
+            var location = Seed.SeedData().LocationEntity;
 
             const int occupants = 2;
             const int price = 83;

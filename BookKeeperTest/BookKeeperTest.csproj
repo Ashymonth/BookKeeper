@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculation\CalculationOperationTest.cs" />
+    <Compile Include="DataHandler.cs" />
     <Compile Include="Discounts\DicountOpertionTest.cs" />
     <Compile Include="Discounts\DiscountComparer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
