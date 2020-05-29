@@ -1,6 +1,5 @@
 ﻿using Autofac;
 using BookKeeper.Data.Data.Entities;
-using BookKeeper.Data.Data.Entities.Address;
 using BookKeeper.Data.Data.Entities.Discounts;
 using BookKeeper.Data.Data.Entities.Rates;
 using BookKeeper.Data.Infrastructure;
@@ -43,8 +42,7 @@ namespace BookKeeper.UI
         private int _columnTotalIndex;
         private bool _isColumnCreate;
 
-        private static readonly int PersonalAccountLength =
-            System.Convert.ToInt32(ConfigurationManager.AppSettings["AccountLength"]);
+        private static readonly int PersonalAccountLength = System.Convert.ToInt32(ConfigurationManager.AppSettings["AccountLength"]);
 
         private readonly DataSourceHelper _dataSourceHelper;
         private readonly AutoCompleteSourceHelper _sourceHelper;

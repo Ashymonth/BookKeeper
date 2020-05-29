@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using System;
+using Autofac;
 using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Repositories;
 using BookKeeper.Data.Infrastructure.Configuration;
@@ -24,7 +25,7 @@ namespace BookKeeper.Data.Infrastructure
         {
             var container = new ContainerBuilder();
 
-            var connectionString = ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["ConnectionName"]].ConnectionString;
+            var connectionString = string.Format(ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["ConnectionName"]].ConnectionString);
 
             container
                 .RegisterType(typeof(ApplicationDbContext))
