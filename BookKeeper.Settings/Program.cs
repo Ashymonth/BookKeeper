@@ -5,8 +5,7 @@ using System;
 
 namespace BookKeeper.Settings
 {
-
-    class Program
+    internal static class Program
     {
         private static readonly IFileManagerService FileManagerService;
 
@@ -20,7 +19,7 @@ namespace BookKeeper.Settings
         }
 
         [STAThread]
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var settings = FileManagerService.Load();
             var on = true;
@@ -37,7 +36,7 @@ namespace BookKeeper.Settings
                 Console.WriteLine($"Current file: {configPath}");
                 Console.WriteLine("Select actions:");
                 Console.WriteLine("1. Create DataBase name");
-                Console.WriteLine("2. Create Database path or use default path");
+                Console.WriteLine("2. Create Database path");
                 Console.WriteLine("3. Create new user");
                 Console.WriteLine("4. View current information");
                 Console.WriteLine("5. Save");
@@ -46,7 +45,6 @@ namespace BookKeeper.Settings
                 Console.WriteLine("\n");
 
                 #endregion
-
 
                 var result = Console.ReadKey();
 
