@@ -3,7 +3,7 @@
 * .Net Framework not lower that 4.0
 * Installed Microsoft Excel 
 
-# BookKeeper.Settings
+# BookKeeper Settings
 Provides simple console application for create and setting database name/directory/user login and password.
 
 # BookKeeper
