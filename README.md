@@ -1,8 +1,16 @@
+# System requirements:
+* Installed LocalDb
+* .Net Framework not lower that 4.0
+* Microsoft Excel 
+
+# BookKeeper.Settings
+Provides simple console application for create and setting database name/directory/user login and password.
+
 # BookKeeper
 Accounting software.
 Main functionality - combining accounts info from excel files with payments from html.
 
-## Technologies:
+## Technologies:# System requirements:
 * Interface - WindowsFroms + MetroUI.
 * Database - Localdb, EntityFramework6 + EntityFrameworkPlus.
 * Interaction with Excel - ClosedXML + Spire.xls.
