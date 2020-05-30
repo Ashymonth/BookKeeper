@@ -10,7 +10,7 @@ Provides simple console application for create and setting database name/directo
 Accounting software.
 Main functionality - combining accounts info from excel files with payments from html.
 
-## Technologies:# System requirements:
+## Technologies:
 * Interface - WindowsFroms + MetroUI.
 * Database - Localdb, EntityFramework6 + EntityFrameworkPlus.
 * Interaction with Excel - ClosedXML + Spire.xls.
