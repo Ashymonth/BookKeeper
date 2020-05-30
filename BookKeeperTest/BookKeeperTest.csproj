@@ -74,7 +74,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="bin\Debug\App.config">
+    <None Include="App.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
