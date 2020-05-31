@@ -77,6 +77,7 @@ namespace BookKeeper.Settings
                     case '5':
                         if (InputService.ValidateOnSave(settings) == false)
                         {
+                            Console.Clear();
                             Console.WriteLine("\nFields must be filled");
                             Console.WriteLine(settings.Information);
                             Console.ReadKey();

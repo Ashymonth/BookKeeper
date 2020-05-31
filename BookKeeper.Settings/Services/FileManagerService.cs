@@ -32,7 +32,12 @@ namespace BookKeeper.Settings.Services
             try
             {
                 var json = JsonConvert.SerializeObject(settings, Formatting.Indented);
-                File.WriteAllText(PathToSaveFile, json, Encoding.UTF8);
+
+                using (var stream = File.Open(PathToSaveFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                {
+                    var array = Encoding.Default.GetBytes(json);
+                   stream.Write(array,0,array.Length);
+                }
 
                 var connectionString = _configFileService.Write(settings, configPath);
 
@@ -59,8 +64,11 @@ namespace BookKeeper.Settings.Services
         {
             if (File.Exists(PathToSaveFile) == false)
             {
-                File.Create(PathToSaveFile);
-                return new SettingsHandler();
+                using (File.Open(PathToSaveFile, FileMode.OpenOrCreate, FileAccess.ReadWrite))
+                {
+                    return new SettingsHandler();
+                }
+                
             }
 
             var jsonString = File.ReadAllText(PathToSaveFile);
