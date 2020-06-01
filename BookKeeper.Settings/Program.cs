@@ -2,7 +2,6 @@
 using BookKeeper.Settings.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Runtime.InteropServices;
 
 namespace BookKeeper.Settings
 {
@@ -54,7 +53,7 @@ namespace BookKeeper.Settings
                     case '1':
                         var name = InputService.ValidateName("Input name",settings);
                         settings.DataBaseName = name;
-                        
+                        SuccessMessage();
                         break;
 
                     case '2':

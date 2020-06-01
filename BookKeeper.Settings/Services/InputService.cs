@@ -1,7 +1,7 @@
-﻿using System;
+﻿using BookKeeper.Settings.Models;
+using System;
 using System.IO;
 using System.Windows.Forms;
-using BookKeeper.Settings.Models;
 
 namespace BookKeeper.Settings.Services
 {
