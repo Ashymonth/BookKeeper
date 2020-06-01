@@ -2,6 +2,7 @@
 using BookKeeper.Settings.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Runtime.InteropServices;
 
 namespace BookKeeper.Settings
 {
@@ -53,11 +54,13 @@ namespace BookKeeper.Settings
                     case '1':
                         var name = InputService.ValidateName("Input name",settings);
                         settings.DataBaseName = name;
+                        
                         break;
 
                     case '2':
                         var path = InputService.ValidatePath("Input path", settings);
                         settings.DataBasePath = path;
+                        SuccessMessage();
                         break;
 
                     case '3':
@@ -66,10 +69,12 @@ namespace BookKeeper.Settings
 
                         var password = InputService.Validate("Input login password");
                         settings.Password = password;
+                        SuccessMessage();
                         break;
 
                     case '4':
                         Console.WriteLine($"\n{settings.Information}");
+                        SuccessMessage();
                         Console.WriteLine("Press any button");
                         Console.ReadKey();
                         break;
@@ -85,9 +90,11 @@ namespace BookKeeper.Settings
                         }
 
                         FileManagerService.Save(settings, configPath);
+                        SuccessMessage();
                         break;
                     case '6':
                         configPath = InputService.ValidateTargetPath();
+                        SuccessMessage();
                         break;
                     case '7':
                         on = false;
@@ -96,6 +103,11 @@ namespace BookKeeper.Settings
                         continue;
                 }
             } while (on);
+        }
+
+        private static void SuccessMessage()
+        {
+            Console.WriteLine("Success");
         }
     }
 }
