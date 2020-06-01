@@ -20,15 +20,22 @@ namespace BookKeeper.Settings.Services
 
             using (var connection = new SqlConnection(connectionString))
             {
-                connection.Open();
-
-                var createUser = string.Format(read, login, password);
-
-                using (var command = new SqlCommand(createUser, connection))
+                try
                 {
-                    command.ExecuteReader();
+                    connection.Open();
+
+                    var createUser = string.Format(read, login, password);
+
+                    using (var command = new SqlCommand(createUser, connection))
+                    {
+                        command.ExecuteReader();
+                    }
+                    connection.Close();
                 }
-                connection.Close();
+                catch (Exception)
+                {
+                    Console.WriteLine("unable to create base");
+                }
             }
         }
 

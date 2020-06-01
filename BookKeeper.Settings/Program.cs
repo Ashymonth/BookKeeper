@@ -25,7 +25,7 @@ namespace BookKeeper.Settings
             var on = true;
 
             Console.WriteLine("Database setup wizard");
-            Console.WriteLine("Input path to target config file");
+            Console.WriteLine("Input path to BookKeeper config file");
 
             var configPath = InputService.ValidateTargetPath();
             do
@@ -39,7 +39,7 @@ namespace BookKeeper.Settings
                 Console.WriteLine("2. Create Database path");
                 Console.WriteLine("3. Create new user");
                 Console.WriteLine("4. View current information");
-                Console.WriteLine("5. Save");
+                Console.WriteLine("5. Create database");
                 Console.WriteLine("6. Select new config file");
                 Console.WriteLine("7. Exit");
                 Console.WriteLine("\n");
