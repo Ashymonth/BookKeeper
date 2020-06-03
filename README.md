@@ -5,7 +5,8 @@
 
 # BookKeeper Settings
 Provides simple console application for create and setting database name/directory/user login and password.
-
+## Using
+Before you start, run the settings application, and select BookKeeper.exe.config in app to create and configure a connection to the database.
 # BookKeeper
 Accounting software.
 Main functionality - combining accounts info from excel files with payments from html.
