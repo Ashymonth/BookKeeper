@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BookKeeper.UI.Settings
+namespace BookKeeper.Settings
 {
     static class Program
     {

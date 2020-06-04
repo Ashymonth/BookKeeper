@@ -42,9 +42,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{29
 		..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10091219.htm = ..\..\..\Documents\Материалы\VSE\ВидеонаблАИЮ (9)\rn10091219.htm
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookKeeper.Settings", "BookKeeper.Settings\BookKeeper.Settings.csproj", "{D879DFB7-98F2-407A-A653-289B31CCDF4B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookKeeper.UI.Settings", "BookKeeper.UI.Settings\BookKeeper.UI.Settings.csproj", "{870CB942-1011-4F33-A79A-533D36B7D167}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookKeeper.Settings", "BookKeeper.UI.Settings\BookKeeper.Settings.csproj", "{870CB942-1011-4F33-A79A-533D36B7D167}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,10 +62,6 @@ Global
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{201CC080-C46D-4E99-9DC8-1FDC328EEE0D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D879DFB7-98F2-407A-A653-289B31CCDF4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D879DFB7-98F2-407A-A653-289B31CCDF4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D879DFB7-98F2-407A-A653-289B31CCDF4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D879DFB7-98F2-407A-A653-289B31CCDF4B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{870CB942-1011-4F33-A79A-533D36B7D167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{870CB942-1011-4F33-A79A-533D36B7D167}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{870CB942-1011-4F33-A79A-533D36B7D167}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,7 +77,6 @@ Global
 		{440F7A6E-D945-43D7-911C-610D9B6A76D7} = {F3857F9B-0631-4352-85C7-8077CE1D930D}
 		{67F9B957-4E6A-44DF-A7DF-3D43476F356D} = {440F7A6E-D945-43D7-911C-610D9B6A76D7}
 		{29E63381-12AD-4709-AA49-6297D549A027} = {440F7A6E-D945-43D7-911C-610D9B6A76D7}
-		{D879DFB7-98F2-407A-A653-289B31CCDF4B} = {3CA151BF-919B-48B9-90A5-ACF4E7336FDB}
 		{870CB942-1011-4F33-A79A-533D36B7D167} = {3CA151BF-919B-48B9-90A5-ACF4E7336FDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution

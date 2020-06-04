@@ -72,6 +72,11 @@ namespace BookKeeper.UI
                 MessageBoxHelper.ShowWarningMessage("Конфигурационный файл был поврежден, исправте его", this);
                 return;
             }
+            catch (SqlException exception)
+            {
+                MessageBox.Show(exception.Message);
+                Environment.Exit(-1);
+            }
             catch (Exception exception)
             {
                 MessageBoxHelper.ShowWarningMessage(exception.Message, this);
@@ -91,10 +96,12 @@ namespace BookKeeper.UI
 
             _dataSourceHelper.LoadAddresses(cmbStreets);
             _dataSourceHelper.LoadAddresses(cmbTotalReportStreets);
+
             LoadRates();
             LoadDiscounts();
             LoadAccounts();
             SetDoubleBufferForListView();
+
         }
 
         #endregion

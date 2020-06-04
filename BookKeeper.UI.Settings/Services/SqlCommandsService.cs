@@ -1,26 +1,19 @@
-﻿using BookKeeper.UI.Settings.Models;
+﻿using BookKeeper.Settings.Models;
 using System.Data.SqlClient;
 using System.IO;
 using System.Windows.Forms;
 
-namespace BookKeeper.UI.Settings.Services
+namespace BookKeeper.Settings.Services
 {
-    public class SqlCommandsService
+    public static class SqlCommandsService
     {
-        public static void CreateDataBase(SettingsHandler settings)
+        public static SqlConnectionStringBuilder CreateDataBase(SettingsHandler settings)
         {
-            const string connectionString = "data source=(localdb)\\MSSQLLocalDB;database=master";
+            var connectionString = $"data source=(localdb)\\MSSQLLocalDB;Initial Catalog={settings.DataBaseName};database=master";
 
-            var template = File.ReadAllText("Scripts\\DataBase.sql");
+            var template = File.ReadAllText("Scripts\\DataBase.txt");
 
-            var logName = Path.ChangeExtension(settings.DataBasePath, ".log");
-
-            var createDataBase = string.Format(template,
-                settings.DataBaseName,
-                settings.DataBaseName,
-                settings.DataBasePath,
-                $"{settings.DataBaseName}_Log",
-                logName);
+            var createDataBase = string.Format(template, settings.DataBaseName);
 
             using (var connection = new SqlConnection(connectionString))
             {
@@ -32,23 +25,31 @@ namespace BookKeeper.UI.Settings.Services
                     {
                         command.ExecuteNonQuery();
                     }
-                    var user = File.ReadAllText("Scripts\\User.sql");
-
-                    var createUser = string.Format(user, settings.DataBaseName, settings.Login, settings.Password);
+                    var user = File.ReadAllText("Scripts\\User.txt");
+                    var createUser = string.Format(user,settings.Login,settings.Password,settings.DataBaseName);
 
                     using (var command = new SqlCommand(createUser, connection))
                     {
-                        command.ExecuteNonQueryAsync();
+                        command.ExecuteNonQuery();
                     }
                 }
                 catch (SqlException e)
                 {
                     MessageBox.Show(e.Message);
+                    return null;
                 }
                 finally
                 {
                     connection.Close();
                 }
+
+                return new SqlConnectionStringBuilder
+                {
+                    DataSource = @"(localdb)\MSSQLLocalDB",
+                    InitialCatalog = settings.DataBaseName,
+                    UserID = settings.Login,
+                    Password = settings.Password
+                };
             }
         }
     }

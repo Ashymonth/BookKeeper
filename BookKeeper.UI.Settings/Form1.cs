@@ -1,22 +1,58 @@
-﻿using System;
+﻿using BookKeeper.Settings.Models;
+using BookKeeper.Settings.Services;
+using System;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Windows.Forms;
-using BookKeeper.UI.Settings.Models;
-using BookKeeper.UI.Settings.Services;
 
-namespace BookKeeper.UI.Settings
+namespace BookKeeper.Settings
 {
     public partial class MainForm : Form
     {
+        private string _configPath;
+
         public MainForm()
         {
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            _configPath = ConfigurationManager.AppSettings["ConfigPath"];
+            if (Directory.Exists(_configPath) == false)
+            {
+                MessageBox.Show(@"Path to file not found. Specify the correct path in app.config");
+                return;
+            }
+
+            if (File.Exists(_configPath))
+            {
+                MessageBox.Show("File not found");
+                return;
+            }
+            try
+            {
+                var result = ConfigFileService.Load(_configPath);
+                if (result == null)
+                {
+                    MessageBox.Show(@"Configuration file was not found. Specify path in app.config");
+                    return;
+                }
+
+                lblConnectionString.Text = result.ConnectionString;
+                txtName.Text = result.InitialCatalog;
+                txtLogin.Text = result.UserID;
+                txtPassword.Text = result.Password;
+            }
+            catch (ArgumentNullException)
+            {
+                MessageBox.Show(@"Connection string in file not found. Specify path to file in app.config");
+                Environment.Exit(-1);
+            }
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
         {
             if (Controls.OfType<TextBox>().Any(textBox => string.IsNullOrWhiteSpace(textBox.Text)))
             {
@@ -24,25 +60,17 @@ namespace BookKeeper.UI.Settings
                 return;
             }
 
-            var commandsService = new SqlCommandsService();
-            SqlCommandsService.CreateDataBase(new SettingsHandler(){DataBaseName = txtName.Text,Login = txtLogin.Text,Password = txtPassword.Text});
-        }
+            var result = SqlCommandsService.CreateDataBase(new SettingsHandler() { DataBaseName = txtName.Text, Login = txtLogin.Text, Password = txtPassword.Text });
+            if (result == null)
+                return;
 
-        private void MainForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void btnOpenConfig_Click(object sender, EventArgs e)
-        {
-            using (var dialog = new OpenFileDialog())
+            if (ConfigFileService.Write(result, _configPath))
             {
-                dialog.Filter = @"configuration file (*.exe.config;.*config)|*.exe.config;*.config";
-                if (dialog.ShowDialog(this) == DialogResult.OK)
-                {
-
-                }
+                MessageBox.Show(@"Done");
+                lblConnectionString.Text = result.ConnectionString;
+                return;
             }
+            MessageBox.Show(@"Error");
         }
     }
 }
