@@ -231,12 +231,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\BookKeeper.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Content Include="App_Data\BookKeeper.mdf" />
     <Content Include="App_Data\BookKeeper_log.ldf">
       <DependentUpon>BookKeeper.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="homestuck-wallpaper-SBURB-i9-800.ico" />
   </ItemGroup>
