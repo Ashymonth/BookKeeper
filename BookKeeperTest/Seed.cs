@@ -7,6 +7,7 @@ using BookKeeper.Data.Data.Entities.Rates;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using BookKeeper.Data.Services;
 
 namespace BookKeeperTest
 {
@@ -98,7 +99,7 @@ namespace BookKeeperTest
             return discount;
         }
 
-        public static RateEntity CreateRate(DateTime startDate, DateTime endDate, decimal price, LocationEntity location,string description = null,bool isArchive = false)
+        public static RateEntity CreateRate(DateTime startDate, DateTime endDate, decimal price, LocationEntity location, string description = null, bool isArchive = false)
         {
             var rate = new RateEntity
             {

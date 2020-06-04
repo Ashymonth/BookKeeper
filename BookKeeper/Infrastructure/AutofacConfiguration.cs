@@ -20,17 +20,22 @@ namespace BookKeeper.Data.Infrastructure
 {
     public static class AutofacConfiguration
     {
-        public static IContainer ConfigureContainer()
+        public static IContainer ConfigureContainer(bool isTest = false)
         {
             var container = new ContainerBuilder();
 
-            var connectionString = string.Format(ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["ConnectionName"]].ConnectionString);
-            connectionString = ConnectionBuilderService.BuildConnectionString(connectionString);
+            string connectionString;
+            if (isTest == false)
+            {
+                connectionString = string.Format(ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["ConnectionName"]].ConnectionString);
+                connectionString = ConnectionBuilderService.BuildConnectionString(connectionString);
+            }
+            else
+                connectionString = string.Format(ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["TestConnectionName"]].ConnectionString);
 
-            container
-                .RegisterType(typeof(ApplicationDbContext))
-                .WithParameter("connectionString", connectionString)
-                .InstancePerLifetimeScope();
+            container.RegisterType(typeof(ApplicationDbContext))
+            .WithParameter("connectionString", connectionString)
+            .InstancePerLifetimeScope();
 
             container.RegisterType(typeof(ExcelConfiguration))
                 .As<IConfiguration<ExcelConfiguration>>()

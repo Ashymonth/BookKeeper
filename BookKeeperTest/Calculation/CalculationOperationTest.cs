@@ -17,7 +17,7 @@ namespace BookKeeperTest.Calculation
 
         public CalculationOperationTest()
         {
-            _container = AutofacConfiguration.ConfigureContainer();
+            _container = AutofacConfiguration.ConfigureContainer(true);
         }
 
         [TestMethod]

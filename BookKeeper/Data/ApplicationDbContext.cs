@@ -10,14 +10,11 @@ namespace BookKeeper.Data.Data
 {
     public class ApplicationDbContext : DbContext
     {
-        static ApplicationDbContext()
-        {
-            
-        }
         public ApplicationDbContext(string connectionString) : base(connectionString)
         {
-
+           
         }
+
         public virtual DbSet<DistrictEntity> Districts { get; set; }
 
         public virtual DbSet<StreetEntity> Streets { get; set; }

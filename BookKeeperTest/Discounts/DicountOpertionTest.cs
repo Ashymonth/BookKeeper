@@ -18,7 +18,7 @@ namespace BookKeeperTest.Discounts
 
         public DiscountOperationTest()
         {
-            _container = AutofacConfiguration.ConfigureContainer();
+            _container = AutofacConfiguration.ConfigureContainer(true);
         }
 
         [TestMethod]

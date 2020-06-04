@@ -14,7 +14,7 @@ namespace BookKeeperTest.Rates
 
         public RatesOperationTest()
         {
-            _container = AutofacConfiguration.ConfigureContainer();
+            _container = AutofacConfiguration.ConfigureContainer(true);
         }
 
         [TestMethod]
