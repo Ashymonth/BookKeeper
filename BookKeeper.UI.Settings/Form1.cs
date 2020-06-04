@@ -5,28 +5,27 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-
+using Autofac;
+using BookKeeper.Data.Infrastructure;
+using BookKeeper.Data.Services;
 namespace BookKeeper.Settings
 {
     public partial class MainForm : Form
     {
         private string _configPath;
+        private readonly IContainer _container;
 
         public MainForm()
         {
             InitializeComponent();
+            _container = AutofacConfiguration.ConfigureContainer();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             _configPath = ConfigurationManager.AppSettings["ConfigPath"];
-            if (Directory.Exists(_configPath) == false)
-            {
-                MessageBox.Show(@"Path to file not found. Specify the correct path in app.config");
-                return;
-            }
 
-            if (File.Exists(_configPath))
+            if (File.Exists(_configPath) == false)
             {
                 MessageBox.Show("File not found");
                 return;
@@ -54,6 +53,20 @@ namespace BookKeeper.Settings
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+
+            using (var scope = _container.BeginLifetimeScope() )
+            {
+                var backupService = scope.Resolve<IBackupService>();
+                using (var dialog = new OpenFileDialog())
+                {
+                    if (dialog.ShowDialog(this) == DialogResult.OK)
+                    {
+                        backupService.RestoreFromBackup(dialog.FileName);
+                    }
+                }
+                
+
+            }
             if (Controls.OfType<TextBox>().Any(textBox => string.IsNullOrWhiteSpace(textBox.Text)))
             {
                 MessageBox.Show(@"All fields must be filled");

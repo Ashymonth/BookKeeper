@@ -1,21 +1,20 @@
-﻿using System;
-using Autofac;
+﻿using Autofac;
 using BookKeeper.Data.Data;
 using BookKeeper.Data.Data.Repositories;
 using BookKeeper.Data.Infrastructure.Configuration;
+using BookKeeper.Data.Infrastructure.Reports;
 using BookKeeper.Data.Models.ExcelImport;
 using BookKeeper.Data.Models.HtmlImport;
 using BookKeeper.Data.Services;
 using BookKeeper.Data.Services.EntityService;
-using BookKeeper.Data.Services.Import;
-using BookKeeper.Data.Services.Load;
-using System.Collections.Generic;
-using System.Configuration;
-using BookKeeper.Data.Infrastructure.Reports;
 using BookKeeper.Data.Services.EntityService.Address;
 using BookKeeper.Data.Services.EntityService.Discount;
 using BookKeeper.Data.Services.EntityService.Rate;
 using BookKeeper.Data.Services.Export;
+using BookKeeper.Data.Services.Import;
+using BookKeeper.Data.Services.Load;
+using System.Collections.Generic;
+using System.Configuration;
 
 namespace BookKeeper.Data.Infrastructure
 {
@@ -26,6 +25,7 @@ namespace BookKeeper.Data.Infrastructure
             var container = new ContainerBuilder();
 
             var connectionString = string.Format(ConfigurationManager.ConnectionStrings[ConfigurationManager.AppSettings["ConnectionName"]].ConnectionString);
+            connectionString = ConnectionBuilderService.BuildConnectionString(connectionString);
 
             container
                 .RegisterType(typeof(ApplicationDbContext))
