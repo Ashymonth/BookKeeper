@@ -104,7 +104,8 @@ namespace BookKeeper.Data.Data.Repositories
             if (entity == null)
                 throw new ArgumentNullException(nameof(entity));
 
-            _entities.SingleUpdate(entity);
+            _entities.Attach(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
         }
 
         public void Update(IEnumerable<TEntity> entities)
@@ -112,7 +113,11 @@ namespace BookKeeper.Data.Data.Repositories
             if (entities == null)
                 throw new ArgumentNullException(nameof(entities));
 
-            _entities.BulkUpdate<TEntity>(entities);
+            foreach (var baseEntity in entities)
+            {
+                _entities.Attach(baseEntity);
+                _dbContext.Entry(baseEntity).State = EntityState.Modified;
+            }
         }
 
         public void Delete(TEntity entity)
@@ -128,7 +133,7 @@ namespace BookKeeper.Data.Data.Repositories
         private IQueryable<TEntity> Include(params Expression<Func<TEntity, object>>[] includeProperties)
         {
             var query = _entities.AsNoTracking();
-            return includeProperties.Aggregate(query, (current, includeProperty) => (DbQuery<TEntity>) current.Include(includeProperty));
+            return includeProperties.Aggregate(query, (current, includeProperty) => (DbQuery<TEntity>)current.Include(includeProperty));
         }
     }
 }
