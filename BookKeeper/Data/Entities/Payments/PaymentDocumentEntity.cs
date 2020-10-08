@@ -18,8 +18,5 @@ namespace BookKeeper.Data.Data.Entities.Payments
         public decimal Received { get; set; }
 
         public DateTime PaymentDate { get; set; }
-
-        public virtual ICollection<DiscountEntity> DiscountDocuments { get; set; }
-
     }
 }

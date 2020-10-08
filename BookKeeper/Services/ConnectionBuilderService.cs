@@ -9,7 +9,7 @@ namespace BookKeeper.Data.Services
         {
             var builder = new SqlConnectionStringBuilder(connection)
             {
-                AttachDBFilename = Path.GetFullPath("App_Data\\BookKeeper.mdf"),
+             
                 InitialCatalog = "BookKeeper"
             };
 

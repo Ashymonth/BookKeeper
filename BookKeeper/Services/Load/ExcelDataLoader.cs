@@ -23,7 +23,7 @@ namespace BookKeeper.Data.Services.Load
         private readonly IBrokenRecordsReport _brokenRecordsReport;
 
 
-        public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IStreetService streetService, IAccountService accountService, 
+        public ExcelDataLoader(IImportService<List<ImportDataRow>> import, IDistrictService districtService, IStreetService streetService, IAccountService accountService,
             IConfiguration<ExcelConfiguration> configuration, IBrokenRecordsReport brokenRecordsReport)
         {
             _import = import;
@@ -39,8 +39,15 @@ namespace BookKeeper.Data.Services.Load
             var configuration = _configuration.Load();
 
             var import = _import.ImportDataRow(file);
-            
+            var min = import.Select(row => row.Account.PersonalAccount).Min();
+            var max = import.Select(row => row.Account.PersonalAccount).Max();
+            var accounts = GetAccountsInRange(min, max);
+            var streets = GetStreets();
+
             var importReport = new ImportReportModel();
+
+            var accountsToUpdate = new List<AccountEntity>();
+            var accountsToAdd = new List<AccountEntity>();
 
             foreach (var districtsGroup in import.GroupBy(x => x.District.Name))
             {
@@ -57,16 +64,13 @@ namespace BookKeeper.Data.Services.Load
                     if (firstAddress == null)
                         continue;
 
-                    var street = AddOrCreate(firstAddress.Address, district.Id);
+                    var street = streets.FirstOrDefault(entity => entity.StreetName.Equals(firstAddress.Address.Name)) ?? AddOrCreate(firstAddress.Address, district.Id);
 
-                    var accountsToUpdate = new List<AccountEntity>();
-                    var accountsToAdd = new List<AccountEntity>();
-
-                    foreach (var dataRow in addressGroup)
+                    foreach (var dataRow in addressGroup.AsParallel())
                     {
                         try
                         {
-                            var account = _accountService.GetItem(x => x.Account == dataRow.Account.PersonalAccount && !x.IsDeleted);
+                            var account = accounts.FirstOrDefault(x => x.Account == dataRow.Account.PersonalAccount && !x.IsDeleted);
 
                             if (account != null)
                             {
@@ -109,20 +113,21 @@ namespace BookKeeper.Data.Services.Load
                         }
                         catch (Exception e)
                         {
-                            _brokenRecordsReport.WriteException(e.Message,FileType.Excel);
+                            _brokenRecordsReport.WriteException(e.Message, FileType.Excel);
                         }
-                       
+
                     }
-                    if (accountsToAdd.Count != 0)
-                    {
-                        _accountService.Add(accountsToAdd);
-                        importReport.Add += accountsToAdd.Count;
-                    }
-                    else
-                    {
-                        _accountService.Update(accountsToUpdate);
-                        importReport.Updates += accountsToUpdate.Count;
-                    }
+                }
+
+                if (!accountsToAdd.Any())
+                {
+                    _accountService.Add(accountsToAdd);
+                    importReport.Add += accountsToAdd.Count;
+                }
+                if(!accountsToUpdate.Any())
+                {
+                    _accountService.Update(accountsToUpdate);
+                    importReport.Updates += accountsToUpdate.Count;
                 }
             }
             return importReport;
@@ -156,5 +161,12 @@ namespace BookKeeper.Data.Services.Load
         {
             return code.ToString().StartsWith(municipalMark) ? AccountType.Municipal : AccountType.Private;
         }
+
+        private IEnumerable<AccountEntity> GetAccountsInRange(long min, long max)
+        {
+            return _accountService.GetItems(entity => entity.Account >= min && entity.Account <= max).ToList();
+        }
+
+        private IEnumerable<StreetEntity> GetStreets() => _streetService.GetItems(x => !x.IsDeleted).ToList();
     }
 }

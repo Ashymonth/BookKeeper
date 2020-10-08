@@ -61,6 +61,18 @@
     <Compile Include="Migrations\202005041411096_Initial.designer.cs">
       <DependentUpon>202005041411096_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202010080726084_Initial10.cs" />
+    <Compile Include="Migrations\202010080726084_Initial10.designer.cs">
+      <DependentUpon>202010080726084_Initial10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010080801394_Initial11.cs" />
+    <Compile Include="Migrations\202010080801394_Initial11.designer.cs">
+      <DependentUpon>202010080801394_Initial11.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202010080804447_Initial111.cs" />
+    <Compile Include="Migrations\202010080804447_Initial111.designer.cs">
+      <DependentUpon>202010080804447_Initial111.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ExcelImport\AccountImport.cs" />
     <Compile Include="Models\ExcelImport\AddressImport.cs" />
@@ -141,6 +153,15 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202005041411096_Initial.resx">
       <DependentUpon>202005041411096_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010080726084_Initial10.resx">
+      <DependentUpon>202010080726084_Initial10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010080801394_Initial11.resx">
+      <DependentUpon>202010080801394_Initial11.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202010080804447_Initial111.resx">
+      <DependentUpon>202010080804447_Initial111.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
